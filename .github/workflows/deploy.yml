@@ -16,5 +16,4 @@ jobs:
      
           script: |
             cd farmageo
-            cd api
             git clone https://cfsf2:cfsf2Ivancho@github.com/cfsf2/farmageo-admin.git admin
