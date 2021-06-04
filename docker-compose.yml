@@ -1,8 +1,10 @@
-version: "3.2"
+version: '3.7'
 services:
-  webadmin:
+  sample-prod:
     container_name: farmageo-webadmin
     restart: always
-    image: farmageoadminweb:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     ports:
-      - "3000:3000"
+      - '3000:80'

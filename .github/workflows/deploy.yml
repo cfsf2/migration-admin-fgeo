@@ -19,9 +19,9 @@ jobs:
             cd admin
             git pull
             echo 'git pull successful to digital ocean' 
-            docker build -t farmageoadminweb .
+            docker build -f Dockerfile.prod -t farmageoadminweb .
             echo 'docker build successfuly'
             docker tag farmageoadminweb:latest farmageoadminweb:latest
-            echo 'docker tag successfuly'
+            docker run -it --rm -p 3000:80 sample:prod
             docker-compose down
-            docker-compose up -d
+            docker-compose up -d --build
