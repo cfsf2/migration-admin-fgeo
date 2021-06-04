@@ -1,0 +1,54 @@
+// Styles
+// CoreUI Icons Set
+@import "~@coreui/icons/css/coreui-icons.css";
+// Import Flag Icons Set
+@import "~flag-icon-css/css/flag-icon.min.css";
+// Import Font Awesome Icons Set
+@import "~font-awesome/css/font-awesome.min.css";
+// Import Simple Line Icons Set
+@import "~simple-line-icons/css/simple-line-icons.css";
+// Import Main styles for this application
+@import "./scss/style.scss";
+
+// variables:
+$breakpoint-xs: 360px;
+$breakpoint-sm: 767px;
+$breakpoint-md: 1023px;
+$breakpoint-lg: 1360px;
+
+@mixin media($media) {
+  @if $media == xs {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $media == sm {
+    @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $media == md {
+    @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $media == lg {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  }
+}
+
+.table-fix {
+  height: 75vh;
+  overflow: scroll;
+}
+thead tr:nth-child(1) th {
+  background-color: #c8ced3;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.map {
+  height: 85vh !important;
+  @include media(xs) {
+    width: 100% !important;
+  }
+}
