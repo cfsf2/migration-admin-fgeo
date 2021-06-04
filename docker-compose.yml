@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  sample-prod:
+  webadmin:
     container_name: farmageo-webadmin
     restart: always
     build:
