@@ -16,4 +16,12 @@ jobs:
      
           script: |
             cd farmageo
-            git clone https://cfsf2:cfsf2Ivancho@github.com/cfsf2/farmageo-admin.git admin
+            cd admin
+            git pull
+            echo 'git pull successful to digital ocean' 
+            docker build -t farmageoadminweb .
+            echo 'docker build successfuly'
+            docker tag farmageoadminweb:latest farmageoadminweb:latest
+            echo 'docker tag successfuly'
+            docker-compose down
+            docker-compose up -d
