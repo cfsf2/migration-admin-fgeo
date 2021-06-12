@@ -3,8 +3,6 @@ services:
   webadmin:
     container_name: farmageo-webadmin
     restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
+    image: farmageoadminweb:latest
     ports:
       - '3000:80'
