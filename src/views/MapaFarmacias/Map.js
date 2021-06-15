@@ -11,59 +11,59 @@ import icon_gris from "../../assets/images/icons/icono-gris.png";
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export class MapContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showingInfoWindow: false,
-      activeMarker: {},
-      selectedPlace: {},
-      items: null,
+    constructor(props) {
+        super(props);
+        this.state = {
+            showingInfoWindow: false,
+            activeMarker: {},
+            selectedPlace: {},
+            items: null,
+        };
+        this.handleBuscarFarmacias = this.handleBuscarFarmacias.bind(this);
+        this.handleVisita = this.handleVisita.bind(this);
+    }
+
+    async handleVisita(farmacia, estado) {
+        this.props.handleVisita(farmacia, estado);
+        await delay(1000);
+        this.handleBuscarFarmacias();
+    }
+
+    handleBuscarFarmacias() {
+        fetch("https://api.farmageo.com.ar/farmacias")
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        items: result,
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error,
+                    });
+                }
+            );
+    }
+
+    onMarkerClick = (props, marker, e) => {
+        this.setState({
+            selectedPlace: props.place_,
+            activeMarker: marker,
+            showingInfoWindow: true,
+        });
     };
-    this.handleBuscarFarmacias = this.handleBuscarFarmacias.bind(this);
-    this.handleVisita = this.handleVisita.bind(this);
-  }
 
-  async handleVisita(farmacia, estado) {
-    this.props.handleVisita(farmacia, estado);
-    await delay(1000);
-    this.handleBuscarFarmacias();
-  }
+    componentDidMount = () => {
+        this.handleBuscarFarmacias();
+    };
 
-  handleBuscarFarmacias() {
-    fetch("https://api.farmageo.com.ar/farmacias")
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result,
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
-          });
-        }
-      );
-  }
-
-  onMarkerClick = (props, marker, e) => {
-    this.setState({
-      selectedPlace: props.place_,
-      activeMarker: marker,
-      showingInfoWindow: true,
-    });
-  };
-
-  componentDidMount = () => {
-    this.handleBuscarFarmacias();
-  };
-
-  render() {
-    return (
-      <div className="map-container">
-        {/*<div
+    render() {
+        return (
+            <div className="map-container">
+                {/*<div
           style={{
             backgroundColor: "#dbdbdb",
             height: "103px",
@@ -78,78 +78,78 @@ export class MapContainer extends Component {
           <img src={icon} alt="" style={{ width: 30 }} />
           <img src={icon_gris} alt="" style={{ width: 30 }} />
         </div>*/}
-        <Map
-          google={this.props.google}
-          className={"map"}
-          zoom={4}
-          initialCenter={this.props.center}
-        >
-          {this.state.items == null
-            ? null
-            : this.state.items.map((farmacia, i) => {
-                return farmacia.perfil_farmageo === "vender_online" ? (
-                  <Marker
-                    onClick={this.onMarkerClick}
-                    key={farmacia.id}
-                    place_={farmacia}
-                    position={{ lat: farmacia.lat, lng: farmacia.log }}
-                    icon={{
-                      url: icon,
-                      anchor: new google.maps.Point(18, 18),
-                      scaledSize: new google.maps.Size(36, 36),
-                    }}
-                  />
-                ) : farmacia.perfil_farmageo == "solo_visible" ? (
-                  <Marker
-                    onClick={this.onMarkerClick}
-                    key={farmacia.id}
-                    place_={farmacia}
-                    position={{ lat: farmacia.lat, lng: farmacia.log }}
-                    icon={{
-                      url: icon_amarillo,
-                      anchor: new google.maps.Point(40, 40),
-                      scaledSize: new google.maps.Size(60, 60),
-                    }}
-                  />
-                ) : farmacia.perfil_farmageo == "no_visible" ? (
-                  <Marker
-                    onClick={this.onMarkerClick}
-                    key={farmacia.id}
-                    place_={farmacia}
-                    position={{ lat: farmacia.lat, lng: farmacia.log }}
-                  />
-                ) : (
-                  <Marker
-                    onClick={this.onMarkerClick}
-                    key={farmacia.id}
-                    place_={farmacia}
-                    position={{ lat: farmacia.lat, lng: farmacia.log }}
-                    icon={{
-                      url: icon_gris,
-                      anchor: new google.maps.Point(40, 40),
-                      scaledSize: new google.maps.Size(50, 50),
-                    }}
-                  />
-                );
-              })}
-          {
-            <InfoWindowEx
-              marker={this.state.activeMarker}
-              visible={this.state.showingInfoWindow}
-            >
-              <div>
-                <h3>{this.state.selectedPlace.nombre}</h3>
-                <p>
-                  {this.state.selectedPlace.calle +
-                    " " +
-                    this.state.selectedPlace.numero}
-                </p>
-                <p>({this.state.selectedPlace.localidad})</p>
-                <h5>
-                  Perfil: <b>{this.state.selectedPlace.perfil_farmageo}</b>
-                </h5>
+                <Map
+                    google={this.props.google}
+                    className={"map"}
+                    zoom={4}
+                    initialCenter={this.props.center}
+                >
+                    {this.state.items == null
+                        ? null
+                        : this.state.items.map((farmacia, i) => {
+                            return farmacia.perfil_farmageo === "vender_online" ? (
+                                <Marker
+                                    onClick={this.onMarkerClick}
+                                    key={farmacia.id}
+                                    place_={farmacia}
+                                    position={{ lat: farmacia.lat, lng: farmacia.log }}
+                                    icon={{
+                                        url: icon,
+                                        anchor: new google.maps.Point(18, 18),
+                                        scaledSize: new google.maps.Size(36, 36),
+                                    }}
+                                />
+                            ) : farmacia.perfil_farmageo == "solo_visible" ? (
+                                <Marker
+                                    onClick={this.onMarkerClick}
+                                    key={farmacia.id}
+                                    place_={farmacia}
+                                    position={{ lat: farmacia.lat, lng: farmacia.log }}
+                                    icon={{
+                                        url: icon_amarillo,
+                                        anchor: new google.maps.Point(40, 40),
+                                        scaledSize: new google.maps.Size(60, 60),
+                                    }}
+                                />
+                            ) : farmacia.perfil_farmageo == "no_visible" ? (
+                                <Marker
+                                    onClick={this.onMarkerClick}
+                                    key={farmacia.id}
+                                    place_={farmacia}
+                                    position={{ lat: farmacia.lat, lng: farmacia.log }}
+                                />
+                            ) : (
+                                <Marker
+                                    onClick={this.onMarkerClick}
+                                    key={farmacia.id}
+                                    place_={farmacia}
+                                    position={{ lat: farmacia.lat, lng: farmacia.log }}
+                                    icon={{
+                                        url: icon_gris,
+                                        anchor: new google.maps.Point(40, 40),
+                                        scaledSize: new google.maps.Size(50, 50),
+                                    }}
+                                />
+                            );
+                        })}
+                    {
+                        <InfoWindowEx
+                            marker={this.state.activeMarker}
+                            visible={this.state.showingInfoWindow}
+                        >
+                            <div>
+                                <h3>{this.state.selectedPlace.nombre}</h3>
+                                <p>
+                                    {this.state.selectedPlace.calle +
+                                        " " +
+                                        this.state.selectedPlace.numero}
+                                </p>
+                                <p>({this.state.selectedPlace.localidad})</p>
+                                <h5>
+                                    Perfil: <b>{this.state.selectedPlace.perfil_farmageo}</b>
+                                </h5>
 
-                {/*  <button
+                                {/*  <button
                   type="button"
                   onClick={() =>
                                    this.handleVisita(this.state.selectedPlace, "avisitar")
@@ -177,16 +177,15 @@ export class MapContainer extends Component {
                 >
                   Cancelar
                 </button>*/}
-              </div>
-            </InfoWindowEx>
-          }
-        </Map>
-      </div>
-    );
-  }
+                            </div>
+                        </InfoWindowEx>
+                    }
+                </Map>
+            </div>
+        );
+    }
 }
 
 export default GoogleApiWrapper({
-  //apiKey: "AIzaSyD_4xrDbxnc4N3KGZEXvT9ZFZu2cQbmCmU",
-  apiKey: "AIzaSyD2Q_tdFCSznHIV32IEuLkUno2bzhy7518", //esta esta a nombre de Tecno.alarcon
+    apiKey: "AIzaSyBZ7-k763QmTCxIQR_GiiMD0HmnaYPWvvo", //esta esta a nombre de Tecno.alarcon
 })(MapContainer);
