@@ -222,7 +222,7 @@ export const ADD_SOLICITUD_PROVEEDURIA = (
         ...solicitudproveeduria,
         destinatario:
           destinatario +
-          ";comercial@farmageo.com.ar;santiagoalarcon2@hotmail.com",
+          ";comercial@farmageo.com.ar;",
         asunto: "Confirmación de pedido a Proveeduria",
         html,
         version: "2",

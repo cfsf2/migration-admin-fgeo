@@ -219,7 +219,7 @@ export const ADD_TRANSFER = (transfer, history, html, destinatario) => {
         ...transfer,
         destinatario:
           destinatario +
-          ";transfers@farmageo.com.ar;santiagoalarcon2@hotmail.com",
+          ";transfers@farmageo.com.ar;",
         asunto: "Confirmación de pedido de Transfer",
         html,
         version: "2",
