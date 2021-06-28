@@ -93,14 +93,14 @@ class FinalizarTransfer extends Component {
     }
 
     handleFiltroFinalizar(value) {
-
+        console.log("FILTRO FINALIZAR " + value)
         let nuevoStado = false;
         if (value) {
 
             let productosFiltrados = [];
 
             this.state.productos.forEach(producto => {
-                if (producto.cantidad > 0) {
+                if (producto.cantidad >= producto.cantidad_minima) {
                     productosFiltrados.push(producto);
                     nuevoStado = true;
                 }
@@ -109,10 +109,14 @@ class FinalizarTransfer extends Component {
             this.setState({
                 productos: productosFiltrados,
             });
-        }
+            if (nuevoStado) {
 
-        if (nuevoStado) {
-
+                this.setState({
+                    vistaprevia: value,
+                    finalizar: value,
+                });
+            }
+        } else {
             this.setState({
                 vistaprevia: value,
                 finalizar: value,
@@ -120,38 +124,41 @@ class FinalizarTransfer extends Component {
         }
     }
 
-    handleLimpiarProductos() {
-        this.setState({
-            productos: [],
-        });
+
+
+
+handleLimpiarProductos() {
+    this.setState({
+        productos: [],
+    });
+}
+
+async handleInputChange(event) {
+    const target = event.nativeEvent.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    await this.setState({
+        transfer: { ...this.state.transfer, [name]: value },
+    });
+}
+
+async handleLineaChange(linea, minimo) {
+    // console.log(linea);
+    let _productos = await this.state.productos.filter((p) => {
+        return p._id != linea._id;
+    });
+
+    if (linea.cantidad >= minimo) {
+        _productos = await _productos.concat(linea);
     }
 
-    async handleInputChange(event) {
-        const target = event.nativeEvent.target;
-        const value = target.type === "checkbox" ? target.checked : target.value;
-        const name = target.name;
-        await this.setState({
-            transfer: { ...this.state.transfer, [name]: value },
-        });
-    }
+    await this.setState({
+        productos: _productos,
+    });
+}
 
-    async handleLineaChange(linea, minimo) {
-        // console.log(linea);
-        let _productos = await this.state.productos.filter((p) => {
-            return p._id != linea._id;
-        });
-
-        if (linea.cantidad >= minimo) {
-            _productos = await _productos.concat(linea);
-        }
-
-        await this.setState({
-            productos: _productos,
-        });
-    }
-
-    createHtmlMail = async (transfer, direccioncompleta) => {
-        let body = await `<head>
+createHtmlMail = async (transfer, direccioncompleta) => {
+    let body = await `<head>
                         <style>
                           table {
                             font-family: arial, sans-serif;
@@ -176,10 +183,10 @@ class FinalizarTransfer extends Component {
                           <p><b>Farmacia: </b>${transfer.farmacia_nombre}</p>
                           <p><b>Nº Farmacia: </b>${transfer.farmacia_id}</p>
                           <p><b>N° de cuenta de Droguería: </b>${transfer.nro_cuenta_drogueria
-            }</p> 
+        }</p> 
                           <p><b>Droguería: </b>${transfer.drogueria_id}</p>
                           <p><b>Laboratorio elegido: </b>${transfer.laboratorio_id
-            }</p>
+        }</p>
                           <p><b>Dirección: </b>${direccioncompleta}</p>
                         </div>
                       <table>
@@ -191,465 +198,469 @@ class FinalizarTransfer extends Component {
                           </tr>
                         <tbody>
                         ${transfer.productos_solicitados.map((p) => {
-                return `<tr>
+            return `<tr>
                                     <td>${p.codigo_producto}</td>
                                     <td>${p.nombre}</td>
                                     <td>${p.cantidad}</td>
                                     <td>${p.observacion}</td>
                                   </tr>`;
-            })}
+        })}
                         </tbody>
                       </table>
                     </body>`;
-        return body;
+    return body;
+};
+
+async handleSubmit() {
+    const {
+        farmaciaid,
+        email,
+        nombre,
+        direccioncompleta,
+    } = this.props.authReducer.userprofile;
+    const { lab_selected } = this.props.tranfersReducer;
+
+    // this.props.SUBMITTING(true);
+    this.setState({
+        submitting: true,
+    });
+
+    let productosFiltrados = [];
+
+    this.state.productos.forEach(producto => {
+        if (producto.cantidad > 0) {
+            productosFiltrados.push(producto);
+        }
+    })
+
+
+
+    let transfer = {
+        ...this.state.transfer,
+        productos_solicitados: productosFiltrados,
+        farmacia_id: farmaciaid,
+        farmacia_nombre: nombre,
+        estado: "nuevo",
+        laboratorio_id: lab_selected.nombre,
+        email_destinatario: email,
     };
 
-    async handleSubmit() {
-        const {
-            farmaciaid,
-            email,
-            nombre,
-            direccioncompleta,
-        } = this.props.authReducer.userprofile;
-        const { lab_selected } = this.props.tranfersReducer;
+    let html = await this.createHtmlMail(transfer, direccioncompleta);
+    this.props.ADD_TRANSFER(transfer, this.props.history, html, email);
+}
 
-        // this.props.SUBMITTING(true);
-        this.setState({
-            submitting: true,
-        });
+handlequery = () => {
+    return new URLSearchParams(window.location.hash.split("?")[1]);
+};
 
-        let productosFiltrados = [];
-
-        this.state.productos.forEach(producto => {
-            if (producto.cantidad > 0) {
-                productosFiltrados.push(producto);
+async componentDidMount() {
+    var laboratorio = this.handlequery().get("l");
+    if (laboratorio) {
+        try {
+            const result = await axios.get(
+                farmageo_api + "/laboratorios/" + laboratorio
+            );
+            if (result.data) {
+                this.setState({ lab_selected: result.data });
             }
-        })
-
-
-
-        let transfer = {
-            ...this.state.transfer,
-            productos_solicitados: productosFiltrados,
-            farmacia_id: farmaciaid,
-            farmacia_nombre: nombre,
-            estado: "nuevo",
-            laboratorio_id: lab_selected.nombre,
-            email_destinatario: email,
-        };
-
-        let html = await this.createHtmlMail(transfer, direccioncompleta);
-        this.props.ADD_TRANSFER(transfer, this.props.history, html, email);
-    }
-
-    handlequery = () => {
-        return new URLSearchParams(window.location.hash.split("?")[1]);
-    };
-
-    async componentDidMount() {
-        var laboratorio = this.handlequery().get("l");
-        if (laboratorio) {
-            try {
-                const result = await axios.get(
-                    farmageo_api + "/laboratorios/" + laboratorio
-                );
-                if (result.data) {
-                    this.setState({ lab_selected: result.data });
-                }
-            } catch (error) {
-                this.setState({ lab_selected: null });
-            }
+        } catch (error) {
+            this.setState({ lab_selected: null });
         }
     }
+}
 
-    render() {
-        const {
-            //lab_selected,
-            productos,
-            droguerias,
-        } = this.props.tranfersReducer;
-        const { lab_selected } = this.state;
-        const {
-            email,
-            nombre,
-            direccioncompleta,
-        } = this.props.authReducer.userprofile;
+render() {
+    const {
+        //lab_selected,
+        productos,
+        droguerias,
+    } = this.props.tranfersReducer;
+    const { lab_selected } = this.state;
+    const {
+        email,
+        nombre,
+        direccioncompleta,
+    } = this.props.authReducer.userprofile;
 
-        const { comunicadoTransfers } = this.props.publicidadesReducer;
-        return (
-            <div className="animated fadeIn">
-
-
-                <Row>
-                    <Col md="3" xs="12">
-                        <Button
-                            href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
-                            className="btn"
-                            style={{
-                                color: "black",
-                                fontSize: 10,
-                                backgroundColor: "#FFFFFF",
-                                borderRadius: 10,
-                                paddingLeft: 15,
-                                paddingRight: 15,
-                                paddingTop: 8,
-                                paddingBottom: 8,
-                                marginBottom: 10,
-                                borderLeftWidth: 10,
-                                borderColor: "#000000",
-                                borderBottomWidth: 0,
-                                borderTopWidth: 0,
-                                borderRightWidth: 0,
-                            }}
-                        >
-                            <b style={{ fontSize: 15 }}>{"<   "}</b>
-                            <b>Volver a elegir un Laboratorio</b>
-                        </Button>
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col md="12" xs="12">
-                        <div
-                            style={{
-                                color: "black",
-                                fontSize: 20,
-                                backgroundColor: "#FFFFFF",
-                                borderRadius: 8,
-                                paddingLeft: 30,
-                                paddingRight: 30,
-                                paddingTop: 20,
-                                paddingBottom: 20,
-                                marginBottom: 10,
-                                borderBottomWidth: 0,
-                                borderTopWidth: 10,
-                                borderRightWidth: 0,
-                                borderColor: "#000000",
-                                borderLeftWidth: 0,
-                                fontWeight: "bold",
-                            }}
-                        >
-                            <p>{lab_selected !== null ? lab_selected.novedades : ""}</p>
-                            <p>{comunicadoTransfers}</p>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md="12" xs="12">
-                        <div
-                            style={{
-                                color: "black",
-                                fontSize: 16,
-                                backgroundColor: "#FFFFFF",
-                                borderRadius: 8,
-                                paddingLeft: 30,
-                                paddingRight: 30,
-                                paddingTop: 20,
-                                paddingBottom: 20,
-                                marginBottom: 10,
-                                borderBottomWidth: 0,
-                                borderTopWidth: 10,
-                                borderRightWidth: 0,
-                                borderColor: "#000000",
-                                borderLeftWidth: 0,
-                            }}
-                        >
-                            <p>
-                                <b>Condiciones comerciales: </b>
-                                {lab_selected !== null
-                                    ? lab_selected.condiciones_comerciales
-                                    : ""}
-                            </p>
-                        </div>
-                    </Col>
-                </Row>
-
-                <Card>
-                    <CardBody>
-                        <Row style={{ color: "#20a8d8", fontSize: 18 }}>
-                            <Col md="3" xs="12">
-                                <FormGroup>
-                                    <Label>Fecha del transfer</Label>
-                                    <Input
-                                        type="date"
-                                        name="fecha"
-                                        defaultValue={null}
-                                        value={
-                                            this.state.transfer
-                                                ? this.state.transfer.fecha
-                                                : undefined
-                                        }
-                                        onChange={this.handleInputChange}
-                                    />
-                                </FormGroup>
-                            </Col>
-
-                            <Col md="3" xs="12">
-                                <FormGroup>
-                                    <Label>Elegir Droguería</Label>
+    const { comunicadoTransfers } = this.props.publicidadesReducer;
+    return (
+        <div className="animated fadeIn">
 
 
-                                    <Input
-                                        type="select"
-                                        name="drogueria_id"
-                                        value={
-                                            this.state.transfer
-                                                ? this.state.transfer.drogueria_id
-                                                : undefined
-                                        }
-                                        onChange={this.handleInputChange}
-                                    >
-                                        <option value={undefined}>seleccionar...</option>
-                                        {droguerias.map((d, index) => {
+            <Row>
+                <Col md="3" xs="12">
+                    <Button
+                        href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
+                        className="btn"
+                        style={{
+                            color: "black",
+                            fontSize: 10,
+                            backgroundColor: "#FFFFFF",
+                            borderRadius: 10,
+                            paddingLeft: 15,
+                            paddingRight: 15,
+                            paddingTop: 8,
+                            paddingBottom: 8,
+                            marginBottom: 10,
+                            borderLeftWidth: 10,
+                            borderColor: "#000000",
+                            borderBottomWidth: 0,
+                            borderTopWidth: 0,
+                            borderRightWidth: 0,
+                        }}
+                    >
+                        <b style={{ fontSize: 15 }}>{"<   "}</b>
+                        <b>Volver a elegir un Laboratorio</b>
+                    </Button>
+                </Col>
+            </Row>
 
-                                            console.log(d);
+            <Row>
+                <Col md="12" xs="12">
+                    <div
+                        style={{
+                            color: "black",
+                            fontSize: 20,
+                            backgroundColor: "#FFFFFF",
+                            borderRadius: 8,
+                            paddingLeft: 30,
+                            paddingRight: 30,
+                            paddingTop: 20,
+                            paddingBottom: 20,
+                            marginBottom: 10,
+                            borderBottomWidth: 0,
+                            borderTopWidth: 10,
+                            borderRightWidth: 0,
+                            borderColor: "#000000",
+                            borderLeftWidth: 0,
+                            fontWeight: "bold",
+                        }}
+                    >
+                        <p>{lab_selected !== null ? lab_selected.novedades : ""}</p>
+                        <p>{comunicadoTransfers}</p>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col md="12" xs="12">
+                    <div
+                        style={{
+                            color: "black",
+                            fontSize: 16,
+                            backgroundColor: "#FFFFFF",
+                            borderRadius: 8,
+                            paddingLeft: 30,
+                            paddingRight: 30,
+                            paddingTop: 20,
+                            paddingBottom: 20,
+                            marginBottom: 10,
+                            borderBottomWidth: 0,
+                            borderTopWidth: 10,
+                            borderRightWidth: 0,
+                            borderColor: "#000000",
+                            borderLeftWidth: 0,
+                        }}
+                    >
+                        <p>
+                            <b>Condiciones comerciales: </b>
+                            {lab_selected !== null
+                                ? lab_selected.condiciones_comerciales
+                                : ""}
+                        </p>
+                    </div>
+                </Col>
+            </Row>
+
+            <Card>
+                <CardBody>
+                    <Row style={{ color: "#20a8d8", fontSize: 18 }}>
+                        <Col md="3" xs="12">
+                            <FormGroup>
+                                <Label>Fecha del transfer</Label>
+                                <Input
+                                    type="date"
+                                    name="fecha"
+                                    defaultValue={null}
+                                    value={
+                                        this.state.transfer
+                                            ? this.state.transfer.fecha
+                                            : undefined
+                                    }
+                                    onChange={this.handleInputChange}
+                                />
+                            </FormGroup>
+                        </Col>
+
+                        <Col md="3" xs="12">
+                            <FormGroup>
+                                <Label>Elegir Droguería</Label>
 
 
-                                            return d.habilitado ? (
+                                <Input
+                                    type="select"
+                                    name="drogueria_id"
+                                    value={
+                                        this.state.transfer
+                                            ? this.state.transfer.drogueria_id
+                                            : undefined
+                                    }
+                                    onChange={this.handleInputChange}
+                                >
+                                    <option value={undefined}>seleccionar...</option>
+                                    {droguerias.map((d, index) => {
 
-                                                <option value={d.nombre} key={index}>
-                                                    {d.nombre}
-                                                </option>
-                                            ) : null;
-                                        })}
-                                    </Input>
-                                </FormGroup>
-                            </Col>
+                                        console.log(d);
 
-                            <Col md="3" xs="12">
-                                <FormGroup>
-                                    <Label>N° de cuenta de Droguería</Label>
-                                    <Input
-                                        type="text"
-                                        name="nro_cuenta_drogueria"
-                                        value={
-                                            this.state.transfer
-                                                ? this.state.transfer.nro_cuenta_drogueria
-                                                : undefined
-                                        }
-                                        onChange={this.handleInputChange}
-                                    />
-                                </FormGroup>
-                            </Col>
 
-                            <Col md="3" xs="12">
-                                <FormGroup>
-                                    <Label>Laboratorio elegido</Label>
-                                    <Input
-                                        type="text"
-                                        value={
-                                            lab_selected != null ? lab_selected.nombre : undefined
-                                        }
-                                        disabled
-                                    />
-                                </FormGroup>
+                                        return d.habilitado ? (
+
+                                            <option value={d.nombre} key={index}>
+                                                {d.nombre}
+                                            </option>
+                                        ) : null;
+                                    })}
+                                </Input>
+                            </FormGroup>
+                        </Col>
+
+                        <Col md="3" xs="12">
+                            <FormGroup>
+                                <Label>N° de cuenta de Droguería</Label>
+                                <Input
+                                    type="text"
+                                    name="nro_cuenta_drogueria"
+                                    value={
+                                        this.state.transfer
+                                            ? this.state.transfer.nro_cuenta_drogueria
+                                            : undefined
+                                    }
+                                    onChange={this.handleInputChange}
+                                />
+                            </FormGroup>
+                        </Col>
+
+                        <Col md="3" xs="12">
+                            <FormGroup>
+                                <Label>Laboratorio elegido</Label>
+                                <Input
+                                    type="text"
+                                    value={
+                                        lab_selected != null ? lab_selected.nombre : undefined
+                                    }
+                                    disabled
+                                />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+
+                    <hr />
+
+                    {this.state.vistaprevia ? (
+                        <Row style={{ margin: 5 }}>
+                            <Col>
+                                <Row>
+                                    <Col>
+                                        <p>
+                                            <b>Farmacia: </b>
+                                            {nombre}
+                                        </p>
+                                        <p>
+                                            <b>Email destino: </b>
+                                            {email}
+                                        </p>
+                                        <p>
+                                            <b>Domicilio: </b>
+                                            {direccioncompleta}
+                                        </p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <div className="table-responsive table-striped table-fix">
+                                            <table className="table">
+                                                <thead className="bg-secondary">
+                                                    <tr>
+                                                        <th>Código</th>
+                                                        <th>Producto / Presentación</th>
+                                                        <th>Unidades a pedir</th>
+                                                        <th>Observaciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {this.state.productos.map((p, index) => {
+                                                        return (
+                                                            <tr>
+                                                                <td>{p.codigo_producto}</td>
+                                                                <td>{p.nombre}</td>
+                                                                <td>{p.cantidad}</td>
+                                                                <td>{p.observacion}</td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </Col>
+                                </Row>
                             </Col>
                         </Row>
+                    ) : (
+                        <Row style={{ margin: 5 }}>
 
-                        <hr />
 
-                        {this.state.vistaprevia ? (
-                            <Row style={{ margin: 5 }}>
-                                <Col>
-                                    <Row>
-                                        <Col>
-                                            <p>
-                                                <b>Farmacia: </b>
-                                                {nombre}
-                                            </p>
-                                            <p>
-                                                <b>Email destino: </b>
-                                                {email}
-                                            </p>
-                                            <p>
-                                                <b>Domicilio: </b>
-                                                {direccioncompleta}
-                                            </p>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <div className="table-responsive table-striped table-fix">
-                                                <table className="table">
-                                                    <thead className="bg-secondary">
-                                                        <tr>
-                                                            <th>Código</th>
-                                                            <th>Producto / Presentación</th>
-                                                            <th>Unidades a pedir</th>
-                                                            <th>Observaciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {this.state.productos.map((p, index) => {
-                                                            return (
-                                                                <tr>
-                                                                    <td>{p.codigo_producto}</td>
-                                                                    <td>{p.nombre}</td>
-                                                                    <td>{p.cantidad}</td>
-                                                                    <td>{p.observacion}</td>
-                                                                </tr>
-                                                            );
-                                                        })}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
-                        ) : (
-                            <Row style={{ margin: 5 }}>
 
-                                {
-                                    console.log(productos)
-                                }
+                            <div style={{ width: "100%" }}>
+                                <MaterialTable
 
-                                <div style={{ width: "100%" }}>
-                                    <MaterialTable
+                                    icons={tableIcons}
+                                    localization={{
+                                        body: {
 
-                                        icons={tableIcons}
-                                        localization={{
-                                            body: {
-
-                                                emptyDataSourceMessage: 'No se encontraron datos',
-                                                addTooltip: 'Agregar',
-                                                editRow: {
-                                                    saveTooltip: 'Guardar',
-                                                    cancelTooltip: 'Cancelar'
-                                                },
+                                            emptyDataSourceMessage: 'No se encontraron datos',
+                                            addTooltip: 'Agregar',
+                                            editRow: {
+                                                saveTooltip: 'Guardar',
+                                                cancelTooltip: 'Cancelar'
                                             },
-                                            pagination: {
-                                                labelDisplayedRows: '{from}-{to} de {count}',
-                                                labelRowsSelect: 'Filas',
-                                                labelRowsPerPage: 'Productos x pág',
-                                                firstAriaLabel: 'Primera',
-                                                lastAriaLabel: 'Ultima',
-                                                firstTooltip: 'Primera página',
-                                                lastTooltip: 'Ultima página',
-                                                previousAriaLabel: 'Página anterior',
-                                                previousTooltip: 'Página anterior',
-                                                nextAriaLabel: 'Próxima pagina',
-                                                nextTooltip: 'Próxima pagina'
-                                            },
-                                            toolbar: {
-                                                searchTooltip: 'Buscar',
-                                                searchPlaceholder: 'Buscar'
-                                            }
-                                        }}
-                                        cellEditable={{
-                                            onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
-                                                return new Promise((resolve, reject) => {
-
-                                                    console.log(columnDef.field);
-
-                                                    const newproducto = [...productos];
-
-                                                    switch (columnDef.field) {
-
-                                                        case 'cantidad':
-                                                            newproducto[rowData.tableData.id].cantidad = newValue;
-                                                            break;
-
-                                                        case 'observacion':
-                                                            newproducto[rowData.tableData.id].observacion = newValue;
-                                                            break;
-                                                    }
-
-                                                    this.setState({
-                                                        productos: newproducto,
-                                                    });
-
-                                                    setTimeout(resolve, 1000);
-                                                });
-                                            }
-                                        }}
-                                        style={{ width: "100%" }}
-                                        columns={[
-                                            { title: 'Código', field: 'codigo', editable: 'never' },
-                                            { title: 'Producto / Presentación', field: 'nombre', editable: 'never' },
-                                            { title: 'Imagen', field: null, type: 'numeric', editable: 'never' },
-                                            { title: 'Precio al público', field: null, type: 'numeric', editable: 'never' },
-                                            { title: '%', field: 'descuento_porcentaje', type: 'numeric', editable: 'never' },
-                                            { title: 'Unidades a pedir', field: 'cantidad', type: 'numeric', editable: 'allways', cellStyle: { paddingLeft: '5%' } },
-                                            { title: 'Subtotal', field: 'subtotal', type: 'numeric', editable: 'never' },
-                                            { title: 'Mínimo', field: 'cantidad_minima', type: 'numeric', editable: 'never' },
-                                            { title: 'Observaciones', field: 'observacion', editable: 'allways' }
-                                        ]}
-                                        title="Productos"
-                                        data={productos.map(producto => {
-                                            if (!producto.cantidad) {
-                                                producto.cantidad = 0;
-                                            }
-                                            if (!producto.observacion) {
-                                                producto.observacion = '...';
-                                            }
-                                            return producto;
-                                        })}
-                                        options={
-                                            {
-                                                pageSize: 10,
-                                                pageSizeOptions: [5, 10, 20, 30]
-                                            }
+                                        },
+                                        pagination: {
+                                            labelDisplayedRows: '{from}-{to} de {count}',
+                                            labelRowsSelect: 'Filas',
+                                            labelRowsPerPage: 'Productos x pág',
+                                            firstAriaLabel: 'Primera',
+                                            lastAriaLabel: 'Ultima',
+                                            firstTooltip: 'Primera página',
+                                            lastTooltip: 'Ultima página',
+                                            previousAriaLabel: 'Página anterior',
+                                            previousTooltip: 'Página anterior',
+                                            nextAriaLabel: 'Próxima pagina',
+                                            nextTooltip: 'Próxima pagina'
+                                        },
+                                        toolbar: {
+                                            searchTooltip: 'Buscar',
+                                            searchPlaceholder: 'Buscar'
                                         }
-                                    />
-                                </div>
-                            </Row>
-                        )}
-                    </CardBody>
-                    <CardFooter>
-                        <Row>
-                            <Col></Col>
-                            <Col>
-                                {this.state.finalizar ? (
+                                    }}
+                                    cellEditable={{
+                                        onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
+                                            return new Promise((resolve, reject) => {
 
-                                    <Fragment>
+                                                console.log(columnDef.field);
 
-                                        <Button
-                                            onClick={() => {
-                                                this.handleFiltroFinalizar(false);
-                                                this.handleVistaPrevia(false);
-                                                this.handleLimpiarProductos();
-                                            }}
-                                            className="btn btn-danger"
-                                        >
-                                            Cancelar
-                                        </Button>
+                                                const newproducto = [...productos];
 
-                                        <Button
-                                            onClick={this.handleSubmit}
-                                            className="btn btn-success"
-                                            disabled={
-                                                this.state.transfer == null ||
-                                                this.state.transfer.drogueria_id == undefined ||
-                                                this.state.submitting
-                                            }
-                                            style={{ marginLeft: 5 }}
-                                        >
-                                            Confirmar
-                                        </Button>
+                                                switch (columnDef.field) {
 
-                                    </Fragment>
+                                                    case 'cantidad':
+                                                        if (newproducto[rowData.tableData.id].cantidad_minima<=newValue) {
+                                                            newproducto[rowData.tableData.id].cantidad = newValue;
+                                                        } else {
+                                                            newproducto[rowData.tableData.id].cantidad = newValue;
+                                                            alert("La cantidad minima para este producto es de " + newproducto[rowData.tableData.id].cantidad_minima)
+                                                        }
+                                                        break;
 
-                                ) : (
+                                                    case 'observacion':
+                                                        newproducto[rowData.tableData.id].observacion = newValue;
+                                                        break;
+                                                }
+
+                                                this.setState({
+                                                    productos: newproducto,
+                                                });
+
+                                                setTimeout(resolve, 1000);
+                                            });
+                                        }
+                                    }}
+                                    style={{ width: "100%" }}
+                                    columns={[
+                                        { title: 'Código', field: 'codigo', editable: 'never' },
+                                        { title: 'Producto / Presentación', field: 'nombre', editable: 'never' },
+                                        { title: 'Imagen', field: null, type: 'numeric', editable: 'never' },
+                                        { title: 'Precio al público', field: null, type: 'numeric', editable: 'never' },
+                                        { title: '%', field: 'descuento_porcentaje', type: 'numeric', editable: 'never' },
+                                        { title: 'Unidades a pedir', field: 'cantidad', type: 'numeric', align: "left", editable: 'allways', },
+                                        { title: 'Subtotal', field: 'subtotal', type: 'numeric', editable: 'never' },
+                                        { title: 'Mínimo', field: 'cantidad_minima', type: 'numeric', editable: 'never' },
+                                        { title: 'Observaciones', field: 'observacion', editable: 'allways' }
+                                    ]}
+                                    title="Productos"
+                                    data={productos.map(producto => {
+                                        if (!producto.cantidad) {
+                                            producto.cantidad = 0;
+                                        }
+                                        if (!producto.observacion) {
+                                            producto.observacion = '...';
+                                        }
+                                        return producto;
+                                    })}
+                                    options={
+                                        {
+                                            pageSize: 10,
+                                            pageSizeOptions: [5, 10, 20, 30]
+                                        }
+                                    }
+                                />
+                            </div>
+                        </Row>
+                    )}
+                </CardBody>
+                <CardFooter>
+                    <Row>
+                        <Col></Col>
+                        {console.log(this.state)}
+                        <Col>
+                            {this.state.finalizar ? (
+
+                                <Fragment key={new Date}>
+
                                     <Button
                                         onClick={() => {
-                                            this.handleFiltroFinalizar(true);
+                                            this.handleFiltroFinalizar(false);
+                                            this.handleVistaPrevia(false);
+                                            //this.handleLimpiarProductos();
                                         }}
-                                        className="btn btn-success"
-                                        disabled={this.state.productos.length < 1}
+                                        className="btn btn-danger"
                                     >
-                                        Siguiente
+                                        Cancelar
                                     </Button>
-                                )}
-                            </Col>
-                            <Col></Col>
-                        </Row>
-                    </CardFooter>
-                </Card>
 
-            </div >
-        );
-    }
+                                    <Button
+                                        onClick={this.handleSubmit}
+                                        className="btn btn-success"
+                                        disabled={
+                                            this.state.transfer == null ||
+                                            this.state.transfer.drogueria_id == undefined ||
+                                            this.state.submitting
+                                        }
+                                        style={{ marginLeft: 5 }}
+                                    >
+                                        Confirmar
+                                    </Button>
+
+                                </Fragment>
+
+                            ) : (
+                                <Button
+                                    onClick={() => {
+                                        this.handleFiltroFinalizar(true);
+                                    }}
+                                    className="btn btn-success"
+                                    disabled={this.state.productos.length < 1}
+                                >
+                                    Siguiente
+                                </Button>
+                            )}
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                </CardFooter>
+            </Card>
+
+        </div >
+    );
+}
 }
 
 const mapStateToProps = (state) => {
