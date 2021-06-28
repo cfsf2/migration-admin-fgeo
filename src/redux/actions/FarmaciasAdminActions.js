@@ -83,7 +83,7 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
     var emailDefault = login.username.toLowerCase() + "@farmageoapp.com.ar";
     axios
       .post(
-        URL + "/wp-json/wp/v2/users",
+        URL + "/users/alta-usuario",
         {
           username: login.username.toUpperCase(),
           password: login.password,
@@ -101,7 +101,7 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
         }
       )
       .then((response) => {
-        if (response.status == "201") {
+        if (response.status == "201" || response.status == "200") {
           console.log("Se dió de alta en wp_api");
           // paso 2
           dispatch(ALTA_USER_API_FARMAGEO(farmacia, login, history));
