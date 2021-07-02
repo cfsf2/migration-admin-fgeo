@@ -16,6 +16,21 @@ export const ADD_ENTIDAD = (entidad) => {
   };
 };
 
+
+export const DELETE_ENTIDAD = (entidadId) => {
+    return (dispatch) => {
+        axios
+            .delete(farmageo_api + "/entidades/" + entidadId)
+            .then(function (response) {
+                dispatch(GET_ENTIDADES());
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+};
+
+
 export const GET_ENTIDADES = () => {
   return (dispatch) => {
     axios
