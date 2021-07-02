@@ -576,12 +576,10 @@ render() {
                                     style={{ width: "100%" }}
                                     columns={[
                                         { title: 'Código', field: 'codigo', editable: 'never' },
-                                        { title: 'Producto / Presentación', field: 'nombre', editable: 'never' },
-                                        { title: 'Imagen', field: null, type: 'numeric', editable: 'never' },
-                                        { title: 'Precio al público', field: null, type: 'numeric', editable: 'never' },
+                                        { title: 'Producto', field: 'nombre', editable: 'never' },
+                                        { title: 'Presentación', field: 'presentacion', editable: 'never' },
                                         { title: '%', field: 'descuento_porcentaje', type: 'numeric', editable: 'never' },
                                         { title: 'Unidades a pedir', field: 'cantidad', type: 'numeric', align: "left", editable: 'allways', },
-                                        { title: 'Subtotal', field: 'subtotal', type: 'numeric', editable: 'never' },
                                         { title: 'Mínimo', field: 'cantidad_minima', type: 'numeric', editable: 'never' },
                                         { title: 'Observaciones', field: 'observacion', editable: 'allways' }
                                     ]}
