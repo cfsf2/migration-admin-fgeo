@@ -22,6 +22,7 @@ export const DELETE_ENTIDAD = (entidadId) => {
         axios
             .delete(farmageo_api + "/entidades/" + entidadId)
             .then(function (response) {
+                
                 dispatch(GET_ENTIDADES());
             })
             .catch(function (error) {

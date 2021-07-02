@@ -19,12 +19,13 @@ import {
     GET_ENTIDADES,
     ADD_ENTIDAD,
     DELETE_ENTIDAD,
-    UPDATE_ENTIDAD,
+    UPDATE_ENTIDAD
 } from "../../../redux/actions/packsproductosActions";
 
 import Uploader from "../../../components/Uploader";
 
 class Entidades extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -69,6 +70,7 @@ class Entidades extends Component {
     }
 
     render() {
+
         const { entidades } = this.props.packsproductosReducer;
         return (
             <div className="animated fadeIn">
@@ -165,7 +167,8 @@ class Entidades extends Component {
                                                                     </Button>
                                                                     <Button
                                                                         className="btn btn-danger"
-                                                                        onClick={
+                                                                        onClick=
+                                                                        {
                                                                             () => {
                                                                                 if (window.confirm('Confirma eliminar ?')) { this.props.DELETE_ENTIDAD(entidad._id) }
                                                                             }
