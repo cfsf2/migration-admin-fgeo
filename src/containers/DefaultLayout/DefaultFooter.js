@@ -20,12 +20,12 @@ class DefaultFooter extends Component {
                         <Col>
                             <span style={{ float: "left" }}>
                                 <a href="#">Farmageo</a> &copy; 2021
-              </span>
+                            </span>
                         </Col>
                         <Col>
                             <span style={{ float: "right" }}>
-                                Últ. modif. 02/07/2021 12:00hs
-              </span>
+                                Últ. modif. 02/07/2021 19:00hs
+                            </span>
                         </Col>
                     </Row>
                 </Container>
