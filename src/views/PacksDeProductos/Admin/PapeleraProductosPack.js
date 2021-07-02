@@ -232,7 +232,7 @@ class PapeleraProductosPack extends Component {
 
                     <hr />
                     <MaterialTable
-                      title="Positioning Actions Column Preview"
+                      title="Papelera de productos"
                       icons={tableIcons}
                       localization={{
                         header: {
