@@ -165,7 +165,7 @@ class ProductosPack extends Component {
                                       )
                                     }
                                   />
-                                  {entidad.nombre}
+                                  {entidad.entidadnombre}
                                 </label>
                               </div>
                             );
@@ -208,7 +208,7 @@ class ProductosPack extends Component {
                             .map((entidad, index) => {
                               return (
                                 <option value={entidad._id} key={index}>
-                                  {entidad.nombre}
+                                  {entidad.entidadnombre}
                                 </option>
                               );
                             })}

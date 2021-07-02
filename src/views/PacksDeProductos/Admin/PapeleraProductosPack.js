@@ -12,6 +12,26 @@ import {
   Label,
   CardFooter,
 } from "reactstrap";
+import { forwardRef } from 'react';
+import RestoreIcon from '@material-ui/icons/Restore';
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Save from '@material-ui/icons/Save';
+import Delete from '@material-ui/icons/Delete';
+import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
+
 
 import { connect } from "react-redux";
 import {
@@ -25,6 +45,30 @@ import {
 import { image_path_server, farmageo_api } from "../../../config";
 
 import Uploader from "../../../components/Uploader";
+import MaterialTable from "material-table";
+
+const tableIcons = {
+  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+  Delete2: forwardRef((props, ref) => <Delete {...props} ref={ref} />),
+  DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+  SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+  Save: forwardRef((props, ref) => <Save {...props} ref={ref} />)
+};
+
 
 class PapeleraProductosPack extends Component {
   constructor(props) {
@@ -187,8 +231,84 @@ class PapeleraProductosPack extends Component {
                     </Row>
 
                     <hr />
+                    <MaterialTable
+                      title="Positioning Actions Column Preview"
+                      icons={tableIcons}
+                      localization={{
+                        header: {
 
-                    <div className="table-responsive table-striped table-fix">
+                          actions: "Acciones",
+                        },
+                        body: {
+                          emptyDataSourceMessage: 'No se encontraron datos',
+                          addTooltip: 'Agregar',
+                          editRow: {
+                            saveTooltip: 'Guardar',
+                            cancelTooltip: 'Cancelar'
+                          },
+                        },
+                        pagination: {
+                          labelDisplayedRows: '{from}-{to} de {count}',
+                          labelRowsSelect: 'Filas',
+                          labelRowsPerPage: 'Productos x pág',
+                          firstAriaLabel: 'Primera',
+                          lastAriaLabel: 'Ultima',
+                          firstTooltip: 'Primera página',
+                          lastTooltip: 'Ultima página',
+                          previousAriaLabel: 'Página anterior',
+                          previousTooltip: 'Página anterior',
+                          nextAriaLabel: 'Próxima pagina',
+                          nextTooltip: 'Próxima pagina'
+                        },
+                        toolbar: {
+                          searchTooltip: 'Buscar',
+                          searchPlaceholder: 'Buscar'
+                        }
+                      }}
+                      columns={[
+                        { title: 'SKU', field: 'sku' },
+                        { title: 'Entidad', field: 'entidadName' },
+                        { title: 'Categoria', field: 'categoriaName' },
+                        { title: 'Nombre', field: 'nombre' },
+                        { title: 'Imagen', field: 'imagen',align:"center", render: rowData => rowData.imagen ? <img src={image_path_server + rowData.imagen} style={{ width: 50, borderRadius: '10%' }} /> : null },
+                        { title: 'Precio en Farmageo', field: 'precio', type: 'numeric' },
+                        { title: 'Habilitado', field: 'habilitado', type: "boolean" },
+                        { title: 'Descripción', field: 'descripcion' }
+                      ]}
+                      data={productos.map((column => {
+                        let newColumn = column
+                        newColumn.entidadName = entidades.map((entidad) => {
+                          return entidad._id === column.entidad_id
+                            ? entidad.entidadnombre
+                            : null;
+                        })
+                        newColumn.categoriaName = categorias.map((categoria) => {
+                          return categoria._id === column.categoria_id
+                            ? categoria.nombre
+                            : null;
+                        })
+                        return newColumn
+                      }))}
+                      actions={[
+                        {
+                          icon: () => <RestoreIcon />,
+                          tooltip: 'Recuperar Producto',
+                          onClick: (event, rowData) => {
+                            this.handleRecuperar({
+                              ...rowData,
+                              en_papelera: null,
+                            })
+                          }
+                        }
+                      ]}
+                      options={{
+                        actionsColumnIndex: -1,
+                        pageSize: 50,
+                        pageSizeOptions: [5, 10, 20, 30, 50]
+                      }}
+                      
+                    />
+                    {/* <div className="table-responsive table-striped table-fix">
                       <table className="table ">
                         <thead className="bg-secondary">
                           <tr>
@@ -205,16 +325,17 @@ class PapeleraProductosPack extends Component {
                           </tr>
                         </thead>
                         <tbody>
+                          {console.log(productos)}
                           {productos.map((obj, index) => {
                             return (obj.entidad_id != null
                               ? obj.entidad_id.includes(
-                                  this.state.entidadFilter
-                                )
+                                this.state.entidadFilter
+                              )
                               : false) &&
                               (obj.categoria_id != null
                                 ? obj.categoria_id.includes(
-                                    this.state.categoriaFilter
-                                  )
+                                  this.state.categoriaFilter
+                                )
                                 : false) &&
                               obj.nombre
                                 .toUpperCase()
@@ -262,10 +383,12 @@ class PapeleraProductosPack extends Component {
                                   <Button
                                     className="btn btn-warning"
                                     onClick={() =>
-                                      this.handleRecuperar({
-                                        ...obj,
-                                        en_papelera: null,
-                                      })
+
+                                      console.log(obj)
+                                      // this.handleRecuperar({
+                                      //   ...obj,
+                                      //   en_papelera: null,
+                                      // })
                                     }
                                   >
                                     Recuperar
@@ -276,7 +399,7 @@ class PapeleraProductosPack extends Component {
                           })}
                         </tbody>
                       </table>
-                    </div>
+                    </div> */}
                   </CardBody>
                 </Card>
               </Col>
