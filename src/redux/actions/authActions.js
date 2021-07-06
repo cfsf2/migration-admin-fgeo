@@ -9,6 +9,15 @@ export const RESET_ERROR = () => {
   };
 };
 
+export const TRYREGISTER = (body)=>{
+  return dispatch=>{
+    axios.post(farmageo_api+"/farmacias/register-try",{
+      email:body,
+      version: "2"
+    }).then(r=>console.log(r))
+  }
+}
+
 export const LOGIN = (user, password) => {
   return (dispatch) => {
     axios

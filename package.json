@@ -50,7 +50,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "simple-line-icons": "^2.4.1"
+    "simple-line-icons": "^2.4.1",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "react-scripts": "^3.0.1"

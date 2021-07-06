@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //import logo from "../../../assets/img/brand/logofarma.png";
 import logo from "../../../assets/img/brand/img-panel.png";
-
+import bgImage from '../../../assets/images/bg-login.jpg'
+import logoWhite from '../../../assets/images/logoWhite.png'
+import iLocation from '../../../assets/images/iconLocation.svg'
+import iEmail from '../../../assets/images/iconEmail.svg'
+import logoWhiteColegio from '../../../assets/images/logoColegio.png'
+import { Input, Divider, Form2 } from './style'
 import {
   Button,
   Card,
@@ -11,7 +16,6 @@ import {
   Col,
   Container,
   Form,
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
@@ -23,6 +27,7 @@ import {
   LOGIN,
   LOADPROFILE,
   RESET_ERROR,
+  TRYREGISTER
 } from "../../../redux/actions/authActions";
 import { Redirect } from "react-router-dom";
 import Alertmessage from "../../../components/Alertmessage";
@@ -51,7 +56,39 @@ const Login = (props) => {
       alert("Debe aceptar los términos y condiciones");
     }
   };
+  const createHtmlMail = async (formData) => {
+    let body = await `<head>
+                        <style>
+                          table {
+                            font-family: arial, sans-serif;
+                            border-collapse: collapse;
+                            width: 100%;
+                          }
+                          
+                          td, th {
+                            border: 1px solid #dddddd;
+                            text-align: left;
+                            padding: 8px;
+                          }
+                          
+                          tr:nth-child(even) {
+                            background-color: #dddddd;
+                          }
 
+                        </style>
+                      </head>
+                      <body>
+                      <h2>Solicitud de registro de la web</h2>
+                        <div>
+                          <p><b>Nombre y apellido:${formData[0].value} </b></p>
+                          <p><b>Matricula:${formData[1].value} </b></p>
+                          <p><b>Dirección Farmacia:${formData[2].value} </b>$</p> 
+                          <p><b>Email:${formData[3].value} </b>$</p>
+                        </div>
+                     
+                    </body>`;
+    dispatch(TRYREGISTER(body));
+  };
   const handleChangeUsername = (event) => {
     setUserName(event.target.value);
     dispatch(RESET_ERROR());
@@ -66,6 +103,41 @@ const Login = (props) => {
     setTerminos(event.target.value);
   };
 
+
+
+
+
+  const backgroundStyle = {
+    backgroundImage: `url(${bgImage})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  }
+  const h1Stule = {
+    color: "white",
+    fontSize: "50px",
+    fontWeight: "bold"
+  }
+  const whiteStyle = {
+    color: "white"
+  }
+  const boldStyle = {
+    fontWeight: "bold"
+  }
+  const lineStyle = {
+    backgroundColor: "white",
+    height: 1,
+    width: 50
+  }
+  const formStyle = {
+    backgroundColor: "rgba(0,0,0,0.6)",
+    borderRadius: "10px"
+
+
+  }
+
+
+
   if (islogin) {
     // console.log("username " + username)
     dispatch(LOADPROFILE(username));
@@ -74,8 +146,119 @@ const Login = (props) => {
     //esto habrìa que correrlo
     dispatch(GET_SESSION());
     return (
-      <div className="app flex-row align-items-center">
-        <Container>
+      <div style={backgroundStyle} className="app flex-row align-items-center">
+        <div className="col-md-1"></div>
+        <div style={{ height: "100%" }} className="col-md-7 col-sm-12 d-flex flex-column overflow-hidden">
+          <img src={logoWhite} style={{ width: "150px", marginTop: "50px" }} />
+          <div style={{ margin: "auto 0" }}>
+            <h1 style={h1Stule} className="bold white">Mi Farmacia digital</h1>
+            <p style={{ fontSize: "20px", ...whiteStyle }}>Visibilidad digital de todos los servicios. Tienda online propia y a medida.<br /> Solicitá transfers, sector de proveeduría y colaboración con acciones RSE. </p>
+            <h3 style={{ ...boldStyle, ...whiteStyle }} className="mt-5 bold">Todo en un solo lugar.</h3>
+            <img style={{ width: "250px", marginTop: "50px" }} src={logoWhiteColegio} />
+          </div>
+          <div className="d-flex flex-column my-2">
+            <div style={lineStyle}></div>
+            <div style={whiteStyle} className="my-2">
+              <img src={iEmail} style={{ widht: "25px", height: "22px" }} /> <a style={{ fontSize: "18px", marginRight: "10px", ...whiteStyle }} href="mailto:coordinador@farmageo.com.ar">coordinador@farmageo.com.ar</a>
+              <img src={iLocation} style={{ widht: "25px", height: "22px" }} /> <a style={{ fontSize: "18px", ...whiteStyle }} target="_blank" href="https://www.google.com/maps/place/Buenos+Aires+1262,+S2000+Rosario,+Santa+Fe/data=!4m2!3m1!1s0x95b7ab04a721ba5d:0x1080c44b44f427bf?sa=X&ved=2ahUKEwi36ryKmczxAhXnqJUCHdvjCToQ8gEwAHoECAYQAQ">Buenos aires 1262, Rosario</a>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-3 col-sm-12 d-flex flex-column overflow-hidden " style={{ height: "100%", ...whiteStyle }}>
+          <form className="d-flex flex-column mt-auto mb-2 text-center" style={formStyle}>
+
+            <h4 className="mt-2">Acceso al sistema</h4>
+            <Input
+              type="text"
+              inputColor="white"
+              onChange={handleChangeUsername}
+              placeholder="Usuario o correo electrónico"
+              autoComplete="username"
+            />
+            <Input
+              type="password"
+              inputColor="white"
+              onChange={handleChangePassword}
+              placeholder="Contraseña"
+              autoComplete="current-password"
+            />
+            <div>
+              <input
+                type="checkbox"
+                onChange={handleChangeTerminos}
+                style={{ marginRight: 10 }}
+              />
+              <a
+                href="https://farmageo.com.ar/terminos-legales.html"
+                target="_blank"
+                style={{ fontSize: 10 }}
+                rel="noopener noreferrer"
+              >
+                Acepto los términos y condiciones
+              </a>
+            </div>
+            <div>
+              <Button
+                type="button"
+                color="primary"
+                className="px-4 my-2"
+                disabled={!validateForm()}
+                onClick={handleLoginClick}
+              >
+                Iniciar Sesión
+              </Button>
+            </div>
+          </form>
+          <Divider className="my-3" />
+          <Form2 onSubmit={(e) => { e.preventDefault(); createHtmlMail(e.target) }} className="d-flex flex-column mb-auto mt-2 text-center" style={formStyle}>
+            <h4 className="mt-2">¿Querés ser parte?</h4>
+            <p style={{ fontSize: "11px" }}>Solicitar alta de farmacia</p>
+            <Input
+              type="text"
+              inputColor="white"
+              onChange={handleChangeUsername}
+              placeholder="Nombre y apellido "
+              autoComplete="username"
+            />
+            <Input
+              type="text"
+              inputColor="white"
+              onChange={handleChangeUsername}
+              placeholder="Matricula"
+              autoComplete="username"
+            />
+            <Input
+              type="text"
+              inputColor="white"
+              onChange={handleChangeUsername}
+              placeholder="Dirección de farmacia"
+              autoComplete="username"
+            />
+            <Input
+              type="text"
+              inputColor="white"
+              onChange={handleChangeUsername}
+              placeholder="Correo electrónico"
+              autoComplete="username"
+            />
+            <div>
+              <Button
+                type="submit"
+                color="primary"
+                className="px-4 my-2"
+
+
+              >
+                Solicitar Registro
+              </Button>
+            </div>
+          </Form2>
+        </div>
+        <div>
+
+        </div>
+        {/* <Container>
+          asd
           <Row className="justify-content-center">
             <Col md="8">
               <CardGroup>
@@ -86,11 +269,7 @@ const Login = (props) => {
                     className="p-0"
                   >
                     <img src={logo} className="w-100" alt="Logo" />
-                    {/*
-                    <div>
-                      <img src={logo} className="logoLogin" alt="Logo" />
-                    </div>
-                    */}
+                    
                   </CardBody>
                 </Card>
                 <Card className="p-4">
@@ -157,7 +336,7 @@ const Login = (props) => {
                             disabled={!validateForm()}
                             onClick={handleLoginClick}
                           >
-                            Entrar
+                            v
                           </Button>
                         </Col>
                       </Row>
@@ -167,7 +346,7 @@ const Login = (props) => {
               </CardGroup>
             </Col>
           </Row>
-        </Container>
+        </Container> */}
       </div>
     );
   }

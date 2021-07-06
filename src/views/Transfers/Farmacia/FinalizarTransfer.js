@@ -193,6 +193,7 @@ createHtmlMail = async (transfer, direccioncompleta) => {
                           <tr>
                             <th>Código</th>
                             <th>Producto</th>
+                            <th>Presentación</th>
                             <th>Cantidad</th>
                             <th>Observaciones</th>
                           </tr>
@@ -201,6 +202,7 @@ createHtmlMail = async (transfer, direccioncompleta) => {
             return `<tr>
                                     <td>${p.codigo_producto}</td>
                                     <td>${p.nombre}</td>
+                                    <td>${p.presentacion}</td>
                                     <td>${p.cantidad}</td>
                                     <td>${p.observacion}</td>
                                   </tr>`;
