@@ -57,14 +57,18 @@ const Login = (props) => {
     }
   };
 
-  const ValidateEmail = email => {
-    console.log(email)
-    var emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(String(email).toLowerCase());
-    if (email.match(emailformat)) {
-      return true;
-    };
-    return (false);
-  };
+
+  function pruebaemail (valor){
+    
+    console.log(valor)
+    const re=/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+    if(!re.exec(valor) || valor=== "" ){
+      return true
+    }
+    else return false
+    }
+
+  
   const createHtmlMail = async (formData) => {
     let error = false
     if (formData[0].value.length < 5) {
@@ -77,7 +81,8 @@ const Login = (props) => {
       error += 'Debe completar el campo "Dirección" \n'
 
     }
-    if (ValidateEmail(formData[3].value)) {
+    const emailTrust=pruebaemail(formData[3].value)
+    if (emailTrust) {
       error += 'Debe completar el campo "Email" con un email válido '
     }
     let body = await `<head>
