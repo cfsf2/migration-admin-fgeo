@@ -40,6 +40,7 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
 import MaterialTable from 'material-table';
+import ModalStep from "./components/ModalStep";
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -74,6 +75,7 @@ class FinalizarTransfer extends Component {
             vistaprevia: false,
             submitting: false,
             lab_selected: null,
+            
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFiltroFinalizar = this.handleFiltroFinalizar.bind(this);
@@ -287,7 +289,7 @@ render() {
     const { comunicadoTransfers } = this.props.publicidadesReducer;
     return (
         <div className="animated fadeIn">
-
+            <ModalStep/>
 
             <Row>
                 <Col md="3" xs="12">
