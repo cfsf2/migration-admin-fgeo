@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { useHistory } from 'react-router-dom'
 import {
   Card,
   CardBody,
@@ -22,7 +23,6 @@ import {
 
 import ButtonHome from "./components/ButtonHome";
 import VentaOnlineSelect from "./components/VentaOnlineSelect";
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -67,6 +67,7 @@ class Dashboard extends Component {
     this.handlePanelExistencias();
     this.props.GET_ENTIDADES();
   }
+  
 
   async handlePanelExistencias() {
     const { mis_pedidos } = this.props.pedidosReducer;
@@ -110,6 +111,7 @@ class Dashboard extends Component {
       }
     }
   }
+
 
   render() {
     const { user, userprofile } = this.props.authReducer;
@@ -195,9 +197,9 @@ class Dashboard extends Component {
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
-                      <Col md="6" style={{ height: 50 }} align="center">
+                      <Col md="6" style={{ height: 50 }} align="center" >
                         <ButtonHome
-                          href="https://campus.farmacursos.org.ar/archivos.cgi?wAccion=vergrupo&wIdGrupo=3320&id_curso=70"
+                          to="/reporteObras"
                           titulo="NORMATIVAS DE OBRAS SOCIALES"
                           subtitulo="del D.O.S"
                           align="left"

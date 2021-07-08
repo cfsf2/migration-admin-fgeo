@@ -1,4 +1,6 @@
+import { CompassCalibrationOutlined } from "@material-ui/icons";
 import React, { Component, Fragment } from "react";
+import { useHistory } from "react-router-dom"
 import {
   Card,
   CardBody,
@@ -10,28 +12,35 @@ import {
   Container,
 } from "reactstrap";
 
-class ButtonHome extends Component {
-  render() {
-    return (
+const ButtonHome = (props) => {
+  const history = useHistory()
+  const pushHandler = ()=>{
+    if(props.to)
+    history.push(props.to)
+  }
+  return (
+    <div>
+
       <a
+        onClick={pushHandler}
         className="btn"
-        href={this.props.href}
-        target={this.props.simple ? "" : "_blank"}
+        href={props.href}
+        target={props.simple ? "" : "_blank"}
         style={{
           width: "100%",
           backgroundColor: "#ffffff",
           color: "rgb(0, 120, 143)",
-          //float: this.props.align,
+          //float: props.align,
           paddingBottom: 0,
         }}
       >
         <Row style={{ paddingLeft: 5, paddingRight: 0 }}>
-          <Col md={this.props.tipo === "grande" ? 5 : 2} sm="2" xs="2">
+          <Col md={props.tipo === "grande" ? 5 : 2} sm="2" xs="2">
             {" "}
-            <img src={this.props.icono} style={{ width: 25, float: "right" }} />
+            <img src={props.icono} style={{ width: 25, float: "right" }} />
           </Col>
           <Col
-            md={this.props.tipo === "grande" ? 7 : 10}
+            md={props.tipo === "grande" ? 7 : 10}
             xs="10"
             sm="10"
             style={{ float: "left" }}
@@ -43,10 +52,10 @@ class ButtonHome extends Component {
                 marginBottom: 0,
                 marginTop: 1,
                 fontWeight: "bold",
-                textAlign: this.props.align,
+                textAlign: props.align,
               }}
             >
-              {this.props.titulo}
+              {props.titulo}
             </p>
             <p
               style={{
@@ -54,18 +63,19 @@ class ButtonHome extends Component {
                 wordWrap: "break-word",
                 paddingBottom: 0,
                 marginBottom: 0,
-                textAlign: this.props.align,
+                textAlign: props.align,
               }}
               className="text-truncate"
-              title={this.props.subtitulo}
+              title={props.subtitulo}
             >
-              {this.props.subtitulo}
+              {props.subtitulo}
             </p>
           </Col>
         </Row>
       </a>
-    );
-  }
+    </div>
+  );
 }
+
 
 export default ButtonHome;

@@ -19,8 +19,6 @@ export const Filtrar_Sin_Venta_Online = (nav, userprofile) => {
         };
       case "no_visible":
 
-        console.log('No visible')
-
         return {
           ...nav,
           items: nav.items.filter((i) => {
