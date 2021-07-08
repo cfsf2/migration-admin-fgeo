@@ -45,6 +45,7 @@ export default {
                     url: "/MisSolicitudesProveeduria",
                 },
             ],
+            perfil_farmageo: [],
         },
         {
             name: "Promociones",
