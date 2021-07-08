@@ -18,6 +18,9 @@ export const Filtrar_Sin_Venta_Online = (nav, userprofile) => {
           }),
         };
       case "no_visible":
+
+        console.log('No visible')
+
         return {
           ...nav,
           items: nav.items.filter((i) => {
@@ -27,14 +30,6 @@ export const Filtrar_Sin_Venta_Online = (nav, userprofile) => {
       default:
         return nav;
     }
-    /*if (userprofile.perfil_farmageo !== "vender_online" ) {
-      return {
-        ...nav,
-        items: nav.items.filter((i) => {
-          return i.perfil_farmageo != "venta_online";
-        }),
-      };
-    } */
     
   } else {
     return nav;
