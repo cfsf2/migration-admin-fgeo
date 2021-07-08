@@ -485,7 +485,8 @@ render() {
                                                 <thead className="bg-secondary">
                                                     <tr>
                                                         <th>Código</th>
-                                                        <th>Producto / Presentación</th>
+                                                        <th>Producto</th>
+                                                        <th>Presentación</th>
                                                         <th>Unidades a pedir</th>
                                                         <th>Observaciones</th>
                                                     </tr>
@@ -496,6 +497,7 @@ render() {
                                                             <tr>
                                                                 <td>{p.codigo_producto}</td>
                                                                 <td>{p.nombre}</td>
+                                                                <td>{p.presentacion}</td>
                                                                 <td>{p.cantidad}</td>
                                                                 <td>{p.observacion}</td>
                                                             </tr>
@@ -583,8 +585,8 @@ render() {
                                         { title: 'Producto', field: 'nombre', editable: 'never' },
                                         { title: 'Presentación', field: 'presentacion', editable: 'never' },
                                         { title: '%', field: 'descuento_porcentaje', type: 'numeric', editable: 'never' },
-                                        { title: 'Unidades a pedir', field: 'cantidad', type: 'numeric', align: "left", editable: 'allways', },
                                         { title: 'Mínimo', field: 'cantidad_minima', type: 'numeric', editable: 'never' },
+                                        { title: 'Unidades a pedir', field: 'cantidad', type: 'numeric', align: "left", editable: 'allways', },
                                         { title: 'Observaciones', field: 'observacion', editable: 'allways' }
                                     ]}
                                     title="Productos"

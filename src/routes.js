@@ -14,6 +14,7 @@ const Mediospagos = React.lazy(() => import("./views/Mediospagos/Mediospagos"));
 const Servicios = React.lazy(() => import("./views/Servicios/Servicios"));
 const Horarios = React.lazy(() => import("./views/Horarios/Horarios"));
 const Soporte = React.lazy(() => import("./views/Soporte/Soporte"));
+const ReporteOOSS = React.lazy(() => import("./views/ReporteOOSS/ReporteOOSS"));
 const PedidosAdmin = React.lazy(() => import("./views/Pedidos/pedidosAdmin"));
 const Novedades = React.lazy(() => import("./views/Publicidades/Novedades"));
 const InfoInteres = React.lazy(() =>
@@ -81,6 +82,7 @@ const routes = [
     component: Papelera
   },
   { path: "/soporte", name: "Soporte", component: Soporte },
+  { path: "/reporteObras", name: "Reporte de Obras Sociales", component: ReporteOOSS },
 
   { path: "/NuevoTransfer", name: "Nuevo Transfer", component: NuevoTransfer },
   { path: "/MisTransfers", name: "Mis Transfers", component: MisTransfers },

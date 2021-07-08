@@ -8,6 +8,9 @@ const Input = styled.input`
   margin:7px 10%;
   border: 1px ${props => props.inputColor || "palevioletred"} solid;
   border-radius: 10px;
+  &::placeholder {
+    color: white;
+}
 `;
 const Divider = styled.div`
     width:${props => props.inputWidth || "80%"} ;

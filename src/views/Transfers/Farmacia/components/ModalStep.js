@@ -42,7 +42,7 @@ const ModalStep = (openModal) => {
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         <div className="d-flex flex-column align-items-center">
-                            <h5 className=" mb-1">Para ordenar los datos hace click ern cualquier encabezado de columna. </h5>
+                            <h5 className=" mb-1">Para ordenar los datos hace click en cualquier encabezado de columna. </h5>
                             <img src={gifFiltro} style={{ width: "50%" }} />
                             <h5 className="mt-5 mb-0">Y para confirmar los productos que pedis, presiona <b>enter</b> luego de escribir o <b>clickea el tilde</b>.</h5>
                             <img src={gifCantidad} style={{ width: "50%" }} />
