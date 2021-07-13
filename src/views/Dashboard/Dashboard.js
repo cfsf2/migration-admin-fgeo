@@ -199,7 +199,7 @@ class Dashboard extends Component {
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }} align="center" >
                         <ButtonHome
-                          to="/reporteObras"
+                          href="https://campus.farmacursos.org.ar/archivos.cgi?wAccion=vergrupo&wIdGrupo=3320&id_curso=70"
                           titulo="NORMATIVAS DE OBRAS SOCIALES"
                           subtitulo="del D.O.S"
                           align="left"
@@ -217,6 +217,17 @@ class Dashboard extends Component {
                         />
                       </Col>
                     </Row>
+                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
+                      <Col md="6" style={{ height: 50 }} align="center" >
+                        <ButtonHome
+                          to="/reporteObras"
+                          titulo="RESUMEN DE NORMATIVAS OOSS"
+                          subtitulo="OBRAS SOCIALES"
+                          align="left"
+                          icono={require("../../assets/images/icons/2.png")}
+                        />
+                      </Col>
+                      </Row>
                   </Col>
                 </Row>
                 <Row>
