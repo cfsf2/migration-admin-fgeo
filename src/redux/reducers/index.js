@@ -8,6 +8,7 @@ import farmaciasAdminReducer from "./FarmaciasAdminReducer";
 import denunciasReducer from "./denunciasReducer";
 import tranfersReducer from "./tranfersReducer";
 import packsproductosReducer from "./packsproductosReducer";
+import reportOSReducer from "./reportOSReducer";
 
 export default combineReducers({
   imageReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   denunciasReducer,
   tranfersReducer,
   packsproductosReducer,
+  reportOSReducer
 });

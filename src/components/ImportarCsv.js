@@ -10,10 +10,11 @@ export default class ImportarCsv extends Component {
       disabled:true
     }
   }
-  handleOpenDialog = (e) => {
+  handleOpenDialog =async (e) => {
     // Note that the ref is set async, so it might be null at some point
+    alert("asd")
     if (buttonRef.current) {
-      buttonRef.current.open(e)
+      await buttonRef.current.open(e)
     }
   }
  

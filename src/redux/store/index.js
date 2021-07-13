@@ -9,7 +9,9 @@ import allReducers from "./../reducers";
 
 const store = createStore(
   allReducers,
-  applyMiddleware(ReduxThunk)
+  applyMiddleware(ReduxThunk),
+ 
+  
   //composeEnhancer(applyMiddleware(ReduxThunk))
 );
 

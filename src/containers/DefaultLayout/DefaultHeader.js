@@ -50,7 +50,7 @@ class DefaultHeader extends Component {
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <a href="http://www.cfsf2.org.ar/" target="_blank">
           <img
-            src={require("../../assets/images/icons/logocfsf2-12.png")}
+            src={require("../../assets/images/icons/logocfsf2-12.png").default}
             style={{ width: 110, marginRight: 30 }}
           />
         </a>

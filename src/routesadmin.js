@@ -89,6 +89,9 @@ const ImportProductosPack = React.lazy(() =>
 const BannersEcommerce = React.lazy(() =>
   import("./views/Publicidades/BannersEcommerce/BannersEcommerce")
 );
+const ReporteOOSSAdmin = React.lazy(() =>
+  import("./views/ReporteOOSSAdmin/ReporteOOSSAdmin")
+);
 
 const routes = [
   { path: "/", exact: true, name: "", component: Dashboard },
@@ -149,6 +152,8 @@ const routes = [
     name: "Pedidos Admin",
     component: PedidosAdmin,
   },
+  
+  { path: "/reporteOOSS", name: "Reporte de Obras Sociales", component: ReporteOOSSAdmin },
   {
     path: "/publicidadesadmin/novedades",
     exact: true,

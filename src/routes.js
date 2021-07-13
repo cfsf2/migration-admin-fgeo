@@ -1,4 +1,5 @@
 import React from "react";
+import ReporteOOSSAdmin from "./views/ReporteOOSSAdmin/ReporteOOSSAdmin";
 
 const Dashboard = React.lazy(() => import("./views/Dashboard"));
 const Users = React.lazy(() => import("./views/Users/Users"));

@@ -61,6 +61,11 @@ export default {
       icon: "icon-bell",
     },
     {
+      name: "Reporte OOSS",
+      url: "/reporteOOSS",
+      icon: "icon-shield",
+    },
+    {
       name: "Packs de Productos",
       url: "/packsdeproductos",
       icon: "",
