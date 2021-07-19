@@ -156,6 +156,26 @@ class Dashboard extends Component {
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
+                      <Col md="6" style={{ height: 50 }} align="center" >
+                        <ButtonHome
+                          to="/reporteObras"
+                          titulo="DEBITOS PAMI"
+                          subtitulo="Consultar aquí"
+                          align="left"
+                          icono={require("../../assets/images/icons/pami.png")}
+                        />
+                      </Col>
+                      <Col md="6" style={{ height: 50 }} align="center" >
+                        <ButtonHome
+                          to="/reporteObras"
+                          titulo="RESUMEN DE NORMATIVAS OOSS"
+                          subtitulo="Obras Sociales"
+                          align="left"
+                          icono={require("../../assets/images/icons/ooss.png")}
+                        />
+                      </Col>
+                      </Row>
+                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }}>
                         <ButtonHome
                           href="https://farma.pami.org.ar/seguridad/iniciar-sesion"
@@ -217,17 +237,7 @@ class Dashboard extends Component {
                         />
                       </Col>
                     </Row>
-                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
-                      <Col md="6" style={{ height: 50 }} align="center" >
-                        <ButtonHome
-                          to="/reporteObras"
-                          titulo="RESUMEN DE NORMATIVAS OOSS"
-                          subtitulo="OBRAS SOCIALES"
-                          align="left"
-                          icono={require("../../assets/images/icons/2.png")}
-                        />
-                      </Col>
-                      </Row>
+                    
                   </Col>
                 </Row>
                 <Row>

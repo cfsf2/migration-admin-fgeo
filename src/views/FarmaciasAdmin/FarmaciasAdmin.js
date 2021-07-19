@@ -13,6 +13,7 @@ import {
   CardFooter,
 } from "reactstrap";
 import { connect } from "react-redux";
+import { UPDATE_FARMACIA_ADMIN_RESPONSE } from "../../redux/actions/FarmaciasAdminActions";
 import {
   GET_FARMACIAS,
   GET_PASSWORDS_FARMACIAS,
@@ -21,6 +22,52 @@ import ItemFarmacia from "./components/ItemFarmacia";
 
 import { image_path_server } from "../../config";
 import FlatList, { PlainList } from "flatlist-react";
+
+import { forwardRef } from 'react';
+import RestoreIcon from '@material-ui/icons/Restore';
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Save from '@material-ui/icons/Save';
+import Delete from '@material-ui/icons/Delete';
+import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
+import MaterialTable from "material-table";
+import VerPw from "./components/VerPw";
+import BlockButton from "./components/BlockButton";
+import ActButton from "./components/ActButton";
+
+const tableIcons = {
+  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+  Delete2: forwardRef((props, ref) => <Delete {...props} ref={ref} />),
+  DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+  SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+  Save: forwardRef((props, ref) => <Save {...props} ref={ref} />)
+};
 
 class FarmaciasAdmin extends Component {
   constructor(props) {
@@ -34,6 +81,8 @@ class FarmaciasAdmin extends Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleNombreFarmacia = this.handleNombreFarmacia.bind(this);
+    this.handleHabilitado = this.handleHabilitado.bind(this);
+    this.handleDescubrir = this.handleDescubrir.bind(this);
     this.renderFarmacia = this.renderFarmacia.bind(this);
   }
 
@@ -45,7 +94,11 @@ class FarmaciasAdmin extends Component {
   }
 
   handleNombreFarmacia(_farmacia) {
+    console.log(_farmacia)
     this.setState({ farmacia: _farmacia });
+  }
+  componentDidUpdate(){
+  
   }
 
   async componentDidMount() {
@@ -64,8 +117,58 @@ class FarmaciasAdmin extends Component {
     ) : null;
   };
 
+  async handleHabilitado(farmacia, value)  {
+    var _farmacia = { ...farmacia, habilitado: value };
+    await this.props.UPDATE_FARMACIA_ADMIN_RESPONSE(_farmacia);
+      
+  }
+
+  handleDescubrir(farmacia, value) {
+    var _farmacia = { ...farmacia, descubrir: value };
+    this.props.UPDATE_FARMACIA_ADMIN_RESPONSE(_farmacia);
+  }
+
+
+  getClassPerfil = (perfil) => {
+    if (perfil) {
+      switch (perfil) {
+        case "vender_online":
+          return "bg-success";
+        case "solo_visible":
+          return "bg-warning";
+        case "no_visible":
+          return "bg-danger";
+        default:
+          return "";
+      }
+    } else {
+      return "";
+    }
+  };
+  addPassword(pharm) {
+    if(this.props.farmaciasAdminReducer.passwordsFarmacias){
+      const pass = this.props.farmaciasAdminReducer.passwordsFarmacias.filter(
+        (p) => {
+          return p.usuario === pharm.usuario;
+        }
+      );
+      const pharmCopy = pharm
+      if (pass.length > 0) {
+        pharmCopy.pw = pass[0].password
+      } else {
+        pharmCopy.pw = "No definida"
+      }
+      
+      return pharmCopy
+
+    }else{
+      return pharm
+    }
+    
+  }
   render() {
     const { listaFarmacias } = this.props.farmaciasAdminReducer;
+    console.log(listaFarmacias)
     return (
       <div>
         <Row>
@@ -76,7 +179,7 @@ class FarmaciasAdmin extends Component {
               </CardHeader>
               <CardBody>
                 <Row>
-                  <Col xs="12" md="4">
+                  {/* <Col xs="12" md="4">
                     <Input
                       type="text"
                       placeholder="buscar farmacia..."
@@ -84,10 +187,73 @@ class FarmaciasAdmin extends Component {
                       onChange={this.handleInputChange}
                       value={this.state.filtro}
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
+                <MaterialTable
+                  title="Listado de Farmacias"
+                  icons={tableIcons}
+                  localization={{
+                    header: {
+
+                      actions: "Acciones",
+                    },
+                    body: {
+                      emptyDataSourceMessage: listaFarmacias.length===0 ? "cargando..." : 'No se encontraron datos' ,
+                      addTooltip: 'Agregar',
+                      editRow: {
+                        saveTooltip: 'Guardar',
+                        cancelTooltip: 'Cancelar'
+                      },
+                    },
+                    pagination: {
+                      labelDisplayedRows: '{from}-{to} de {count}',
+                      labelRowsSelect: 'Filas',
+                      labelRowsPerPage: 'Productos x pág',
+                      firstAriaLabel: 'Primera',
+                      lastAriaLabel: 'Ultima',
+                      firstTooltip: 'Primera página',
+                      lastTooltip: 'Ultima página',
+                      previousAriaLabel: 'Página anterior',
+                      previousTooltip: 'Página anterior',
+                      nextAriaLabel: 'Próxima pagina',
+                      nextTooltip: 'Próxima pagina'
+                    },
+                    toolbar: {
+                      searchTooltip: 'Buscar',
+                      searchPlaceholder: 'Buscar'
+                    }
+                  }}
+                  columns={[
+                    { title: 'id', field: 'farmaciaid' },
+                    { title: 'Nombre', field: 'nombre' },
+                    { title: 'Venta online Farmageo', align: "center", render: rowData => <div className={this.getClassPerfil(rowData.perfil_farmageo)}>{rowData.perfil_farmageo}</div> },
+                    { title: 'Usuario', field: 'usuario' },
+                    { title: 'Password', field: 'fecha',align: "center", render: rowData => <VerPw pw={rowData.pw}/> },
+                    { title: 'Último acceso', field: 'ultimoacceso4table' },
+                    { title: 'Detalle', render:rowData=><Button onClick={e=>this.handleNombreFarmacia(rowData)} data-toggle="modal" data-target=".bd-example-modal-lg">Ver</Button> },
+                    { title: 'Estado', field: 'habilitado', type: 'boolean' },
+                    { title: 'Bloqueo',render:rowData=><BlockButton change={this.handleHabilitado} rowData={rowData}/>},
+                    { title: 'Descubrir',render:rowData=><ActButton change={this.handleDescubrir} rowData={rowData}/>},
+
+                  ]}
+                  
+                  data={listaFarmacias.map(r => {
+                    const rCopy = { ...r }
+                    if (r.ultimoacceso) {
+                      rCopy.ultimoacceso4table = r.ultimoacceso.substring(0, 10)
+                    }
+
+                    return this.addPassword(rCopy)
+
+                  })}
+                  options={{
+                    pageSize: 10,
+                    pageSizeOptions: [5, 10, 20, 30, 50]
+                  }
+                  }
+                />
                 <hr />
-                <div className="table-responsive table-fix">
+                {/* <div className="table-responsive table-fix">
                   <table className="table table-striped ">
                     <thead className="bg-secondary">
                       <tr>
@@ -117,6 +283,9 @@ class FarmaciasAdmin extends Component {
                           />
                         ) : null;
                       })*/}
+
+
+{/* 
                       <PlainList
                         list={listaFarmacias}
                         renderItem={this.renderFarmacia}
@@ -131,7 +300,7 @@ class FarmaciasAdmin extends Component {
                       />
                     </tbody>
                   </table>
-                </div>
+                </div> */} 
 
                 <div
                   className="modal fade bd-example-modal-lg"
@@ -151,7 +320,7 @@ class FarmaciasAdmin extends Component {
                             <Col xs="12" md="6" className="my-1">
                               <b>Fecha alta: </b>{" "}
                               {this.state.farmacia.fechaalta !==
-                              (undefined || null || "")
+                                (undefined || null || "")
                                 ? this.state.farmacia.fechaalta.substring(0, 10)
                                 : ""}
                             </Col>
@@ -164,7 +333,7 @@ class FarmaciasAdmin extends Component {
                                 src={
                                   this.state.farmacia.imagen !== null
                                     ? image_path_server +
-                                      this.state.farmacia.imagen
+                                    this.state.farmacia.imagen
                                     : null
                                 }
                               />
@@ -249,6 +418,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   GET_FARMACIAS,
   GET_PASSWORDS_FARMACIAS,
+  UPDATE_FARMACIA_ADMIN_RESPONSE,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FarmaciasAdmin);

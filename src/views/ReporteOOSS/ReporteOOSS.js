@@ -45,7 +45,7 @@ const ReporteOOSS = (props) => {
                 <Col xs="12" sm="3">
                     <Card>
                         <CardHeader>
-                            <strong>OOSS Inactivas</strong>
+                            <strong>OOSS Suspendidas</strong>
                         </CardHeader>
                         <CardBody>
                             <Row>

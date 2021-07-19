@@ -297,6 +297,61 @@ export const UPDATE_FARMACIA_ADMIN = (farmacia) => {
   };
 };
 
+export const UPDATE_FARMACIA_ADMIN_RESPONSE = (farmacia) => {
+  return (dispatch) => {
+    axios
+      .put(farmageo_api + "/farmacias/?username=" + farmacia.usuario, {
+        _id: farmacia.id,
+        usuario: farmacia.usuario,
+        nombrefarmaceutico: farmacia.nombrefarmaceutico,
+        matricula: farmacia.matricula,
+        localidad: farmacia.localidad,
+        nombre: farmacia.nombre,
+        cp: farmacia.cp,
+        calle: farmacia.calle,
+        provincia: farmacia.provincia,
+        farmaciaid: farmacia.farmaciaid,
+        direccioncompleta: farmacia.direccioncompleta,
+        lat: farmacia.lat,
+        log: farmacia.log,
+        productos: farmacia.productos,
+        pedidos: farmacia.pedidos,
+        promociones: farmacia.promociones,
+        mediospagos: farmacia.mediospagos,
+        servicios: farmacia.servicios,
+        fechaalta: farmacia.fechaalta,
+        habilitado: farmacia.habilitado,
+        imagen: farmacia.imagen,
+        costoenvio: farmacia.costoenvio,
+        tiempotardanza: farmacia.tiempotardanza,
+        numero: farmacia.numero,
+        email: farmacia.email,
+        facebook: farmacia.facebook,
+        instagran: farmacia.instagran,
+        web: farmacia.web,
+        telefonofijo: farmacia.telefonofijo,
+        whatsapp: farmacia.whatsapp,
+        ubicacion: farmacia.ubicacion,
+        nohagoenvios: farmacia.nohagoenvios,
+        horarios: farmacia.horarios,
+        papeleraProductos: farmacia.papeleraProductos,
+        descubrir: farmacia.descubrir,
+        visita_comercial: farmacia.visita_comercial,
+      })
+      .then(function (response) {
+        if (response.status === 201) {
+          dispatch(GET_FARMACIAS());
+          return(response)
+        } else {
+          alert("ha ocurrido un error");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
+
 export const GET_ALL_DENUNCIAS = () => {
   return (dispatch) => {
     axios
