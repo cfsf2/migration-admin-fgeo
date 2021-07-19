@@ -86,9 +86,9 @@ class Denuncias extends Component {
         <Row>
           <Col xs="12" sm="12">
             <Card>
-              <CardHeader>
+              {/* <CardHeader>
                 <b>Denuncias</b>
-              </CardHeader>
+              </CardHeader> */}
               <CardBody>
                 <Row>
                   {/* <Col md="4" xs="12">
@@ -104,7 +104,7 @@ class Denuncias extends Component {
 
                 <hr />
                 <MaterialTable
-                  title="Papelera de productos"
+                  title="Denuncias"
                   icons={tableIcons}
                   localization={{
                     header: {
