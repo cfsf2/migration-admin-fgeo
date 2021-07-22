@@ -14,5 +14,6 @@ const store = createStore(
   
   //composeEnhancer(applyMiddleware(ReduxThunk))
 );
+console.log(store)
 
 export default store;

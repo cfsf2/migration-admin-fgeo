@@ -221,6 +221,8 @@ async handleSubmit() {
         email,
         nombre,
         direccioncompleta,
+        cuit,
+        telefono
     } = this.props.authReducer.userprofile;
     const { lab_selected } = this.props.tranfersReducer;
 
@@ -285,7 +287,7 @@ render() {
         nombre,
         direccioncompleta,
     } = this.props.authReducer.userprofile;
-
+    console.log("asd")
     const { comunicadoTransfers } = this.props.publicidadesReducer;
     return (
         <div className="animated fadeIn">

@@ -6,6 +6,9 @@ import testIMG2 from '../../assets/imagesTesting/909030151_01702013233133_001.pn
 import testIMG3 from '../../assets/imagesTesting/909030151_01702013233133_001.png'
 import testIMG4 from '../../assets/imagesTesting/909030151_01702013233133_001.png'
 import testIMG5 from '../../assets/imagesTesting/909030151_01702013233133_001.png'
+import { GET_DEBITOS } from '../../redux/actions/debitospamiActions';
+
+import { connect } from "react-redux";
 import {
     //Button,
     Card,
@@ -27,6 +30,9 @@ import DateFnsUtils from '@date-io/date-fns'
 import { esES } from '@material-ui/core/locale';
 import {es} from 'date-fns/esm/locale'
 import OpenibleImage from './Components/OpenibleImage';
+import Axios from 'axios';
+import { farmageo_api } from '../../config';
+import spinner from '../../assets/images/spinner.svg'
 
 const theme = createMuiTheme({
     palette: {
@@ -35,60 +41,71 @@ const theme = createMuiTheme({
     },
   }, esES);
 
-  const testCurrentImage=[testIMG1,testIMG2,testIMG3,testIMG4,testIMG5,]
 
-const DebitosPami = () => {
-    const [currentImages, setcurrentImages] = useState(testCurrentImage)
-    const [dateFilterto, setdateFilterto] = useState(new Date())
-    const [dateFilterFrom, setdateFilterFrom] = useState(new Date(dateFilterto.getTime() - 2592000000))
+const DebitosPami = (props) => {
+    const [currentImages, setcurrentImages] = useState(null)
+    const [dateFilterFrom, setdateFilterFrom] = useState(new Date(1601521200000))
     const [searchValue, setsearchValue] = useState("")
-
+    console.log(props)
+    useEffect(() => {
+        console.log("runing")
+        const doMonth= (date)=>{
+            if((dateFilterFrom.getMonth()+1) < 10){
+                return "0"+(dateFilterFrom.getMonth()+1)
+            }else{
+                return (dateFilterFrom.getMonth()+1)
+            }
+        }
+        setcurrentImages(null)
+        Axios.get(farmageo_api + "/farmacias/debitos/"+dateFilterFrom.getFullYear()+doMonth()+"/"+props.user.userprofile.usuario,)
+        .then(r=>{
+            console.log(r)
+            if(r.data.body.error){
+                setcurrentImages([])
+            }else{
+                setcurrentImages(r.data.body)
+            }
+        })
+        .catch(console.log("error"))
+    }, [dateFilterFrom])
     return (
         <Row>
             <ThemeProvider theme={theme}>
             <MuiPickersUtilsProvider locale={es} utils={DateFnsUtils}>
                 <Col xs="12" sm="12">
                     <Card>
-                        <CardHeader><b>Debitos PAMI</b></CardHeader>
+                        <CardHeader><b>Débitos PAMI</b></CardHeader>
                         <CardHeader>
                             <Row>
-                                <Col className="d-flex " xs="12" md="4">
-                                    <h5 className="mr-3 mt-1">Desde:</h5>
+                                <Col className="d-flex " xs="12" md="6">
+                                    <h5 className="mr-3 mt-1">Período:</h5>
                                     <DatePicker
                                         todayLabel="Hoy"
                                         cancelLabel="Cancelar"
                                         clearLabel="Limpiar"
                                         invalidLabel="Desconocido"
+                                        allowKeyboardControl
                                         disableFuture
                                         openTo="date"
-                                        format="dd/MM/yyyy"
-                                        views={["year", "month", "date"]}
-                                        value={dateFilterFrom}
-                                        onChange={e => setdateFilterFrom(e)}
-                                    />
-                                </Col>
-                                <Col className="d-flex " xs="12" md="4">
-                                    <h5 className="mr-3 mt-1">Hasta:</h5>
-                                    <DatePicker
-                                        disableFuture
-                                        openTo="date"
-                                        format="dd/MM/yyyy"
-                                        views={["year", "month", "date"]}
+                                        format="MM/yyyy"
+                                        views={["year", "month"]}
                                         value={dateFilterFrom}
                                         onChange={e => setdateFilterFrom(e)}
                                     />
                                 </Col>
                                 
-                                <Col className="d-flex " xs="12" md="4">
+                                <Col className="d-flex " xs="12" md="6">
                                     <Input value={searchValue} onChange={e=>setsearchValue(e.target.value)} style={{width:"100%"}} placeholder="Buscar por nombre" inputTypeSearch />
                                 </Col>
                             </Row>
                         </CardHeader>
                         <CardBody>
                             <Row>
-                                {currentImages.length>0 ?currentImages.map(image=> <OpenibleImage image={image}/>)
-                                :
-                                <div className="justify-content-center"><h3>No se encontraron debitos</h3></div>}
+                                {Array.isArray(currentImages) ? 
+                                    currentImages.length>0 ?currentImages.map(image=> <OpenibleImage archivo={image.archivo} image={farmageo_api+"/debitos/"+image.periodo+"/"+image.archivo}/>)
+                                        :
+                                    <div className="justify-content-center w-100 text-center"><h3>No se encontraron débitos</h3></div> :
+                                    <div style={{width:"100%"}} className="d-flex justify-content-center"><img style={{width:"70px"}} src={spinner} /></div>}
                             </Row>
                         </CardBody>
                     </Card>
@@ -98,5 +115,14 @@ const DebitosPami = () => {
         </Row>
     )
 }
+const mapStateToProps = (state) => {
+    return {
+      debitospamiReducer: state.debitospamiReducer,
+      user:state.authReducer,
+    };
+  };
 
-export default DebitosPami
+const mapDispatchToProps = {
+    GET_DEBITOS
+};
+export default connect(mapStateToProps, mapDispatchToProps)(DebitosPami);

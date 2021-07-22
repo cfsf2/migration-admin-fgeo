@@ -17,7 +17,7 @@ const miniaturaStyle= {
     objectFit:"contain",
     width:"100%"
 }
-const OpenibleImage = ({image}) => {
+const OpenibleImage = ({image,archivo}) => {
     const [modalOpen, setmodalOpen] = useState(false)
     const handleClickOpen = () => {
         setmodalOpen(true);
@@ -32,7 +32,7 @@ const OpenibleImage = ({image}) => {
     return (
         <Col key={image} className="my-2 text-center" sm="12" md="3">
             <ImgMiniature onClick={handleClickOpen}  src={image} />
-            <FileName onClick={handleClickOpen} >{image}</FileName>
+            <FileName onClick={handleClickOpen} >{archivo}</FileName>
             <Dialog
                 key={image}
                 open={modalOpen}
@@ -43,11 +43,11 @@ const OpenibleImage = ({image}) => {
                 aria-labelledby={"alert-dialog-slide-title"+image}
                 aria-describedby={"alert-dialog-slide-description"+image}
             >
-                <DialogTitle id={"alert-dialog-slide-title"+image}>{image}</DialogTitle>
+                <DialogTitle id={"alert-dialog-slide-title"+image}>{archivo}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id={"alert-dialog-slide-description"+image}>
                         <div className="d-flex flex-column align-items-center">
-                            <img src={image}/>
+                            <img onClick={(e)=>window.open(image,'_blank')} style={{cursor:"pointer"}} src={image}/>
                         </div>
                     </DialogContentText>
                 </DialogContent>

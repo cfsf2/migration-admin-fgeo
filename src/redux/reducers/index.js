@@ -9,6 +9,7 @@ import denunciasReducer from "./denunciasReducer";
 import tranfersReducer from "./tranfersReducer";
 import packsproductosReducer from "./packsproductosReducer";
 import reportOSReducer from "./reportOSReducer";
+import debitospamiReducer from "./debitospamiReducer";
 
 export default combineReducers({
   imageReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
   denunciasReducer,
   tranfersReducer,
   packsproductosReducer,
-  reportOSReducer
+  reportOSReducer,
+  debitospamiReducer
 });

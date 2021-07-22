@@ -13,7 +13,7 @@ export const TRYREGISTER = (body)=>{
   return dispatch=>{
     axios.post(farmageo_api+"/farmacias/register-try",{
       email:body,
-      destinatario:"soporte@farmageo.com",
+      destinatario:"soporte@farmageo.com.ar",
       version: "2"
     }).then(r=>alert(JSON.stringify(r.data)))
   }
