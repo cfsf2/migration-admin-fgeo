@@ -182,7 +182,7 @@ const Login = (props) => {
       <div style={{width:"100%"}} className="container-fluid">
         <div style={backgroundStyle} className="row ">
 
-          <div style={{height: window.innerWidth > 769 ? window.innerHeight : window.innerHeight}} className="col-md-8 col-sm-12 d-flex pl-md-5 pl-sm-3 flex-column overflow-hidden">
+          {window.innerWidth >769 ? <div style={{height: window.innerWidth > 769 ? window.innerHeight : window.innerHeight}} className="col-md-8 col-sm-0 d-flex pl-md-5 pl-sm-3 flex-column overflow-hidden">
             <img src={logoWhite} style={{ width: "150px", marginTop: "50px" }} />
             <div style={{ margin: window.innerWidth > 769 ? "auto 0" : "70px 0" }}>
               <h1 style={h1Stule} className="bold white">Mi Farmacia digital</h1>
@@ -198,7 +198,10 @@ const Login = (props) => {
                 <img src={iLocation} style={{ widht: "25px", height: "22px" }} /> <a style={{ fontSize: "18px", ...whiteStyle }} target="_blank" href="https://www.google.com/maps/place/Buenos+Aires+1262,+S2000+Rosario,+Santa+Fe/data=!4m2!3m1!1s0x95b7ab04a721ba5d:0x1080c44b44f427bf?sa=X&ved=2ahUKEwi36ryKmczxAhXnqJUCHdvjCToQ8gEwAHoECAYQAQ">Buenos aires 1262, Rosario</a>
               </div>
             </div>
-          </div>
+          </div>:
+          <div className="col-sm-12 mb-2 d-flex justify-content-center">
+            <img src={logoWhite} style={{ width: "100px", marginTop: "50px" }} />
+          </div>}
           <div className="col-md-4 col-sm-12 d-flex flex-column overflow-hidden pr-md-5 pr-sm-3" style={{ ...whiteStyle }}>
             <form className="d-flex flex-column mt-auto mb-2 text-center" style={formStyle}>
 

@@ -72,6 +72,8 @@ class Perfil extends Component {
 
   render() {
     const {
+      telefono,
+      cuit,
       telefonofijo,
       calle,
       numero,
@@ -156,7 +158,32 @@ class Perfil extends Component {
                         </Col>
                       </Row>
                     </FormGroup>
-
+                    <FormGroup>
+                      <Row>
+                        <Col md="6" xs="12" className="my-2">
+                          <Label htmlFor="Telefono">Teléfono</Label>
+                          <Input
+                            type="text"
+                            placeholder="Teléfono"
+                            id="Telefono"
+                            name="telefono"
+                            defaultValue={telefono}
+                            onChange={this.handleInputChange}
+                          />
+                        </Col>
+                        <Col md="6" xs="12" className="my-2">
+                          <Label htmlFor="Cuit">CUIT</Label>
+                          <Input
+                            type="text"
+                            placeholder="CIUT"
+                            id="cuit"
+                            name="cuit"
+                            defaultValue={cuit}
+                            onChange={this.handleInputChange}
+                          />
+                        </Col>
+                      </Row>
+                    </FormGroup>
                     <FormGroup>
                       <Row>
                         <Col md="4" xs="12" className="my-2">

@@ -16,6 +16,7 @@ const Servicios = React.lazy(() => import("./views/Servicios/Servicios"));
 const Horarios = React.lazy(() => import("./views/Horarios/Horarios"));
 const Soporte = React.lazy(() => import("./views/Soporte/Soporte"));
 const ReporteOOSS = React.lazy(() => import("./views/ReporteOOSS/ReporteOOSS"));
+const DebitosPami = React.lazy(() => import("./views/DebitosPami/DebitosPami"));
 const PedidosAdmin = React.lazy(() => import("./views/Pedidos/pedidosAdmin"));
 const Novedades = React.lazy(() => import("./views/Publicidades/Novedades"));
 const InfoInteres = React.lazy(() =>
@@ -138,6 +139,12 @@ const routes = [
     name: "perfilfarmageo",
     component: VentaOnlineSelect
   },
+  {
+    path: "/debitosPami",
+    name: "debitosPami",
+    component: DebitosPami
+  },
+  
   
 
   /*

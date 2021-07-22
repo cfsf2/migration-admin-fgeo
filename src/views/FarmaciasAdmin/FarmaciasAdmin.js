@@ -224,12 +224,14 @@ class FarmaciasAdmin extends Component {
                     }
                   }}
                   columns={[
-                    { title: 'id', field: 'farmaciaid' },
-                    { title: 'Nombre', field: 'nombre' },
+                    { title: 'id', field: 'farmaciaid',  },
+                    { title: 'Nombre', field: 'nombre' , align:"center"},
+                    { title: 'Cuit', field: 'cuit' , align:"center"},
+                    { title: 'Teléfono', field: 'telefono', align:"center" },
                     { title: 'Venta online Farmageo', align: "center", render: rowData => <div className={this.getClassPerfil(rowData.perfil_farmageo)}>{rowData.perfil_farmageo}</div> },
-                    { title: 'Usuario', field: 'usuario' },
+                    { title: 'Usuario', field: 'usuario' , align:"center"},
                     { title: 'Password', field: 'fecha',align: "center", render: rowData => <VerPw pw={rowData.pw}/> },
-                    { title: 'Último acceso', field: 'ultimoacceso4table' },
+                    { title: 'Último acceso', field: 'ultimoacceso4table' , align:"center"},
                     { title: 'Detalle', render:rowData=><Button onClick={e=>this.handleNombreFarmacia(rowData)} data-toggle="modal" data-target=".bd-example-modal-lg">Ver</Button> },
                     { title: 'Estado', field: 'habilitado', type: 'boolean' },
                     { title: 'Bloqueo',render:rowData=><BlockButton change={this.handleHabilitado} rowData={rowData}/>},

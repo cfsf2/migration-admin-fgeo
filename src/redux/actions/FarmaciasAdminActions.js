@@ -132,6 +132,8 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
           localidad: farmacia.localidad,
           nombre: farmacia.nombre,
           cp: farmacia.cp,
+          cuit:farmacia.cuit,
+          telefono:farmacia.telefono,
           calle: farmacia.calle,
           provincia: farmacia.provincia,
           farmaciaid: farmacia.matricula,

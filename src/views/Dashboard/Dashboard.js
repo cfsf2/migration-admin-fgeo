@@ -158,7 +158,7 @@ class Dashboard extends Component {
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }} align="center" >
                         <ButtonHome
-                          to="/reporteObras"
+                          to="/debitosPami"
                           titulo="DEBITOS PAMI"
                           subtitulo="Consultar aquí"
                           align="left"

@@ -35,6 +35,8 @@ class AltaFarmacia extends Component {
         localidad: "",
         cp: "",
         provincia: "",
+        telefono:"",
+        cuit:""
       },
       login: {
         username: "",
@@ -166,6 +168,32 @@ class AltaFarmacia extends Component {
                       />
                     </FormGroup>
                   </Col>
+                </Row>
+                
+                <Row>
+                  <Col xs="12" md="6">
+                    <FormGroup>
+                      <Label>Teléfono</Label>
+                      <Input
+                        type="text"
+                        name="telefono"
+                        onChange={this.handleInputChangefarmacia}
+                        value={this.state.farmacia.telefono}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col xs="12" md="6">
+                    <FormGroup>
+                      <Label>Cuit</Label>
+                      <Input
+                        type="text"
+                        name="cuit"
+                        onChange={this.handleInputChangefarmacia}
+                        value={this.state.farmacia.cuit}
+                      />
+                    </FormGroup>
+                  </Col>
+                  
                 </Row>
                 <Row>
                   <Col xs="12" md="6">
