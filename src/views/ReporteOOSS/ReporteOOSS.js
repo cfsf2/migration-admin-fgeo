@@ -52,7 +52,7 @@ const ReporteOOSS = (props) => {
                                 <Col xs="12">
                                     <Row>
                                         <Col className="no-select">
-                                            {props.reportOSReducer.oossInactivas.map(ooss=><h5 key={ooss}>{ooss}</h5>)}
+                                            {props.reportOSReducer.oossInactivas ?props.reportOSReducer.oossInactivas.map(ooss=><h5 key={ooss}>{ooss}</h5>):null}
                                         </Col>
                                         
                                     </Row>
@@ -67,9 +67,9 @@ const ReporteOOSS = (props) => {
                             <Row>
                                 <Col xs="12">
                                     <Row >
-                                        <Col style={{textAlign:"center", color:"red", fontSize:"30px",minHeight:"400px",display:"flex",alignItems: "center",justifyContent: "center"}}>
+                                    {props.reportOSReducer.alert?<Col style={{textAlign:"center", color:"red", fontSize:"30px",minHeight:"400px",display:"flex",alignItems: "center",justifyContent: "center"}}>
                                            <strong >{props.reportOSReducer.alert}</strong>
-                                        </Col>
+                                        </Col>:null}
                                         
                                     </Row>
                                 </Col>

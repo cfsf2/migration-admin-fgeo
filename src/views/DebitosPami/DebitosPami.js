@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-import testIMG1 from '../../assets/imagesTesting/909030151_01702013233133_001.png'
-import testIMG2 from '../../assets/imagesTesting/909030151_01702013233133_001.png'
-import testIMG3 from '../../assets/imagesTesting/909030151_01702013233133_001.png'
-import testIMG4 from '../../assets/imagesTesting/909030151_01702013233133_001.png'
-import testIMG5 from '../../assets/imagesTesting/909030151_01702013233133_001.png'
 import { GET_DEBITOS } from '../../redux/actions/debitospamiActions';
 
 import { connect } from "react-redux";
@@ -26,6 +21,7 @@ import {
     DatePicker,
     MuiPickersUtilsProvider
 } from "@material-ui/pickers";
+import moment from "moment";
 import DateFnsUtils from '@date-io/date-fns'
 import { esES } from '@material-ui/core/locale';
 import {es} from 'date-fns/esm/locale'
@@ -57,7 +53,9 @@ const DebitosPami = (props) => {
             }
         }
         setcurrentImages(null)
-        Axios.get(farmageo_api + "/farmacias/debitos/"+dateFilterFrom.getFullYear()+doMonth()+"/"+props.user.userprofile.usuario,)
+        console.log(farmageo_api + "/farmacias/debitos/"+dateFilterFrom.getFullYear()+doMonth()+"/"+props.user.userprofile.usuario)
+        try{
+            Axios.get(farmageo_api + "/farmacias/debitos/"+dateFilterFrom.getFullYear()+doMonth()+"/"+props.user.userprofile.usuario,)
         .then(r=>{
             console.log(r)
             if(r.data.body.error){
@@ -66,7 +64,10 @@ const DebitosPami = (props) => {
                 setcurrentImages(r.data.body)
             }
         })
-        .catch(console.log("error"))
+        .catch(setcurrentImages([]))
+        }catch{
+           setcurrentImages([])
+        }
     }, [dateFilterFrom])
     return (
         <Row>
@@ -80,6 +81,7 @@ const DebitosPami = (props) => {
                                 <Col className="d-flex " xs="12" md="6">
                                     <h5 className="mr-3 mt-1">Período:</h5>
                                     <DatePicker
+                                        minDate={new Date(1596250800000)}
                                         todayLabel="Hoy"
                                         cancelLabel="Cancelar"
                                         clearLabel="Limpiar"
