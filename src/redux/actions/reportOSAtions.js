@@ -7,6 +7,7 @@ export const GET_REPORTE_OOSS = () => {
     axios
       .get(farmageo_api + "/repooss", {})
       .then(function (response) {
+        console.log(response)
         dispatch({
           type: "GET_REPORTE_OOSS",
           payload: response.data,
