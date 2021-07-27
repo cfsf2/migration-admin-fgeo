@@ -28,7 +28,7 @@ import { GET_FARMACIA } from '../../redux/actions/farmaciaActions';
 import { es } from 'date-fns/esm/locale'
 import OpenibleImage from './Components/OpenibleImage';
 import Axios from 'axios';
-import { farmageo_api } from '../../config';
+import { farmageo_api, image_path_server } from '../../config';
 import spinner from '../../assets/images/spinner.svg'
 
 const theme = createMuiTheme({
@@ -54,23 +54,16 @@ const DebitosPami = (props) => {
                 }
             }
             setcurrentImages(null)
-            console.log(props.farmacia)
             Axios.get(farmageo_api + "/farmacias/" + props.user.userprofile.usuario).then(r => {
-                console.log(r.data.cufe)
                 try {
                     Axios.get(farmageo_api + "/farmacias/debitos/" + dateFilterFrom.getFullYear() + doMonth() + "/" + r.data.cufe,)
                         .then(r2 => {
-                            console.log(r2)
-                            if (!r.data.body) {
+                            if(r2.data.statusCode===500){
                                 setcurrentImages([])
-                            } else {
-                                if (r2.data.body.error) {
-                                    setcurrentImages([])
-                                }
-                                else {
-                                    setcurrentImages(r2.data.body)
-                                }
+                            }else{
+                                setcurrentImages(r2.data.body)
                             }
+                            
                         })
                         .catch(setcurrentImages([]))
                 } catch {
@@ -119,13 +112,14 @@ const DebitosPami = (props) => {
                             <CardBody>
                                 <Row>
                                     {Array.isArray(currentImages) ?
-                                        currentImages.length > 0 ? currentImages.map(image => <OpenibleImage archivo={image.archivo} image={farmageo_api + "/debitos/" + image.periodo + "/" + image.archivo} />)
+                                        currentImages.length > 0 ? currentImages.map(image => <OpenibleImage archivo={image.archivo} image={image_path_server + "debitos/" + image.periodo + "/" + image.archivo} />)
                                             :
                                             <div className="justify-content-center w-100 text-center"><h3>No se encontraron débitos</h3></div> :
                                         <div style={{ width: "100%" }} className="d-flex justify-content-center"><img style={{ width: "70px" }} src={spinner} /></div>}
                                 </Row>
                             </CardBody>
                         </Card>
+                        
                     </Col>
                 </MuiPickersUtilsProvider>
             </ThemeProvider>
