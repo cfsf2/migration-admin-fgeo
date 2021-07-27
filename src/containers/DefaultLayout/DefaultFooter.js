@@ -24,7 +24,7 @@ class DefaultFooter extends Component {
                         </Col>
                         <Col>
                             <span style={{ float: "right" }}>
-                                Últ. modif. 13/07/2021 18:30hs
+                                Últ. modif. 27/07/2021 14:00hs
                             </span>
                         </Col>
                     </Row>
