@@ -105,7 +105,7 @@ const DebitosPami = (props) => {
                                     </Col>
 
                                     <Col className="d-flex " xs="12" md="6">
-                                        <Input value={searchValue} onChange={e => setsearchValue(e.target.value)} style={{ width: "100%" }} placeholder="Buscar por nombre" inputTypeSearch />
+                                        <h4>Clickee las imagenes para verlas en pantalla completa</h4>
                                     </Col>
                                 </Row>
                             </CardHeader>

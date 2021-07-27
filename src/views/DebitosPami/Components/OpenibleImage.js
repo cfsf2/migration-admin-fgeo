@@ -25,9 +25,7 @@ const OpenibleImage = ({image,archivo}) => {
     
       const handleClose = () => {
         setmodalOpen(false);
-        document.getElementsByClassName('MuiDialog-root').forEach(element => {
-            element.style="position: fixed; z-index: 1300; inset: 0px; visibility: hidden;"
-        });
+       
       };
     return (
         <Col key={image} className="my-2 text-center" sm="12" md="3">
@@ -47,11 +45,12 @@ const OpenibleImage = ({image,archivo}) => {
                 <DialogContent>
                     <DialogContentText id={"alert-dialog-slide-description"+image}>
                         <div className="d-flex flex-column align-items-center">
-                            <img onClick={(e)=>window.open(image,'_blank')} style={{cursor:"pointer"}} src={image}/>
+                            <img  style={{cursor:"pointer"}} src={image}/>
                         </div>
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions className="">
+                    <Button onClick={(e)=>window.open(image,'_blank')} color="secondary">Descargar</Button>
                     <Button onClick={handleClose} color="primary">
                         Cerrar
                     </Button>
