@@ -1,5 +1,5 @@
 import axios from "axios";
-import { farmageo_api,  wp_api_auth} from "../../config";
+import { farmageo_api, wp_api_auth } from "../../config";
 //const URL = "http://api.farmageo.com.ar:8000";
 const URL = wp_api_auth;
 
@@ -22,7 +22,7 @@ const VALIDAR_TOKEN = async () => {
         console.log("ok");
       }
     })
-    .catch(function (error) {});
+    .catch(function (error) { });
 };
 
 export const GET_FARMACIAS = () => {
@@ -79,7 +79,6 @@ export const CHEQUEAR_SI_EXISTE = (farmaciaid) => {
 export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
   return async (dispatch) => {
     var token = await localStorage.getItem("token");
-    // console.log(token)
     var emailDefault = login.username.toLowerCase() + "@farmageoapp.com.ar";
     axios
       .post(
@@ -102,11 +101,8 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
       )
       .then((response) => {
         if (response.status == "201" || response.status == "200") {
-          console.log("Se dió de alta en wp_api");
-          // paso 2
           dispatch(ALTA_USER_API_FARMAGEO(farmacia, login, history));
         } else {
-          console.log("Ha ocurrido un error");
           alert("Ha ocurrido un error");
         }
       })
@@ -132,8 +128,10 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
           localidad: farmacia.localidad,
           nombre: farmacia.nombre,
           cp: farmacia.cp,
-          cuit:farmacia.cuit,
-          telefono:farmacia.telefono,
+          cuit: farmacia.cuit,
+          cufe: farmacia.cufe,
+          email: farmacia.email,
+          telefono: farmacia.telefono,
           calle: farmacia.calle,
           provincia: farmacia.provincia,
           farmaciaid: farmacia.matricula,
@@ -164,7 +162,7 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
           history.push("/farmaciasAdmin");
         } else {
           console.log(
-            "se creo el usario de login pero no el perfil en la base de mongoo"
+            "se creo el usuario de login pero no el perfil en la base de mongoo"
           );
           alert("Ha ocurrido un error");
         }
@@ -343,7 +341,7 @@ export const UPDATE_FARMACIA_ADMIN_RESPONSE = (farmacia) => {
       .then(function (response) {
         if (response.status === 201) {
           dispatch(GET_FARMACIAS());
-          return(response)
+          return (response)
         } else {
           alert("ha ocurrido un error");
         }

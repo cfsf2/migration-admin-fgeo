@@ -21,6 +21,7 @@ import {
 // import ItemFarmacia from './components/ItemFarmacia';
 
 class AltaFarmacia extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -35,8 +36,10 @@ class AltaFarmacia extends Component {
         localidad: "",
         cp: "",
         provincia: "",
-        telefono:"",
-        cuit:""
+        telefono: "",
+        cuit: "",
+        cufe: "",
+        email: "",
       },
       login: {
         username: "",
@@ -128,6 +131,7 @@ class AltaFarmacia extends Component {
                       <Input
                         type="text"
                         name="usuario"
+                        autoComplete="off"
                         onChange={this.handleUsuario}
                         value={this.state.farmacia.usuario}
                       />
@@ -139,6 +143,7 @@ class AltaFarmacia extends Component {
                       <Input
                         type="password"
                         name="password"
+                        autoComplete="off"
                         onChange={this.handlePassword}
                         value={this.state.login.password}
                       />
@@ -169,9 +174,9 @@ class AltaFarmacia extends Component {
                     </FormGroup>
                   </Col>
                 </Row>
-                
+
                 <Row>
-                  <Col xs="12" md="6">
+                  <Col xs="12" md="4">
                     <FormGroup>
                       <Label>Teléfono</Label>
                       <Input
@@ -182,7 +187,7 @@ class AltaFarmacia extends Component {
                       />
                     </FormGroup>
                   </Col>
-                  <Col xs="12" md="6">
+                  <Col xs="12" md="4">
                     <FormGroup>
                       <Label>Cuit</Label>
                       <Input
@@ -193,10 +198,21 @@ class AltaFarmacia extends Component {
                       />
                     </FormGroup>
                   </Col>
-                  
+                  <Col xs="12" md="4">
+                    <FormGroup>
+                      <Label>Cod PAMI</Label>
+                      <Input
+                        type="text"
+                        name="cufe"
+                        onChange={this.handleInputChangefarmacia}
+                        value={this.state.farmacia.cufe}
+                      />
+                    </FormGroup>
+                  </Col>
                 </Row>
+
                 <Row>
-                  <Col xs="12" md="6">
+                  <Col xs="12" md="4">
                     <FormGroup>
                       <Label>Calle</Label>
                       <Input
@@ -207,7 +223,7 @@ class AltaFarmacia extends Component {
                       />
                     </FormGroup>
                   </Col>
-                  <Col xs="12" md="6">
+                  <Col xs="12" md="2">
                     <FormGroup>
                       <Label>Número</Label>
                       <Input
@@ -218,7 +234,7 @@ class AltaFarmacia extends Component {
                       />
                     </FormGroup>
                   </Col>
-                  <Col xs="12" md="6">
+                  <Col xs="12" md="3">
                     <FormGroup>
                       <Label>Localidad</Label>
                       <Input
@@ -229,7 +245,7 @@ class AltaFarmacia extends Component {
                       />
                     </FormGroup>
                   </Col>
-                  <Col xs="12" md="6">
+                  <Col xs="12" md="3">
                     <FormGroup>
                       <Label>CP</Label>
                       <Input
@@ -240,6 +256,8 @@ class AltaFarmacia extends Component {
                       />
                     </FormGroup>
                   </Col>
+                </Row>
+                <Row>
                   <Col xs="12" md="6">
                     <FormGroup>
                       <Label>Provincia</Label>
@@ -248,6 +266,19 @@ class AltaFarmacia extends Component {
                         name="provincia"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.provincia}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="12" md="6">
+                    <FormGroup>
+                      <Label>@ Correo Electrónico </Label>
+                      <Input
+                        type="text"
+                        name="email"
+                        onChange={this.handleInputChangefarmacia}
+                        value={this.state.farmacia.email}
                       />
                     </FormGroup>
                   </Col>
