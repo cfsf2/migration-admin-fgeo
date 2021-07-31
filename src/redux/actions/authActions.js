@@ -9,13 +9,13 @@ export const RESET_ERROR = () => {
   };
 };
 
-export const TRYREGISTER = (body)=>{
-  return dispatch=>{
-    axios.post(farmageo_api+"/farmacias/register-try",{
-      email:body,
-      destinatario:"soporte@farmageo.com.ar",
+export const TRYREGISTER = (body) => {
+  return dispatch => {
+    axios.post(farmageo_api + "/farmacias/register-try", {
+      email: body,
+      destinatario: "soporte@farmageo.com.ar",
       version: "2"
-    }).then(r=>alert(JSON.stringify(r.data)))
+    }).then(r => alert(JSON.stringify(r.data)))
   }
 }
 
@@ -27,26 +27,13 @@ export const LOGIN = (user, password) => {
         password: password,
       })
       .then(function (response) {
-        if (response.data === "") {
-          dispatch({
-            type: "LOGIN_ERROR",
-            error: {
-              code: 404,
-              title: "Error",
-              message: "Usuario o password incorrectos",
-            },
-          });
+
+        if (response.data.statusCode == 500) {
+
+          alert('Usuario y/o contraseña incorrectos')
+
         } else {
-          /*if (!response.data.user_rol.includes("usuario")) {
-            return dispatch({
-              type: "LOGIN_ERROR",
-              error: {
-                code: 503,
-                title: "Error",
-                message: "Usuario o password incorrectos",
-              },
-            });
-          }*/
+
           dispatch({ type: "authenticated", payload: user });
           dispatch({ type: "LOGIN_OK", payload: response.data });
           dispatch({ type: "GET_USER_ROLES" });
@@ -104,29 +91,8 @@ export const LOGOUT = () => {
   };
 };
 
-/*const ckeck_version_app = () => {
-  axios
-    .get(wp_api_auth + "/version/")
-    .then(async function (response) {
-      // console.log(response);
-      if (response.data.version == 1616) {
-        // document.location.reload(true);
-        console.log("versión ok");
-      } else {
-        console.log("no coincide la versión");
-        alert(
-          "Hay una actualización en la aplicación. Se refrescará el navegador"
-        );
-        document.location.reload(true);
-      }
-    })
-    .catch(function (error) {
-      //document.location.reload(true);
-      console.log(error);
-      document.location.reload(true);
-    });
-};
-*/
+
+
 //TODO: AQUI SE DEBERIA CONSULTAR OTRA VEZ A LA API PARA PEDIS LOS ROLES: ARREGLAR ESTO PRONTO
 export const GET_USER_ROLES = () => {
   return (dispatch) => {
@@ -155,3 +121,4 @@ export const GET_SESSION = () => {
     }
   };
 };
+

@@ -141,7 +141,7 @@ class AltaFarmacia extends Component {
                     <FormGroup>
                       <Label>Contraseña</Label>
                       <Input
-                        type="password"
+                        type="text"
                         name="password"
                         autoComplete="off"
                         onChange={this.handlePassword}
@@ -269,8 +269,6 @@ class AltaFarmacia extends Component {
                       />
                     </FormGroup>
                   </Col>
-                </Row>
-                <Row>
                   <Col xs="12" md="6">
                     <FormGroup>
                       <Label>@ Correo Electrónico </Label>
@@ -281,6 +279,11 @@ class AltaFarmacia extends Component {
                         value={this.state.farmacia.email}
                       />
                     </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="12" md="6">
+
                   </Col>
                   <Col xs="12" md="6">
                     <FormGroup>

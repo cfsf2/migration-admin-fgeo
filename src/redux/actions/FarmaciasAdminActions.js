@@ -75,7 +75,6 @@ export const CHEQUEAR_SI_EXISTE = (farmaciaid) => {
   };
 };
 
-// Paso 1 -> Crea el usuario en la wp_api.
 export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
   return async (dispatch) => {
     var token = await localStorage.getItem("token");
@@ -84,7 +83,7 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
       .post(
         URL + "/users/alta-usuario",
         {
-          username: login.username.toUpperCase(),
+          username: login.username,
           password: login.password,
           name: farmacia.nombre,
           first_name: "farmacia",
@@ -115,7 +114,6 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
   };
 };
 
-// Paso 2(último) -> Crea la farmacia en api_farmageo.
 const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
   return (dispatch) => {
     axios
@@ -130,7 +128,7 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
           cp: farmacia.cp,
           cuit: farmacia.cuit,
           cufe: farmacia.cufe,
-          email: farmacia.email,
+          email: farmacia.email.toLowerCase(),
           telefono: farmacia.telefono,
           calle: farmacia.calle,
           provincia: farmacia.provincia,
@@ -161,9 +159,7 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
           alert("Se agregó una nueva farmacia correctamente");
           history.push("/farmaciasAdmin");
         } else {
-          console.log(
-            "se creo el usuario de login pero no el perfil en la base de mongoo"
-          );
+          console.log("se creo el usuario de login pero no el perfil en la base de mongoo");
           alert("Ha ocurrido un error");
         }
       })
