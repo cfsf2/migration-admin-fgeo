@@ -32,7 +32,7 @@ const ReporteOOSS = (props) => {
                                 <Col xs="12">
                                     <Row>
                                         <Col>
-											<embed src={'https://farmageo2.s3.amazonaws.com/ooss/ooss.pdf'} zoo="true" width="100%" height="700px" type="application/pdf" />
+                                            <embed src={'https://farmageo2.s3.amazonaws.com/ooss/ooss.pdf'} zoo="true" width="100%" height="700px" type="application/pdf" />
                                         </Col>
                                     </Row>
                                 </Col>
@@ -50,24 +50,26 @@ const ReporteOOSS = (props) => {
                                 <Col xs="12">
                                     <Row>
                                         <Col className="no-select">
-                                            {props.reportOSReducer.oossInactivas ?props.reportOSReducer.oossInactivas.map(ooss=><h5 key={ooss}>{ooss}</h5>):null}
-                                        </Col>                                        
+                                            {
+                                                props.reportOSReducer.oossInactivas ? props.reportOSReducer.oossInactivas.map(ooss => <h5 key={ooss}>{ooss}</h5>) : null
+                                            }
+                                        </Col>
                                     </Row>
                                 </Col>
                             </Row>
                         </CardBody>
                     </Card>
-                    
-                    <Card >                        
+
+                    <Card >
                         <CardBody>
                             <Row>
                                 <Col xs="12">
                                     <Row >
-                                    	{
-											props.reportOSReducer.alert?<Col style={{textAlign:"center", color:"red", fontSize:"30px",minHeight:"400px",display:"flex",alignItems: "center",justifyContent: "center"}}>
-                                        <strong >{props.reportOSReducer.alert}</strong>
-                                        </Col>:null
-										}                                        
+                                        {
+                                            props.reportOSReducer.alert ? <Col style={{ textAlign: "center", color: "red", fontSize: "24px", minHeight: "400px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                                <strong >{props.reportOSReducer.alert}</strong>
+                                            </Col> : null
+                                        }
                                     </Row>
                                 </Col>
                             </Row>
