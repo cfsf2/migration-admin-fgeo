@@ -115,12 +115,15 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
 };
 
 const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
+
+  var username = farmacia.usuario.includes("@") ? farmacia.usuario.toLowerCase() : farmacia.usuario.toUpperCase();
+
   return (dispatch) => {
     axios
       .post(
         farmageo_api + "/farmacias",
         {
-          usuario: farmacia.usuario,
+          usuario: username,
           nombrefarmaceutico: farmacia.nombrefarmaceutico,
           matricula: farmacia.matricula,
           localidad: farmacia.localidad,
