@@ -56,7 +56,7 @@ class LaboratorioSelect extends Component {
           }}
         >
           <a
-            href={process.env.PUBLIC_URL+`/#/FinalizarTransfer?l=${this.props.laboratorio._id}`}
+            href={process.env.PUBLIC_URL + `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`}
             style={{
               color: "#20a8d8",
               backgroundColor: "#ffffff",

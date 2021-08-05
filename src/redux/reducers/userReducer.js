@@ -7,39 +7,39 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
-    switch (action.type){
+    switch (action.type) {
         case 'GET_USUARIO':
-            return{
+            return {
                 ...state,
                 usuario: action.payload,
-                load:true
+                load: true
             }
         case 'GET_USUARIOS':
-            return{
+            return {
                 ...state,
                 usuarios: action.payload,
             }
         case 'OPEN_MODAL_ADDEDIT':
-            return{
+            return {
                 ...state,
                 show_modal_adddedit: true
-            }            
+            }
         case 'CLOSE_MODAL_ADDEDIT':
-            return{
+            return {
                 ...state,
                 show_modal_adddedit: false
-            }        
+            }
         case 'LOGOUT':
-            return{
+            return {
                 usuario: null,
                 load: false,
                 fin: false,
                 usuarios: [],
                 show_modal_adddedit: false
-            }        
-            
+            }
+
         default:
-                return state;                  
-    }   
+            return state;
+    }
 }
 

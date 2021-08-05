@@ -43,7 +43,6 @@ const DebitosPami = (props) => {
     const [dateFilterFrom, setdateFilterFrom] = useState(new Date(1601521200000))
     const [searchValue, setsearchValue] = useState("")
 
-
     useEffect(() => {
         async function fetchData() {
             const doMonth = (date) => {
@@ -58,21 +57,17 @@ const DebitosPami = (props) => {
                 try {
                     Axios.get(farmageo_api + "/farmacias/debitos/" + dateFilterFrom.getFullYear() + doMonth() + "/" + r.data.cufe,)
                         .then(r2 => {
-                            if(r2.data.statusCode===500){
+                            if (r2.data.statusCode === 500) {
                                 setcurrentImages([])
-                            }else{
+                            } else {
                                 setcurrentImages(r2.data.body)
                             }
-                            
                         })
                         .catch(setcurrentImages([]))
                 } catch {
                     setcurrentImages([])
                 }
             })
-
-
-
         }
         fetchData()
     }, [dateFilterFrom])
@@ -119,7 +114,7 @@ const DebitosPami = (props) => {
                                 </Row>
                             </CardBody>
                         </Card>
-                        
+
                     </Col>
                 </MuiPickersUtilsProvider>
             </ThemeProvider>

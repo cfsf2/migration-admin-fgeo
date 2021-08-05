@@ -203,30 +203,25 @@ export const DELETE_PRODUCTO_TRANSFER = (obj) => {
       .delete(farmageo_api + "/productosTransfers/" + obj._id)
       .then(function (response) {
         dispatch(GET_PRODUCTOS_TRANSFERS());
-        console.log(response);
       })
       .catch(function (error) {
-        console.log(error);
       });
   };
 };
 
 //********************** TRANSFERS ******************************* */
 export const ADD_TRANSFER = (transfer, history, html, destinatario) => {
+
   return (dispatch) => {
     axios
       .post(farmageo_api + "/transfers", {
         ...transfer,
-        destinatario:
-          destinatario +
-          ";transfers@farmageo.com.ar;",
+        destinatario: destinatario + ";transfers@farmageo.com.ar;",
         asunto: "Confirmación de pedido de Transfer",
         html,
         version: "2",
       })
       .then(function (response) {
-        // dispatch(GET_TRANSFERS());
-        // dispatch(SUBMITTING(false));
         if (response.status == 200) {
           history.push("/ConfirmacionPedido");
         } else {
@@ -234,10 +229,9 @@ export const ADD_TRANSFER = (transfer, history, html, destinatario) => {
         }
       })
       .catch(function (error) {
-        //dispatch(SUBMITTING(false));
-        console.log(error);
-        alert("ha ocurrido un error");
+        alert("Ha ocurrido un error");
       });
+
   };
 };
 

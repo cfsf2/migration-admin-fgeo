@@ -1,7 +1,7 @@
 const defaultState = {
     user: {
         username: null,
-        user_display_name: null, 
+        user_display_name: null,
         token: null,
         islogin: false,
         roles: [],
@@ -9,17 +9,18 @@ const defaultState = {
         IS_USER: false,
         IS_FARMACIA: false,
         user_id: null,
-        userprofile: null,                            
+        userprofile: null,
     },
     error: {},
-    userprofile:null
+    userprofile: null
 };
 
 export default (state = defaultState, action) => {
-    switch (action.type){
+
+    switch (action.type) {
+
         case 'LOGIN_OK':
-            // console.log(action.payload)
-            return{
+            return {
                 ...state,
                 user: {
                     user_id: action.payload.user_id,
@@ -27,33 +28,35 @@ export default (state = defaultState, action) => {
                     user_display_name: action.payload.user_display_name,
                     token: action.payload.token,
                     roles: action.payload.user_rol,
-                    islogin:true,
+                    islogin: true,
                     IS_ADMIN: action.payload.user_rol.includes('admin'),
                     IS_USER: action.payload.user_rol.includes('user'),
-                    IS_FARMACIA: action.payload.user_rol.includes('farmacia')                    
+                    IS_FARMACIA: action.payload.user_rol.includes('farmacia')
                 }
             }
+
         case 'authenticated':
-            return{
+            return {
                 ...state,
                 user: {
                     ...state.user,
                     username: action.payload,
-                    islogin:true,
+                    islogin: true,
                 }
             }
 
         case 'LOADPROFILE_OK':
-            return{
+            return {
                 ...state,
                 userprofile: action.payload
-            }            
+            }
+
         case 'LOGOUT':
-            return{
+            return {
                 ...state,
                 user: {
                     username: null,
-                    user_display_name: null, 
+                    user_display_name: null,
                     token: null,
                     islogin: false,
                     roles: [],
@@ -61,30 +64,31 @@ export default (state = defaultState, action) => {
                     IS_USER: false,
                     IS_FARMACIA: false,
                     user_id: null,
-                    userprofile: null,                            
+                    userprofile: null,
                 },
                 error: {},
-                userprofile:null
+                userprofile: null
             }
+
         case 'GET_USER_ROLES':
             // NO DEBERIA TOMAR DEL ESTADO LOS ROLES, DEBERIA CONSULTAR A LA API
-            return{
+            return {
                 ...state,
                 IS_ADMIN: state.user.roles.includes('admin'),
                 IS_USER: state.user.roles.includes('user'),
                 IS_FARMACIA: state.user.roles.includes('farmacia')
-            }                        
+            }
         case 'LOGIN_ERROR':
-            return{
+            return {
                 ...state,
                 error: action.error
-            } 
+            }
         case 'RESET_ERROR':
-            return{
+            return {
                 ...state,
                 error: {}
-            }                        
+            }
         default:
-                return state;                  
-    }   
+            return state;
+    }
 }
