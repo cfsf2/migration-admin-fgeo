@@ -16,6 +16,7 @@ const Servicios = React.lazy(() => import("./views/Servicios/Servicios"));
 const Horarios = React.lazy(() => import("./views/Horarios/Horarios"));
 const Soporte = React.lazy(() => import("./views/Soporte/Soporte"));
 const ReporteOOSS = React.lazy(() => import("./views/ReporteOOSS/ReporteOOSS"));
+const VideoCD = React.lazy(() => import("./views/Videos/VideoCD.js"));
 const DebitosPami = React.lazy(() => import("./views/DebitosPami/DebitosPami"));
 const PedidosAdmin = React.lazy(() => import("./views/Pedidos/pedidosAdmin"));
 const Novedades = React.lazy(() => import("./views/Publicidades/Novedades"));
@@ -62,7 +63,7 @@ const TareasMantenimiento = React.lazy(() =>
   import("./views/TareasMantenimiento")
 );
 const VentaOnlineSelect = React.lazy(() =>
-import("./views/Dashboard/components/VentaOnlineSelect")
+  import("./views/Dashboard/components/VentaOnlineSelect")
 );
 
 const routes = [
@@ -85,6 +86,8 @@ const routes = [
   },
   { path: "/soporte", name: "Soporte", component: Soporte },
   { path: "/reporteObras", name: "Reporte de Obras Sociales", component: ReporteOOSS },
+
+  { path: "/videosInstitucional", name: "Video Institucional", component: VideoCD },
 
   { path: "/NuevoTransfer", name: "Nuevo Transfer", component: NuevoTransfer },
   { path: "/MisTransfers", name: "Mis Transfers", component: MisTransfers },
@@ -144,8 +147,8 @@ const routes = [
     name: "debitosPami",
     component: DebitosPami
   },
-  
-  
+
+
 
   /*
   { path: '/pedidosadmin', exact: true, name: 'Pedidos Admin', component: PedidosAdmin },

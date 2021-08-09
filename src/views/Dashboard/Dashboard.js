@@ -21,8 +21,12 @@ import {
   GET_ENTIDADES,
 } from "../../redux/actions/packsproductosActions";
 
+import YouTubeIcon from '@material-ui/icons/YouTube';
+
 import ButtonHome from "./components/ButtonHome";
 import VentaOnlineSelect from "./components/VentaOnlineSelect";
+
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -67,7 +71,7 @@ class Dashboard extends Component {
     this.handlePanelExistencias();
     this.props.GET_ENTIDADES();
   }
-  
+
 
   async handlePanelExistencias() {
     const { mis_pedidos } = this.props.pedidosReducer;
@@ -145,7 +149,7 @@ class Dashboard extends Component {
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="12" style={{ height: 50 }}>
                         <ButtonHome
-                          href={process.env.PUBLIC_URL+"/#/NuevoTransfer"}
+                          href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
                           titulo="TRANSFERS FARMACIAS"
                           subtitulo={<br />}
                           align="left"
@@ -153,6 +157,20 @@ class Dashboard extends Component {
                           icono={require("../../assets/images/icons/1.png")}
                           simple={true}
                         />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
+                      <Col md="12" style={{ height: 50 }}>
+                        <ButtonHome
+                          to="/videosInstitucional"
+                          titulo="VIDEOS INSTITUCIONALES"
+                          subtitulo={<br />}
+                          align="left"
+                          tipo="grande"
+                          icono={require("../../assets/images/icon-videos.png")}
+                          simple={true}
+                        />
+
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
@@ -174,7 +192,7 @@ class Dashboard extends Component {
                           icono={require("../../assets/images/icons/ooss.png")}
                         />
                       </Col>
-                      </Row>
+                    </Row>
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }}>
                         <ButtonHome
@@ -237,7 +255,7 @@ class Dashboard extends Component {
                         />
                       </Col>
                     </Row>
-                    
+
                   </Col>
                 </Row>
                 <Row>
@@ -281,7 +299,7 @@ class Dashboard extends Component {
                               </Col>
                               <Col md="9" xs="9">
                                 <a
-                                  href={process.env.PUBLIC_URL+"/#/pedidos"}
+                                  href={process.env.PUBLIC_URL + "/#/pedidos"}
                                   style={{ color: "black", float: "left" }}
                                 >
                                   <p
@@ -335,7 +353,7 @@ class Dashboard extends Component {
                               </Col>
                               <Col md="9" xs="9">
                                 <a
-                                  href={process.env.PUBLIC_URL+"/#/pedidos"}
+                                  href={process.env.PUBLIC_URL + "/#/pedidos"}
                                   style={{ color: "black", float: "left" }}
                                 >
                                   <p
@@ -389,7 +407,7 @@ class Dashboard extends Component {
                               </Col>
                               <Col md="9" xs="9">
                                 <a
-                                  href={process.env.PUBLIC_URL+"/#/productos"}
+                                  href={process.env.PUBLIC_URL + "/#/productos"}
                                   style={{ color: "black", float: "left" }}
                                 >
                                   <p
@@ -445,7 +463,7 @@ class Dashboard extends Component {
                               </Col>
                               <Col md="9" xs="9">
                                 <a
-                                  href={process.env.PUBLIC_URL+"/#/productos"}
+                                  href={process.env.PUBLIC_URL + "/#/productos"}
                                   style={{ color: "black", float: "left" }}
                                 >
                                   <p
@@ -572,8 +590,8 @@ class Dashboard extends Component {
                                         p.color === "verde"
                                           ? "#00D579"
                                           : p.color === "rojo"
-                                          ? "red"
-                                          : "yellow",
+                                            ? "red"
+                                            : "yellow",
                                       color: "white",
                                       borderRadius: "50%",
                                       width: 20,
