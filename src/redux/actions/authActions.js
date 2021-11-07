@@ -18,7 +18,6 @@ export const TRYREGISTER = (body) => {
     }).then(r => alert(JSON.stringify(r.data)))
   }
 }
-
 export const LOGIN = (user, password) => {
   return (dispatch) => {
     axios
