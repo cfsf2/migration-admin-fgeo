@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -21,11 +21,10 @@ import {
   GET_ENTIDADES,
 } from "../../redux/actions/packsproductosActions";
 
-import YouTubeIcon from '@material-ui/icons/YouTube';
+import YouTubeIcon from "@material-ui/icons/YouTube";
 
 import ButtonHome from "./components/ButtonHome";
 import VentaOnlineSelect from "./components/VentaOnlineSelect";
-
 
 class Dashboard extends Component {
   constructor(props) {
@@ -39,9 +38,8 @@ class Dashboard extends Component {
     };
     this.handleFiltro = this.handleFiltro.bind(this);
     this.handlePanelExistencias = this.handlePanelExistencias.bind(this);
-    this.handleBannerNutriendoEsperanza = this.handleBannerNutriendoEsperanza.bind(
-      this
-    );
+    this.handleBannerNutriendoEsperanza =
+      this.handleBannerNutriendoEsperanza.bind(this);
   }
 
   async handleBannerNutriendoEsperanza() {
@@ -71,7 +69,6 @@ class Dashboard extends Component {
     this.handlePanelExistencias();
     this.props.GET_ENTIDADES();
   }
-
 
   async handlePanelExistencias() {
     const { mis_pedidos } = this.props.pedidosReducer;
@@ -115,7 +112,6 @@ class Dashboard extends Component {
       }
     }
   }
-
 
   render() {
     const { user, userprofile } = this.props.authReducer;
@@ -170,11 +166,10 @@ class Dashboard extends Component {
                           icono={require("../../assets/images/icon-videos.png")}
                           simple={true}
                         />
-
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
-                      <Col md="6" style={{ height: 50 }} align="center" >
+                      <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
                           to="/debitosPami"
                           titulo="DEBITOS PAMI"
@@ -183,7 +178,7 @@ class Dashboard extends Component {
                           icono={require("../../assets/images/icons/pami.png")}
                         />
                       </Col>
-                      <Col md="6" style={{ height: 50 }} align="center" >
+                      <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
                           to="/reporteObras"
                           titulo="RESUMEN DE NORMATIVAS OOSS"
@@ -217,7 +212,7 @@ class Dashboard extends Component {
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
-                          href="https://campus.farmacursos.org.ar/presentacion.cgi?wAccion=vertopico&wIdTopico=3281&id_curso=70"
+                          href="http://cfsf2.e-ducativa.com/index.cgi?mod=contentFront&accion=get&comando=article&_wf=true&articleId=432&skin=extranet&currentPage=0&currentActionPager=0&orderBy=&orderMode=DESC&force_publish="
                           titulo="PRECIOS SUGERIDOS"
                           subtitulo="de medicamentos hospitalarios y accesorios"
                           align="left"
@@ -235,7 +230,7 @@ class Dashboard extends Component {
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
-                      <Col md="6" style={{ height: 50 }} align="center" >
+                      <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
                           href="https://campus.farmacursos.org.ar/archivos.cgi?wAccion=vergrupo&wIdGrupo=3320&id_curso=70"
                           titulo="NORMATIVAS DE OBRAS SOCIALES"
@@ -255,7 +250,6 @@ class Dashboard extends Component {
                         />
                       </Col>
                     </Row>
-
                   </Col>
                 </Row>
                 <Row>
@@ -590,8 +584,8 @@ class Dashboard extends Component {
                                         p.color === "verde"
                                           ? "#00D579"
                                           : p.color === "rojo"
-                                            ? "red"
-                                            : "yellow",
+                                          ? "red"
+                                          : "yellow",
                                       color: "white",
                                       borderRadius: "50%",
                                       width: 20,
