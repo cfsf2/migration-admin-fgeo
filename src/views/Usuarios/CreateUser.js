@@ -27,25 +27,33 @@ export default function CreateUser() {
   const [nuevoUsuario, setNuevoUsuario] = React.useState(initUsuario);
   const [roles, setRoles] = React.useState([]);
   const [errors, setErrors] = React.useState([]);
+  const [msg, setmsg] = React.useState([""]);
 
   const handleChange = (e) => {
     const value = e.target.value;
     const field = e.target.name;
+
     setNuevoUsuario(() => {
       return { ...nuevoUsuario, [field]: value };
     });
+
     if (e.target.value.length !== 0) {
       if (field === "password" || field === "confirmpassword") {
         if (
           nuevoUsuario.password.trim() === nuevoUsuario.confirmpassword.trim()
         ) {
-          let error = errors.filter((thisfield) => thisfield !== field);
-          console.log(errors);
+          let error = errors.filter((thisfield) => thisfield !== "password");
+
           setErrors(() => {
             return error;
           });
+
           return;
+        } else {
+          const passerror = errors.concat("password");
+          setErrors(() => passerror);
         }
+        return;
       }
       setErrors(() => {
         return errors.filter((thisfield) => thisfield !== field);
@@ -73,21 +81,26 @@ export default function CreateUser() {
   const handleValidation = () => {
     let fielderrors = [];
     const fields = Object.keys(nuevoUsuario);
+
     fields.forEach((field) => {
       if (nuevoUsuario[field].length === 0) {
         fielderrors = fielderrors.concat(field);
       }
     });
+
     if (nuevoUsuario.password !== nuevoUsuario.confirmpassword) {
-      console.log(nuevoUsuario);
       fielderrors = fielderrors.concat("password");
     }
+
+    if (roles.length === 0) {
+      fielderrors = fielderrors.concat("roles");
+    }
     setErrors(() => fielderrors);
+    console.log(errors);
     return fielderrors.length === 0;
   };
 
   const handleSubmit = (e) => {
-    console.log(nuevoUsuario);
     const values = Object.values(nuevoUsuario);
 
     if (handleValidation()) {
@@ -95,6 +108,7 @@ export default function CreateUser() {
       return;
     }
     alert("Todos los campos son obligatorios");
+    console.log(errors);
     console.log("no submiteo");
   };
 
@@ -167,8 +181,8 @@ export default function CreateUser() {
                         type="password"
                         name="password"
                         autoComplete="off"
-                        onChange={(e) => handleChange(e)}
-                        onBlur={(e) => handleChange(e)}
+                        onChange={handleChange}
+                        onBlur={handleChange}
                         value={nuevoUsuario.password}
                         className={`${
                           errors.includes("password")
@@ -186,8 +200,8 @@ export default function CreateUser() {
                         type="password"
                         name="confirmpassword"
                         autoComplete="off"
-                        onChange={(e) => handleChange(e)}
-                        onBlur={(e) => handleChange(e)}
+                        onChange={handleChange}
+                        onBlur={handleChange}
                         value={nuevoUsuario.confirmpassword}
                         className={`${
                           errors.includes("password")
