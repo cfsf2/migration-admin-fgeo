@@ -54,6 +54,16 @@ export default {
       name: "Usuarios",
       url: "/usuarios",
       icon: "icon-user",
+      children: [
+        {
+          name: "Listado",
+          url: "/usuarios",
+        },
+        {
+          name: "Crear Usuario",
+          url: "/CreateUser",
+        },
+      ],
     },
     {
       name: "Denuncias",

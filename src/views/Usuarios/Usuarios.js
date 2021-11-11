@@ -18,6 +18,7 @@ import {
   GET_USUARIOS_APP,
   SET_HABILITADO_USUARIO,
 } from "../../redux/actions/FarmaciasAdminActions";
+import { DELETE_USUARIO } from "../../redux/actions/userActions";
 
 class Usuarios extends Component {
   constructor(props) {
@@ -29,12 +30,17 @@ class Usuarios extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     //this.handleNombreUsuario = this.handleNombreUsuario.bind(this);
     this.handleHabilitado = this.handleHabilitado.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(user) {
+    this.props.DELETE_USUARIO(user);
   }
 
   async componentDidMount() {
     await this.props.GET_USUARIOS_APP();
     const { usuarios } = this.props.farmaciasAdminReducer;
-    console.log(usuarios);
+    // console.log(usuarios);
   }
 
   handleHabilitado(usuario, value) {
@@ -85,6 +91,8 @@ class Usuarios extends Component {
                             <th>Estado</th>
                             <th>Acciones</th>
                             <th>Recuperar password</th>
+                            <th></th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -147,6 +155,17 @@ class Usuarios extends Component {
                                         </p>
                                       )}
                                     </td>
+                                    <td>
+                                      <Button color="primary">Edit</Button>
+                                    </td>
+                                    <td>
+                                      <Button
+                                        color="danger"
+                                        onClick={() => this.handleDelete(u)}
+                                      >
+                                        Delete
+                                      </Button>
+                                    </td>
                                   </tr>
                                 ) : null;
                               })}
@@ -173,6 +192,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   GET_USUARIOS_APP,
   SET_HABILITADO_USUARIO,
+  DELETE_USUARIO,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Usuarios);

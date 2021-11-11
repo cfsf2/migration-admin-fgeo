@@ -29,6 +29,7 @@ const AltaFarmacia = React.lazy(() =>
   import("./views/FarmaciasAdmin/AltaFarmacia")
 );
 const Usuarios = React.lazy(() => import("./views/Usuarios/Usuarios"));
+const CrearUsuario = React.lazy(() => import("./views/Usuarios/CreateUser"));
 const Denuncias = React.lazy(() => import("./views/Denuncias/Denuncias"));
 
 const Laboratorios = React.lazy(() =>
@@ -152,8 +153,12 @@ const routes = [
     name: "Pedidos Admin",
     component: PedidosAdmin,
   },
-  
-  { path: "/reporteOOSS", name: "Reporte de Obras Sociales", component: ReporteOOSSAdmin },
+
+  {
+    path: "/reporteOOSS",
+    name: "Reporte de Obras Sociales",
+    component: ReporteOOSSAdmin,
+  },
   {
     path: "/publicidadesadmin/novedades",
     exact: true,
@@ -189,6 +194,12 @@ const routes = [
     exact: true,
     name: "Administración de usuarios",
     component: Usuarios,
+  },
+  {
+    path: "/CreateUser",
+    exact: true,
+    name: "Administración de usuarios",
+    component: CrearUsuario,
   },
   {
     path: "/denuncias",
