@@ -36,7 +36,7 @@ export const GET_USUARIOS = (token) => {
 export const DELETE_USUARIO = (user) => {
   console.log("this is actions deleting " + user.usuario);
   console.log(user);
-  window.confirm();
+  // window.confirm();
   return (dispatch) => {
     axios({
       method: "delete",

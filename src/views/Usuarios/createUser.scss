@@ -15,4 +15,7 @@
     justify-content: space-around;
     align-items: center;
   }
+  &errorField {
+    border: red solid 2px;
+  }
 }

@@ -15,9 +15,18 @@ import {
   CardFooter,
 } from "reactstrap";
 
+const initUsuario = {
+  first_name: "",
+  last_name: "",
+  username: "",
+  password: "",
+  confirmpassword: "",
+};
+
 export default function CreateUser() {
-  const [nuevoUsuario, setNuevoUsuario] = React.useState({});
+  const [nuevoUsuario, setNuevoUsuario] = React.useState(initUsuario);
   const [roles, setRoles] = React.useState([]);
+  const [errors, setErrors] = React.useState([]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -25,11 +34,29 @@ export default function CreateUser() {
     setNuevoUsuario(() => {
       return { ...nuevoUsuario, [field]: value };
     });
+    if (e.target.value.length !== 0) {
+      if (field === "password" || field === "confirmpassword") {
+        if (
+          nuevoUsuario.password.trim() === nuevoUsuario.confirmpassword.trim()
+        ) {
+          let error = errors.filter((thisfield) => thisfield !== field);
+          console.log(errors);
+          setErrors(() => {
+            return error;
+          });
+          return;
+        }
+      }
+      setErrors(() => {
+        return errors.filter((thisfield) => thisfield !== field);
+      });
+    }
   };
 
   const handleRoleChange = (e) => {
     const checked = e.target.checked;
     const newrole = e.target.name;
+
     if (!checked) {
       const newRoles = roles.filter((role) => role !== newrole);
       setRoles(() => {
@@ -41,6 +68,34 @@ export default function CreateUser() {
     setRoles(() => {
       return newRoles;
     });
+  };
+
+  const handleValidation = () => {
+    let fielderrors = [];
+    const fields = Object.keys(nuevoUsuario);
+    fields.forEach((field) => {
+      if (nuevoUsuario[field].length === 0) {
+        fielderrors = fielderrors.concat(field);
+      }
+    });
+    if (nuevoUsuario.password !== nuevoUsuario.confirmpassword) {
+      console.log(nuevoUsuario);
+      fielderrors = fielderrors.concat("password");
+    }
+    setErrors(() => fielderrors);
+    return fielderrors.length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    console.log(nuevoUsuario);
+    const values = Object.values(nuevoUsuario);
+
+    if (handleValidation()) {
+      console.log("submiteo");
+      return;
+    }
+    alert("Todos los campos son obligatorios");
+    console.log("no submiteo");
   };
 
   return (
@@ -61,7 +116,12 @@ export default function CreateUser() {
                         type="text"
                         name="first_name"
                         onChange={(e) => handleChange(e)}
-                        // value={this.state.farmacia.nombre}
+                        value={nuevoUsuario.first_name}
+                        className={`${
+                          errors.includes("first_name")
+                            ? "createuser_errorField"
+                            : ""
+                        }`}
                       />
                     </FormGroup>
                   </Col>
@@ -72,7 +132,12 @@ export default function CreateUser() {
                         type="text"
                         name="last_name"
                         onChange={(e) => handleChange(e)}
-                        // value={this.state.farmacia.nombrefarmaceutico}
+                        value={nuevoUsuario.last_name}
+                        className={`${
+                          errors.includes("last_name")
+                            ? "createuser_errorField"
+                            : ""
+                        }`}
                       />
                     </FormGroup>
                   </Col>
@@ -86,7 +151,12 @@ export default function CreateUser() {
                         name="username"
                         autoComplete="off"
                         onChange={(e) => handleChange(e)}
-                        // value={this.state.farmacia.usuario}
+                        value={nuevoUsuario.username}
+                        className={`${
+                          errors.includes("username")
+                            ? "createuser_errorField"
+                            : ""
+                        }`}
                       />
                     </FormGroup>
                   </Col>
@@ -98,7 +168,32 @@ export default function CreateUser() {
                         name="password"
                         autoComplete="off"
                         onChange={(e) => handleChange(e)}
-                        // value={this.state.login.password}
+                        onBlur={(e) => handleChange(e)}
+                        value={nuevoUsuario.password}
+                        className={`${
+                          errors.includes("password")
+                            ? "createuser_errorField"
+                            : ""
+                        }`}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col xs="12" md="6"></Col>
+                  <Col xs="12" md="6">
+                    <FormGroup>
+                      <Label>Confirmar Contraseña</Label>
+                      <Input
+                        type="password"
+                        name="confirmpassword"
+                        autoComplete="off"
+                        onChange={(e) => handleChange(e)}
+                        onBlur={(e) => handleChange(e)}
+                        value={nuevoUsuario.confirmpassword}
+                        className={`${
+                          errors.includes("password")
+                            ? "createuser_errorField"
+                            : ""
+                        }`}
                       />
                     </FormGroup>
                   </Col>
@@ -177,7 +272,7 @@ export default function CreateUser() {
                     <FormGroup>
                       <Button
                         className="btn btn-success"
-                        // onClick={this.handleSubmit}
+                        onClick={() => handleSubmit()}
                       >
                         Crear
                       </Button>
