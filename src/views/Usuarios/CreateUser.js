@@ -17,6 +17,32 @@ import {
 
 export default function CreateUser() {
   const [nuevoUsuario, setNuevoUsuario] = React.useState({});
+  const [roles, setRoles] = React.useState([]);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const field = e.target.name;
+    setNuevoUsuario(() => {
+      return { ...nuevoUsuario, [field]: value };
+    });
+  };
+
+  const handleRoleChange = (e) => {
+    const checked = e.target.checked;
+    const newrole = e.target.name;
+    if (!checked) {
+      const newRoles = roles.filter((role) => role !== newrole);
+      setRoles(() => {
+        return newRoles;
+      });
+      return;
+    }
+    const newRoles = roles.concat(newrole);
+    setRoles(() => {
+      return newRoles;
+    });
+  };
+
   return (
     <div className="animated fadeIn">
       <div className="createuser_container">
@@ -34,7 +60,7 @@ export default function CreateUser() {
                       <Input
                         type="text"
                         name="first_name"
-                        // onChange={this.handleInputChangefarmacia}
+                        onChange={(e) => handleChange(e)}
                         // value={this.state.farmacia.nombre}
                       />
                     </FormGroup>
@@ -45,7 +71,7 @@ export default function CreateUser() {
                       <Input
                         type="text"
                         name="last_name"
-                        // onChange={this.handleInputChangefarmacia}
+                        onChange={(e) => handleChange(e)}
                         // value={this.state.farmacia.nombrefarmaceutico}
                       />
                     </FormGroup>
@@ -59,7 +85,7 @@ export default function CreateUser() {
                         type="text"
                         name="username"
                         autoComplete="off"
-                        // onChange={this.handleUsuario}
+                        onChange={(e) => handleChange(e)}
                         // value={this.state.farmacia.usuario}
                       />
                     </FormGroup>
@@ -71,7 +97,7 @@ export default function CreateUser() {
                         type="password"
                         name="password"
                         autoComplete="off"
-                        // onChange={this.handlePassword}
+                        onChange={(e) => handleChange(e)}
                         // value={this.state.login.password}
                       />
                     </FormGroup>
@@ -85,26 +111,42 @@ export default function CreateUser() {
                   <div className="createuser_roles">
                     <FormGroup check inline>
                       <Col>
-                        <Input type="checkbox" name="admin" />
+                        <Input
+                          type="checkbox"
+                          name="admin"
+                          onChange={(e) => handleRoleChange(e)}
+                        />
                         <Label>Administrador</Label>
                       </Col>
                     </FormGroup>
                     <FormGroup check inline>
                       <Col>
-                        <Input type="checkbox" name="farmacia" />
+                        <Input
+                          type="checkbox"
+                          name="farmacia"
+                          onChange={(e) => handleRoleChange(e)}
+                        />
                         <Label>Farmacia</Label>
                       </Col>
                     </FormGroup>
 
                     <FormGroup check inline>
                       <Col>
-                        <Input type="checkbox" name="demolab" />
+                        <Input
+                          type="checkbox"
+                          name="demolab"
+                          onChange={(e) => handleRoleChange(e)}
+                        />
                         <Label>Demo Laboratorio</Label>
                       </Col>
                     </FormGroup>
                     <FormGroup check inline>
                       <Col>
-                        <Input type="checkbox" name="demofarm" />
+                        <Input
+                          type="checkbox"
+                          name="demofarm"
+                          onChange={(e) => handleRoleChange(e)}
+                        />
                         <Label>Demo Farmacia</Label>
                       </Col>
                     </FormGroup>
