@@ -71,7 +71,7 @@ export const CREATE_USER = (data) => {
 
   return axios({
     method: "post",
-    url: "http://localhost:3110/users/alta-usuario",
+    url: farmageo_api + "/users/alta-usuario",
     headers: { "Content-Type": "application/json" },
     data: { first_name, last_name, username, password, roles },
   })
