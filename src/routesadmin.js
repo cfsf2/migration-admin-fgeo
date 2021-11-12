@@ -30,6 +30,7 @@ const AltaFarmacia = React.lazy(() =>
 );
 const Usuarios = React.lazy(() => import("./views/Usuarios/Usuarios"));
 const CrearUsuario = React.lazy(() => import("./views/Usuarios/CreateUser"));
+const EditUser = React.lazy(() => import("./views/Usuarios/EditUser"));
 const Denuncias = React.lazy(() => import("./views/Denuncias/Denuncias"));
 
 const Laboratorios = React.lazy(() =>
@@ -200,6 +201,12 @@ const routes = [
     exact: true,
     name: "Administración de usuarios",
     component: CrearUsuario,
+  },
+  {
+    path: "/EditUser",
+    exact: true,
+    name: "Editar usuario",
+    component: EditUser,
   },
   {
     path: "/denuncias",
