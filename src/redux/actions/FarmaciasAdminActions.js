@@ -22,7 +22,7 @@ const VALIDAR_TOKEN = async () => {
         console.log("ok");
       }
     })
-    .catch(function (error) { });
+    .catch(function (error) {});
 };
 
 export const GET_FARMACIAS = () => {
@@ -115,8 +115,9 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
 };
 
 const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
-
-  var username = farmacia.usuario.includes("@") ? farmacia.usuario.toLowerCase() : farmacia.usuario.toUpperCase();
+  var username = farmacia.usuario.includes("@")
+    ? farmacia.usuario.toLowerCase()
+    : farmacia.usuario.toUpperCase();
 
   return (dispatch) => {
     axios
@@ -162,7 +163,9 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
           alert("Se agregó una nueva farmacia correctamente");
           history.push("/farmaciasAdmin");
         } else {
-          console.log("se creo el usuario de login pero no el perfil en la base de mongoo");
+          console.log(
+            "se creo el usuario de login pero no el perfil en la base de mongoo"
+          );
           alert("Ha ocurrido un error");
         }
       })
@@ -185,7 +188,7 @@ export const GET_USUARIOS_APP = () => {
         password: pass,
       })
       .then(function (response) {
-        //console.log(response)
+        // console.log(response);
         dispatch({ type: "GET_USUARIOS_APP", payload: response.data });
       })
       .catch(function (error) {
@@ -340,7 +343,7 @@ export const UPDATE_FARMACIA_ADMIN_RESPONSE = (farmacia) => {
       .then(function (response) {
         if (response.status === 201) {
           dispatch(GET_FARMACIAS());
-          return (response)
+          return response;
         } else {
           alert("ha ocurrido un error");
         }
