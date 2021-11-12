@@ -37,9 +37,15 @@ export default (state = defaultState, action) => {
         usuarios: [],
         show_modal_adddedit: false,
       };
-    case "DELETE_USUARIO":
+    case "DELETE_USER":
       return {
         ...state,
       };
+    case "CREATE_USER":
+      return;
+    case "CANCEL":
+      return;
+    default:
+      return state;
   }
 };

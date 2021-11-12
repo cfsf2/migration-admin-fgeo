@@ -1,6 +1,8 @@
 import React from "react";
 import "./createUser.scss";
+import { CREATE_USER } from "../../redux/actions/userActions";
 
+import CheckBox from "../../components/CheckBox";
 import {
   Button,
   Card,
@@ -21,13 +23,12 @@ const initUsuario = {
   username: "",
   password: "",
   confirmpassword: "",
+  roles: [],
 };
 
 export default function CreateUser() {
   const [nuevoUsuario, setNuevoUsuario] = React.useState(initUsuario);
-  const [roles, setRoles] = React.useState([]);
   const [errors, setErrors] = React.useState([]);
-  const [msg, setmsg] = React.useState([""]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -64,18 +65,19 @@ export default function CreateUser() {
   const handleRoleChange = (e) => {
     const checked = e.target.checked;
     const newrole = e.target.name;
+    let newRoles = nuevoUsuario.roles;
 
     if (!checked) {
-      const newRoles = roles.filter((role) => role !== newrole);
-      setRoles(() => {
-        return newRoles;
-      });
-      return;
+      newRoles = nuevoUsuario.roles.filter((role) => role !== newrole);
+    } else {
+      if (nuevoUsuario.roles.length > 0) {
+        alert("Solo puede tener un rol");
+        e.target.checked = false;
+        return;
+      }
+      newRoles = nuevoUsuario.roles.concat(newrole);
     }
-    const newRoles = roles.concat(newrole);
-    setRoles(() => {
-      return newRoles;
-    });
+    setNuevoUsuario({ ...nuevoUsuario, roles: newRoles });
   };
 
   const handleValidation = () => {
@@ -92,24 +94,29 @@ export default function CreateUser() {
       fielderrors = fielderrors.concat("password");
     }
 
-    if (roles.length === 0) {
+    if (nuevoUsuario.roles.length === 0) {
       fielderrors = fielderrors.concat("roles");
     }
     setErrors(() => fielderrors);
-    console.log(errors);
+
     return fielderrors.length === 0;
   };
 
   const handleSubmit = (e) => {
-    const values = Object.values(nuevoUsuario);
-
     if (handleValidation()) {
-      console.log("submiteo");
+      CREATE_USER(nuevoUsuario).then((data) => {
+        if (data.type === "success") {
+          alert(data.msg);
+          setNuevoUsuario(initUsuario);
+        }
+        if (data.type === "fail") {
+          alert(data.msg);
+        }
+      });
+
       return;
     }
-    alert("Todos los campos son obligatorios");
-    console.log(errors);
-    console.log("no submiteo");
+    alert(`Todos los campos son obligatorios`);
   };
 
   return (
@@ -220,15 +227,15 @@ export default function CreateUser() {
                   <div className="createuser_roles">
                     <FormGroup check inline>
                       <Col>
-                        <Input
-                          type="checkbox"
-                          name="admin"
+                        <CheckBox
+                          label="Administrador"
+                          checked={nuevoUsuario.roles.includes("admin")}
                           onChange={(e) => handleRoleChange(e)}
+                          name="admin"
                         />
-                        <Label>Administrador</Label>
                       </Col>
                     </FormGroup>
-                    <FormGroup check inline>
+                    {/* <FormGroup check inline>
                       <Col>
                         <Input
                           type="checkbox"
@@ -237,26 +244,26 @@ export default function CreateUser() {
                         />
                         <Label>Farmacia</Label>
                       </Col>
-                    </FormGroup>
+                    </FormGroup> */}
 
                     <FormGroup check inline>
                       <Col>
-                        <Input
-                          type="checkbox"
-                          name="demolab"
+                        <CheckBox
+                          label="Demo Laboratorio"
+                          checked={nuevoUsuario.roles.includes("demoLab")}
                           onChange={(e) => handleRoleChange(e)}
+                          name="demoLab"
                         />
-                        <Label>Demo Laboratorio</Label>
                       </Col>
                     </FormGroup>
                     <FormGroup check inline>
                       <Col>
-                        <Input
-                          type="checkbox"
-                          name="demofarm"
+                        <CheckBox
+                          label="Demo Farmacia"
+                          checked={nuevoUsuario.roles.includes("demofarm")}
                           onChange={(e) => handleRoleChange(e)}
+                          name="demofarm"
                         />
-                        <Label>Demo Farmacia</Label>
                       </Col>
                     </FormGroup>
                   </div>
