@@ -34,38 +34,53 @@ export const GET_USUARIOS = (token) => {
 };
 
 export const DELETE_USUARIO = (user) => {
-  console.log("this is actions deleting " + user.usuario);
-  console.log(user);
-  // window.confirm();
-  return (dispatch) => {
-    axios({
-      method: "delete",
-      url: farmageo_api + "/users/",
-      headers: { "Content-Type": "application/json" },
-      params: { username: user.usuario },
-      data: { deleted: true },
-    })
-      .then((response) => {
-        GET_USUARIOS();
-        dispatch({
-          type: "DELETE_USER",
-          payload: null,
-        });
-        console.log(response.data);
+  // console.log("this is actions deleting " + user.usuario);
+  // console.log(user);
+  if (window.confirm("Realmente desea eliminar el usuario?")) {
+    return (dispatch) => {
+      axios({
+        method: "delete",
+        url: farmageo_api + "/users/",
+        headers: { "Content-Type": "application/json" },
+        params: { username: user.usuario },
+        data: { deleted: true },
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .then((response) => {
+          GET_USUARIOS();
+          dispatch({
+            type: "DELETE_USER",
+            payload: null,
+          });
+          alert("Usuario " + user.usuario + " Eliminado");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+  }
+
+  return (dispatch) => {
+    dispatch({
+      type: "CANCEL",
+    });
   };
 };
 
 export const CREATE_USER = (data) => {
-  console.log("creating user" + data.username);
-  return (dispatch) => {
-    axios.post(farmageo_api + "/alta-usuario", {
-      username: data.username,
-      roles: ["farmacia", "admin"],
-      password: data.password,
+  const { first_name, last_name, username, password, roles } = data;
+
+  return axios({
+    method: "post",
+    url: "http://localhost:3110/users/alta-usuario",
+    headers: { "Content-Type": "application/json" },
+    data: { first_name, last_name, username, password, roles },
+  })
+    .then((res) => {
+      GET_USUARIOS();
+
+      return res.data.body;
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-  };
 };
