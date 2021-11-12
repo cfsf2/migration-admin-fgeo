@@ -63,20 +63,14 @@ export default function CreateUser() {
   };
 
   const handleRoleChange = (e) => {
-    const checked = e.target.checked;
-    const newrole = e.target.name;
-    let newRoles = nuevoUsuario.roles;
+    const value = e.target.value;
+    const field = e.target.name;
+    let newRoles = [e.target.value];
 
-    if (!checked) {
-      newRoles = nuevoUsuario.roles.filter((role) => role !== newrole);
-    } else {
-      if (nuevoUsuario.roles.length > 0) {
-        alert("Solo puede tener un rol");
-        e.target.checked = false;
-        return;
-      }
-      newRoles = nuevoUsuario.roles.concat(newrole);
-    }
+    setErrors(() => {
+      return errors.filter((thisfield) => thisfield !== field);
+    });
+
     setNuevoUsuario({ ...nuevoUsuario, roles: newRoles });
   };
 
@@ -199,7 +193,27 @@ export default function CreateUser() {
                       />
                     </FormGroup>
                   </Col>
-                  <Col xs="12" md="6"></Col>
+                  <Col xs="12" md="6">
+                    <Label for="exampleSelect">
+                      <b>Rol de Usuario</b>
+                    </Label>
+                    <Input
+                      onChange={(e) => handleRoleChange(e)}
+                      type="select"
+                      name="roles"
+                      className={`${
+                        errors.includes("roles") ? "createuser_errorField" : ""
+                      }`}
+                    >
+                      <option value="" defaultValue selected disabled>
+                        -----Seleccione un rol-----
+                      </option>
+                      <option value="admin">Administrador</option>
+                      <option value="farmacia">Farmacia</option>
+                      <option disabled>Demo Farmacia</option>
+                      <option disabled>Demo Laboratorio</option>
+                    </Input>
+                  </Col>
                   <Col xs="12" md="6">
                     <FormGroup>
                       <Label>Confirmar Contraseña</Label>
@@ -218,55 +232,6 @@ export default function CreateUser() {
                       />
                     </FormGroup>
                   </Col>
-                </Row>
-                <CardHeader className="createuser_titulo">
-                  Roles de Usuario
-                </CardHeader>
-
-                <Row>
-                  <div className="createuser_roles">
-                    <FormGroup check inline>
-                      <Col>
-                        <CheckBox
-                          label="Administrador"
-                          checked={nuevoUsuario.roles.includes("admin")}
-                          onChange={(e) => handleRoleChange(e)}
-                          name="admin"
-                        />
-                      </Col>
-                    </FormGroup>
-                    {/* <FormGroup check inline>
-                      <Col>
-                        <Input
-                          type="checkbox"
-                          name="farmacia"
-                          onChange={(e) => handleRoleChange(e)}
-                        />
-                        <Label>Farmacia</Label>
-                      </Col>
-                    </FormGroup> */}
-
-                    <FormGroup check inline>
-                      <Col>
-                        <CheckBox
-                          label="Demo Laboratorio"
-                          checked={nuevoUsuario.roles.includes("demoLab")}
-                          onChange={(e) => handleRoleChange(e)}
-                          name="demoLab"
-                        />
-                      </Col>
-                    </FormGroup>
-                    <FormGroup check inline>
-                      <Col>
-                        <CheckBox
-                          label="Demo Farmacia"
-                          checked={nuevoUsuario.roles.includes("demofarm")}
-                          onChange={(e) => handleRoleChange(e)}
-                          name="demofarm"
-                        />
-                      </Col>
-                    </FormGroup>
-                  </div>
                 </Row>
 
                 <Row>
