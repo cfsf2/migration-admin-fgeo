@@ -1,8 +1,7 @@
 import React from "react";
 import "./createUser.scss";
 import { CREATE_USER } from "../../redux/actions/userActions";
-
-import CheckBox from "../../components/CheckBox";
+import { GET_FARMACIA_POR_MATRICULA } from "../../redux/actions/farmaciaActions";
 import {
   Button,
   Card,
@@ -24,10 +23,12 @@ const initUsuario = {
   password: "",
   confirmpassword: "",
   roles: [],
+  farmaciaId: "",
 };
 
 export default function CreateUser() {
   const [nuevoUsuario, setNuevoUsuario] = React.useState(initUsuario);
+  const [farmaciaPorMatricula, setFarmaciaPorMatricula] = React.useState({});
   const [errors, setErrors] = React.useState([]);
 
   const handleChange = (e) => {
@@ -112,6 +113,15 @@ export default function CreateUser() {
     }
     alert(`Todos los campos son obligatorios`);
   };
+
+  React.useEffect(() => {
+    const farm = GET_FARMACIA_POR_MATRICULA(nuevoUsuario.farmaciaId).then(
+      (res) => {
+        setFarmaciaPorMatricula(() => res.data);
+      }
+    );
+    return;
+  }, [nuevoUsuario.farmaciaId]);
 
   return (
     <div className="animated fadeIn">
@@ -234,6 +244,44 @@ export default function CreateUser() {
                   </Col>
                 </Row>
 
+                <Row>
+                  <Col xs="6" md="3">
+                    <FormGroup>
+                      <Label>Matricula de Farmacia</Label>
+                      <Input
+                        type="number"
+                        name="farmaciaId"
+                        autoComplete="off"
+                        onChange={handleChange}
+                        // onChange={(e) => setMatricula(e.target.value)}
+                        value={nuevoUsuario.farmaciaId}
+                        className={`${
+                          errors.includes("farmaciaId")
+                            ? "createuser_errorField"
+                            : ""
+                        }`}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col xs="6" md="3">
+                    <Label>Nombre de la Farmacia</Label>
+                    <div className="createuser_farmacia">
+                      {farmaciaPorMatricula.nombre}
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="6" md="3">
+                    {farmaciaPorMatricula
+                      ? farmaciaPorMatricula.calle +
+                        " " +
+                        farmaciaPorMatricula.numero
+                      : null}
+                  </Col>
+                  <Col xs="6" md="3">
+                    {farmaciaPorMatricula.cuit}
+                  </Col>
+                </Row>
                 <Row>
                   <Col xs="12" md="6"></Col>
                   <Col xs="12" md="6">

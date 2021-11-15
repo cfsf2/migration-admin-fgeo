@@ -19,6 +19,19 @@ export const GET_FARMACIA = (username) => {
   };
 };
 
+export const GET_FARMACIA_POR_MATRICULA = (matricula) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(farmageo_api + "/farmacias/matricula/" + matricula, {})
+      .then(function (response) {
+        resolve(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  });
+};
+
 export const GET_FARMACIAS = () => {
   return (dispatch) => {
     axios
