@@ -13,6 +13,8 @@ import {
   // CardImg
 } from "reactstrap";
 
+import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 import {
   GET_USUARIOS_APP,
@@ -156,7 +158,14 @@ class Usuarios extends Component {
                                       )}
                                     </td>
                                     <td>
-                                      <Button color="primary">Edit</Button>
+                                      <Link
+                                        to={{
+                                          pathname: `/EditUser`,
+                                          search: `username=${u.usuario}`,
+                                        }}
+                                      >
+                                        <Button color="primary">Edit</Button>
+                                      </Link>
                                     </td>
                                     <td>
                                       <Button

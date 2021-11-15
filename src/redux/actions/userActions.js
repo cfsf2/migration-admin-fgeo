@@ -17,6 +17,19 @@ export const GET_USUARIO = (userid) => {
   };
 };
 
+export const GET_USER = (userid) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(farmageo_api + "/users/" + userid, {})
+      .then(function (response) {
+        resolve(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  });
+};
+
 export const GET_USUARIOS = (token) => {
   return (dispatch) => {
     axios

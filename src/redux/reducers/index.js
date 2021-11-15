@@ -22,5 +22,5 @@ export default combineReducers({
   tranfersReducer,
   packsproductosReducer,
   reportOSReducer,
-  debitospamiReducer
+  debitospamiReducer,
 });
