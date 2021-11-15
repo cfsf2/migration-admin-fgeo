@@ -90,6 +90,7 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
           last_name: farmacia.nombre,
           email: emailDefault,
           roles: ["farmacia"],
+          farmaciaId: farmacia.matricula, // id unica de farmacia
         },
         {
           headers: {
