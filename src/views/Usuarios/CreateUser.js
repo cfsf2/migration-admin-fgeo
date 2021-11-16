@@ -92,6 +92,17 @@ export default function CreateUser() {
     if (nuevoUsuario.roles.length === 0) {
       fielderrors = fielderrors.concat("roles");
     }
+
+    if (nuevoUsuario.roles[0] === "admin") {
+      fielderrors = fielderrors.filter((f) => f !== "farmaciaId");
+    }
+    if (nuevoUsuario.roles[0] === "farmacia") {
+      console.log(farmaciaPorMatricula);
+      if (!farmaciaPorMatricula) {
+        fielderrors = fielderrors.concat("farmaciaId");
+      }
+    }
+
     setErrors(() => fielderrors);
 
     return fielderrors.length === 0;
@@ -244,44 +255,53 @@ export default function CreateUser() {
                   </Col>
                 </Row>
 
-                <Row>
-                  <Col xs="6" md="3">
-                    <FormGroup>
-                      <Label>Matricula de Farmacia</Label>
-                      <Input
-                        type="number"
-                        name="farmaciaId"
-                        autoComplete="off"
-                        onChange={handleChange}
-                        // onChange={(e) => setMatricula(e.target.value)}
-                        value={nuevoUsuario.farmaciaId}
-                        className={`${
-                          errors.includes("farmaciaId")
-                            ? "createuser_errorField"
-                            : ""
-                        }`}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col xs="6" md="3">
-                    <Label>Nombre de la Farmacia</Label>
-                    <div className="createuser_farmacia">
-                      {farmaciaPorMatricula.nombre}
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="6" md="3">
-                    {farmaciaPorMatricula
-                      ? farmaciaPorMatricula.calle +
-                        " " +
-                        farmaciaPorMatricula.numero
-                      : null}
-                  </Col>
-                  <Col xs="6" md="3">
-                    {farmaciaPorMatricula.cuit}
-                  </Col>
-                </Row>
+                {nuevoUsuario.roles[0] === "farmacia" ? (
+                  <>
+                    <Row>
+                      <Col xs="6" md="3">
+                        <FormGroup>
+                          <Label>Matricula del Titular</Label>
+                          <Input
+                            type="number"
+                            name="farmaciaId"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            // onChange={(e) => setMatricula(e.target.value)}
+                            value={nuevoUsuario.farmaciaId}
+                            className={`${
+                              errors.includes("farmaciaId")
+                                ? "createuser_errorField"
+                                : ""
+                            }`}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col xs="6" md="3">
+                        <Label>Nombre de la Farmacia</Label>
+                        <div className="createuser_farmacia">
+                          {farmaciaPorMatricula.nombre}
+                        </div>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs="6" md="3">
+                        <Label>Direccion</Label>
+                        <div>
+                          {farmaciaPorMatricula
+                            ? farmaciaPorMatricula.calle +
+                              " " +
+                              farmaciaPorMatricula.numero
+                            : null}
+                        </div>
+                      </Col>
+                      <Col xs="6" md="3">
+                        <Label>CUIT</Label>
+                        <div>{farmaciaPorMatricula.cuit}</div>
+                      </Col>
+                    </Row>{" "}
+                  </>
+                ) : null}
+
                 <Row>
                   <Col xs="12" md="6"></Col>
                   <Col xs="12" md="6">
