@@ -97,3 +97,17 @@ export const CREATE_USER = (data) => {
       console.log(error);
     });
 };
+
+export const UPDATE_USER = (data, userId) => {
+  return axios({
+    method: "put",
+    url: farmageo_api + "/users/",
+    headers: { "Content-Type": "application/json" },
+    data: { data },
+    params: {
+      id: userId,
+    },
+  }).then((res) => alert("Cambios Guardados Correctamente"));
+};
+
+export const UPDATE_PASSWORD = (data) => {};

@@ -15,8 +15,15 @@ import {
 } from "reactstrap";
 
 export function CambiarPassword(props) {
-  const { errors, newPass, setNewPass, setErrors } = props;
-  const [allowChange, setAllowChange] = React.useState(false);
+  const {
+    errors,
+    newPass,
+    setNewPass,
+    setErrors,
+    allowChange,
+    setAllowChange,
+  } = props;
+
   const [confirmPassword, setConfirmPassword] = React.useState("");
 
   const Validate = (e) => {
@@ -43,7 +50,7 @@ export function CambiarPassword(props) {
         <Col>
           <Button
             color="info"
-            style={{ marginBottom: "1.3rem" }}
+            style={{ margin: "1.3rem" }}
             onClick={() => setAllowChange(!allowChange)}
           >
             {" "}

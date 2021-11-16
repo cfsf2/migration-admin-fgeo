@@ -1,5 +1,5 @@
 import React from "react";
-import { GET_USER } from "../../redux/actions/userActions";
+import { GET_USER, UPDATE_USER } from "../../redux/actions/userActions";
 import { useLocation } from "react-router-dom";
 import { GET_FARMACIA_POR_MATRICULA } from "../../redux/actions/farmaciaActions";
 import { CambiarPassword } from "./component/CambiarPassword";
@@ -25,6 +25,7 @@ export default function EditUser(props) {
   const username = new URLSearchParams(search).get("username");
 
   const [editableUser, setEditableUser] = React.useState({});
+  const [changePass, setChangePass] = React.useState(false);
   const [newPass, setNewPass] = React.useState("");
 
   const [cambios, setCambios] = React.useState({});
@@ -78,7 +79,7 @@ export default function EditUser(props) {
     let fielderrors = [];
 
     mandatoryFields.forEach((field) => {
-      if (cambios[field].length === 0) {
+      if (!cambios[field] || cambios[field]?.length === 0) {
         fielderrors = fielderrors.concat(field);
       }
     });
@@ -99,12 +100,16 @@ export default function EditUser(props) {
     }
 
     setErrors(() => fielderrors);
-
+    debugger;
     return errors.length === 0;
   };
 
   const handleSubmit = (e) => {
     if (handleValidation()) {
+      debugger;
+      if (changePass) {
+      }
+      UPDATE_USER(cambios, editableUser._id);
       alert("submited");
       return;
     }
@@ -204,6 +209,23 @@ export default function EditUser(props) {
                       />
                     </FormGroup>
                   </Col>
+                  <Col xs="12" md="6">
+                    <FormGroup>
+                      <Label>Email</Label>
+                      <Input
+                        type="text"
+                        name="email"
+                        autoComplete="off"
+                        onChange={(e) => handleChange(e)}
+                        className={`${
+                          errors.includes("email")
+                            ? "createuser_errorField"
+                            : ""
+                        }`}
+                        value={cambios.email}
+                      />
+                    </FormGroup>
+                  </Col>
 
                   <Col xs="12" md="6">
                     <Label for="exampleSelect">
@@ -241,6 +263,8 @@ export default function EditUser(props) {
                     setErrors={setErrors}
                     newPass={newPass}
                     setNewPass={setNewPass}
+                    allowChange={changePass}
+                    setAllowChange={setChangePass}
                   />
                 </Row>
                 <Row>
