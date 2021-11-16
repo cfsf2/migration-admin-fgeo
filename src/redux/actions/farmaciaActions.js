@@ -50,7 +50,7 @@ export const GET_FARMACIAS = () => {
 
 export const UPDATE_FARMACIA = (farmaciaProfile) => {
   return (dispatch) => {
-    //console.log(farmaciaProfile);
+    // console.log(farmaciaProfile);
     axios
       .put(
         farmageo_api + "/farmacias/?username=" + farmaciaProfile.usuario,
