@@ -59,7 +59,7 @@ export function CambiarPassword(props) {
         </Col>
       ) : (
         <>
-          <Col xs="12" md="6">
+          <Col>
             <FormGroup>
               <Label>Contraseña</Label>
               <Input
@@ -76,7 +76,7 @@ export function CambiarPassword(props) {
               />
             </FormGroup>
           </Col>
-          <Col xs="12" md="6">
+          <Col>
             <FormGroup>
               <Label>Confirmar Contraseña</Label>
               <Input

@@ -107,7 +107,21 @@ export const UPDATE_USER = (data, userId) => {
     params: {
       id: userId,
     },
-  }).then((res) => alert("Cambios Guardados Correctamente"));
+  })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
 };
 
-export const UPDATE_PASSWORD = (data) => {};
+export const UPDATE_PASSWORD = (data, userId) => {
+  return axios({
+    method: "put",
+    url: farmageo_api + "/users/newpassword",
+    headers: { "Content-Type": "application/json" },
+    data: { data },
+    params: {
+      id: userId,
+    },
+  })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+};

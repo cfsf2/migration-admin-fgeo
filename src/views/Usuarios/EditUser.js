@@ -1,5 +1,9 @@
 import React from "react";
-import { GET_USER, UPDATE_USER } from "../../redux/actions/userActions";
+import {
+  GET_USER,
+  UPDATE_PASSWORD,
+  UPDATE_USER,
+} from "../../redux/actions/userActions";
 import { useLocation } from "react-router-dom";
 import { GET_FARMACIA_POR_MATRICULA } from "../../redux/actions/farmaciaActions";
 import { CambiarPassword } from "./component/CambiarPassword";
@@ -27,6 +31,7 @@ export default function EditUser(props) {
   const [editableUser, setEditableUser] = React.useState({});
   const [changePass, setChangePass] = React.useState(false);
   const [newPass, setNewPass] = React.useState("");
+  const [hasChanged, setHasChanged] = React.useState(false);
 
   const [cambios, setCambios] = React.useState({});
   const [farmaciaPorMatricula, setFarmaciaPorMatricula] = React.useState({});
@@ -67,6 +72,9 @@ export default function EditUser(props) {
     if (value === "farmacia") {
       setCambios({ ...cambios, admin: false, esfarmacia: true });
     }
+    if (value === "cliente") {
+      setCambios({ ...cambios, admin: false, esfarmacia: false });
+    }
 
     setErrors(() => {
       return errors.filter((thisfield) => thisfield !== field);
@@ -76,7 +84,7 @@ export default function EditUser(props) {
   const mandatoryFields = ["name", "usuario", "email", "id_wp"];
 
   const handleValidation = () => {
-    let fielderrors = [];
+    let fielderrors = errors;
 
     mandatoryFields.forEach((field) => {
       if (!cambios[field] || cambios[field]?.length === 0) {
@@ -99,15 +107,15 @@ export default function EditUser(props) {
       }
     }
 
-    setErrors(() => fielderrors);
-    debugger;
-    return errors.length === 0;
+    setErrors(fielderrors);
+
+    return fielderrors.length === 0;
   };
 
   const handleSubmit = (e) => {
     if (handleValidation()) {
-      debugger;
       if (changePass) {
+        UPDATE_PASSWORD(newPass, editableUser._id);
       }
       UPDATE_USER(cambios, editableUser._id);
       alert("submited");
@@ -130,6 +138,14 @@ export default function EditUser(props) {
     });
     return;
   }, [cambios.id_wp]);
+
+  React.useEffect(() => {
+    setHasChanged(false);
+    if (cambios !== editableUser || changePass === true) {
+      setHasChanged(true);
+      return;
+    }
+  }, [cambios, hasChanged, changePass]);
 
   return (
     <div className="animated fadeIn">
@@ -156,42 +172,6 @@ export default function EditUser(props) {
                       />
                     </FormGroup>
                   </Col>
-                  <Row>
-                    <Col xs="12" md="2"></Col>
-                    <Col xs="4" md="5">
-                      <FormGroup>
-                        <Checkbox
-                          name="deleted"
-                          label="Eliminado"
-                          onChange={() =>
-                            setCambios(() => {
-                              return { ...cambios, deleted: !cambios.deleted };
-                            })
-                          }
-                          checked={cambios.deleted}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col xs="4" md="5">
-                      <FormGroup>
-                        <Checkbox
-                          name="confirmado"
-                          label="Confirmado"
-                          onChange={() =>
-                            setCambios(() => {
-                              return {
-                                ...cambios,
-                                confirmado: !cambios.confirmado,
-                              };
-                            })
-                          }
-                          checked={cambios.confirmado}
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                </Row>
-                <Row>
                   <Col xs="12" md="6">
                     <FormGroup>
                       <Label>Nombre de Usuario</Label>
@@ -209,6 +189,8 @@ export default function EditUser(props) {
                       />
                     </FormGroup>
                   </Col>
+                </Row>
+                <Row>
                   <Col xs="12" md="6">
                     <FormGroup>
                       <Label>Email</Label>
@@ -243,7 +225,7 @@ export default function EditUser(props) {
                           ? "admin"
                           : cambios.esfarmacia
                           ? "farmacia"
-                          : ""
+                          : "cliente"
                       }
                     >
                       <option value="" disabled>
@@ -251,24 +233,15 @@ export default function EditUser(props) {
                       </option>
                       <option value="admin">Administrador</option>
                       <option value="farmacia">Farmacia</option>
+                      <option value="cliente">Cliente</option>
                       <option disabled>Demo Farmacia</option>
                       <option disabled>Demo Laboratorio</option>
                     </Input>
                   </Col>
                 </Row>
+
                 <Row>
-                  <CambiarPassword
-                    handleChange={handleChange}
-                    errors={errors}
-                    setErrors={setErrors}
-                    newPass={newPass}
-                    setNewPass={setNewPass}
-                    allowChange={changePass}
-                    setAllowChange={setChangePass}
-                  />
-                </Row>
-                <Row>
-                  <Col xs="6" md="3">
+                  <Col>
                     <FormGroup>
                       <Label>Matricula</Label>
                       <Input
@@ -286,14 +259,12 @@ export default function EditUser(props) {
                       />
                     </FormGroup>
                   </Col>
-                  <Col xs="6" md="3">
+                  <Col>
                     <Label>Nombre de la Farmacia</Label>
                     <div className="createuser_farmacia">
                       {farmaciaPorMatricula.nombre}
                     </div>
                   </Col>
-                </Row>
-                <Row>
                   <Col xs="6" md="3">
                     <Label>Direccion</Label>
                     <div>
@@ -308,10 +279,10 @@ export default function EditUser(props) {
                     <Label>CUIT</Label>
                     <div>{farmaciaPorMatricula.cuit}</div>
                   </Col>
-                </Row>{" "}
-                <Row>
-                  <Col xs="12" md="6"></Col>
-                  <Col xs="4" md="2">
+                </Row>
+
+                <Row xs="12">
+                  <Col>
                     <FormGroup>
                       <Label>Habilitado</Label>
                       <select
@@ -325,7 +296,7 @@ export default function EditUser(props) {
                       </select>
                     </FormGroup>
                   </Col>
-                  <Col xs="4" md="2">
+                  <Col>
                     <FormGroup>
                       <Label>Suscrito al NewsLetter</Label>
                       <select
@@ -339,6 +310,47 @@ export default function EditUser(props) {
                       </select>
                     </FormGroup>
                   </Col>
+                  <Col className="centerContent">
+                    <Checkbox
+                      name="deleted"
+                      label="Eliminado"
+                      onChange={() =>
+                        setCambios(() => {
+                          return {
+                            ...cambios,
+                            deleted: !cambios.deleted,
+                          };
+                        })
+                      }
+                      checked={cambios.deleted}
+                    />
+                  </Col>
+                  <Col className="centerContent">
+                    <Checkbox
+                      name="confirmado"
+                      label="Confirmado"
+                      onChange={() =>
+                        setCambios(() => {
+                          return {
+                            ...cambios,
+                            confirmado: !cambios.confirmado,
+                          };
+                        })
+                      }
+                      checked={cambios.confirmado}
+                    />
+                  </Col>
+                </Row>
+                <Row xs="1" md="1">
+                  <CambiarPassword
+                    handleChange={handleChange}
+                    errors={errors}
+                    setErrors={setErrors}
+                    newPass={newPass}
+                    setNewPass={setNewPass}
+                    allowChange={changePass}
+                    setAllowChange={setChangePass}
+                  />
                 </Row>
               </CardBody>
               <CardFooter>
@@ -348,6 +360,7 @@ export default function EditUser(props) {
                       <Button
                         className="btn btn-success"
                         onClick={() => handleSubmit()}
+                        disabled={!hasChanged}
                       >
                         Guardar Cambios
                       </Button>
