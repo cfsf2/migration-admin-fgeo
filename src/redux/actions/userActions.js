@@ -108,7 +108,11 @@ export const UPDATE_USER = (data, userId) => {
       id: userId,
     },
   })
-    .then((res) => console.log(res))
+    .then((res) => {
+      if (res.status === 201) {
+        alert("Datos Actualizados");
+      }
+    })
     .catch((err) => console.log(err));
 };
 

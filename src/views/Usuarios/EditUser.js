@@ -118,7 +118,6 @@ export default function EditUser(props) {
         UPDATE_PASSWORD(newPass, editableUser._id);
       }
       UPDATE_USER(cambios, editableUser._id);
-      alert("submited");
       return;
     }
     alert(`Todos los campos son obligatorios`);
@@ -177,11 +176,11 @@ export default function EditUser(props) {
                       <Label>Nombre de Usuario</Label>
                       <Input
                         type="text"
-                        name="username"
+                        name="usuario"
                         autoComplete="off"
                         onChange={(e) => handleChange(e)}
                         className={`${
-                          errors.includes("username")
+                          errors.includes("usuario")
                             ? "createuser_errorField"
                             : ""
                         }`}
