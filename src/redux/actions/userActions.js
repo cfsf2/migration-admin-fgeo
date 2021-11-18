@@ -17,6 +17,19 @@ export const GET_USUARIO = (userid) => {
   };
 };
 
+export const GET_USER = (userid) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(farmageo_api + "/users/" + userid, {})
+      .then(function (response) {
+        resolve(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  });
+};
+
 export const GET_USUARIOS = (token) => {
   return (dispatch) => {
     axios
@@ -67,13 +80,13 @@ export const DELETE_USUARIO = (user) => {
 };
 
 export const CREATE_USER = (data) => {
-  const { first_name, last_name, username, password, roles } = data;
+  const { first_name, last_name, username, password, roles, farmaciaId } = data;
 
   return axios({
     method: "post",
     url: farmageo_api + "/users/alta-usuario",
     headers: { "Content-Type": "application/json" },
-    data: { first_name, last_name, username, password, roles },
+    data: { first_name, last_name, username, password, roles, farmaciaId },
   })
     .then((res) => {
       GET_USUARIOS();
@@ -83,4 +96,36 @@ export const CREATE_USER = (data) => {
     .catch(function (error) {
       console.log(error);
     });
+};
+
+export const UPDATE_USER = (data, userId) => {
+  return axios({
+    method: "put",
+    url: farmageo_api + "/users/",
+    headers: { "Content-Type": "application/json" },
+    data: { data },
+    params: {
+      id: userId,
+    },
+  })
+    .then((res) => {
+      if (res.status === 201) {
+        alert("Datos Actualizados");
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+export const UPDATE_PASSWORD = (data, userId) => {
+  return axios({
+    method: "put",
+    url: farmageo_api + "/users/newpassword",
+    headers: { "Content-Type": "application/json" },
+    data: { data },
+    params: {
+      id: userId,
+    },
+  })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
 };

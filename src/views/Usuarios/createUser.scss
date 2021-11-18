@@ -18,4 +18,14 @@
   &errorField {
     border: red solid 2px;
   }
+  &farmacia {
+    font-size: 1.5rem;
+    font-weight: bold;
+    justify-content: center;
+  }
+}
+
+.centerContent {
+  display: flex;
+  align-items: center;
 }

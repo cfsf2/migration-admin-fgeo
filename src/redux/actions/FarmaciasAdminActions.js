@@ -1,7 +1,7 @@
 import axios from "axios";
 import { farmageo_api, wp_api_auth } from "../../config";
 //const URL = "http://api.farmageo.com.ar:8000";
-const URL = wp_api_auth;
+const URL = farmageo_api;
 
 // Falta implemwp_api_authentar.
 const VALIDAR_TOKEN = async () => {
@@ -81,7 +81,7 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
     var emailDefault = login.username.toLowerCase() + "@farmageoapp.com.ar";
     axios
       .post(
-        URL + "/users/alta-usuario",
+        farmageo_api + "/users/alta-usuario",
         {
           username: login.username,
           password: login.password,
@@ -90,6 +90,7 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
           last_name: farmacia.nombre,
           email: emailDefault,
           roles: ["farmacia"],
+          farmaciaId: farmacia.matricula, // id unica de farmacia
         },
         {
           headers: {

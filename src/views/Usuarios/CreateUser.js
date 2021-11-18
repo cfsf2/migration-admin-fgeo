@@ -1,8 +1,7 @@
 import React from "react";
 import "./createUser.scss";
 import { CREATE_USER } from "../../redux/actions/userActions";
-
-import CheckBox from "../../components/CheckBox";
+import { GET_FARMACIA_POR_MATRICULA } from "../../redux/actions/farmaciaActions";
 import {
   Button,
   Card,
@@ -24,10 +23,12 @@ const initUsuario = {
   password: "",
   confirmpassword: "",
   roles: [],
+  farmaciaId: "",
 };
 
 export default function CreateUser() {
   const [nuevoUsuario, setNuevoUsuario] = React.useState(initUsuario);
+  const [farmaciaPorMatricula, setFarmaciaPorMatricula] = React.useState({});
   const [errors, setErrors] = React.useState([]);
 
   const handleChange = (e) => {
@@ -63,20 +64,14 @@ export default function CreateUser() {
   };
 
   const handleRoleChange = (e) => {
-    const checked = e.target.checked;
-    const newrole = e.target.name;
-    let newRoles = nuevoUsuario.roles;
+    const value = e.target.value;
+    const field = e.target.name;
+    let newRoles = [e.target.value];
 
-    if (!checked) {
-      newRoles = nuevoUsuario.roles.filter((role) => role !== newrole);
-    } else {
-      if (nuevoUsuario.roles.length > 0) {
-        alert("Solo puede tener un rol");
-        e.target.checked = false;
-        return;
-      }
-      newRoles = nuevoUsuario.roles.concat(newrole);
-    }
+    setErrors(() => {
+      return errors.filter((thisfield) => thisfield !== field);
+    });
+
     setNuevoUsuario({ ...nuevoUsuario, roles: newRoles });
   };
 
@@ -97,6 +92,17 @@ export default function CreateUser() {
     if (nuevoUsuario.roles.length === 0) {
       fielderrors = fielderrors.concat("roles");
     }
+
+    if (nuevoUsuario.roles[0] === "admin") {
+      fielderrors = fielderrors.filter((f) => f !== "farmaciaId");
+    }
+    if (nuevoUsuario.roles[0] === "farmacia") {
+      console.log(farmaciaPorMatricula);
+      if (!farmaciaPorMatricula) {
+        fielderrors = fielderrors.concat("farmaciaId");
+      }
+    }
+
     setErrors(() => fielderrors);
 
     return fielderrors.length === 0;
@@ -118,6 +124,15 @@ export default function CreateUser() {
     }
     alert(`Todos los campos son obligatorios`);
   };
+
+  React.useEffect(() => {
+    const farm = GET_FARMACIA_POR_MATRICULA(nuevoUsuario.farmaciaId).then(
+      (res) => {
+        setFarmaciaPorMatricula(() => res.data);
+      }
+    );
+    return;
+  }, [nuevoUsuario.farmaciaId]);
 
   return (
     <div className="animated fadeIn">
@@ -199,7 +214,27 @@ export default function CreateUser() {
                       />
                     </FormGroup>
                   </Col>
-                  <Col xs="12" md="6"></Col>
+                  <Col xs="12" md="6">
+                    <Label for="exampleSelect">
+                      <b>Rol de Usuario</b>
+                    </Label>
+                    <Input
+                      onChange={(e) => handleRoleChange(e)}
+                      type="select"
+                      name="roles"
+                      className={`${
+                        errors.includes("roles") ? "createuser_errorField" : ""
+                      }`}
+                    >
+                      <option value="" defaultValue selected disabled>
+                        -----Seleccione un rol-----
+                      </option>
+                      <option value="admin">Administrador</option>
+                      <option value="farmacia">Farmacia</option>
+                      <option disabled>Demo Farmacia</option>
+                      <option disabled>Demo Laboratorio</option>
+                    </Input>
+                  </Col>
                   <Col xs="12" md="6">
                     <FormGroup>
                       <Label>Confirmar Contraseña</Label>
@@ -219,55 +254,53 @@ export default function CreateUser() {
                     </FormGroup>
                   </Col>
                 </Row>
-                <CardHeader className="createuser_titulo">
-                  Roles de Usuario
-                </CardHeader>
 
-                <Row>
-                  <div className="createuser_roles">
-                    <FormGroup check inline>
-                      <Col>
-                        <CheckBox
-                          label="Administrador"
-                          checked={nuevoUsuario.roles.includes("admin")}
-                          onChange={(e) => handleRoleChange(e)}
-                          name="admin"
-                        />
+                {nuevoUsuario.roles[0] === "farmacia" ? (
+                  <>
+                    <Row>
+                      <Col xs="6" md="3">
+                        <FormGroup>
+                          <Label>Matricula del Titular</Label>
+                          <Input
+                            type="number"
+                            name="farmaciaId"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            // onChange={(e) => setMatricula(e.target.value)}
+                            value={nuevoUsuario.farmaciaId}
+                            className={`${
+                              errors.includes("farmaciaId")
+                                ? "createuser_errorField"
+                                : ""
+                            }`}
+                          />
+                        </FormGroup>
                       </Col>
-                    </FormGroup>
-                    {/* <FormGroup check inline>
-                      <Col>
-                        <Input
-                          type="checkbox"
-                          name="farmacia"
-                          onChange={(e) => handleRoleChange(e)}
-                        />
-                        <Label>Farmacia</Label>
+                      <Col xs="6" md="3">
+                        <Label>Nombre de la Farmacia</Label>
+                        <div className="createuser_farmacia">
+                          {farmaciaPorMatricula.nombre}
+                        </div>
                       </Col>
-                    </FormGroup> */}
-
-                    <FormGroup check inline>
-                      <Col>
-                        <CheckBox
-                          label="Demo Laboratorio"
-                          checked={nuevoUsuario.roles.includes("demoLab")}
-                          onChange={(e) => handleRoleChange(e)}
-                          name="demoLab"
-                        />
+                    </Row>
+                    <Row>
+                      <Col xs="6" md="3">
+                        <Label>Direccion</Label>
+                        <div>
+                          {farmaciaPorMatricula
+                            ? farmaciaPorMatricula.calle +
+                              " " +
+                              farmaciaPorMatricula.numero
+                            : null}
+                        </div>
                       </Col>
-                    </FormGroup>
-                    <FormGroup check inline>
-                      <Col>
-                        <CheckBox
-                          label="Demo Farmacia"
-                          checked={nuevoUsuario.roles.includes("demofarm")}
-                          onChange={(e) => handleRoleChange(e)}
-                          name="demofarm"
-                        />
+                      <Col xs="6" md="3">
+                        <Label>CUIT</Label>
+                        <div>{farmaciaPorMatricula.cuit}</div>
                       </Col>
-                    </FormGroup>
-                  </div>
-                </Row>
+                    </Row>{" "}
+                  </>
+                ) : null}
 
                 <Row>
                   <Col xs="12" md="6"></Col>
