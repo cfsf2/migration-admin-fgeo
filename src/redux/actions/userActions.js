@@ -108,7 +108,7 @@ export const UPDATE_USER = (data, userId) => {
       id: userId,
     },
   })
-    .then((res) => console.log(res))
+    .then((res) => alert("Cambios Recibidos"))
     .catch((err) => console.log(err));
 };
 

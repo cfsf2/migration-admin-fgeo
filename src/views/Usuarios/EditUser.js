@@ -118,7 +118,7 @@ export default function EditUser(props) {
         UPDATE_PASSWORD(newPass, editableUser._id);
       }
       UPDATE_USER(cambios, editableUser._id);
-      alert("submited");
+
       return;
     }
     alert(`Todos los campos son obligatorios`);
