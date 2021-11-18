@@ -28,7 +28,7 @@ class BannersEcommerce extends Component {
     this.state = {
       publicidad: null,
       editar: false,
-      active:'banners_ecommerce_slider'
+      active: "banners_ecommerce_slider",
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleEditImagen = this.handleEditImagen.bind(this);
@@ -59,7 +59,7 @@ class BannersEcommerce extends Component {
   }
 
   render() {
-    const {active} = this.state
+    const { active } = this.state;
     return (
       <div className="animated fadeIn">
         <Row>
@@ -95,11 +95,63 @@ class BannersEcommerce extends Component {
                     <Card>
                       <CardHeader>
                         <Row align="center">
-                          <Col className={active === "banners_ecommerce_slider" ? 'btn btn-dark p2':'btn p2'} onClick={()=>this.setState({active:'banners_ecommerce_slider'})}>Banners Home Slider</Col>
-                          <Col className={active === "banners_ecommerce_home_mut" ? 'btn btn-dark p2':'btn p2'} onClick={()=>this.setState({active:'banners_ecommerce_home_mut'})}>Banner Home Mutual</Col>
-                          <Col className={active === "banners_ecommerce_home_col" ? 'btn btn-dark p2':'btn p2'} onClick={()=>this.setState({active:'banners_ecommerce_home_col'})}>Banner Home Colegio</Col>
+                          <Col
+                            className={
+                              active === "banners_ecommerce_slider"
+                                ? "btn btn-dark p2"
+                                : "btn p2"
+                            }
+                            onClick={() =>
+                              this.setState({
+                                active: "banners_ecommerce_slider",
+                              })
+                            }
+                          >
+                            Banners Home Slider
+                          </Col>
+                          <Col
+                            className={
+                              active === "banners_ecommerce_home_mut"
+                                ? "btn btn-dark p2"
+                                : "btn p2"
+                            }
+                            onClick={() =>
+                              this.setState({
+                                active: "banners_ecommerce_home_mut",
+                              })
+                            }
+                          >
+                            Banner Home Mutual
+                          </Col>
+                          <Col
+                            className={
+                              active === "banners_ecommerce_home_col"
+                                ? "btn btn-dark p2"
+                                : "btn p2"
+                            }
+                            onClick={() =>
+                              this.setState({
+                                active: "banners_ecommerce_home_col",
+                              })
+                            }
+                          >
+                            Banner Home Colegio
+                          </Col>
+                          <Col
+                            className={
+                              active === "banners_admin"
+                                ? "btn btn-dark p2"
+                                : "btn p2"
+                            }
+                            onClick={() =>
+                              this.setState({
+                                active: "banners_admin",
+                              })
+                            }
+                          >
+                            Banner Admin Farmacia
+                          </Col>
                         </Row>
-
                       </CardHeader>
                       <CardBody>
                         {this.props.publicidadesReducer.publicidades.map(

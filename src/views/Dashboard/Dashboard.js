@@ -142,6 +142,21 @@ class Dashboard extends Component {
                         </a>
                       </Col>
                     </Row>
+                    <Row style={{ marginBottom: 10, paddingBottom: 0 }}>
+                      <Col md="12">
+                        <a
+                          //onClick={this.handleBannerNutriendoEsperanza}
+                          href={""}
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <img
+                            style={{ width: "100%" }}
+                            src="https://nypq9g.by.files.1drv.com/y4mB-fsbtRpIjVmwLpqVvt0EG_XW1Bwo9JwDpEsubzLrXUFCWUXh-QuTcAyAtMZaxogk8I-xkS2dCTkHz96k0aWLE-oVQdMBeMnSnFR8OFTNMM9OHleDaZgbZGfW-2xPcLp2O8sGNq7RRX6UxJjMW48fJQpiCJmsv0RcoNKVJuZ_7VDt6XPA9pAgvpwg0OdNW_H9aYxrNWvlw68j5AKnYxwyA/Banner-FARMAGEO_A.jpg?psid=1"
+                          />
+                        </a>
+                      </Col>
+                    </Row>
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="12" style={{ height: 50 }}>
                         <ButtonHome
