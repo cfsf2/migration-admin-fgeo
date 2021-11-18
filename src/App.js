@@ -19,9 +19,10 @@ const Page404 = React.lazy(() => import("./views/Pages/Page404"));
 const Page500 = React.lazy(() => import("./views/Pages/Page500"));
 
 const token = window.localStorage.getItem("token");
+console.log(token);
 if (token) {
   axios.interceptors.request.use((request) => {
-    request.headers.authorization(`Bearer ${token}`);
+    request.headers.authorization = `Bearer ${token}`;
     return request;
   });
 }
