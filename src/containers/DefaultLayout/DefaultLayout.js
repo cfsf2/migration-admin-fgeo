@@ -86,8 +86,11 @@ class DefaultLayout extends Component {
           return this.props.user.permisos.some((per) => route.permiso === per);
         });
         allowedRoutes = routesadmin.filter((route) => {
-          return allowedNav.items.some((nav) => nav.url === route.path);
+          return this.props.user.permisos.some((per) => {
+            return route.permiso === per;
+          });
         });
+
         this.setState({ navigation: allowedNav, routes: allowedRoutes });
       } else if (IS_FARMACIA) {
         var _nav_farmacia = await Filtrar_Sin_Venta_Online(

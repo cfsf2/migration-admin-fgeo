@@ -27,6 +27,7 @@ export default {
     {
       name: "Comunicados",
       icon: "icon-cursor",
+      permiso: "comunicados",
       children: [
         {
           name: "Novedades farmacias",
@@ -85,7 +86,7 @@ export default {
     {
       name: "Packs de Productos",
       url: "/packsdeproductos",
-      permiso: "packproductos",
+      permiso: "packsdeproductos",
       icon: "",
       children: [
         {

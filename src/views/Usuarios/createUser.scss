@@ -1,4 +1,22 @@
 .createuser_ {
+  &asignarPermisos {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 3rem;
+    padding: 2rem;
+    .permisoCheckbox {
+      margin: 1rem;
+      display: flex;
+      justify-content: space-between;
+      .checkbox_label {
+        margin-left: 2rem;
+      }
+      .checkbox_input {
+        margin-left: 0;
+      }
+    }
+  }
   &container {
     // width: 100%;
     //margin: 2rem;

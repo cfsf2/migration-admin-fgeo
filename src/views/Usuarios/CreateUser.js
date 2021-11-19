@@ -15,6 +15,7 @@ import {
   CardImg,
   CardFooter,
 } from "reactstrap";
+import AsignarPermisos from "./component/AsignarPermisos";
 
 const initUsuario = {
   first_name: "",
@@ -24,10 +25,12 @@ const initUsuario = {
   confirmpassword: "",
   roles: [],
   farmaciaId: "",
+  permisos: [],
 };
 
 export default function CreateUser() {
   const [nuevoUsuario, setNuevoUsuario] = React.useState(initUsuario);
+  const [permisos, setPermisos] = React.useState(initUsuario.permisos);
   const [farmaciaPorMatricula, setFarmaciaPorMatricula] = React.useState({});
   const [errors, setErrors] = React.useState([]);
 
@@ -97,10 +100,12 @@ export default function CreateUser() {
       fielderrors = fielderrors.filter((f) => f !== "farmaciaId");
     }
     if (nuevoUsuario.roles[0] === "farmacia") {
-      console.log(farmaciaPorMatricula);
       if (!farmaciaPorMatricula) {
         fielderrors = fielderrors.concat("farmaciaId");
       }
+    }
+    if (nuevoUsuario.roles[0] === "cliente") {
+      fielderrors = fielderrors.filter((f) => f !== "farmaciaId");
     }
 
     setErrors(() => fielderrors);
@@ -231,6 +236,7 @@ export default function CreateUser() {
                       </option>
                       <option value="admin">Administrador</option>
                       <option value="farmacia">Farmacia</option>
+                      <option value="cliente">Cliente</option>
                       <option disabled>Demo Farmacia</option>
                       <option disabled>Demo Laboratorio</option>
                     </Input>
@@ -319,6 +325,12 @@ export default function CreateUser() {
                     </FormGroup>
                   </Col>
                 </Row>
+                {nuevoUsuario.roles[0] === "admin" ? (
+                  <AsignarPermisos
+                    usuario={nuevoUsuario}
+                    setUsuario={setNuevoUsuario}
+                  />
+                ) : null}
               </CardBody>
               <CardFooter>
                 <Row>
