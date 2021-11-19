@@ -96,6 +96,11 @@ export default function CreateUser() {
     }
 
     if (nuevoUsuario.roles[0] === "admin") {
+      if (nuevoUsuario.permisos.length < 2) {
+        fielderrors = fielderrors.concat("permisos");
+      } else {
+        fielderrors = fielderrors.filter((f) => f !== "permisos");
+      }
       fielderrors = fielderrors.filter((f) => f !== "farmaciaId");
     }
     if (nuevoUsuario.roles[0] === "farmacia") {
@@ -324,11 +329,23 @@ export default function CreateUser() {
                     </FormGroup>
                   </Col>
                 </Row>
+
                 {nuevoUsuario.roles[0] === "admin" ? (
-                  <AsignarPermisos
-                    usuario={nuevoUsuario}
-                    setUsuario={setNuevoUsuario}
-                  />
+                  <div
+                    className={`${
+                      errors.includes("permisos") ? "createuser_errorField" : ""
+                    }`}
+                  >
+                    <AsignarPermisos
+                      usuario={nuevoUsuario}
+                      setUsuario={setNuevoUsuario}
+                    />
+                    {errors.includes("permisos") ? (
+                      <div style={{ color: "red", textAlign: "right" }}>
+                        Debe elegir al menos un permiso
+                      </div>
+                    ) : null}
+                  </div>
                 ) : null}
               </CardBody>
               <CardFooter>
