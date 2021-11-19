@@ -121,7 +121,9 @@ export default function EditUser(props) {
       if (changePass) {
         UPDATE_PASSWORD(newPass, editableUser._id);
       }
-      UPDATE_USER(cambios, editableUser._id);
+      UPDATE_USER(cambios, editableUser._id).then(() => {
+        props.history.push("/usuarios");
+      });
       return;
     }
     alert(`Todos los campos son obligatorios`);
