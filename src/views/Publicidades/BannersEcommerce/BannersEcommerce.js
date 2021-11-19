@@ -21,6 +21,7 @@ import {
 } from "../../../redux/actions/publicidadesActions";
 import Uploader from "../../../components/Uploader";
 import { image_path_server } from "../../../config";
+import { Checkbox } from "@material-ui/core";
 
 class BannersEcommerce extends Component {
   constructor(props) {
@@ -306,6 +307,22 @@ class BannersEcommerce extends Component {
                                           }
                                           isPerfil={false}
                                         />
+                                      </Col>
+                                    </Row>
+                                  </FormGroup>
+                                  <FormGroup>
+                                    <Row>
+                                      <Col style={{ textAlign: "center" }}>
+                                        <Checkbox
+                                          name="habilitado"
+                                          onChange={this.handleInputChange}
+                                          checked={
+                                            this.state.publicidad?.habilitado
+                                          }
+                                        />
+                                        <Label name="habilitado">
+                                          Habilitado
+                                        </Label>
                                       </Col>
                                     </Row>
                                   </FormGroup>

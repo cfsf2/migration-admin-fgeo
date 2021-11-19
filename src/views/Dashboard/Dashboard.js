@@ -25,11 +25,15 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 
 import ButtonHome from "./components/ButtonHome";
 import VentaOnlineSelect from "./components/VentaOnlineSelect";
+import { image_path_server } from "../../config";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      bannerAdmin: this.props.publicidadesReducer.publicidades
+        .filter((p) => p.tipo === "banners_admin")
+        .sort(),
       pedidosnuevos: 0,
       pedidosenproceso: 0,
       productoscasiagotados: 0,
@@ -104,6 +108,11 @@ class Dashboard extends Component {
       await this.setState({
         publicidades: this.props.publicidadesReducer.publicidades.reverse(),
       });
+      await this.setState({
+        bannerAdmin: this.props.publicidadesReducer.publicidades
+          .filter((p) => p.tipo === "banners_admin")
+          .sort(),
+      });
     }
 
     if (userprofile !== null) {
@@ -125,38 +134,27 @@ class Dashboard extends Component {
               <Col md="6">
                 <Row>
                   <Col>
-                    <Row style={{ marginBottom: 10, paddingBottom: 0 }}>
-                      <Col md="12">
-                        <a
-                          //onClick={this.handleBannerNutriendoEsperanza}
-                          href={
-                            "https://mfarmaceutica.com.ar/todo-riesgo-farmacias/"
-                          }
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <img
-                            style={{ width: "100%" }}
-                            src="https://farmageo2.s3.amazonaws.com/farmacias/1609347294356-lg.jpg"
-                          />
-                        </a>
-                      </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 10, paddingBottom: 0 }}>
-                      <Col md="12">
-                        <a
-                          //onClick={this.handleBannerNutriendoEsperanza}
-                          href={""}
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <img
-                            style={{ width: "100%" }}
-                            src="https://nypq9g.by.files.1drv.com/y4mB-fsbtRpIjVmwLpqVvt0EG_XW1Bwo9JwDpEsubzLrXUFCWUXh-QuTcAyAtMZaxogk8I-xkS2dCTkHz96k0aWLE-oVQdMBeMnSnFR8OFTNMM9OHleDaZgbZGfW-2xPcLp2O8sGNq7RRX6UxJjMW48fJQpiCJmsv0RcoNKVJuZ_7VDt6XPA9pAgvpwg0OdNW_H9aYxrNWvlw68j5AKnYxwyA/Banner-FARMAGEO_A.jpg?psid=1"
-                          />
-                        </a>
-                      </Col>
-                    </Row>
+                    {this.state.bannerAdmin?.map((banner) => {
+                      return banner.habilitado ? (
+                        <Row style={{ marginBottom: 10, paddingBottom: 0 }}>
+                          <Col md="12">
+                            <a
+                              //onClick={this.handleBannerNutriendoEsperanza}
+                              href={banner.link}
+                              target={
+                                banner.link.trim() !== "" ? "_blank" : "_self"
+                              }
+                              rel="noopener"
+                            >
+                              <img
+                                style={{ width: "100%" }}
+                                src={image_path_server + banner.imagen}
+                              />
+                            </a>
+                          </Col>
+                        </Row>
+                      ) : null;
+                    })}
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="12" style={{ height: 50 }}>
                         <ButtonHome
