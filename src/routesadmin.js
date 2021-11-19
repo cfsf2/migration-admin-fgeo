@@ -1,4 +1,5 @@
 import React from "react";
+import store from "./redux/store";
 
 const Dashboard = React.lazy(() => import("./views/Dashboard/Dashboard"));
 const Users = React.lazy(() => import("./views/Users/Users"));

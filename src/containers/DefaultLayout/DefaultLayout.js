@@ -43,7 +43,9 @@ class DefaultLayout extends Component {
     };
   }
 
-  loading = () => (<div className="animated fadeIn pt-1 text-center">Cargando...</div>);
+  loading = () => (
+    <div className="animated fadeIn pt-1 text-center">Cargando...</div>
+  );
 
   signOut(e) {
     e.preventDefault();
@@ -78,7 +80,15 @@ class DefaultLayout extends Component {
       prevProps.authReducer.userprofile !== userprofile
     ) {
       if (IS_ADMIN) {
-        this.setState({ navigation: nav_admin, routes: routesadmin });
+        let allowedNav = { items: [] };
+        let allowedRoutes;
+        allowedNav.items = nav_admin.items.filter((route) => {
+          return this.props.user.permisos.some((per) => route.permiso === per);
+        });
+        allowedRoutes = routesadmin.filter((route) => {
+          return allowedNav.items.some((nav) => nav.url === route.path);
+        });
+        this.setState({ navigation: allowedNav, routes: allowedRoutes });
       } else if (IS_FARMACIA) {
         var _nav_farmacia = await Filtrar_Sin_Venta_Online(
           nav_farmacia,
@@ -137,17 +147,19 @@ class DefaultLayout extends Component {
                         </b>
                       </a>
                     </Col>
-                  ) : ValidarPerfil(userprofile) ? null :
+                  ) : ValidarPerfil(userprofile) ? null : (
                     <Col md="8">
                       <a
                         href={process.env.PUBLIC_URL + "/#/perfil"}
                         className="text-warning"
                       >
                         <b style={{ float: "left", fontSize: 10 }}>
-                          ATENCIÓN: hay campos sin completar en la información de su perfil
+                          ATENCIÓN: hay campos sin completar en la información
+                          de su perfil
                         </b>
                       </a>
                     </Col>
+                  )
                 ) : null}
 
                 <Col className="align-content-center">
