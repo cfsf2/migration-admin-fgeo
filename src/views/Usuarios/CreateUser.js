@@ -25,12 +25,11 @@ const initUsuario = {
   confirmpassword: "",
   roles: [],
   farmaciaId: "",
-  permisos: [],
+  permisos: ["inicio"],
 };
 
 export default function CreateUser() {
   const [nuevoUsuario, setNuevoUsuario] = React.useState(initUsuario);
-  const [permisos, setPermisos] = React.useState(initUsuario.permisos);
   const [farmaciaPorMatricula, setFarmaciaPorMatricula] = React.useState({});
   const [errors, setErrors] = React.useState([]);
 
@@ -118,7 +117,7 @@ export default function CreateUser() {
       CREATE_USER(nuevoUsuario).then((data) => {
         if (data.type === "success") {
           alert(data.msg);
-          setNuevoUsuario(initUsuario);
+          // setNuevoUsuario(initUsuario);
         }
         if (data.type === "fail") {
           alert(data.msg);

@@ -80,13 +80,29 @@ export const DELETE_USUARIO = (user) => {
 };
 
 export const CREATE_USER = (data) => {
-  const { first_name, last_name, username, password, roles, farmaciaId } = data;
+  const {
+    first_name,
+    last_name,
+    username,
+    password,
+    roles,
+    farmaciaId,
+    permisos,
+  } = data;
 
   return axios({
     method: "post",
     url: farmageo_api + "/users/alta-usuario",
     headers: { "Content-Type": "application/json" },
-    data: { first_name, last_name, username, password, roles, farmaciaId },
+    data: {
+      first_name,
+      last_name,
+      username,
+      password,
+      roles,
+      farmaciaId,
+      permisos,
+    },
   })
     .then((res) => {
       GET_USUARIOS();
