@@ -54,7 +54,7 @@ export function CambiarPassword(props) {
             onClick={() => setAllowChange(!allowChange)}
           >
             {" "}
-            Quiero Cambiar el Password
+            Cambiar Password
           </Button>
         </Col>
       ) : (

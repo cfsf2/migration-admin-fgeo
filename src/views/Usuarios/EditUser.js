@@ -7,6 +7,7 @@ import {
 import { useLocation } from "react-router-dom";
 import { GET_FARMACIA_POR_MATRICULA } from "../../redux/actions/farmaciaActions";
 import { CambiarPassword } from "./component/CambiarPassword";
+import AsignarPermisos from "./component/AsignarPermisos";
 import {
   Button,
   Card,
@@ -340,6 +341,9 @@ export default function EditUser(props) {
                     />
                   </Col>
                 </Row>
+                {cambios.admin ? (
+                  <AsignarPermisos usuario={cambios} setUsuario={setCambios} />
+                ) : null}
                 <Row xs="1" md="1">
                   <CambiarPassword
                     handleChange={handleChange}

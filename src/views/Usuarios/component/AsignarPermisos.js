@@ -20,10 +20,11 @@ const initpermisos = [
   { nombre: "Comunicados", permiso: "comunicados" },
   { nombre: "Denuncias", permiso: "denuncias" },
   { nombre: "Reporte de OOSS", permiso: "reporteooss" },
-  { nombre: "Farmacias", permiso: "farmacias" },
+  { nombre: "Farmacias", permiso: "farmacia" },
   { nombre: "Packs de Productos", permiso: "packsdeproductos" },
   { nombre: "Banners", permiso: "banners" },
   { nombre: "Transfer", permiso: "transfer" },
+  { nombre: "Pedidos", permiso: "pedidos" },
 ];
 
 export default function AsignarPermisos(props) {
@@ -46,6 +47,14 @@ export default function AsignarPermisos(props) {
       return { ...usuario, permisos: newPermisos };
     });
   };
+
+  React.useEffect(() => {
+    if (!usuario.permisos.includes("inicio")) {
+      setUsuario(() => {
+        return { ...usuario, permisos: usuario.permisos.concat("inicio") };
+      });
+    }
+  }, []);
 
   return (
     <Card>
