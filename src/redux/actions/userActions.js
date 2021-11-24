@@ -124,15 +124,11 @@ export const UPDATE_USER = (data, userId) => {
       id: userId,
     },
   })
-<<<<<<< HEAD
     .then((res) => {
       if (res.status === 201) {
         alert("Datos Actualizados");
       }
     })
-=======
-    .then((res) => alert("Cambios Recibidos"))
->>>>>>> authtoken
     .catch((err) => console.log(err));
 };
 
