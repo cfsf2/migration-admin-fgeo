@@ -23,18 +23,20 @@ class App extends Component {
     return (
       <HashRouter>
         {testing === "https://admin-farmageo.testingdev.ml" ? (
-          <h1
-            style={{
-              fontSize: "2rem",
-              textAlign: "center",
-              color: "yellow",
-              backgroundColor: "blue",
-              fontWeight: "bold",
-              letterSpacing: "10px",
-            }}
-          >
-            ENTORNO DE TESTING
-          </h1>
+          <div className="leyendatesting">
+            <h1
+              style={{
+                fontSize: "2rem",
+                textAlign: "center",
+                color: "yellow",
+                backgroundColor: "blue",
+                fontWeight: "bold",
+                letterSpacing: "10px",
+              }}
+            >
+              ENTORNO DE TESTING
+            </h1>
+          </div>
         ) : null}
         <React.Suspense fallback={loading()}>
           <Switch>
