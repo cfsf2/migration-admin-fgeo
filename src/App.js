@@ -29,8 +29,24 @@ if (token) {
 
 class App extends Component {
   render() {
+    const testing = window.location.origin;
+    console.log(testing);
     return (
       <HashRouter>
+        {testing === "https://admin-farmageo.testingdev.ml" ? (
+          <h1
+            style={{
+              fontSize: "2rem",
+              textAlign: "center",
+              color: "yellow",
+              backgroundColor: "blue",
+              fontWeight: "bold",
+              letterSpacing: "10px",
+            }}
+          >
+            ENTORNO DE TESTING
+          </h1>
+        ) : null}
         <React.Suspense fallback={loading()}>
           <Switch>
             <Route
