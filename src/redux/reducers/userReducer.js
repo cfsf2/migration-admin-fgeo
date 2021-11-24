@@ -2,7 +2,7 @@ const defaultState = {
   usuario: null,
   load: false,
   fin: false,
-  usuarios: [],
+  usuarios: null,
   show_modal_adddedit: false,
 };
 

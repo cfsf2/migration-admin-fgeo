@@ -10,6 +10,7 @@ import tranfersReducer from "./tranfersReducer";
 import packsproductosReducer from "./packsproductosReducer";
 import reportOSReducer from "./reportOSReducer";
 import debitospamiReducer from "./debitospamiReducer";
+import userReducer from "./userReducer";
 
 export default combineReducers({
   imageReducer,
@@ -23,4 +24,5 @@ export default combineReducers({
   packsproductosReducer,
   reportOSReducer,
   debitospamiReducer,
+  userReducer,
 });

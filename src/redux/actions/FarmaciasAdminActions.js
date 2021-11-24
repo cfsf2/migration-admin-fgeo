@@ -181,7 +181,7 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
 export const GET_USUARIOS_APP = () => {
   return async (dispatch) => {
     axios
-      .post(farmageo_api + "/users/admin/")
+      .get(farmageo_api + "/users/")
       .then(function (response) {
         // console.log(response);
         dispatch({ type: "GET_USUARIOS_APP", payload: response.data });

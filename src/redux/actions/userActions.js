@@ -33,7 +33,7 @@ export const GET_USER = (userid) => {
 export const GET_USUARIOS = (token) => {
   return (dispatch) => {
     axios
-      .get(wp_api + "/users", {})
+      .get(farmageo_api + "/users")
       .then(function (response) {
         dispatch({
           type: "GET_USUARIOS",
