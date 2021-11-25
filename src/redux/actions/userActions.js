@@ -4,7 +4,7 @@ import { wp_api, farmageo_api, wp_api_auth } from "../../config";
 export const GET_USUARIO = (userid) => {
   return (dispatch) => {
     axios
-      .get(wp_api + "/users/" + userid, {})
+      .get(farmageo_api + "/users/" + userid, {})
       .then(function (response) {
         dispatch({
           type: "GET_PRODUCTO",

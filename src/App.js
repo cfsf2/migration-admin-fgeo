@@ -30,7 +30,7 @@ if (token) {
 class App extends Component {
   render() {
     const testing = window.location.origin;
-    console.log(testing);
+
     return (
       <HashRouter>
         {testing === "https://admin-farmageo.testingdev.ml" ? (

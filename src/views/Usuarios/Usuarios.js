@@ -59,7 +59,6 @@ class Usuarios extends Component {
   }
 
   render() {
-    console.log(this.props.userReducer);
     const { usuarios } = this.props.userReducer;
     return (
       <div className="animated fadeIn">

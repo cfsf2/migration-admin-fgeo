@@ -80,25 +80,16 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
     var token = await localStorage.getItem("token");
     var emailDefault = login.username.toLowerCase() + "@farmageoapp.com.ar";
     axios
-      .post(
-        farmageo_api + "/users/alta-usuario",
-        {
-          username: login.username,
-          password: login.password,
-          name: farmacia.nombre,
-          first_name: "farmacia",
-          last_name: farmacia.nombre,
-          email: emailDefault,
-          roles: ["farmacia"],
-          farmaciaId: farmacia.matricula, // id unica de farmacia
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post(farmageo_api + "/users/alta-usuario", {
+        username: login.username,
+        password: login.password,
+        name: farmacia.nombre,
+        first_name: "farmacia",
+        last_name: farmacia.nombre,
+        email: emailDefault,
+        roles: ["farmacia"],
+        farmaciaId: farmacia.matricula, // id unica de farmacia
+      })
       .then((response) => {
         if (response.status == "201" || response.status == "200") {
           dispatch(ALTA_USER_API_FARMAGEO(farmacia, login, history));
