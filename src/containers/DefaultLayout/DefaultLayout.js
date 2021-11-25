@@ -30,9 +30,20 @@ import routesdefault from "../../routesdefault";
 import { Filtrar_Sin_Venta_Online } from "../../helpers/NavHelper";
 import { ValidarPerfil } from "../../helpers/Validaciones";
 
+import axios from "axios";
+
 const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
+
+const token = window.localStorage.getItem("token");
+
+if (token) {
+  axios.interceptors.request.use((request) => {
+    request.headers.authorization = `Bearer ${token}`;
+    return request;
+  });
+}
 
 class DefaultLayout extends Component {
   constructor(props) {

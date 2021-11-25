@@ -88,6 +88,7 @@ export const CREATE_USER = (data) => {
     roles,
     farmaciaId,
     permisos,
+    perfil,
   } = data;
 
   return axios({
@@ -102,6 +103,7 @@ export const CREATE_USER = (data) => {
       roles,
       farmaciaId,
       permisos,
+      perfil,
     },
   })
     .then((res) => {
@@ -144,4 +146,16 @@ export const UPDATE_PASSWORD = (data, userId) => {
   })
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
+};
+
+export const GET_PERFILES_ADMIN = () => {
+  axios({
+    method: "get",
+    url: farmageo_api + "/permisos/perfiles/admin",
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => {
+    return new Promise((resolve, reject) => {
+      resolve(res.data);
+    });
+  });
 };

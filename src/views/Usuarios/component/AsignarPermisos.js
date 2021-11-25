@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+import { farmageo_api } from "../../../config";
 
 import {
   Button,
@@ -14,6 +16,7 @@ import {
   CardFooter,
 } from "reactstrap";
 import Checkbox from "../../../components/CheckBox";
+import { GET_PERFILES_ADMIN } from "../../../redux/actions/userActions";
 
 const initpermisos = [
   { nombre: "Usuarios", permiso: "usuarios" },
@@ -29,22 +32,27 @@ const initpermisos = [
 
 export default function AsignarPermisos(props) {
   const { usuario, setUsuario } = props;
+  const [perfiles, setPerfiles] = React.useState([]);
+  const [descripcion, setDescripcion] = React.useState("");
 
   const permisos = usuario.permisos;
 
   const handlePermitChange = (e) => {
-    const value = e.target.name;
+    const value = e.target.value;
 
-    if (permisos.includes(value)) {
-      const newPermisos = permisos.filter((per) => per !== value);
-      setUsuario(() => {
-        return { ...usuario, permisos: newPermisos };
-      });
-      return;
-    }
-    const newPermisos = usuario.permisos.concat(value);
+    const perfil = perfiles.filter((perf) => perf._id === value)[0];
+    setDescripcion(perfil.descripcion);
+    const componentes = new Set();
+    componentes.add("inicio");
+    perfil.permisos.forEach((permiso) => {
+      componentes.add(permiso.tipo);
+    });
     setUsuario(() => {
-      return { ...usuario, permisos: newPermisos };
+      return {
+        ...usuario,
+        permisos: Array.from(componentes),
+        perfil: perfil._id,
+      };
     });
   };
 
@@ -54,24 +62,30 @@ export default function AsignarPermisos(props) {
         return { ...usuario, permisos: usuario.permisos.concat("inicio") };
       });
     }
+    axios({
+      method: "get",
+      url: farmageo_api + "/permisos/perfiles/admin",
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => {
+      setPerfiles(res.data);
+    });
   }, []);
 
   return (
     <Card>
       <CardHeader>Permisos</CardHeader>
       <div className="createuser_asignarPermisos">
-        {initpermisos.map((permiso) => {
-          return (
-            <Checkbox
-              key={permiso.permiso}
-              label={permiso.nombre}
-              checked={permisos?.includes(permiso.permiso)}
-              onChange={handlePermitChange}
-              name={permiso.permiso}
-              className="permisoCheckbox"
-            />
-          );
-        })}
+        <Label>Perfil de Usuario</Label>
+        <Input onChange={handlePermitChange} type="select" name="perfil">
+          {perfiles.map((perfil) => {
+            return (
+              <option key={perfil._id} value={perfil._id}>
+                {perfil.nombre}
+              </option>
+            );
+          })}
+        </Input>
+        <p>{descripcion}</p>
       </div>
     </Card>
   );

@@ -2,7 +2,7 @@
   &asignarPermisos {
     width: 100%;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 2fr 3fr;
     column-gap: 3rem;
     padding: 2rem;
     .permisoCheckbox {

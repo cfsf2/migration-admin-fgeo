@@ -3,8 +3,6 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
 import "./App.scss";
 
-import axios from "axios";
-
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Cargando...</div>
 );
@@ -19,13 +17,6 @@ const Page404 = React.lazy(() => import("./views/Pages/Page404"));
 const Page500 = React.lazy(() => import("./views/Pages/Page500"));
 
 const token = window.localStorage.getItem("token");
-
-if (token) {
-  axios.interceptors.request.use((request) => {
-    request.headers.authorization = `Bearer ${token}`;
-    return request;
-  });
-}
 
 class App extends Component {
   render() {
