@@ -30,10 +30,20 @@ import routesdefault from "../../routesdefault";
 import { Filtrar_Sin_Venta_Online } from "../../helpers/NavHelper";
 import { ValidarPerfil } from "../../helpers/Validaciones";
 
+import axios from "axios";
+
 const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
+const token = window.localStorage.getItem("token");
+
+if (token) {
+  axios.interceptors.request.use((request) => {
+    request.headers.authorization = `Bearer ${token}`;
+    return request;
+  });
+}
 class DefaultLayout extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +53,9 @@ class DefaultLayout extends Component {
     };
   }
 
-  loading = () => (<div className="animated fadeIn pt-1 text-center">Cargando...</div>);
+  loading = () => (
+    <div className="animated fadeIn pt-1 text-center">Cargando...</div>
+  );
 
   signOut(e) {
     e.preventDefault();
@@ -137,17 +149,19 @@ class DefaultLayout extends Component {
                         </b>
                       </a>
                     </Col>
-                  ) : ValidarPerfil(userprofile) ? null :
+                  ) : ValidarPerfil(userprofile) ? null : (
                     <Col md="8">
                       <a
                         href={process.env.PUBLIC_URL + "/#/perfil"}
                         className="text-warning"
                       >
                         <b style={{ float: "left", fontSize: 10 }}>
-                          ATENCIÓN: hay campos sin completar en la información de su perfil
+                          ATENCIÓN: hay campos sin completar en la información
+                          de su perfil
                         </b>
                       </a>
                     </Col>
+                  )
                 ) : null}
 
                 <Col className="align-content-center">
