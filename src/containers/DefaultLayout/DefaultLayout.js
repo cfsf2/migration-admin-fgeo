@@ -46,6 +46,16 @@ axios.interceptors.request.use((request) => {
   return request;
 });
 // }
+axios.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err.response.status === 401) {
+      alert("Denegado: No tiene permiso para realizar esta accion");
+      window.location = process.env.PUBLIC_URL;
+    }
+    return err.response;
+  }
+);
 
 class DefaultLayout extends Component {
   constructor(props) {
@@ -104,7 +114,7 @@ class DefaultLayout extends Component {
           });
         });
 
-        this.setState({ navigation: allowedNav, routes: allowedRoutes });
+        this.setState({ navigation: nav_admin, routes: routesadmin });
       } else if (IS_FARMACIA) {
         var _nav_farmacia = await Filtrar_Sin_Venta_Online(
           nav_farmacia,
