@@ -31,7 +31,7 @@ const initpermisos = [
 ];
 
 export default function AsignarPermisos(props) {
-  const { usuario, setUsuario } = props;
+  const { usuario, setUsuario, tipo } = props;
   const [perfiles, setPerfiles] = React.useState([]);
   const [descripcion, setDescripcion] = React.useState("");
 
@@ -59,24 +59,45 @@ export default function AsignarPermisos(props) {
   React.useEffect(() => {
     if (!usuario.permisos.includes("inicio")) {
       setUsuario(() => {
-        return { ...usuario, permisos: usuario.permisos.concat("inicio") };
+        return {
+          ...usuario,
+          permisos: usuario.permisos.concat("inicio"),
+        };
       });
     }
     axios({
       method: "get",
-      url: farmageo_api + "/permisos/perfiles/admin",
+      url: farmageo_api + "/permisos/perfiles",
       headers: { "Content-Type": "application/json" },
+      params: {
+        tipo,
+      },
     }).then((res) => {
       setPerfiles(res.data);
+      setDescripcion("");
     });
-  }, []);
+    setUsuario(() => {
+      return {
+        ...usuario,
+        perfil: "",
+      };
+    });
+  }, [tipo]);
 
   return (
     <Card>
       <CardHeader>Permisos</CardHeader>
       <div className="createuser_asignarPermisos">
         <Label>Perfil de Usuario</Label>
-        <Input onChange={handlePermitChange} type="select" name="perfil">
+        <Input
+          onChange={handlePermitChange}
+          type="select"
+          name="perfil"
+          value={usuario.perfil}
+        >
+          <option disabled defaultValue selected value={""}>
+            ---Seleccione un Perfil----
+          </option>
           {perfiles.map((perfil) => {
             return (
               <option key={perfil._id} value={perfil._id}>

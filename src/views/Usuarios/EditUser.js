@@ -347,7 +347,7 @@ export default function EditUser(props) {
                     />
                   </Col>
                 </Row>
-                {cambios.admin ? (
+                {cambios.admin || cambios.esfarmacia ? (
                   <div
                     className={`${
                       errors.includes("permisos") ? "createuser_errorField" : ""
@@ -356,6 +356,7 @@ export default function EditUser(props) {
                     <AsignarPermisos
                       usuario={cambios}
                       setUsuario={setCambios}
+                      tipo={cambios.esfarmacia ? "farmacia" : "admin"}
                     />
                     {errors.includes("permisos") ? (
                       <div style={{ color: "red", textAlign: "right" }}>

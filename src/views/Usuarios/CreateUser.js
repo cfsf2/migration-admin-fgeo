@@ -330,7 +330,8 @@ export default function CreateUser() {
                   </Col>
                 </Row>
 
-                {nuevoUsuario.roles[0] === "admin" ? (
+                {nuevoUsuario.roles[0] === "admin" ||
+                nuevoUsuario.roles[0] === "farmacia" ? (
                   <div
                     className={`${
                       errors.includes("permisos") ? "createuser_errorField" : ""
@@ -339,6 +340,7 @@ export default function CreateUser() {
                     <AsignarPermisos
                       usuario={nuevoUsuario}
                       setUsuario={setNuevoUsuario}
+                      tipo={nuevoUsuario.roles[0]}
                     />
                     {errors.includes("permisos") ? (
                       <div style={{ color: "red", textAlign: "right" }}>
