@@ -114,7 +114,7 @@ class DefaultLayout extends Component {
           });
         });
 
-        this.setState({ navigation: nav_admin, routes: routesadmin });
+        this.setState({ navigation: allowedNav, routes: allowedRoutes });
       } else if (IS_FARMACIA) {
         var _nav_farmacia = await Filtrar_Sin_Venta_Online(
           nav_farmacia,
