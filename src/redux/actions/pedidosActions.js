@@ -2,18 +2,18 @@ import axios from "axios";
 import { errorParser } from "../../helpers/errorHelper";
 import { farmageo_api } from "../../config";
 
-export const GET_PEDIDOS = idFarmacia => {
-  return dispatch => {
+export const GET_PEDIDOS = (idFarmacia) => {
+  return (dispatch) => {
     axios
       .get(farmageo_api + "/pedidos/farmacias/" + idFarmacia)
-      .then(function(response) {
+      .then(function (response) {
         dispatch({
           type: "GET_PEDIDOS",
-          payload: response.data
+          payload: response.data,
         });
         //console.log(response.data)
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         alert("Ha ocurrido un error");
       });
@@ -21,39 +21,39 @@ export const GET_PEDIDOS = idFarmacia => {
 };
 
 //no se usa
-export const VER_PEDIDO = pedido => {
-  return dispatch => {
+export const VER_PEDIDO = (pedido) => {
+  return (dispatch) => {
     dispatch({
       type: "VER_PEDIDO",
-      payload: pedido
+      payload: pedido,
     });
   };
 };
 
-export const GET_INFO_SOCIO = username => {
-  return dispatch => {
+export const GET_INFO_SOCIO = (username) => {
+  return (dispatch) => {
     axios
       .get(farmageo_api + "/users/" + username)
-      .then(function(response) {
+      .then(function (response) {
         dispatch({
           type: "GET_INFO_SOCIO",
-          payload: response.data
+          payload: response.data,
         });
         //console.log(response.data)
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         // alert('Ha ocurrido un error')
         dispatch({
           type: "GET_INFO_SOCIO",
-          payload: {}
+          payload: {},
         });
       });
   };
 };
 
-export const UPDATE_PEDIDO = pedido => {
-  return dispatch => {
+export const UPDATE_PEDIDO = (pedido) => {
+  return (dispatch) => {
     axios
       .put(farmageo_api + "/pedidos?id=" + pedido._id, {
         username: pedido.username,
@@ -71,9 +71,9 @@ export const UPDATE_PEDIDO = pedido => {
         costoenvio: pedido.costoenvio,
         domicilioenvio: pedido.domicilioenvio,
         pago_online: pedido.pago_online,
-        gruposproductos: pedido.gruposproductos
+        gruposproductos: pedido.gruposproductos,
       })
-      .then(async function(response) {
+      .then(async function (response) {
         //console.log(response.data);
         var login = await JSON.parse(localStorage.getItem("login"));
 
@@ -85,24 +85,28 @@ export const UPDATE_PEDIDO = pedido => {
 
         alert("Se guardaron los cambios");
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         alert("Ha ocurrido un error");
       });
   };
 };
 
-export const GET_ALL_PEDIDOS_ADMIN = () => {
-  return dispatch => {
+export const GET_ALL_PEDIDOS_ADMIN = (token) => {
+  return (dispatch) => {
     axios
-      .get(farmageo_api + "/pedidos")
-      .then(function(response) {
+      .get(farmageo_api + "/pedidos", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then(function (response) {
         dispatch({
           type: "GET_PEDIDOS",
-          payload: response.data
+          payload: response.data,
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         alert("Ha ocurrido un error");
       });
