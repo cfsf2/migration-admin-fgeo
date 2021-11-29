@@ -10,14 +10,16 @@ export const RESET_ERROR = () => {
 };
 
 export const TRYREGISTER = (body) => {
-  return dispatch => {
-    axios.post(farmageo_api + "/farmacias/register-try", {
-      email: body,
-      destinatario: "soporte@farmageo.com.ar",
-      version: "2"
-    }).then(r => alert(JSON.stringify(r.data)))
-  }
-}
+  return (dispatch) => {
+    axios
+      .post(farmageo_api + "/farmacias/register-try", {
+        email: body,
+        destinatario: "soporte@farmageo.com.ar",
+        version: "2",
+      })
+      .then((r) => alert(JSON.stringify(r.data)));
+  };
+};
 export const LOGIN = (user, password) => {
   return (dispatch) => {
     axios
@@ -26,13 +28,9 @@ export const LOGIN = (user, password) => {
         password: password,
       })
       .then(function (response) {
-
         if (response.data.statusCode == 500) {
-
-          alert('Usuario y/o contraseña incorrectos')
-
+          alert("Usuario y/o contraseña incorrectos");
         } else {
-
           dispatch({ type: "authenticated", payload: user });
           dispatch({ type: "LOGIN_OK", payload: response.data });
           dispatch({ type: "GET_USER_ROLES" });
@@ -50,7 +48,7 @@ export const LOGIN = (user, password) => {
           if (response.data.user_rol.includes("admin")) {
             dispatch(GET_ALL_PEDIDOS_ADMIN());
           } else {
-            dispatch(LOADPROFILE(user.toUpperCase()));
+            dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }
         }
       })
@@ -60,10 +58,14 @@ export const LOGIN = (user, password) => {
   };
 };
 
-export const LOADPROFILE = (username) => {
+export const LOADPROFILE = (username, token) => {
   return (dispatch) => {
     axios
-      .get(farmageo_api + "/farmacias/login/" + username.toUpperCase())
+      .get(farmageo_api + "/farmacias/login/" + username.toUpperCase(), {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
       .then(function (response) {
         dispatch({ type: "LOADPROFILE_OK", payload: response.data });
         dispatch(GET_PEDIDOS(response.data.farmaciaid));
@@ -89,8 +91,6 @@ export const LOGOUT = () => {
     dispatch({ type: "LOGOUT" });
   };
 };
-
-
 
 //TODO: AQUI SE DEBERIA CONSULTAR OTRA VEZ A LA API PARA PEDIS LOS ROLES: ARREGLAR ESTO PRONTO
 export const GET_USER_ROLES = () => {
@@ -120,4 +120,3 @@ export const GET_SESSION = () => {
     }
   };
 };
-
