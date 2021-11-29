@@ -16,8 +16,6 @@ const Register = React.lazy(() => import("./views/Pages/Register"));
 const Page404 = React.lazy(() => import("./views/Pages/Page404"));
 const Page500 = React.lazy(() => import("./views/Pages/Page500"));
 
-const token = window.localStorage.getItem("token");
-
 class App extends Component {
   render() {
     const testing = window.location.origin;
