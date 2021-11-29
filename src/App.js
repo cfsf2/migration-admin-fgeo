@@ -19,7 +19,7 @@ const Page500 = React.lazy(() => import("./views/Pages/Page500"));
 class App extends Component {
   render() {
     const testing = window.location.origin;
-    console.log(testing);
+    // console.log(testing);
     return (
       <HashRouter>
         {testing === "https://admin-farmageo.testingdev.ml" ? (

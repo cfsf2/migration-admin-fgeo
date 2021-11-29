@@ -16,28 +16,25 @@ export const ADD_ENTIDAD = (entidad) => {
   };
 };
 
-
 export const DELETE_ENTIDAD = (entidadId) => {
-    return (dispatch) => {
-        axios
-            .delete(farmageo_api + "/entidades/" + entidadId)
-            .then(function (response) {
-                
-                dispatch(GET_ENTIDADES());
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
+  return (dispatch) => {
+    axios
+      .delete(farmageo_api + "/entidades/" + entidadId)
+      .then(function (response) {
+        dispatch(GET_ENTIDADES());
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 };
-
 
 export const GET_ENTIDADES = () => {
   return (dispatch) => {
     axios
       .get(farmageo_api + "/entidades/entidadesAdmin")
       .then(function (response) {
-        console.log(response.data);
+        //console.log(response.data);
         dispatch({
           type: "GET_ENTIDADES",
           payload: response.data,
@@ -129,7 +126,7 @@ export const ADD_PRODUCTO_PACK = (producto) => {
       .post(farmageo_api + "/productospack", producto)
       .then(function (response) {
         dispatch(GET_PRODUCTOS_PACK());
-        console.log(response);
+        // console.log(response);
       })
       .catch(function (error) {
         console.log(error);
@@ -236,9 +233,7 @@ export const ADD_SOLICITUD_PROVEEDURIA = (
     axios
       .post(farmageo_api + "/solicitudesproveeduria", {
         ...solicitudproveeduria,
-        destinatario:
-          destinatario +
-          ";comercial@farmageo.com.ar;",
+        destinatario: destinatario + ";comercial@farmageo.com.ar;",
         asunto: "Confirmación de pedido a Proveeduria",
         html,
         version: "2",
