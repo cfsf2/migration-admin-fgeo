@@ -42,7 +42,7 @@ axios.interceptors.request.use((request) => {
   )}`;
   return request;
 });
-/
+
 axios.interceptors.response.use(
   (res) => res,
   (err) => {
