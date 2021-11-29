@@ -48,7 +48,7 @@ export const LOGIN = (user, password) => {
           if (response.data.user_rol.includes("admin")) {
             dispatch(GET_ALL_PEDIDOS_ADMIN());
           } else {
-            dispatch(LOADPROFILE(user.toUpperCase()));
+            dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }
         }
       })
@@ -58,10 +58,14 @@ export const LOGIN = (user, password) => {
   };
 };
 
-export const LOADPROFILE = (username) => {
+export const LOADPROFILE = (username, token) => {
   return (dispatch) => {
     axios
-      .get(farmageo_api + "/farmacias/login/" + username.toUpperCase())
+      .get(farmageo_api + "/farmacias/login/" + username.toUpperCase(), {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
       .then(function (response) {
         dispatch({ type: "LOADPROFILE_OK", payload: response.data });
         dispatch(GET_PEDIDOS(response.data.farmaciaid));

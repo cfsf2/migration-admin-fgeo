@@ -36,16 +36,13 @@ const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
-//const token = window.localStorage.getItem("token");
-
-// if (token) {
 axios.interceptors.request.use((request) => {
   request.headers.authorization = `Bearer ${window.localStorage.getItem(
     "token"
   )}`;
   return request;
 });
-// }
+/
 axios.interceptors.response.use(
   (res) => res,
   (err) => {

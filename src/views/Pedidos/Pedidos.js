@@ -263,7 +263,7 @@ class Pedidos extends Component {
                                       this.state.pedido.username ===
                                       "No Registrado"
                                         ? this.state.pedido.datos_cliente[0]
-                                            .email
+                                            ?.email
                                         : this.state.pedido.username
                                     }
                                   />
