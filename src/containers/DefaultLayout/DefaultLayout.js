@@ -80,7 +80,7 @@ class DefaultLayout extends Component {
     ) : null;
   }
 
-  async componentDidMount(prevProps, prevState) {
+  async componentDidMount() {
     const { IS_ADMIN, IS_FARMACIA } = this.props.user;
     const { userprofile } = this.props.authReducer;
     if (IS_ADMIN) {

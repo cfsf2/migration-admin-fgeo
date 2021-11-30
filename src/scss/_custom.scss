@@ -1,82 +1,94 @@
 // Here you can add other styles
 .custom-bgcolor {
-    background-color: #0096B3
-} 
-
-.logoLogin {
-    margin-top: 72px;
-    width: 100%;
-    height: 4.04em;
-} 
-
-.app-header {
-    background-color: #1b262c;
-    color: white;
+  background-color: #0096b3;
 }
 
-.app-header a{
-    color: whitesmoke !important;
+.logoLogin {
+  margin-top: 72px;
+  width: 100%;
+  height: 4.04em;
+}
+
+.app-header {
+  background-color: #1b262c;
+  color: white;
+}
+
+.app-header a {
+  color: whitesmoke !important;
 }
 
 .sidebar {
-    background-color: #0096B3;
+  background-color: #0096b3;
 }
 
 .sidebar .nav-link.active {
-    color: #fff;
-    background: #00D579 !important;
+  color: #fff;
+  background: #00d579 !important;
 }
 
 .sidebar .nav-dropdown.open {
-    background: #00D579;
-    color: black;
+  background: #00d579;
+  color: black;
 }
 
-.sidebar .nav-title {    
-    border-bottom: solid 1px #8ccbf5;
-    color: whitesmoke;
-    font-weight: 700;
-    background: #2171a3 !important;
+.sidebar .nav-title {
+  border-bottom: solid 1px #8ccbf5;
+  color: whitesmoke;
+  font-weight: 700;
+  background: #2171a3 !important;
 }
 
 .image-prodgrid {
-    width: 50px;
-    height: 64px;
+  width: 50px;
+  height: 64px;
 }
 
-[class^="icon-"], [class*=" icon-"] {
-    display: inline-block;
-    width: 100%;
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  width: 100%;
 }
 
 .iconcol {
-    text-align:center !important;
+  text-align: center !important;
 }
 
-.inventariohay{
-    color: #1fc551
+.inventariohay {
+  color: #1fc551;
 }
 
-.inventariopocas{
-    color: #bbce11
+.inventariopocas {
+  color: #bbce11;
 }
 
-.inventariosin{
-    color: #682020
+.inventariosin {
+  color: #682020;
 }
 
 .expanded {
-    height: 100%;
+  height: 100%;
 }
 
-.grid-botonera{
-    display: table-row;
+.grid-botonera {
+  display: table-row;
 }
 
-.icon-exclamation-alert{
-    float: left;
+.icon-exclamation-alert {
+  float: left;
 }
 
-.mensaje-exclamation-alert{
-    text-align: right;
+.mensaje-exclamation-alert {
+  text-align: right;
+}
+
+.app-header .navbar-nav {
+  .dropdown {
+    background: #464646;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    height: 53px;
+  }
 }
