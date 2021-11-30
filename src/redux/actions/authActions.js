@@ -46,7 +46,7 @@ export const LOGIN = (user, password) => {
           localStorage.setItem("pass", password);
 
           if (response.data.user_rol.includes("admin")) {
-            dispatch(GET_ALL_PEDIDOS_ADMIN());
+            dispatch(GET_ALL_PEDIDOS_ADMIN(response.data.token));
           } else {
             dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }

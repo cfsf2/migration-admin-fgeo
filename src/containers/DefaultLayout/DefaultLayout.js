@@ -91,9 +91,26 @@ class DefaultLayout extends Component {
     ) : null;
   }
 
+  async componentDidMount() {
+    const { IS_ADMIN, IS_FARMACIA } = this.props.user;
+    const { userprofile } = this.props.authReducer;
+    if (IS_ADMIN) {
+      this.setState({ navigation: nav_admin, routes: routesadmin });
+    } else if (IS_FARMACIA) {
+      var _nav_farmacia = await Filtrar_Sin_Venta_Online(
+        nav_farmacia,
+        userprofile
+      );
+      this.setState({ navigation: _nav_farmacia, routes: routesfarmacias });
+    } else {
+      this.setState({ navigation: nav_default, routes: routesdefault });
+    }
+  }
+
   async componentDidUpdate(prevProps, prevState) {
     const { IS_ADMIN, IS_FARMACIA } = this.props.user;
     const { userprofile } = this.props.authReducer;
+
     if (
       prevProps.user.IS_ADMIN !== this.props.user.IS_ADMIN ||
       prevProps.user.IS_FARMACIA !== this.props.user.IS_FARMACIA ||
