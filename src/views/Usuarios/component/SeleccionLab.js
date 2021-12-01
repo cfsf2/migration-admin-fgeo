@@ -51,6 +51,9 @@ export default function SeleccionLab(props) {
         <Row className="createuser_lab">
           <Col>
             <Input type="select" onChange={handleChange} value={usuario.labid}>
+              <option disabled selected value={""}>
+                ---Seleccione un Laboratorio---
+              </option>
               {labs.map((lab) => {
                 return (
                   <option key={lab._id} value={lab._id}>
@@ -58,9 +61,6 @@ export default function SeleccionLab(props) {
                   </option>
                 );
               })}
-              <option disabled selected defaultValue>
-                ---Seleccione un Laboratorio---
-              </option>
             </Input>
           </Col>
           <Col className="createuser_lab_imagecol">
