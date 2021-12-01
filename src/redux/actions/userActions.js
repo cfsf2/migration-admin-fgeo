@@ -89,6 +89,7 @@ export const CREATE_USER = (data) => {
     farmaciaId,
     permisos,
     perfil,
+    labid,
   } = data;
 
   return axios({
@@ -104,6 +105,7 @@ export const CREATE_USER = (data) => {
       farmaciaId,
       permisos,
       perfil,
+      labid,
     },
   })
     .then((res) => {

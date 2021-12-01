@@ -16,6 +16,7 @@ import {
   CardFooter,
 } from "reactstrap";
 import AsignarPermisos from "./component/AsignarPermisos";
+import SeleccionLab from "./component/SeleccionLab";
 
 const initUsuario = {
   first_name: "",
@@ -26,6 +27,7 @@ const initUsuario = {
   roles: [],
   farmaciaId: "",
   permisos: ["inicio"],
+  labid: "",
 };
 
 export default function CreateUser() {
@@ -59,6 +61,7 @@ export default function CreateUser() {
         }
         return;
       }
+
       setErrors(() => {
         return errors.filter((thisfield) => thisfield !== field);
       });
@@ -74,6 +77,18 @@ export default function CreateUser() {
       return errors.filter((thisfield) => thisfield !== field);
     });
 
+    console.log(value !== "farmacia");
+    if (value !== "demolab") {
+      setNuevoUsuario(() => {
+        return { ...nuevoUsuario, labid: undefined };
+      });
+    }
+    if (value !== "farmacia") {
+      setNuevoUsuario(() => {
+        return { ...nuevoUsuario, farmaciaId: undefined };
+      });
+    }
+
     setNuevoUsuario({ ...nuevoUsuario, roles: newRoles });
   };
 
@@ -82,7 +97,7 @@ export default function CreateUser() {
     const fields = Object.keys(nuevoUsuario);
 
     fields.forEach((field) => {
-      if (nuevoUsuario[field].length === 0) {
+      if (nuevoUsuario[field].length === 0 || !nuevoUsuario[field]) {
         fielderrors = fielderrors.concat(field);
       }
     });
@@ -95,21 +110,20 @@ export default function CreateUser() {
       fielderrors = fielderrors.concat("roles");
     }
 
-    if (nuevoUsuario.roles[0] === "admin") {
+    if (nuevoUsuario.roles[0] !== "cliente") {
       if (nuevoUsuario.permisos.length < 2) {
         fielderrors = fielderrors.concat("permisos");
-      } else {
-        fielderrors = fielderrors.filter((f) => f !== "permisos");
       }
+    }
+
+    if (nuevoUsuario.roles[0] !== "farmacia") {
       fielderrors = fielderrors.filter((f) => f !== "farmaciaId");
     }
+
     if (nuevoUsuario.roles[0] === "farmacia") {
       if (!farmaciaPorMatricula) {
         fielderrors = fielderrors.concat("farmaciaId");
       }
-    }
-    if (nuevoUsuario.roles[0] === "cliente") {
-      fielderrors = fielderrors.filter((f) => f !== "farmaciaId");
     }
 
     setErrors(() => fielderrors);
@@ -241,8 +255,7 @@ export default function CreateUser() {
                       <option value="admin">Administrador</option>
                       <option value="farmacia">Farmacia</option>
                       <option value="cliente">Cliente</option>
-                      <option disabled>Demo Farmacia</option>
-                      <option disabled>Demo Laboratorio</option>
+                      <option value="demolab">Demo Laboratorio</option>
                     </Input>
                   </Col>
                   <Col xs="12" md="6">
@@ -330,8 +343,16 @@ export default function CreateUser() {
                   </Col>
                 </Row>
 
+                {nuevoUsuario.roles[0] === "demolab" ? (
+                  <SeleccionLab
+                    usuario={nuevoUsuario}
+                    setUsuario={setNuevoUsuario}
+                  />
+                ) : null}
+
                 {nuevoUsuario.roles[0] === "admin" ||
-                nuevoUsuario.roles[0] === "farmacia" ? (
+                nuevoUsuario.roles[0] === "farmacia" ||
+                nuevoUsuario.roles[0] === "demolab" ? (
                   <div
                     className={`${
                       errors.includes("permisos") ? "createuser_errorField" : ""

@@ -9,6 +9,7 @@ export const ADD_LABORATORIO = (laboratorio) => {
       .post(farmageo_api + "/laboratorios", laboratorio)
       .then(function (response) {
         dispatch(GET_LABORATORIOS());
+        console.log("y estos labs?");
       })
       .catch(function (error) {
         console.log(error);
@@ -204,14 +205,12 @@ export const DELETE_PRODUCTO_TRANSFER = (obj) => {
       .then(function (response) {
         dispatch(GET_PRODUCTOS_TRANSFERS());
       })
-      .catch(function (error) {
-      });
+      .catch(function (error) {});
   };
 };
 
 //********************** TRANSFERS ******************************* */
 export const ADD_TRANSFER = (transfer, history, html, destinatario) => {
-
   return (dispatch) => {
     axios
       .post(farmageo_api + "/transfers", {
@@ -231,7 +230,6 @@ export const ADD_TRANSFER = (transfer, history, html, destinatario) => {
       .catch(function (error) {
         alert("Ha ocurrido un error");
       });
-
   };
 };
 

@@ -173,7 +173,7 @@ class DefaultLayout extends Component {
                 className="py-2 mb-2 px-3"
                 style={{ backgroundColor: "#00788f" }}
               >
-                {userprofile ? (
+                {userprofile && userprofile.esfarmacia ? (
                   userprofile.perfil_farmageo !== "vender_online" ? (
                     <Col md="8">
                       <a
