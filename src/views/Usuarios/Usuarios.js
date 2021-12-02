@@ -20,7 +20,7 @@ import {
   GET_USUARIOS_APP,
   SET_HABILITADO_USUARIO,
 } from "../../redux/actions/FarmaciasAdminActions";
-import { DELETE_USUARIO } from "../../redux/actions/userActions";
+import { DELETE_USUARIO, GET_USUARIOS } from "../../redux/actions/userActions";
 
 class Usuarios extends Component {
   constructor(props) {
@@ -40,8 +40,8 @@ class Usuarios extends Component {
   }
 
   async componentDidMount() {
-    await this.props.GET_USUARIOS_APP();
-    const { usuarios } = this.props.farmaciasAdminReducer;
+    await this.props.GET_USUARIOS();
+    const { usuarios } = this.props.userReducer;
     // console.log(usuarios);
   }
 
@@ -59,7 +59,7 @@ class Usuarios extends Component {
   }
 
   render() {
-    const { usuarios } = this.props.farmaciasAdminReducer;
+    const { usuarios } = this.props.userReducer;
     return (
       <div className="animated fadeIn">
         <Row>
@@ -196,10 +196,11 @@ const mapStateToProps = (state) => {
   return {
     authReducer: state.authReducer,
     farmaciasAdminReducer: state.farmaciasAdminReducer,
+    userReducer: state.userReducer,
   };
 };
 const mapDispatchToProps = {
-  GET_USUARIOS_APP,
+  GET_USUARIOS,
   SET_HABILITADO_USUARIO,
   DELETE_USUARIO,
 };

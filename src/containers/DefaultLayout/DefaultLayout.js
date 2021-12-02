@@ -43,6 +43,17 @@ axios.interceptors.request.use((request) => {
   return request;
 });
 
+axios.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err.response.status === 401) {
+      alert("Denegado: No tiene permiso para realizar esta accion");
+      window.location = process.env.PUBLIC_URL;
+    }
+    return err.response;
+  }
+);
+
 class DefaultLayout extends Component {
   constructor(props) {
     super(props);
@@ -106,7 +117,18 @@ class DefaultLayout extends Component {
       prevProps.authReducer.userprofile !== userprofile
     ) {
       if (IS_ADMIN) {
-        this.setState({ navigation: nav_admin, routes: routesadmin });
+        let allowedNav = { items: [] };
+        let allowedRoutes;
+        allowedNav.items = nav_admin.items.filter((route) => {
+          return this.props.user.permisos.some((per) => route.permiso === per);
+        });
+        allowedRoutes = routesadmin.filter((route) => {
+          return this.props.user.permisos.some((per) => {
+            return route.permiso === per;
+          });
+        });
+
+        this.setState({ navigation: allowedNav, routes: allowedRoutes });
       } else if (IS_FARMACIA) {
         var _nav_farmacia = await Filtrar_Sin_Venta_Online(
           nav_farmacia,
@@ -151,7 +173,7 @@ class DefaultLayout extends Component {
                 className="py-2 mb-2 px-3"
                 style={{ backgroundColor: "#00788f" }}
               >
-                {userprofile ? (
+                {userprofile && userprofile.esfarmacia ? (
                   userprofile.perfil_farmageo !== "vender_online" ? (
                     <Col md="8">
                       <a

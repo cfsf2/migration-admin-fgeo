@@ -4,7 +4,7 @@ import { wp_api, farmageo_api, wp_api_auth } from "../../config";
 export const GET_USUARIO = (userid) => {
   return (dispatch) => {
     axios
-      .get(wp_api + "/users/" + userid, {})
+      .get(farmageo_api + "/users/" + userid, {})
       .then(function (response) {
         dispatch({
           type: "GET_PRODUCTO",
@@ -33,7 +33,7 @@ export const GET_USER = (userid) => {
 export const GET_USUARIOS = (token) => {
   return (dispatch) => {
     axios
-      .get(wp_api + "/users", {})
+      .get(farmageo_api + "/users")
       .then(function (response) {
         dispatch({
           type: "GET_USUARIOS",
@@ -80,13 +80,33 @@ export const DELETE_USUARIO = (user) => {
 };
 
 export const CREATE_USER = (data) => {
-  const { first_name, last_name, username, password, roles, farmaciaId } = data;
+  const {
+    first_name,
+    last_name,
+    username,
+    password,
+    roles,
+    farmaciaId,
+    permisos,
+    perfil,
+    labid,
+  } = data;
 
   return axios({
     method: "post",
     url: farmageo_api + "/users/alta-usuario",
     headers: { "Content-Type": "application/json" },
-    data: { first_name, last_name, username, password, roles, farmaciaId },
+    data: {
+      first_name,
+      last_name,
+      username,
+      password,
+      roles,
+      farmaciaId,
+      permisos,
+      perfil,
+      labid,
+    },
   })
     .then((res) => {
       GET_USUARIOS();
@@ -128,4 +148,16 @@ export const UPDATE_PASSWORD = (data, userId) => {
   })
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
+};
+
+export const GET_PERFILES_ADMIN = () => {
+  axios({
+    method: "get",
+    url: farmageo_api + "/permisos/perfiles/admin",
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => {
+    return new Promise((resolve, reject) => {
+      resolve(res.data);
+    });
+  });
 };

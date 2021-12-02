@@ -15,6 +15,8 @@ import {
   CardImg,
   CardFooter,
 } from "reactstrap";
+import AsignarPermisos from "./component/AsignarPermisos";
+import SeleccionLab from "./component/SeleccionLab";
 
 const initUsuario = {
   first_name: "",
@@ -24,6 +26,8 @@ const initUsuario = {
   confirmpassword: "",
   roles: [],
   farmaciaId: "",
+  permisos: ["inicio"],
+  labid: "",
 };
 
 export default function CreateUser() {
@@ -57,6 +61,7 @@ export default function CreateUser() {
         }
         return;
       }
+
       setErrors(() => {
         return errors.filter((thisfield) => thisfield !== field);
       });
@@ -72,6 +77,18 @@ export default function CreateUser() {
       return errors.filter((thisfield) => thisfield !== field);
     });
 
+    console.log(value !== "farmacia");
+    if (value !== "demolab") {
+      setNuevoUsuario(() => {
+        return { ...nuevoUsuario, labid: undefined };
+      });
+    }
+    if (value !== "farmacia") {
+      setNuevoUsuario(() => {
+        return { ...nuevoUsuario, farmaciaId: undefined };
+      });
+    }
+
     setNuevoUsuario({ ...nuevoUsuario, roles: newRoles });
   };
 
@@ -80,7 +97,7 @@ export default function CreateUser() {
     const fields = Object.keys(nuevoUsuario);
 
     fields.forEach((field) => {
-      if (nuevoUsuario[field].length === 0) {
+      if (nuevoUsuario[field].length === 0 || !nuevoUsuario[field]) {
         fielderrors = fielderrors.concat(field);
       }
     });
@@ -93,11 +110,21 @@ export default function CreateUser() {
       fielderrors = fielderrors.concat("roles");
     }
 
-    if (nuevoUsuario.roles[0] === "admin") {
+    if (nuevoUsuario.roles[0] !== "cliente") {
+      if (nuevoUsuario.permisos.length < 2) {
+        fielderrors = fielderrors.concat("permisos");
+      }
+    }
+
+    if (nuevoUsuario.roles[0] !== "farmacia") {
       fielderrors = fielderrors.filter((f) => f !== "farmaciaId");
     }
+
+    if (nuevoUsuario.roles[0] !== "demolab") {
+      fielderrors = fielderrors.filter((f) => f !== "labid");
+    }
+
     if (nuevoUsuario.roles[0] === "farmacia") {
-      console.log(farmaciaPorMatricula);
       if (!farmaciaPorMatricula) {
         fielderrors = fielderrors.concat("farmaciaId");
       }
@@ -231,8 +258,8 @@ export default function CreateUser() {
                       </option>
                       <option value="admin">Administrador</option>
                       <option value="farmacia">Farmacia</option>
-                      <option disabled>Demo Farmacia</option>
-                      <option disabled>Demo Laboratorio</option>
+                      <option value="cliente">Cliente</option>
+                      <option value="demolab">Demo Laboratorio</option>
                     </Input>
                   </Col>
                   <Col xs="12" md="6">
@@ -319,6 +346,34 @@ export default function CreateUser() {
                     </FormGroup>
                   </Col>
                 </Row>
+
+                {nuevoUsuario.roles[0] === "demolab" ? (
+                  <SeleccionLab
+                    usuario={nuevoUsuario}
+                    setUsuario={setNuevoUsuario}
+                  />
+                ) : null}
+
+                {nuevoUsuario.roles[0] === "admin" ||
+                nuevoUsuario.roles[0] === "farmacia" ||
+                nuevoUsuario.roles[0] === "demolab" ? (
+                  <div
+                    className={`${
+                      errors.includes("permisos") ? "createuser_errorField" : ""
+                    }`}
+                  >
+                    <AsignarPermisos
+                      usuario={nuevoUsuario}
+                      setUsuario={setNuevoUsuario}
+                      tipo={nuevoUsuario.roles[0]}
+                    />
+                    {errors.includes("permisos") ? (
+                      <div style={{ color: "red", textAlign: "right" }}>
+                        Debe elegir al menos un permiso
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
               </CardBody>
               <CardFooter>
                 <Row>

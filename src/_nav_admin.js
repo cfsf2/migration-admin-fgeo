@@ -4,6 +4,7 @@ export default {
       name: "Inicio",
       url: "/dashboard",
       icon: "icon-home",
+      permiso: "inicio",
     },
     {
       title: true,
@@ -14,16 +15,19 @@ export default {
         element: "", // required valid HTML5 element tag
         attributes: {}, // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
       },
-      class: "", // optional class names space delimited list for title item ex: "text-center"
+      class: "", // optional class names space delimited list for title item ex: "text-center",
+      permiso: "inicio",
     },
     {
       name: "Pedidos",
       url: "/pedidosAdmin",
       icon: "icon-bag",
+      permiso: "pedidos",
     },
     {
       name: "Comunicados",
       icon: "icon-cursor",
+      permiso: "comunicados",
       children: [
         {
           name: "Novedades farmacias",
@@ -35,6 +39,7 @@ export default {
       name: "Farmacias",
       url: "/farmaciasAdmin",
       icon: "icon-plus",
+      permiso: "farmacia",
       children: [
         {
           name: "Alta de Farmacias",
@@ -54,6 +59,7 @@ export default {
       name: "Usuarios",
       url: "/usuarios",
       icon: "icon-user",
+      permiso: "usuarios",
       children: [
         {
           name: "Listado",
@@ -68,16 +74,19 @@ export default {
     {
       name: "Denuncias",
       url: "/denuncias",
+      permiso: "denuncias",
       icon: "icon-bell",
     },
     {
       name: "Reporte OOSS",
       url: "/reporteOOSS",
+      permiso: "reporteooss",
       icon: "icon-shield",
     },
     {
       name: "Packs de Productos",
       url: "/packsdeproductos",
+      permiso: "packsdeproductos",
       icon: "",
       children: [
         {
@@ -109,6 +118,7 @@ export default {
     {
       name: "Banners",
       //url: "/ecommerce/banners-home",
+      permiso: "banners",
       children: [
         {
           name: "Banners Ecommerce",
@@ -127,6 +137,7 @@ export default {
     {
       title: true,
       name: "Transfers Farmacias",
+      permiso: "transfer",
       icon: "icon-star",
       wrapper: {
         // optional wrapper object
@@ -137,6 +148,7 @@ export default {
     },
     {
       name: "Transfers ",
+      permiso: "transfer",
       icon: "icon-calendar",
       children: [
         {

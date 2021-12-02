@@ -75,33 +75,32 @@ export const CHEQUEAR_SI_EXISTE = (farmaciaid) => {
   };
 };
 
-export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
+export const ALTA_USUARIO_SUBMIT = (
+  farmacia,
+  login,
+  history,
+  permisos,
+  perfil
+) => {
   return async (dispatch) => {
     var token = await localStorage.getItem("token");
     var emailDefault = login.username.toLowerCase() + "@farmageoapp.com.ar";
     axios
-      .post(
-        farmageo_api + "/users/alta-usuario",
-        {
-          username: login.username,
-          password: login.password,
-          name: farmacia.nombre,
-          first_name: "farmacia",
-          last_name: farmacia.nombre,
-          email: emailDefault,
-          roles: ["farmacia"],
-          farmaciaId: farmacia.matricula, // id unica de farmacia
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post(farmageo_api + "/users/alta-usuario", {
+        username: login.username,
+        password: login.password,
+        name: farmacia.nombre,
+        first_name: "farmacia",
+        last_name: farmacia.nombre,
+        email: emailDefault,
+        roles: ["farmacia"],
+        farmaciaId: farmacia.matricula, // id unica de farmacia
+        perfil: perfil,
+        permisos: permisos,
+      })
       .then((response) => {
         if (response.status == "201" || response.status == "200") {
-          dispatch(ALTA_USER_API_FARMAGEO(farmacia, login, history));
+          dispatch(ALTA_USER_API_FARMAGEO(farmacia, login, history, perfil));
         } else {
           alert("Ha ocurrido un error");
         }
@@ -115,7 +114,7 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
   };
 };
 
-const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
+const ALTA_USER_API_FARMAGEO = (farmacia, login, history, perfil) => {
   var username = farmacia.usuario.includes("@")
     ? farmacia.usuario.toLowerCase()
     : farmacia.usuario.toUpperCase();
@@ -154,6 +153,7 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
           lat: "",
           log: "",
           password: login.password,
+          perfil,
         },
         { timeout: 10000 }
       )
@@ -180,14 +180,8 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
 
 export const GET_USUARIOS_APP = () => {
   return async (dispatch) => {
-    var user = await localStorage.getItem("user");
-    var pass = await localStorage.getItem("pass");
-
     axios
-      .post(farmageo_api + "/users/admin/", {
-        usuario: user,
-        password: pass,
-      })
+      .get(farmageo_api + "/users/")
       .then(function (response) {
         // console.log(response);
         dispatch({ type: "GET_USUARIOS_APP", payload: response.data });

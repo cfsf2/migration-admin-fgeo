@@ -3,10 +3,10 @@ import { Input, Label } from "reactstrap";
 import "./checkbox.scss";
 
 export default function Checkbox(props) {
-  const { name, onChange, checked, label } = props;
+  const { name, onChange, checked, label, className } = props;
   return (
     <>
-      <div className="checkbox_">
+      <div className={"checkbox_" + " " + className}>
         <Input
           type="checkbox"
           name={name}

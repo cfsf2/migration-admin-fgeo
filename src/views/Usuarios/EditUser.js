@@ -7,6 +7,7 @@ import {
 import { useLocation } from "react-router-dom";
 import { GET_FARMACIA_POR_MATRICULA } from "../../redux/actions/farmaciaActions";
 import { CambiarPassword } from "./component/CambiarPassword";
+import AsignarPermisos from "./component/AsignarPermisos";
 import {
   Button,
   Card,
@@ -47,8 +48,6 @@ export default function EditUser(props) {
     if (e.target.value === "false") {
       value = false;
     }
-
-    console.log(typeof value);
     const field = e.target.name;
 
     setCambios(() => {
@@ -70,10 +69,10 @@ export default function EditUser(props) {
       setCambios({ ...cambios, admin: true, esfarmacia: false });
     }
     if (value === "farmacia") {
-      setCambios({ ...cambios, admin: false, esfarmacia: true });
+      setCambios({ ...cambios, admin: false, esfarmacia: true, permisos: [] });
     }
     if (value === "cliente") {
-      setCambios({ ...cambios, admin: false, esfarmacia: false });
+      setCambios({ ...cambios, admin: false, esfarmacia: false, permisos: [] });
     }
 
     setErrors(() => {
@@ -99,6 +98,11 @@ export default function EditUser(props) {
     if (cambios.admin === true) {
       fielderrors = fielderrors.filter((f) => f !== "id_wp");
       fielderrors = fielderrors.filter((f) => f !== "roles");
+      if (cambios.permisos.length < 2) {
+        fielderrors = fielderrors.concat("permisos");
+      } else {
+        fielderrors = fielderrors.filter((f) => f !== "permisos");
+      }
     }
     if (cambios.esfarmacia === true) {
       fielderrors = fielderrors.filter((f) => f !== "roles");
@@ -117,7 +121,9 @@ export default function EditUser(props) {
       if (changePass) {
         UPDATE_PASSWORD(newPass, editableUser._id);
       }
-      UPDATE_USER(cambios, editableUser._id);
+      UPDATE_USER(cambios, editableUser._id).then(() => {
+        props.history.push("/usuarios");
+      });
       return;
     }
     alert(`Todos los campos son obligatorios`);
@@ -238,47 +244,48 @@ export default function EditUser(props) {
                     </Input>
                   </Col>
                 </Row>
-
-                <Row>
-                  <Col>
-                    <FormGroup>
-                      <Label>Matricula</Label>
-                      <Input
-                        type="number"
-                        name="id_wp"
-                        autoComplete="off"
-                        onChange={handleChange}
-                        // onChange={(e) => setMatricula(e.target.value)}
-                        value={cambios.id_wp}
-                        className={`${
-                          errors.includes("id_wp")
-                            ? "createuser_errorField"
-                            : ""
-                        }`}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col>
-                    <Label>Nombre de la Farmacia</Label>
-                    <div className="createuser_farmacia">
-                      {farmaciaPorMatricula.nombre}
-                    </div>
-                  </Col>
-                  <Col xs="6" md="3">
-                    <Label>Direccion</Label>
-                    <div>
-                      {farmaciaPorMatricula
-                        ? farmaciaPorMatricula.calle +
-                          " " +
-                          farmaciaPorMatricula.numero
-                        : null}
-                    </div>
-                  </Col>
-                  <Col xs="6" md="3">
-                    <Label>CUIT</Label>
-                    <div>{farmaciaPorMatricula.cuit}</div>
-                  </Col>
-                </Row>
+                {cambios.esfarmacia ? (
+                  <Row>
+                    <Col>
+                      <FormGroup>
+                        <Label>Matricula</Label>
+                        <Input
+                          type="number"
+                          name="id_wp"
+                          autoComplete="off"
+                          onChange={handleChange}
+                          // onChange={(e) => setMatricula(e.target.value)}
+                          value={cambios.id_wp}
+                          className={`${
+                            errors.includes("id_wp")
+                              ? "createuser_errorField"
+                              : ""
+                          }`}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col>
+                      <Label>Nombre de la Farmacia</Label>
+                      <div className="createuser_farmacia">
+                        {farmaciaPorMatricula.nombre}
+                      </div>
+                    </Col>
+                    <Col xs="6" md="3">
+                      <Label>Direccion</Label>
+                      <div>
+                        {farmaciaPorMatricula
+                          ? farmaciaPorMatricula.calle +
+                            " " +
+                            farmaciaPorMatricula.numero
+                          : null}
+                      </div>
+                    </Col>
+                    <Col xs="6" md="3">
+                      <Label>CUIT</Label>
+                      <div>{farmaciaPorMatricula.cuit}</div>
+                    </Col>
+                  </Row>
+                ) : null}
 
                 <Row xs="12">
                   <Col>
@@ -340,6 +347,24 @@ export default function EditUser(props) {
                     />
                   </Col>
                 </Row>
+                {cambios.admin || cambios.esfarmacia ? (
+                  <div
+                    className={`${
+                      errors.includes("permisos") ? "createuser_errorField" : ""
+                    }`}
+                  >
+                    <AsignarPermisos
+                      usuario={cambios}
+                      setUsuario={setCambios}
+                      tipo={cambios.esfarmacia ? "farmacia" : "admin"}
+                    />
+                    {errors.includes("permisos") ? (
+                      <div style={{ color: "red", textAlign: "right" }}>
+                        Debe elegir al menos un permiso
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
                 <Row xs="1" md="1">
                   <CambiarPassword
                     handleChange={handleChange}
