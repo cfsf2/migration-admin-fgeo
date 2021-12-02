@@ -75,7 +75,13 @@ export const CHEQUEAR_SI_EXISTE = (farmaciaid) => {
   };
 };
 
-export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
+export const ALTA_USUARIO_SUBMIT = (
+  farmacia,
+  login,
+  history,
+  permisos,
+  perfil
+) => {
   return async (dispatch) => {
     var token = await localStorage.getItem("token");
     var emailDefault = login.username.toLowerCase() + "@farmageoapp.com.ar";
@@ -89,6 +95,8 @@ export const ALTA_USUARIO_SUBMIT = (farmacia, login, history) => {
         email: emailDefault,
         roles: ["farmacia"],
         farmaciaId: farmacia.matricula, // id unica de farmacia
+        perfil: perfil,
+        permisos: permisos,
       })
       .then((response) => {
         if (response.status == "201" || response.status == "200") {

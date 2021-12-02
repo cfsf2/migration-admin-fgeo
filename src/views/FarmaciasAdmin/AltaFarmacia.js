@@ -19,9 +19,9 @@ import {
   ALTA_USUARIO_SUBMIT,
 } from "../../redux/actions/FarmaciasAdminActions";
 // import ItemFarmacia from './components/ItemFarmacia';
+import AsignarPermisos from "../Usuarios/component/AsignarPermisos";
 
 class AltaFarmacia extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -50,12 +50,15 @@ class AltaFarmacia extends Component {
         email: "",
         roles: ["farmacia"],
       },
+      permisos: [],
+      perfil: "",
     };
     this.handleInputChangefarmacia = this.handleInputChangefarmacia.bind(this);
     this.handleUsuario = this.handleUsuario.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleExistencias = this.handleExistencias.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePermisos = this.handlePermisos.bind(this);
   }
 
   handleInputChangefarmacia(event) {
@@ -74,6 +77,11 @@ class AltaFarmacia extends Component {
       farmacia: { ...this.state.farmacia, usuario: value },
     });
   }
+
+  handlePermisos(e) {
+    console.log(e);
+  }
+
   handlePassword(event) {
     const target = event.nativeEvent.target;
     const value = target.value;
@@ -88,7 +96,9 @@ class AltaFarmacia extends Component {
     this.props.ALTA_USUARIO_SUBMIT(
       this.state.farmacia,
       this.state.login,
-      this.props.history
+      this.props.history,
+      this.state.permisos,
+      this.state.perfil
     );
   }
 
@@ -282,9 +292,7 @@ class AltaFarmacia extends Component {
                   </Col>
                 </Row>
                 <Row>
-                  <Col xs="12" md="6">
-
-                  </Col>
+                  <Col xs="12" md="6"></Col>
                   <Col xs="12" md="6">
                     <FormGroup>
                       <Label>Habilitado</Label>
@@ -300,6 +308,12 @@ class AltaFarmacia extends Component {
                     </FormGroup>
                   </Col>
                 </Row>
+
+                <AsignarPermisos
+                  usuario={this.state}
+                  setUsuario={this.setState.bind(this)}
+                  tipo="farmacia"
+                />
               </CardBody>
               <CardFooter>
                 <Row>

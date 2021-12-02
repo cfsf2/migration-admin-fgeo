@@ -2,40 +2,13 @@ import React from "react";
 import axios from "axios";
 import { farmageo_api } from "../../../config";
 
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  FormGroup,
-  Input,
-  Label,
-  CardImg,
-  CardFooter,
-} from "reactstrap";
-import Checkbox from "../../../components/CheckBox";
-import { GET_PERFILES_ADMIN } from "../../../redux/actions/userActions";
-
-const initpermisos = [
-  { nombre: "Usuarios", permiso: "usuarios" },
-  { nombre: "Comunicados", permiso: "comunicados" },
-  { nombre: "Denuncias", permiso: "denuncias" },
-  { nombre: "Reporte de OOSS", permiso: "reporteooss" },
-  { nombre: "Farmacias", permiso: "farmacia" },
-  { nombre: "Packs de Productos", permiso: "packsdeproductos" },
-  { nombre: "Banners", permiso: "banners" },
-  { nombre: "Transfer", permiso: "transfer" },
-  { nombre: "Pedidos", permiso: "pedidos" },
-];
+import { Card, CardHeader, Input, Label } from "reactstrap";
+import "../createUser.scss";
 
 export default function AsignarPermisos(props) {
   const { usuario, setUsuario, tipo } = props;
   const [perfiles, setPerfiles] = React.useState([]);
   const [descripcion, setDescripcion] = React.useState("");
-
-  const permisos = usuario.permisos;
 
   const handlePermitChange = (e) => {
     const value = e.target.value;

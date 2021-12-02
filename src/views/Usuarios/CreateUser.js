@@ -120,6 +120,10 @@ export default function CreateUser() {
       fielderrors = fielderrors.filter((f) => f !== "farmaciaId");
     }
 
+    if (nuevoUsuario.roles[0] !== "demolab") {
+      fielderrors = fielderrors.filter((f) => f !== "labid");
+    }
+
     if (nuevoUsuario.roles[0] === "farmacia") {
       if (!farmaciaPorMatricula) {
         fielderrors = fielderrors.concat("farmaciaId");
