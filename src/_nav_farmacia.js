@@ -71,7 +71,7 @@ export default {
         element: "",
         attributes: {},
       },
-      perfil_farmageo: ["solo_visible"],
+      perfil_farmageo: [],
     },
     {
       name: "Perfil",

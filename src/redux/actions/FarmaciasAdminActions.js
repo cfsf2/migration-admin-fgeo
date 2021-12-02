@@ -100,7 +100,7 @@ export const ALTA_USUARIO_SUBMIT = (
       })
       .then((response) => {
         if (response.status == "201" || response.status == "200") {
-          dispatch(ALTA_USER_API_FARMAGEO(farmacia, login, history));
+          dispatch(ALTA_USER_API_FARMAGEO(farmacia, login, history, perfil));
         } else {
           alert("Ha ocurrido un error");
         }
@@ -114,7 +114,7 @@ export const ALTA_USUARIO_SUBMIT = (
   };
 };
 
-const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
+const ALTA_USER_API_FARMAGEO = (farmacia, login, history, perfil) => {
   var username = farmacia.usuario.includes("@")
     ? farmacia.usuario.toLowerCase()
     : farmacia.usuario.toUpperCase();
@@ -153,6 +153,7 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history) => {
           lat: "",
           log: "",
           password: login.password,
+          perfil,
         },
         { timeout: 10000 }
       )
