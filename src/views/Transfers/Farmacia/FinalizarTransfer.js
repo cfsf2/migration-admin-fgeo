@@ -23,6 +23,8 @@ import {
   SUBMITTING,
 } from "../../../redux/actions/transfersActions";
 
+import TransferCart from "./TransferCart";
+
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -289,6 +291,7 @@ class FinalizarTransfer extends Component {
 
     return (
       <div className="animated fadeIn">
+        <TransferCart />
         <ModalStep />
 
         <Row>
@@ -378,7 +381,7 @@ class FinalizarTransfer extends Component {
         <Card>
           <CardBody>
             <Row style={{ color: "#20a8d8", fontSize: 18 }}>
-              <Col md="3" xs="12">
+              {/* <Col md="3" xs="12">
                 <FormGroup>
                   <Label>Fecha del transfer</Label>
                   <Input
@@ -393,9 +396,9 @@ class FinalizarTransfer extends Component {
                     onChange={this.handleInputChange}
                   />
                 </FormGroup>
-              </Col>
+              </Col> */}
 
-              <Col md="3" xs="12">
+              <Col md="4" xs="12">
                 <FormGroup>
                   <Label>Elegir Droguería</Label>
 
@@ -437,7 +440,7 @@ class FinalizarTransfer extends Component {
                 </FormGroup>
               </Col>
 
-              <Col md="3" xs="12">
+              <Col md="4" xs="12">
                 <FormGroup>
                   <Label>Laboratorio elegido</Label>
                   <Input
@@ -626,7 +629,7 @@ class FinalizarTransfer extends Component {
                       return producto;
                     })}
                     options={{
-                      pageSize: 50,
+                      pageSize: 12,
                       pageSizeOptions: [5, 10, 20, 30, 50],
                     }}
                   />
@@ -636,7 +639,6 @@ class FinalizarTransfer extends Component {
           </CardBody>
           <CardFooter>
             <Row>
-              <Col></Col>
               <Col>
                 {this.state.finalizar ? (
                   <Fragment key={new Date()}>
@@ -646,9 +648,9 @@ class FinalizarTransfer extends Component {
                         this.handleVistaPrevia(false);
                         //this.handleLimpiarProductos();
                       }}
-                      className="btn btn-danger"
+                      className="btn btn-info"
                     >
-                      Cancelar
+                      Volver
                     </Button>
 
                     <Button
