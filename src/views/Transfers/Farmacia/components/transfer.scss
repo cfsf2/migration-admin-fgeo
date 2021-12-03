@@ -1,0 +1,62 @@
+$table: 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
+
+.transfer {
+  &_lista {
+    background: #ffff;
+    margin: 1rem;
+    border-radius: 15px 15px 0 0;
+    &_header_titulo {
+      text-align: center;
+      font-size: 1.2rem;
+      background: chocolate;
+      margin: 0;
+      padding: 0;
+    }
+    &_items {
+      display: grid;
+      column-gap: 10px;
+      row-gap: 20px;
+      background: #ffff;
+      border-bottom: 1px solid rgb(155, 155, 155);
+      grid-template-columns: $table;
+      text-align: center;
+      min-height: 2rem;
+      height: 100%;
+      padding: 1rem;
+      &_nombre {
+        text-align: left;
+        padding-left: 2rem;
+      }
+      &_presentacion {
+        padding-left: 2rem;
+      }
+      &_cantidad {
+        padding: 0;
+        display: flex;
+        width: 100%;
+        .btn {
+          width: 50px;
+          height: 50px;
+          max-width: 30%;
+          max-height: 100%;
+        }
+        &_suma {
+          background: rgb(44, 211, 86);
+          border: none;
+          align-items: center;
+        }
+        &_resta {
+          background: rgb(223, 19, 19);
+          border: none;
+          align-items: center;
+        }
+        input {
+          border: none;
+          width: 100%;
+          text-align: center;
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+}

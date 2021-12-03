@@ -10,13 +10,15 @@ import {
 
 import axios from "axios";
 import { farmageo_api } from "../../../config";
+import "./components/transfer.scss";
 
 function TransferCart(props) {
-  const [page, setPage] = useState(0);
+  const [stage, setStage] = useState(0);
   const [productos, setProductos] = useState([]);
   const [lab, setLab] = useState({});
 
   const [pedido, setPedido] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const laboratorio = new URLSearchParams(
@@ -29,16 +31,20 @@ function TransferCart(props) {
 
     axios
       .get(farmageo_api + "/productosTransfers/laboratorio/" + laboratorio)
-      .then((res) => setProductos(res.data));
+      .then((res) => {
+        setLoading(false);
+        setProductos(res.data);
+      });
   }, []);
 
-  switch (page) {
+  switch (stage) {
     case 0:
       return (
         <ListadoProductos
           productos={productos}
           pedido={pedido}
           setPedido={setPedido}
+          loading={loading}
         />
       );
       break;
