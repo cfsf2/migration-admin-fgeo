@@ -3,6 +3,7 @@ import React from "react";
 export default function Item(props) {
   const { producto, pedido, setPedido } = props;
   const [cantidad, setCantidad] = React.useState(0);
+  const [observaciones, setObservaciones] = React.useState("");
 
   const suma = (id, producto) => {
     let newPedido = [...pedido];
@@ -101,7 +102,12 @@ export default function Item(props) {
           +
         </button>
       </div>
-      <div className=" transfer_lista_items_observaciones">observaciones</div>
+      <textarea
+        placeholder={"Aclaraciones"}
+        value={observaciones}
+        className=" transfer_lista_items_observaciones"
+        onChange={(e) => setObservaciones(e.target.value)}
+      ></textarea>
     </>
   );
 }

@@ -2,7 +2,9 @@ import React from "react";
 import Item from "./Item";
 
 export default function ListadoProductos(props) {
-  const { productos, pedido, setPedido, loading } = props;
+  const { productos, setProductos, pedido, setPedido, loading } = props;
+
+  console.log(productos);
 
   return (
     <div className="transfer_lista">

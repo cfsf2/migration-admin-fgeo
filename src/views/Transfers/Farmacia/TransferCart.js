@@ -41,6 +41,7 @@ function TransferCart(props) {
     case 0:
       return (
         <ListadoProductos
+          setProductos={setProductos}
           productos={productos}
           pedido={pedido}
           setPedido={setPedido}

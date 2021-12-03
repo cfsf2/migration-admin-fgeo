@@ -39,23 +39,51 @@ $table: 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
           height: 50px;
           max-width: 30%;
           max-height: 100%;
+          &:hover {
+            filter: drop-shadow(1px 1px 2px);
+          }
+
+          transition: all 0.1s ease-in;
         }
         &_suma {
-          background: rgb(44, 211, 86);
+          background: hsl(135, 65%, 47%);
           border: none;
           align-items: center;
+          &:hover {
+            background: hsl(135, 65%, 40%);
+          }
         }
         &_resta {
-          background: rgb(223, 19, 19);
+          background: hsl(0, 84%, 47%);
           border: none;
           align-items: center;
+          &:hover {
+            background: hsl(0%, 84%, 40%);
+          }
         }
         input {
           border: none;
           width: 100%;
           text-align: center;
           font-size: 2rem;
+          &:focus {
+            outline: none;
+            background-color: hsl(300, 20%, 95%);
+          }
         }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        /* Firefox */
+        input[type="number"] {
+          -moz-appearance: textfield;
+        }
+      }
+      textarea {
+        resize: none;
       }
     }
   }
