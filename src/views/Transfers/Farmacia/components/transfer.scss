@@ -11,6 +11,13 @@ $table: 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
       background: chocolate;
       margin: 0;
       padding: 0;
+      cursor: pointer;
+      &#cantidad {
+        cursor: default;
+      }
+      &#observaciones {
+        cursor: default;
+      }
     }
     &_items {
       display: grid;
