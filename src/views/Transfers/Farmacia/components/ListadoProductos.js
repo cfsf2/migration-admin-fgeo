@@ -49,7 +49,7 @@ export default function ListadoProductos(props) {
   };
 
   //paginacion
-  const paginas = Math.ceil(allproducts.length / prodPerPage) - 1;
+  const paginas = Math.ceil(productos.length / prodPerPage) - 1;
   const handleNextPage = (e) => {
     if (page >= paginas) return;
     setPage((page) => page + 1);
@@ -64,19 +64,22 @@ export default function ListadoProductos(props) {
     const ultimoProd = primerProd + prodPerPage;
 
     if (allproducts.length > 0) {
-      const productosOrdenados = ordenar([...allproducts], sortType, direccion);
+      const productosOrdenados = ordenar([...productos], sortType, direccion);
       let showProducts = productosOrdenados.slice(primerProd, ultimoProd);
       if (showProducts.length < prodPerPage) {
         const empties = prodPerPage - showProducts.length;
         let vacios = [];
         for (let i = 0; i < empties; i++) {
-          vacios[i] = {};
+          vacios[i] = { _id: i };
         }
         showProducts = showProducts.concat(vacios);
       }
-      setProductos(() => showProducts);
+      setShowProducts(() => showProducts);
     }
-  }, [sortType, direccion, page]);
+    if (page > paginas) {
+      setPage(0);
+    }
+  }, [sortType, direccion, page, productos]);
 
   return (
     <div className="transfer_lista">
@@ -126,19 +129,20 @@ export default function ListadoProductos(props) {
         {loading ? (
           <div>Cargando</div>
         ) : productos?.length === 0 ? (
-          <p>No hay productos Cargados</p>
-        ) : (
-          productos.map((producto) => {
-            return (
-              <Item
-                key={producto._id}
-                producto={producto}
-                pedido={pedido}
-                setPedido={setPedido}
-              />
-            );
-          })
-        )}
+          <p className="transfer_lista_sinresultados">
+            No se encontraron Productos
+          </p>
+        ) : null}
+        {showProducts.map((producto) => {
+          return (
+            <Item
+              key={producto._id}
+              producto={producto}
+              pedido={pedido}
+              setPedido={setPedido}
+            />
+          );
+        })}
       </div>
       <div className="transfer_lista_footer">
         <button onClick={handlePreviousPage}>Pagina Anterior</button>

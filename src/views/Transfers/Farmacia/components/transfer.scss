@@ -21,6 +21,12 @@ $table: 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
     background: #ffff;
     margin: 1rem;
     border-radius: 15px 15px 0 0;
+    &_sinresultados {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      font-size: 2rem;
+    }
     &_footer {
       display: flex;
       justify-content: flex-start;
@@ -53,6 +59,9 @@ $table: 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
       min-height: 2rem;
       height: 100%;
       padding: 1rem;
+      &_vacio {
+        height: 50px;
+      }
       &_nombre {
         text-align: left;
         padding-left: 2rem;

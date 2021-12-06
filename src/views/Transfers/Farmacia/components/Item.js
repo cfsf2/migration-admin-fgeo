@@ -80,47 +80,61 @@ export default function Item(props) {
 
   return (
     <>
-      <div className="transfer_lista_items_codigo">{producto.codigo}</div>
-      <div className="transfer_lista_items_nombre">{producto.nombre}</div>
-      <div className="transfer_lista_items_presentacion">
-        {producto.presentacion}
-      </div>
-      <div className="transfer_lista_items_descuento">
-        {producto.descuento_porcentaje}
-      </div>
-      <div className="transfer_lista_items_minimo">
-        {producto.cantidad_minima}
-      </div>
-      <div className="transfer_lista_items_cantidad">
-        <button
-          className="btn transfer_lista_items_cantidad_resta"
-          onClick={() => resta(producto._id, producto)}
-          disabled={Object.entries(producto) < 1}
-        >
-          -
-        </button>
-        <input
-          type="number"
-          value={cantidad}
-          onBlur={(e) => handleChange(e, producto, producto._id)}
-          onChange={(e) => setCantidad(e.target.value)}
-          disabled={Object.entries(producto) < 1}
-        />
-        <button
-          className="btn transfer_lista_items_cantidad_suma"
-          onClick={() => suma(producto._id, producto)}
-          disabled={Object.entries(producto) < 1}
-        >
-          +
-        </button>
-      </div>
-      <textarea
-        placeholder={"Aclaraciones"}
-        value={observaciones}
-        className=" transfer_lista_items_observaciones"
-        onChange={(e) => setObservaciones(e.target.value)}
-        disabled={Object.entries(producto) < 1}
-      ></textarea>
+      {producto.nombre !== undefined ? (
+        <>
+          <div className="transfer_lista_items_codigo">{producto.codigo}</div>
+          <div className="transfer_lista_items_nombre">{producto.nombre}</div>
+          <div className="transfer_lista_items_presentacion">
+            {producto.presentacion}
+          </div>
+          <div className="transfer_lista_items_descuento">
+            {producto.descuento_porcentaje}
+          </div>
+          <div className="transfer_lista_items_minimo">
+            {producto.cantidad_minima}
+          </div>
+          <div className="transfer_lista_items_cantidad">
+            <button
+              className="btn transfer_lista_items_cantidad_resta"
+              onClick={() => resta(producto._id, producto)}
+              disabled={producto.nombre ? false : true}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              value={cantidad}
+              onBlur={(e) => handleChange(e, producto, producto._id)}
+              onChange={(e) => setCantidad(e.target.value)}
+              disabled={producto.nombre ? false : true}
+            />
+            <button
+              className="btn transfer_lista_items_cantidad_suma"
+              onClick={() => suma(producto._id, producto)}
+              disabled={producto.nombre ? false : true}
+            >
+              +
+            </button>
+          </div>
+          <textarea
+            placeholder={"Aclaraciones"}
+            value={observaciones}
+            className=" transfer_lista_items_observaciones"
+            onChange={(e) => setObservaciones(e.target.value)}
+            disabled={producto.nombre ? false : true}
+          ></textarea>
+        </>
+      ) : (
+        <>
+          <div className="transfer_lista_items_vacio"></div>
+          <div className="transfer_lista_items_vacio"></div>
+          <div className="transfer_lista_items_vacio"></div>
+          <div className="transfer_lista_items_vacio"></div>
+          <div className="transfer_lista_items_vacio"></div>
+          <div className="transfer_lista_items_vacio"></div>
+          <div className="transfer_lista_items_vacio"></div>
+        </>
+      )}
     </>
   );
 }
