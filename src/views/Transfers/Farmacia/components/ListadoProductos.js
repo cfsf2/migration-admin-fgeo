@@ -34,6 +34,7 @@ export default function ListadoProductos(props) {
 
   const [page, setPage] = React.useState(0);
   const [prodPerPage, setProdsPerPage] = React.useState(10);
+  const [showProducts, setShowProducts] = React.useState([]);
 
   const handleSort = (e) => {
     const campo = e.target.id;
@@ -71,7 +72,6 @@ export default function ListadoProductos(props) {
         for (let i = 0; i < empties; i++) {
           vacios[i] = {};
         }
-        debugger;
         showProducts = showProducts.concat(vacios);
       }
       setProductos(() => showProducts);

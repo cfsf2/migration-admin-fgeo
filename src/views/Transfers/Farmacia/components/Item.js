@@ -119,6 +119,7 @@ export default function Item(props) {
         value={observaciones}
         className=" transfer_lista_items_observaciones"
         onChange={(e) => setObservaciones(e.target.value)}
+        disabled={Object.entries(producto) < 1}
       ></textarea>
     </>
   );
