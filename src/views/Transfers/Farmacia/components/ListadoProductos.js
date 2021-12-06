@@ -79,12 +79,11 @@ export default function ListadoProductos(props) {
     if (page > paginas) {
       setPage(0);
     }
-  }, [sortType, direccion, page, productos]);
+  }, [sortType, direccion, page, productos, prodPerPage]);
 
   return (
     <div className="transfer_lista">
-      <div className="transfer_lista_header"></div>
-      <div className="transfer_lista_items">
+      <div className="transfer_lista_header">
         <div
           id="codigo"
           className="transfer_lista_header_titulo"
@@ -111,7 +110,7 @@ export default function ListadoProductos(props) {
           className="transfer_lista_header_titulo"
           onClick={handleSort}
         >
-          Descuento
+          %
         </div>
         <div
           id="cantidad_minima"
@@ -126,6 +125,8 @@ export default function ListadoProductos(props) {
         <div id="observaciones" className="transfer_lista_header_titulo">
           Observaciones
         </div>
+      </div>
+      <div className="transfer_lista_items">
         {loading ? (
           <div>Cargando</div>
         ) : productos?.length === 0 ? (
@@ -135,22 +136,38 @@ export default function ListadoProductos(props) {
         ) : null}
         {showProducts.map((producto) => {
           return (
-            <Item
-              key={producto._id}
-              producto={producto}
-              pedido={pedido}
-              setPedido={setPedido}
-            />
+            <div className="transfer_lista_item">
+              <Item
+                key={producto._id}
+                producto={producto}
+                pedido={pedido}
+                setPedido={setPedido}
+              />
+            </div>
           );
         })}
       </div>
       <div className="transfer_lista_footer">
-        <button onClick={handlePreviousPage}>Pagina Anterior</button>
+        <div className="transfer_lista_footer_paginacion">
+          <button onClick={handlePreviousPage}>Pagina Anterior</button>
 
-        <button onClick={handleNextPage}>Pagina Siguiente</button>
-        <p>
-          Pagina {page + 1} de {paginas + 1}
-        </p>
+          <button onClick={handleNextPage}>Pagina Siguiente</button>
+          <p>
+            Pagina {page + 1} de {paginas + 1}
+          </p>
+        </div>
+        <div className="transfer_lista_footer_resultados">
+          <p>Resultados por Pagina</p>
+          <select
+            value={prodPerPage}
+            onChange={(e) => setProdsPerPage(e.target.value)}
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={15}>15</option>
+            <option value={20}>20</option>
+          </select>
+        </div>
       </div>
     </div>
   );

@@ -54,34 +54,48 @@ function TransferCart(props) {
       .then(() => setLoading(false));
   }, []);
 
-  switch (stage) {
-    case 0:
-      return (
-        <>
-          <Card>
-            <CardBody>
-              <Search setProductos={setProductos} allproducts={allproducts} />
-              {productos && loading === false ? (
-                <ListadoProductos
-                  allproducts={allproducts}
-                  setProductos={setProductos}
-                  productos={productos}
-                  pedido={pedido}
-                  setPedido={setPedido}
-                  loading={loading}
-                />
-              ) : null}
-            </CardBody>
-          </Card>
-        </>
-      );
-      break;
-    case 1:
-      return <Checkout pedido={pedido} setPedido={setPedido} />;
-      break;
-    default:
-      break;
-  }
+  const Cart = () => {
+    switch (stage) {
+      case 0:
+        return (
+          <>
+            <Card>
+              <CardBody>
+                <Search setProductos={setProductos} allproducts={allproducts} />
+                {productos && loading === false ? (
+                  <ListadoProductos
+                    allproducts={allproducts}
+                    setProductos={setProductos}
+                    productos={productos}
+                    pedido={pedido}
+                    setPedido={setPedido}
+                    loading={loading}
+                  />
+                ) : null}
+              </CardBody>
+            </Card>
+          </>
+        );
+        break;
+      case 1:
+        return <Checkout pedido={pedido} setPedido={setPedido} />;
+        break;
+      default:
+        break;
+    }
+  };
+
+  return (
+    <>
+      <Cart />
+      <div style={{ position: "fixed", bottom: "5%", zIndex: 100 }}>
+        <button onClick={() => setStage((state) => state - 1)}>Volver</button>{" "}
+        <button onClick={() => setStage((state) => state + 1)}>
+          Siguiente
+        </button>
+      </div>
+    </>
+  );
 }
 
 const mapStateToProps = (state) => {
