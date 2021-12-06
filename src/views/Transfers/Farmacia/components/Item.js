@@ -2,7 +2,16 @@ import React from "react";
 
 export default function Item(props) {
   const { producto, pedido, setPedido } = props;
-  const [cantidad, setCantidad] = React.useState(0);
+  const [cantidad, setCantidad] = React.useState(() => {
+    const cantidadEnPedido = pedido.find(
+      (prod) => prod._id === producto._id
+    )?.cantidad;
+
+    if (cantidadEnPedido > 0) {
+      return cantidadEnPedido;
+    }
+    return 0;
+  });
   const [observaciones, setObservaciones] = React.useState("");
 
   const suma = (id, producto) => {

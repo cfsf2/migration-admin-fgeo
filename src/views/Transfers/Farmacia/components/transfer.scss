@@ -1,6 +1,22 @@
 $table: 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
 
 .transfer {
+  &_search {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    margin: 0 2rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(165, 168, 165);
+    label {
+      font-size: 1.3rem;
+      padding: 0;
+      margin: 0;
+    }
+    .form-control {
+      width: 30%;
+    }
+  }
   &_lista {
     background: #ffff;
     margin: 1rem;
@@ -41,16 +57,29 @@ $table: 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
         padding: 0;
         display: flex;
         width: 100%;
+        min-width: 122px;
         .btn {
-          width: 50px;
+          width: 35%;
           height: 50px;
-          max-width: 30%;
-          max-height: 100%;
+          flex-grow: 1;
+          //min-width: 30px;
+          max-width: 50px;
+          // max-height: 100%;
           &:hover {
             filter: drop-shadow(1px 1px 2px);
           }
 
           transition: all 0.1s ease-in;
+          font-size: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bolder;
+          color: #ffff;
+
+          &:active {
+            transform: scale(0.9);
+          }
         }
         &_suma {
           background: hsl(135, 65%, 47%);

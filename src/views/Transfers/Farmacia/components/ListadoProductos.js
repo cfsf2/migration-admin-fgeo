@@ -1,49 +1,53 @@
 import React from "react";
 import Item from "./Item";
 
+export const ordenar = (array, key, direccion) => {
+  const sortedArray = array.sort(function (a, b) {
+    let pri = a[key];
+    let sec = b[key];
+    if (typeof a[key] === "string") {
+      pri = a[key].trim();
+      sec = b[key].trim();
+    }
+    //ascendente
+    if (direccion > 0) {
+      if (pri > sec) return 1;
+      if (pri < sec) return -1;
+      return 0;
+    }
+    //descendente
+    if (direccion < 0) {
+      if (pri < sec) return 1;
+      if (pri > sec) return -1;
+      return 0;
+    }
+  });
+  return sortedArray;
+};
+
 export default function ListadoProductos(props) {
   const { productos, setProductos, pedido, setPedido, loading } = props;
 
   const [direccion, setDireccion] = React.useState(1);
-  const ordenar = (array, key, direccion) => {
-    const sortedArray = array.sort(function (a, b) {
-      let pri = a[key];
-      let sec = b[key];
-      if (typeof a[key] === "string") {
-        pri = a[key].trim();
-        sec = b[key].trim();
-      }
-      //ascendente
-      if (direccion > 0) {
-        if (pri > sec) return 1;
-        if (pri < sec) return -1;
-        return 0;
-      }
-      //descendente
-      if (direccion < 0) {
-        if (pri < sec) return 1;
-        if (pri > sec) return -1;
-        return 0;
-      }
-    });
-    return sortedArray;
-  };
+  const [sortType, setSortType] = React.useState("nombre");
 
   const handleSort = (e) => {
     const campo = e.target.id;
-    const productosOrdenados = ordenar([...productos], campo, direccion);
-    setProductos(() => productosOrdenados);
+    setSortType(campo);
+
+    if (campo !== sortType) {
+      setDireccion(1);
+      return;
+    }
     setDireccion((state) => state * -1);
   };
 
   React.useEffect(() => {
     if (productos.length > 0) {
-      const productosOrdenados = ordenar([...productos], "nombre", 1);
+      const productosOrdenados = ordenar([...productos], sortType, direccion);
       setProductos(() => productosOrdenados);
     }
-
-    console.log("hola");
-  }, []);
+  }, [sortType, direccion]);
 
   return (
     <div className="transfer_lista">

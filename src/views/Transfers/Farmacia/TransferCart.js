@@ -3,10 +3,25 @@ import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Checkout from "./components/Checkout";
 import ListadoProductos from "./components/ListadoProductos";
+import Search from "./components/Search";
 import {
   ADD_TRANSFER,
   SUBMITTING,
 } from "../../../redux/actions/transfersActions";
+
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Row,
+  FormGroup,
+  Input,
+  CardImg,
+  Label,
+  CardFooter,
+} from "reactstrap";
 
 import axios from "axios";
 import { farmageo_api } from "../../../config";
@@ -15,6 +30,7 @@ import "./components/transfer.scss";
 function TransferCart(props) {
   const [stage, setStage] = useState(0);
   const [productos, setProductos] = useState([]);
+  const [allproducts, setAllProducts] = useState([]);
   const [lab, setLab] = useState({});
 
   const [pedido, setPedido] = useState([]);
@@ -32,21 +48,31 @@ function TransferCart(props) {
     axios
       .get(farmageo_api + "/productosTransfers/laboratorio/" + laboratorio)
       .then((res) => {
-        setLoading(false);
         setProductos(res.data);
-      });
+        setAllProducts(res.data);
+      })
+      .then(() => setLoading(false));
   }, []);
 
   switch (stage) {
     case 0:
       return (
-        <ListadoProductos
-          setProductos={setProductos}
-          productos={productos}
-          pedido={pedido}
-          setPedido={setPedido}
-          loading={loading}
-        />
+        <>
+          <Card>
+            <CardBody>
+              <Search setProductos={setProductos} allproducts={allproducts} />
+              {productos && loading === false ? (
+                <ListadoProductos
+                  setProductos={setProductos}
+                  productos={productos}
+                  pedido={pedido}
+                  setPedido={setPedido}
+                  loading={loading}
+                />
+              ) : null}
+            </CardBody>
+          </Card>
+        </>
       );
       break;
     case 1:
