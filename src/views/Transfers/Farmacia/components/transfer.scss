@@ -21,6 +21,13 @@ $table: 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
     background: #ffff;
     margin: 1rem;
     border-radius: 15px 15px 0 0;
+    &_footer {
+      display: flex;
+      justify-content: flex-start;
+      button {
+        margin: 0rem 1rem;
+      }
+    }
     &_header_titulo {
       text-align: center;
       font-size: 1.2rem;

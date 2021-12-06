@@ -1,18 +1,6 @@
 import React from "react";
 import { ordenar } from "./ListadoProductos";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  FormGroup,
-  Input,
-  CardImg,
-  Label,
-  CardFooter,
-} from "reactstrap";
+import { Input } from "reactstrap";
 
 export default function Search(props) {
   const { setProductos, allproducts } = props;

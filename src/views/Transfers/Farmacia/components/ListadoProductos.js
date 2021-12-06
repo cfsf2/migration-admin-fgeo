@@ -26,10 +26,14 @@ export const ordenar = (array, key, direccion) => {
 };
 
 export default function ListadoProductos(props) {
-  const { productos, setProductos, pedido, setPedido, loading } = props;
+  const { allproducts, productos, setProductos, pedido, setPedido, loading } =
+    props;
 
   const [direccion, setDireccion] = React.useState(1);
   const [sortType, setSortType] = React.useState("nombre");
+
+  const [page, setPage] = React.useState(0);
+  const [prodPerPage, setProdsPerPage] = React.useState(10);
 
   const handleSort = (e) => {
     const campo = e.target.id;
@@ -40,14 +44,39 @@ export default function ListadoProductos(props) {
       return;
     }
     setDireccion((state) => state * -1);
+    setPage(0);
+  };
+
+  //paginacion
+  const paginas = Math.ceil(allproducts.length / prodPerPage) - 1;
+  const handleNextPage = (e) => {
+    if (page >= paginas) return;
+    setPage((page) => page + 1);
+  };
+  const handlePreviousPage = () => {
+    if (page <= 0) return;
+    setPage((page) => page - 1);
   };
 
   React.useEffect(() => {
-    if (productos.length > 0) {
-      const productosOrdenados = ordenar([...productos], sortType, direccion);
-      setProductos(() => productosOrdenados);
+    const primerProd = page * prodPerPage;
+    const ultimoProd = primerProd + prodPerPage;
+
+    if (allproducts.length > 0) {
+      const productosOrdenados = ordenar([...allproducts], sortType, direccion);
+      let showProducts = productosOrdenados.slice(primerProd, ultimoProd);
+      if (showProducts.length < prodPerPage) {
+        const empties = prodPerPage - showProducts.length;
+        let vacios = [];
+        for (let i = 0; i < empties; i++) {
+          vacios[i] = {};
+        }
+        debugger;
+        showProducts = showProducts.concat(vacios);
+      }
+      setProductos(() => showProducts);
     }
-  }, [sortType, direccion]);
+  }, [sortType, direccion, page]);
 
   return (
     <div className="transfer_lista">
@@ -110,6 +139,14 @@ export default function ListadoProductos(props) {
             );
           })
         )}
+      </div>
+      <div className="transfer_lista_footer">
+        <button onClick={handlePreviousPage}>Pagina Anterior</button>
+
+        <button onClick={handleNextPage}>Pagina Siguiente</button>
+        <p>
+          Pagina {page + 1} de {paginas + 1}
+        </p>
       </div>
     </div>
   );

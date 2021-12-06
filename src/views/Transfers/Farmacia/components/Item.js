@@ -95,6 +95,7 @@ export default function Item(props) {
         <button
           className="btn transfer_lista_items_cantidad_resta"
           onClick={() => resta(producto._id, producto)}
+          disabled={Object.entries(producto) < 1}
         >
           -
         </button>
@@ -103,10 +104,12 @@ export default function Item(props) {
           value={cantidad}
           onBlur={(e) => handleChange(e, producto, producto._id)}
           onChange={(e) => setCantidad(e.target.value)}
+          disabled={Object.entries(producto) < 1}
         />
         <button
           className="btn transfer_lista_items_cantidad_suma"
           onClick={() => suma(producto._id, producto)}
+          disabled={Object.entries(producto) < 1}
         >
           +
         </button>

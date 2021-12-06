@@ -63,6 +63,7 @@ function TransferCart(props) {
               <Search setProductos={setProductos} allproducts={allproducts} />
               {productos && loading === false ? (
                 <ListadoProductos
+                  allproducts={allproducts}
                   setProductos={setProductos}
                   productos={productos}
                   pedido={pedido}
