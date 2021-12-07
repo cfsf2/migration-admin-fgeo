@@ -1,0 +1,29 @@
+.instituciones {
+  &_tabla {
+    width: 100%;
+    &_head {
+      & > tr {
+        font-size: 0.8rem;
+
+        & :first-child {
+          @media screen and (max-width: 480px) {
+            display: none;
+          }
+        }
+      }
+    }
+    tbody {
+      & > tr {
+        & td:first-child {
+          @media screen and (max-width: 480px) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.altainstituciones {
+  margin: 2rem;
+}

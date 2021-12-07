@@ -31,6 +31,14 @@ const AltaFarmacia = React.lazy(() =>
 );
 const Usuarios = React.lazy(() => import("./views/Usuarios/Usuarios"));
 const CrearUsuario = React.lazy(() => import("./views/Usuarios/CreateUser"));
+
+const Instituciones = React.lazy(() =>
+  import("./views/Instituciones/Instituciones")
+);
+const AltaInstituciones = React.lazy(() =>
+  import("./views/Instituciones/AltaInstituciones")
+);
+
 const EditUser = React.lazy(() => import("./views/Usuarios/EditUser"));
 const Denuncias = React.lazy(() => import("./views/Denuncias/Denuncias"));
 
@@ -217,6 +225,20 @@ const routes = [
     name: "Administración de usuarios",
     component: CrearUsuario,
     permiso: "usuarios",
+  },
+  {
+    path: "/instituciones",
+    exact: true,
+    name: "Listado de Instituciones",
+    component: Instituciones,
+    permiso: "instituciones",
+  },
+  {
+    path: "/altainstituciones",
+    exact: true,
+    name: "Alta de Instituciones",
+    component: AltaInstituciones,
+    permiso: "instituciones",
   },
   {
     path: "/EditUser",
