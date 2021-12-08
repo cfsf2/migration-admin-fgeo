@@ -31,8 +31,6 @@ export function ListadoProductos(props) {
   const { loading, productos } = props;
   const { productos: allproducts } = props.tranfersReducer;
 
-  console.log(props);
-
   const [direccion, setDireccion] = React.useState(1);
   const [sortType, setSortType] = React.useState("nombre");
 
@@ -53,7 +51,7 @@ export function ListadoProductos(props) {
   };
 
   //paginacion
-  const paginas = Math.ceil(productos.length / prodPerPage) - 1;
+  const paginas = Math.ceil(allproducts.length / prodPerPage) - 1;
   const handleNextPage = (e) => {
     if (page >= paginas) return;
     setPage((page) => page + 1);
@@ -68,9 +66,10 @@ export function ListadoProductos(props) {
     const ultimoProd = primerProd + prodPerPage;
 
     if (allproducts.length > 0) {
-      debugger;
       const productosOrdenados = ordenar([...productos], sortType, direccion);
+
       let showProducts = productosOrdenados.slice(primerProd, ultimoProd);
+
       if (showProducts.length < prodPerPage) {
         const empties = prodPerPage - showProducts.length;
         let vacios = [];
@@ -82,7 +81,6 @@ export function ListadoProductos(props) {
       setShowProducts(() => showProducts);
     }
     if (page > paginas) {
-      debugger;
       setPage(0);
     }
   }, [sortType, direccion, page, productos, prodPerPage]);
@@ -142,7 +140,7 @@ export function ListadoProductos(props) {
         ) : null}
         {showProducts.map((producto) => {
           return (
-            <div className="transfer_lista_item">
+            <div key={producto._id} className="transfer_lista_item">
               <Item key={producto._id} producto={producto} />
             </div>
           );
@@ -161,7 +159,9 @@ export function ListadoProductos(props) {
           <p>Resultados por Pagina</p>
           <select
             value={prodPerPage}
-            onChange={(e) => setProdsPerPage(e.target.value)}
+            onChange={(e) => {
+              setProdsPerPage(Number(e.target.value));
+            }}
           >
             <option value={5}>5</option>
             <option value={10}>10</option>
