@@ -41,7 +41,6 @@ export default (state = defaultState, action) => {
         submitting: action.payload,
       };
     case "SET_PEDIDO":
-      debugger;
       return {
         ...state,
         pedido: action.payload,

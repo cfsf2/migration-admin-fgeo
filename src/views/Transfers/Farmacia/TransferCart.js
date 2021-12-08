@@ -41,6 +41,7 @@ const Cart = (props) => {
                   setProductos={setProductos}
                   productos={productos}
                   loading={loading}
+                  allproducts={allproducts}
                 />
               ) : null}
             </CardBody>
@@ -49,7 +50,16 @@ const Cart = (props) => {
       );
       break;
     case 1:
-      return <Checkout />;
+      return (
+        <>
+          {" "}
+          <Card>
+            <CardBody>
+              <Checkout />
+            </CardBody>
+          </Card>
+        </>
+      );
       break;
     default:
       break;
@@ -68,18 +78,19 @@ function TransferCart(props) {
     const laboratorio = new URLSearchParams(
       window.location.hash.split("?")[1]
     ).get("l");
+    if (loading) {
+      axios
+        .get(farmageo_api + "/laboratorios/" + laboratorio)
+        .then((res) => setLab(res.data));
 
-    axios
-      .get(farmageo_api + "/laboratorios/" + laboratorio)
-      .then((res) => setLab(res.data));
-
-    axios
-      .get(farmageo_api + "/productosTransfers/laboratorio/" + laboratorio)
-      .then((res) => {
-        setProductos(res.data);
-        setAllProducts(res.data);
-      })
-      .then(() => setLoading(false));
+      axios
+        .get(farmageo_api + "/productosTransfers/laboratorio/" + laboratorio)
+        .then((res) => {
+          setProductos(res.data);
+          setAllProducts(res.data);
+        })
+        .then(() => setLoading(false));
+    }
   }, []);
 
   return (
@@ -103,6 +114,7 @@ function TransferCart(props) {
         <button
           className="btn siguiente"
           onClick={() => setStage((state) => state + 1)}
+          disabled={props.tranfersReducer.pedido.length === 0 || stage >= 1}
         >
           {stage === 1 ? "Finalizar" : "Siguiente"}
         </button>

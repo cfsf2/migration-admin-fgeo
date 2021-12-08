@@ -28,8 +28,7 @@ export const ordenar = (array, key, direccion) => {
 };
 
 export function ListadoProductos(props) {
-  const { loading, productos } = props;
-  const { productos: allproducts } = props.tranfersReducer;
+  const { loading, productos, allproducts } = props;
 
   const [direccion, setDireccion] = React.useState(1);
   const [sortType, setSortType] = React.useState("nombre");
@@ -66,7 +65,7 @@ export function ListadoProductos(props) {
     const ultimoProd = primerProd + prodPerPage;
 
     if (allproducts.length > 0) {
-      const productosOrdenados = ordenar([...productos], sortType, direccion);
+      const productosOrdenados = ordenar([...allproducts], sortType, direccion);
 
       let showProducts = productosOrdenados.slice(primerProd, ultimoProd);
 
@@ -133,7 +132,7 @@ export function ListadoProductos(props) {
       <div className="transfer_lista_items">
         {loading ? (
           <div>Cargando</div>
-        ) : productos?.length === 0 ? (
+        ) : showProducts?.length === 0 ? (
           <p className="transfer_lista_sinresultados">
             No se encontraron Productos
           </p>
@@ -153,6 +152,15 @@ export function ListadoProductos(props) {
           <button onClick={handleNextPage}>Pagina Siguiente</button>
           <p>
             Pagina {page + 1} de {paginas + 1}
+          </p>
+        </div>
+        <div className="transfer_lista_footer_mostrando">
+          <p>
+            Mostrando {page * prodPerPage + 1} a{" "}
+            {(page + 1) * prodPerPage < allproducts.length
+              ? (page + 1) * prodPerPage
+              : allproducts.length}{" "}
+            de {allproducts.length}
           </p>
         </div>
         <div className="transfer_lista_footer_resultados">

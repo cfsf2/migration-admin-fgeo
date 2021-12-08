@@ -234,7 +234,6 @@ export const ADD_TRANSFER = (transfer, history, html, destinatario) => {
 };
 
 export const SET_PEDIDO = (newPedido) => {
-  debugger;
   return (dispatch) => {
     dispatch({
       type: "SET_PEDIDO",
