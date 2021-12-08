@@ -1,6 +1,28 @@
 $table: 1fr;
 $table2: 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
 .transfer {
+  &_barra {
+    background: rgb(218, 218, 218);
+    width: 100%;
+    position: fixed;
+    bottom: 0%;
+    z-index: 100;
+    padding: 1rem 3rem;
+    margin-right: 1rem;
+    border-radius: 20px 20px 0% 0%;
+    .btn {
+      color: white;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin: 0 1rem;
+    }
+    & .siguiente {
+      background-color: rgb(87, 155, 87);
+    }
+    & .volver {
+      background-color: rgb(87, 126, 155);
+    }
+  }
   &_search {
     display: flex;
     align-items: baseline;

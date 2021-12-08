@@ -1,7 +1,10 @@
 import React from "react";
+import { SET_PEDIDO } from "../../../../redux/actions/transfersActions";
+import { connect } from "react-redux";
 
-export default function Item(props) {
-  const { producto, pedido, setPedido } = props;
+export function Item(props) {
+  const pedido = props.tranfersReducer.pedido;
+  const { producto } = props;
   const [cantidad, setCantidad] = React.useState(() => {
     const cantidadEnPedido = pedido.find(
       (prod) => prod._id === producto._id
@@ -23,13 +26,15 @@ export default function Item(props) {
       pedidoProd.cantidad = cantidad + 1;
       newPedido[idx] = pedidoProd;
       setCantidad(() => pedidoProd.cantidad);
-      setPedido(() => newPedido);
+      // setPedido(() => newPedido);
+      props.SET_PEDIDO(newPedido);
       return;
     }
 
     producto.cantidad = producto.cantidad_minima;
     newPedido = newPedido.concat(producto);
-    setPedido(() => newPedido);
+    // setPedido(() => newPedido);
+    props.SET_PEDIDO(newPedido);
     setCantidad(() => producto.cantidad);
   };
 
@@ -42,12 +47,15 @@ export default function Item(props) {
     if (cantidad === producto.cantidad_minima) {
       newPedido = newPedido.filter((prod) => prod._id !== producto._id);
       setCantidad(() => 0);
-      setPedido(() => newPedido);
+      setObservaciones("");
+      // setPedido(() => newPedido);
+      props.SET_PEDIDO(newPedido);
       return;
     }
     pedidoProd.cantidad = cantidad - 1;
     newPedido[idx] = pedidoProd;
-    setPedido(() => newPedido);
+    // setPedido(() => newPedido);
+    props.SET_PEDIDO(newPedido);
     setCantidad(() => producto.cantidad);
   };
 
@@ -62,20 +70,40 @@ export default function Item(props) {
       if (idx !== -1) {
         pedidoProd.cantidad = value;
         newPedido[idx] = pedidoProd;
-        setPedido(() => newPedido);
+        props.SET_PEDIDO(newPedido);
+        //setPedido(() => newPedido);
         setCantidad(value);
         return;
       }
       producto.cantidad = value;
       newPedido = newPedido.concat(producto);
-      setPedido(() => newPedido);
+      //setPedido(() => newPedido);
+      props.SET_PEDIDO(newPedido);
       return;
     }
     if (value <= producto.cantidad_minima) {
       setCantidad(() => 0);
+
       newPedido = newPedido.filter((prod) => prod._id !== producto._id);
-      setPedido(() => newPedido);
+      //setPedido(() => newPedido);
+      props.SET_PEDIDO(newPedido);
     }
+  };
+
+  const handleObservacion = (e, producto, id) => {
+    setObservaciones(() => e.target.value);
+    let newPedido = [...pedido];
+    const pedidoProd = newPedido.find((prod) => prod._id === id);
+    const idx = newPedido.findIndex((prod) => prod._id === id);
+    const value = e.target.value;
+
+    if (idx !== -1) {
+      pedidoProd.observaciones = e.target.value;
+      newPedido[idx] = pedidoProd;
+      props.SET_PEDIDO(newPedido);
+      return;
+    }
+    return setObservaciones("");
   };
 
   return (
@@ -120,7 +148,7 @@ export default function Item(props) {
             placeholder={"Aclaraciones"}
             value={observaciones}
             className=" transfer_lista_items_observaciones"
-            onChange={(e) => setObservaciones(e.target.value)}
+            onChange={(e) => handleObservacion(e, producto, producto._id)}
             disabled={producto.nombre ? false : true}
           ></textarea>
         </>
@@ -138,3 +166,14 @@ export default function Item(props) {
     </>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    tranfersReducer: state.tranfersReducer,
+  };
+};
+const mapDispatchToProps = {
+  SET_PEDIDO,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);

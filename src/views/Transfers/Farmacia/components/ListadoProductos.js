@@ -1,5 +1,7 @@
 import React from "react";
 import Item from "./Item";
+import { SET_PEDIDO } from "../../../../redux/actions/transfersActions";
+import { connect } from "react-redux";
 
 export const ordenar = (array, key, direccion) => {
   const sortedArray = array.sort(function (a, b) {
@@ -25,9 +27,11 @@ export const ordenar = (array, key, direccion) => {
   return sortedArray;
 };
 
-export default function ListadoProductos(props) {
-  const { allproducts, productos, setProductos, pedido, setPedido, loading } =
-    props;
+export function ListadoProductos(props) {
+  const { loading, productos } = props;
+  const { productos: allproducts } = props.tranfersReducer;
+
+  console.log(props);
 
   const [direccion, setDireccion] = React.useState(1);
   const [sortType, setSortType] = React.useState("nombre");
@@ -64,6 +68,7 @@ export default function ListadoProductos(props) {
     const ultimoProd = primerProd + prodPerPage;
 
     if (allproducts.length > 0) {
+      debugger;
       const productosOrdenados = ordenar([...productos], sortType, direccion);
       let showProducts = productosOrdenados.slice(primerProd, ultimoProd);
       if (showProducts.length < prodPerPage) {
@@ -77,6 +82,7 @@ export default function ListadoProductos(props) {
       setShowProducts(() => showProducts);
     }
     if (page > paginas) {
+      debugger;
       setPage(0);
     }
   }, [sortType, direccion, page, productos, prodPerPage]);
@@ -137,12 +143,7 @@ export default function ListadoProductos(props) {
         {showProducts.map((producto) => {
           return (
             <div className="transfer_lista_item">
-              <Item
-                key={producto._id}
-                producto={producto}
-                pedido={pedido}
-                setPedido={setPedido}
-              />
+              <Item key={producto._id} producto={producto} />
             </div>
           );
         })}
@@ -172,3 +173,14 @@ export default function ListadoProductos(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    tranfersReducer: state.tranfersReducer,
+  };
+};
+const mapDispatchToProps = {
+  SET_PEDIDO,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListadoProductos);

@@ -27,13 +27,41 @@ import axios from "axios";
 import { farmageo_api } from "../../../config";
 import "./components/transfer.scss";
 
+const Cart = (props) => {
+  const { stage, setProductos, productos, loading, allproducts } = props;
+  switch (stage) {
+    case 0:
+      return (
+        <>
+          <Card>
+            <CardBody>
+              <Search setProductos={setProductos} allproducts={allproducts} />
+              {productos && loading === false ? (
+                <ListadoProductos
+                  setProductos={setProductos}
+                  productos={productos}
+                  loading={loading}
+                />
+              ) : null}
+            </CardBody>
+          </Card>
+        </>
+      );
+      break;
+    case 1:
+      return <Checkout />;
+      break;
+    default:
+      break;
+  }
+};
+
 function TransferCart(props) {
   const [stage, setStage] = useState(0);
   const [productos, setProductos] = useState([]);
   const [allproducts, setAllProducts] = useState([]);
   const [lab, setLab] = useState({});
 
-  const [pedido, setPedido] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -54,44 +82,29 @@ function TransferCart(props) {
       .then(() => setLoading(false));
   }, []);
 
-  const Cart = () => {
-    switch (stage) {
-      case 0:
-        return (
-          <>
-            <Card>
-              <CardBody>
-                <Search setProductos={setProductos} allproducts={allproducts} />
-                {productos && loading === false ? (
-                  <ListadoProductos
-                    allproducts={allproducts}
-                    setProductos={setProductos}
-                    productos={productos}
-                    pedido={pedido}
-                    setPedido={setPedido}
-                    loading={loading}
-                  />
-                ) : null}
-              </CardBody>
-            </Card>
-          </>
-        );
-        break;
-      case 1:
-        return <Checkout pedido={pedido} setPedido={setPedido} />;
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <>
-      <Cart />
-      <div style={{ position: "fixed", bottom: "5%", zIndex: 100 }}>
-        <button onClick={() => setStage((state) => state - 1)}>Volver</button>{" "}
-        <button onClick={() => setStage((state) => state + 1)}>
-          Siguiente
+      <Cart
+        setProductos={setProductos}
+        productos={productos}
+        loading={loading}
+        stage={stage}
+        allproducts={allproducts}
+      />
+      <div className="transfer_barra">
+        {stage !== 0 ? (
+          <button
+            className="btn volver"
+            onClick={() => setStage((state) => state - 1)}
+          >
+            Volver
+          </button>
+        ) : null}
+        <button
+          className="btn siguiente"
+          onClick={() => setStage((state) => state + 1)}
+        >
+          {stage === 1 ? "Finalizar" : "Siguiente"}
         </button>
       </div>
     </>
