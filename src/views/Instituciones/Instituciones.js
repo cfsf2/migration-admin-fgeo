@@ -1,9 +1,14 @@
 import React from "react";
 import "./instituciones.scss";
 
-import { GET_INSTITUCIONES } from "../../redux/actions/institucionesAction";
+import {
+  GET_INSTITUCIONES,
+  SEARCH_INSTITUCIONES,
+  CREAR_INSTITUCION,
+} from "../../redux/actions/institucionesAction";
 import { connect } from "react-redux";
 import { AltaInstituciones } from "./AltaInstituciones";
+import Filtros from "./Filtros";
 
 import {
   Button,
@@ -24,7 +29,7 @@ export function Instituciones(props) {
   const [modal, setModal] = React.useState(false);
 
   React.useEffect(() => {
-    if (!instituciones) {
+    if (instituciones && instituciones.length === 0) {
       props.GET_INSTITUCIONES(10);
     }
     setListado(() => instituciones);
@@ -36,7 +41,7 @@ export function Instituciones(props) {
         <Col xs="12" sm="12">
           <Row>
             <Col>
-              <Card>
+              <Card className="instituciones">
                 <CardHeader className="instituciones_cardheader">
                   <b>Listado de Instituciones</b>
                   <Button
@@ -51,18 +56,25 @@ export function Instituciones(props) {
                 </CardHeader>
 
                 <CardBody>
-                  {instituciones ? (
-                    <div style={{ display: modal ? "block" : "none" }}>
-                      <AltaInstituciones instituciones={instituciones} />
+                  {modal ? (
+                    <div
+                      id="modal"
+                      className="modal"
+                      onClick={(e) => {
+                        if (e.target.id === "modal") {
+                          setModal((state) => !state);
+                        }
+                      }}
+                    >
+                      <AltaInstituciones {...props} setModal={setModal} />
                     </div>
                   ) : null}
                   <Row>
                     <Col xs="12" md="4">
-                      <Input
-                        type="text"
-                        placeholder="buscar institucion..."
-                        name="filtro"
-                        className="instituciones_buscar"
+                      <Filtros
+                        listado={listado}
+                        setListado={setListado}
+                        {...props}
                       />
                     </Col>
                   </Row>
@@ -85,15 +97,7 @@ export function Instituciones(props) {
                                   <tr key={inst._id}>
                                     <td>{idx + 1}</td>
                                     <td>{inst.nombre}</td>
-                                    <td>
-                                      {
-                                        listado.filter(
-                                          (insti) =>
-                                            insti._id ===
-                                            inst.id_institucion_madre
-                                        )[0]?.nombre
-                                      }
-                                    </td>
+                                    <td>{inst.nombre_institucion_madre}</td>
                                     <td>{inst.habilitada ? "SI" : "NO"}</td>
                                     <td>
                                       <button>Editar</button>
@@ -119,11 +123,12 @@ const mapStateToProps = (state) => {
   return {
     authReducer: state.authReducer,
     institucionesReducer: state.institucionesReducer,
-    userReducer: state.userReducer,
   };
 };
 const mapDispatchToProps = {
   GET_INSTITUCIONES,
+  SEARCH_INSTITUCIONES,
+  CREAR_INSTITUCION,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Instituciones);

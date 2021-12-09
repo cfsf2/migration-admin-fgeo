@@ -4,12 +4,6 @@ import "./instituciones.scss";
 import { Autocomplete, TextField } from "@mui/material";
 
 import {
-  GET_INSTITUCIONES,
-  SEARCH_INSTITUCIONES,
-} from "../../redux/actions/institucionesAction";
-import { connect } from "react-redux";
-
-import {
   Button,
   Card,
   CardBody,
@@ -24,7 +18,10 @@ import {
 } from "reactstrap";
 
 export function AltaInstituciones(props) {
-  const [instituciones, setInstituciones] = React.useState(props.instituciones);
+  const [instituciones, setInstituciones] = React.useState(
+    props.institucionesReducer.instituciones
+  );
+  const { setModal } = props;
 
   const [madre, setMadre] = React.useState("");
   const [nombre, setNombre] = React.useState("");
@@ -32,14 +29,37 @@ export function AltaInstituciones(props) {
 
   const [search, setSearch] = React.useState("");
 
-  React.useEffect(() => {
-    if (search.length > 2) {
-      props.SEARCH_INSTITUCIONES(10, search);
+  const handleSubmit = () => {
+    if (nombre.trim() !== "") {
+      props
+        .CREAR_INSTITUCION({
+          nombre: nombre,
+          id_institucion_madre: madre.id,
+          habilitada: habilitada,
+        })
+        .then((re) => {
+          setMadre("");
+          setNombre("");
+          setModal((state) => !state);
+        });
+      return;
     }
-  }, [search]);
+    alert("El nombre es Obligatorio");
+  };
+
+  React.useEffect(() => {
+    if (search.length > 1) {
+      props
+        .SEARCH_INSTITUCIONES(search, 10)
+        .then((res) => setInstituciones(() => res));
+    }
+    if (search.trim() === "") {
+      setInstituciones(() => props.institucionesReducer.instituciones);
+    }
+  }, [search, setSearch]);
 
   return (
-    <div className="animated fadeIn altainstituciones">
+    <div id="altainstituciones" className="animated fadeIn altainstituciones">
       <Row>
         <Col>
           <Card>
@@ -92,7 +112,10 @@ export function AltaInstituciones(props) {
                   </Col>
                 </Row>
               </FormGroup>
-              <Button className="altainstituciones_submit">
+              <Button
+                onClick={handleSubmit}
+                className="altainstituciones_submit"
+              >
                 Añadir Institucion
               </Button>
             </CardBody>
@@ -102,17 +125,3 @@ export function AltaInstituciones(props) {
     </div>
   );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    authReducer: state.authReducer,
-    institucionesReducer: state.institucionesReducer,
-    userReducer: state.userReducer,
-  };
-};
-const mapDispatchToProps = {
-  GET_INSTITUCIONES,
-  SEARCH_INSTITUCIONES,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AltaInstituciones);
