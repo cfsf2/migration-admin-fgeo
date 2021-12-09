@@ -8,6 +8,14 @@ export default (state = defaultState, action) => {
         ...state,
         instituciones: action.payload,
       };
+      break;
+    case "SEARCH_INSTITUCIONES":
+      console.log("SEARCH_INSTITUCIONES despachado");
+      return {
+        ...state,
+        busqueda: action.payload,
+      };
+      break;
     default:
       return state;
   }

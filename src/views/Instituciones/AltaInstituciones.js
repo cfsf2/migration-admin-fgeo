@@ -1,10 +1,12 @@
 import React from "react";
 
 import "./instituciones.scss";
-import CheckBox from "./../../components/CheckBox";
 import { Autocomplete, TextField } from "@mui/material";
 
-import { GET_INSTITUCIONES } from "../../redux/actions/institucionesAction";
+import {
+  GET_INSTITUCIONES,
+  SEARCH_INSTITUCIONES,
+} from "../../redux/actions/institucionesAction";
 import { connect } from "react-redux";
 
 import {
@@ -30,7 +32,11 @@ export function AltaInstituciones(props) {
 
   const [search, setSearch] = React.useState("");
 
-  React.useEffect(() => {});
+  React.useEffect(() => {
+    if (search.length > 2) {
+      props.SEARCH_INSTITUCIONES(10, search);
+    }
+  }, [search]);
 
   return (
     <div className="animated fadeIn altainstituciones">
@@ -106,6 +112,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   GET_INSTITUCIONES,
+  SEARCH_INSTITUCIONES,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AltaInstituciones);

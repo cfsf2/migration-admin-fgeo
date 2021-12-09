@@ -16,3 +16,21 @@ export const GET_INSTITUCIONES = (limit) => {
       });
   };
 };
+
+export const SEARCH_INSTITUCIONES = (search, limit) => {
+  return (dispatch) => {
+    axios
+      .get(farmageo_api + "/instituciones/search", {
+        params: { limit: limit, search: search },
+      })
+      .then((response) =>
+        dispatch({
+          type: "SEARCH_INSTITUCIONES",
+          payload: response.data,
+        })
+      )
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
