@@ -49,6 +49,7 @@ export default function Filtros(props) {
     ) {
       (async () => {
         await props.SEARCH_INSTITUCIONES(search, 10).then((res) => {
+          console.log(res);
           setListado(() => Ordenar(res, "nombre", search));
         });
       })();
