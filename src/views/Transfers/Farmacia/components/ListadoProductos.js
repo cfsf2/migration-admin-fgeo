@@ -29,6 +29,7 @@ export const ordenar = (array, key, direccion) => {
 
 export function ListadoProductos(props) {
   const { loading, productos, allproducts } = props;
+  const { laboratorios } = props.tranfersReducer;
 
   const [direccion, setDireccion] = React.useState(1);
   const [sortType, setSortType] = React.useState("nombre");
@@ -87,6 +88,7 @@ export function ListadoProductos(props) {
   return (
     <div className="transfer_lista">
       <div className="transfer_lista_header">
+        <div>Laboratorio</div>
         <div
           id="codigo"
           className="transfer_lista_header_titulo"
@@ -140,6 +142,13 @@ export function ListadoProductos(props) {
         {showProducts.map((producto) => {
           return (
             <div key={producto._id} className="transfer_lista_item">
+              <div>
+                {
+                  laboratorios.filter(
+                    (lab) => lab._id === producto.laboratorioid
+                  )[0].nombre
+                }
+              </div>
               <Item key={producto._id} producto={producto} />
             </div>
           );
