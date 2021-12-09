@@ -3,6 +3,7 @@ import "./instituciones.scss";
 
 import { GET_INSTITUCIONES } from "../../redux/actions/institucionesAction";
 import { connect } from "react-redux";
+import { AltaInstituciones } from "./AltaInstituciones";
 
 import {
   Button,
@@ -20,13 +21,15 @@ export function Instituciones(props) {
     institucionesReducer: { instituciones },
   } = props;
   const [listado, setListado] = React.useState([]);
+  const [modal, setModal] = React.useState(false);
 
   React.useEffect(() => {
     if (!instituciones) {
-      props.GET_INSTITUCIONES();
+      props.GET_INSTITUCIONES(10);
     }
     setListado(() => instituciones);
   }, [instituciones]);
+
   return (
     <div className="animated fadeIn">
       <Row>
@@ -34,16 +37,32 @@ export function Instituciones(props) {
           <Row>
             <Col>
               <Card>
-                <CardHeader>
+                <CardHeader className="instituciones_cardheader">
                   <b>Listado de Instituciones</b>
+                  <Button
+                    disabled={!instituciones}
+                    className={`instituciones_btn_crear ${
+                      modal ? "cancelar" : null
+                    }`}
+                    onClick={() => setModal((modal) => !modal)}
+                  >
+                    {modal ? "Cancelar" : "Añadir Institucion"}
+                  </Button>
                 </CardHeader>
+
                 <CardBody>
+                  {instituciones ? (
+                    <div style={{ display: modal ? "block" : "none" }}>
+                      <AltaInstituciones instituciones={instituciones} />
+                    </div>
+                  ) : null}
                   <Row>
                     <Col xs="12" md="4">
                       <Input
                         type="text"
                         placeholder="buscar institucion..."
                         name="filtro"
+                        className="instituciones_buscar"
                       />
                     </Col>
                   </Row>
@@ -75,12 +94,7 @@ export function Instituciones(props) {
                                         )[0]?.nombre
                                       }
                                     </td>
-                                    <td>
-                                      <input
-                                        type="checkbox"
-                                        value={inst.habilitada}
-                                      />
-                                    </td>
+                                    <td>{inst.habilitada ? "SI" : "NO"}</td>
                                     <td>
                                       <button>Editar</button>
                                     </td>

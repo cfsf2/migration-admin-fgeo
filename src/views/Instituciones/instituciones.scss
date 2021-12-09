@@ -1,4 +1,32 @@
 .instituciones {
+  &_buscar {
+    margin: 1rem 0;
+  }
+  &_cardheader {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  &_btn {
+    &_crear {
+      background-color: hsl(120, 100%, 25%);
+      color: #ffff;
+      margin: 0 3rem;
+      &:hover {
+        background-color: hsl(120, 100%, 35%);
+        color: #ffff;
+      }
+      &.btn-secondary:not(:disabled):not(.disabled):active {
+        background-color: hsl(120, 50%, 35%);
+        transform: scale(0.9);
+        color: #ffff;
+      }
+    }
+    &_crear.cancelar {
+      background-color: hsl(0, 100%, 25%);
+      color: #ffff;
+    }
+  }
   &_tabla {
     width: 100%;
     &_head {
@@ -26,4 +54,30 @@
 
 .altainstituciones {
   margin: 2rem;
+  &_row :nth-child(n) {
+    margin-bottom: 0.3rem;
+  }
+  &_nombre {
+    width: 100%;
+  }
+  &_habilitada {
+    display: flex;
+    align-items: center;
+    &_label {
+      margin-right: 2rem;
+    }
+  }
+  &_submit {
+    background-color: hsl(120, 100%, 25%);
+    color: #ffff;
+    &:hover {
+      background-color: hsl(120, 100%, 35%);
+      color: #ffff;
+    }
+    &.btn-secondary:not(:disabled):not(.disabled):active {
+      background-color: hsl(120, 50%, 35%);
+      transform: scale(0.9);
+      color: #ffff;
+    }
+  }
 }
