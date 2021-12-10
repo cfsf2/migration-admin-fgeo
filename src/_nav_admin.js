@@ -74,17 +74,8 @@ export default {
     {
       name: "Instituciones",
       icon: "instituciones",
+      url: "/instituciones",
       permiso: "instituciones",
-      children: [
-        {
-          name: "Listado",
-          url: "/instituciones",
-        },
-        {
-          name: "Alta de Institucion",
-          url: "/altainstituciones",
-        },
-      ],
     },
     {
       name: "Denuncias",

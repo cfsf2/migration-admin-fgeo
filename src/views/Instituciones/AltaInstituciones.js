@@ -28,15 +28,16 @@ export function AltaInstituciones(props) {
   const [madre, setMadre] = React.useState(
     edit
       ? {
-          id: institucion.id_institucion_madre,
-          name: institucion.nombre_institucion_madre,
+          id: institucion.id_institucion_madre
+            ? institucion.id_institucion_madre
+            : null,
+          name: institucion.nombre_institucion_madre
+            ? institucion.nombre_institucion_madre
+            : "",
         }
-      : ""
+      : { id: null, name: "" }
   );
 
-  const [nombreMadre, setNombreMadre] = React.useState(
-    edit ? institucion.nombre_institucion_madre : ""
-  );
   const [nombre, setNombre] = React.useState(edit ? institucion.nombre : "");
   const [habilitada, setHabilitada] = React.useState(
     edit ? institucion.habilitada : true
@@ -115,7 +116,7 @@ export function AltaInstituciones(props) {
                       onChange={(e, newInstitucion) => {
                         setMadre(() => newInstitucion);
                       }}
-                      value={madre ? madre : null}
+                      value={madre}
                       onInputChange={(e, value) => {
                         setSearch(() => value);
                       }}
