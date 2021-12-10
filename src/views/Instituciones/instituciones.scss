@@ -1,15 +1,14 @@
 $table: 1fr 6fr 6fr 2fr 2fr;
-
+.modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.4);
+  padding: 2rem;
+  display: block;
+  z-index: 1000;
+}
 .instituciones {
-  & .modal {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(128, 128, 128, 0.5);
-    padding: 2rem;
-    display: block;
-    z-index: 1000;
-  }
   &_container {
     border: 1px solid rgb(207, 207, 207);
     padding: 1rem;

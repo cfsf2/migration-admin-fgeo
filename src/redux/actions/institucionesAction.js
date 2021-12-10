@@ -72,3 +72,24 @@ export const CREAR_INSTITUCION = (data) => {
     });
   };
 };
+
+export const ACTUALIZAR_INSTITUCION = (data) => {
+  const { nombre, id_institucion_madre, habilitada, id } = data;
+  return (dispatch) => {
+    return new Promise((resolve, rej) => {
+      axios
+        .put(farmageo_api + "/instituciones", {
+          data: { nombre, id_institucion_madre, habilitada },
+          id: id,
+        })
+        .then((res) => {
+          alert(res.data);
+          dispatch(GET_INSTITUCIONES(10));
+          resolve();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  };
+};

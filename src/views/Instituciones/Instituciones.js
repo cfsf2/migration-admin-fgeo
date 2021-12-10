@@ -5,6 +5,7 @@ import {
   GET_INSTITUCIONES,
   SEARCH_INSTITUCIONES,
   CREAR_INSTITUCION,
+  ACTUALIZAR_INSTITUCION,
 } from "../../redux/actions/institucionesAction";
 import { connect } from "react-redux";
 import { AltaInstituciones } from "./AltaInstituciones";
@@ -27,6 +28,9 @@ export function Instituciones(props) {
   } = props;
   const [listado, setListado] = React.useState([]);
   const [modal, setModal] = React.useState(false);
+
+  const [editModal, setEditModal] = React.useState(false);
+  const [edit, setEdit] = React.useState();
 
   React.useEffect(() => {
     if (instituciones && instituciones.length === 0) {
@@ -69,6 +73,25 @@ export function Instituciones(props) {
                       <AltaInstituciones {...props} setModal={setModal} />
                     </div>
                   ) : null}
+                  {editModal ? (
+                    <div
+                      id="modal"
+                      className="modal"
+                      onClick={(e) => {
+                        if (e.target.id === "modal") {
+                          setEditModal((state) => !state);
+                        }
+                      }}
+                    >
+                      <AltaInstituciones
+                        edit
+                        institucion={edit}
+                        {...props}
+                        setModal={setEditModal}
+                      />
+                    </div>
+                  ) : null}
+
                   <Row>
                     <Col xs="12">
                       <Filtros
@@ -100,7 +123,14 @@ export function Instituciones(props) {
                                     <td>{inst.nombre_institucion_madre}</td>
                                     <td>{inst.habilitada ? "SI" : "NO"}</td>
                                     <td>
-                                      <button>Editar</button>
+                                      <button
+                                        onClick={() => {
+                                          setEditModal((state) => !state);
+                                          setEdit(() => inst);
+                                        }}
+                                      >
+                                        Editar
+                                      </button>
                                     </td>
                                   </tr>
                                 );
@@ -129,6 +159,7 @@ const mapDispatchToProps = {
   GET_INSTITUCIONES,
   SEARCH_INSTITUCIONES,
   CREAR_INSTITUCION,
+  ACTUALIZAR_INSTITUCION,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Instituciones);

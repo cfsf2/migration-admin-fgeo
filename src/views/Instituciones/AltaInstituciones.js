@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+import { farmageo_api } from "../../config";
 
 import "./instituciones.scss";
 import { Autocomplete, TextField } from "@mui/material";
@@ -21,15 +23,37 @@ export function AltaInstituciones(props) {
   const [instituciones, setInstituciones] = React.useState(
     props.institucionesReducer.instituciones
   );
-  const { setModal } = props;
+  const { setModal, edit, institucion } = props;
+  console.log(institucion);
+  const [madre, setMadre] = React.useState(
+    edit
+      ? {
+          id: institucion.id_institucion_madre,
+          name: institucion.nombre_institucion_madre,
+        }
+      : ""
+  );
 
-  const [madre, setMadre] = React.useState("");
-  const [nombre, setNombre] = React.useState("");
-  const [habilitada, setHabilitada] = React.useState(true);
+  const [nombreMadre, setNombreMadre] = React.useState(
+    edit ? institucion.nombre_institucion_madre : ""
+  );
+  const [nombre, setNombre] = React.useState(edit ? institucion.nombre : "");
+  const [habilitada, setHabilitada] = React.useState(
+    edit ? institucion.habilitada : true
+  );
 
   const [search, setSearch] = React.useState("");
 
   const handleSubmit = () => {
+    if (edit) {
+      props.ACTUALIZAR_INSTITUCION({
+        nombre: nombre,
+        id_institucion_madre: madre.id,
+        habilitada: habilitada,
+        id: institucion._id,
+      });
+      return;
+    }
     if (nombre.trim() !== "") {
       props
         .CREAR_INSTITUCION({
@@ -48,13 +72,15 @@ export function AltaInstituciones(props) {
   };
 
   React.useEffect(() => {
-    if (search.length > 1) {
+    if (!!search && search.length > 1) {
       props
         .SEARCH_INSTITUCIONES(search, 10)
         .then((res) => setInstituciones(() => res));
+      return;
     }
     if (search.trim() === "") {
       setInstituciones(() => props.institucionesReducer.instituciones);
+      return;
     }
   }, [search, setSearch]);
 
@@ -63,7 +89,9 @@ export function AltaInstituciones(props) {
       <Row>
         <Col>
           <Card>
-            <CardHeader>Alta de instituciones</CardHeader>
+            <CardHeader>
+              {edit ? "Edicion de Datos" : "Alta de instituciones"}
+            </CardHeader>
             <CardBody>
               <FormGroup>
                 <Row className="altainstituciones_row">
@@ -72,6 +100,7 @@ export function AltaInstituciones(props) {
                       label="Nombre"
                       onChange={(e) => setNombre(e.target.value)}
                       className="altainstituciones_nombre"
+                      value={nombre}
                     />
                   </Col>
                   <Col xs="12" sm="7" xl="6">
@@ -81,14 +110,14 @@ export function AltaInstituciones(props) {
                         return { id: inst._id, name: inst.nombre };
                       })}
                       renderInput={(params) => (
-                        <TextField
-                          label={"Institucion Madre"}
-                          {...params}
-                          onChange={(e) => setSearch(e.target.value)}
-                        />
+                        <TextField label={"Institucion Madre"} {...params} />
                       )}
                       onChange={(e, newInstitucion) => {
-                        setMadre(newInstitucion);
+                        setMadre(() => newInstitucion);
+                      }}
+                      value={madre ? madre : null}
+                      onInputChange={(e, value) => {
+                        setSearch(() => value);
                       }}
                     />
                   </Col>
@@ -116,7 +145,7 @@ export function AltaInstituciones(props) {
                 onClick={handleSubmit}
                 className="altainstituciones_submit"
               >
-                Añadir Institucion
+                {edit ? "Guardar Cambios" : "Añadir Institucion"}
               </Button>
             </CardBody>
           </Card>
