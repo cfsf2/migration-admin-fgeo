@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {
   Button,
   Card,
@@ -22,6 +23,7 @@ import {
   CLEAN_PRODUCTOS,
 } from "../../../redux/actions/transfersActions";
 import ButtonHome from "../../Dashboard/components/ButtonHome";
+import Checkout from "./components/Checkout";
 
 class NuevoTransfer extends Component {
   componentDidMount() {
@@ -43,6 +45,16 @@ class NuevoTransfer extends Component {
               tipo="grande"
               icono={require("../../../assets/images/icons/1.png")}
             />
+            <Link
+              className="btn"
+              to={process.env.PUBLIC_URL + "/CarritoTransfer"}
+              params={{ stage: 1 }}
+            >
+              Ir al Checkout
+            </Link>
+            <Router>
+              <Route path="/#/CarritoTransfer" component={Checkout} />
+            </Router>
           </Col>
         </Row>
         <Row>

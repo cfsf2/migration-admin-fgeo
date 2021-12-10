@@ -2,8 +2,10 @@ $table: 1fr;
 $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
 .transfer {
   &_barra {
+    display: flex;
+    justify-content: space-between;
     background: rgb(218, 218, 218);
-    width: 100%;
+    width: 82%;
     position: fixed;
     bottom: 0%;
     z-index: 100;
@@ -15,6 +17,9 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
       font-weight: bold;
       letter-spacing: 1px;
       margin: 0 1rem;
+    }
+    & .btn-labs {
+      background-color: hsl(214, 43%, 40%);
     }
     & .siguiente {
       background-color: rgb(87, 155, 87);
@@ -112,6 +117,15 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
         display: grid;
         grid-template-columns: $table2;
         column-gap: 10px;
+
+        &_imagen {
+          max-width: 100px;
+          max-height: 60px;
+          //height: 60px;
+        }
+        p {
+          display: none;
+        }
       }
 
       & > div {

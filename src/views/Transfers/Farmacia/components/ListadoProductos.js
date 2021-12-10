@@ -2,6 +2,7 @@ import React from "react";
 import Item from "./Item";
 import { SET_PEDIDO } from "../../../../redux/actions/transfersActions";
 import { connect } from "react-redux";
+import { image_path_server } from "../../../../config";
 
 export const ordenar = (array, key, direccion) => {
   const sortedArray = array.sort(function (a, b) {
@@ -67,7 +68,6 @@ export function ListadoProductos(props) {
 
     if (allproducts.length > 0) {
       const productosOrdenados = ordenar([...allproducts], sortType, direccion);
-
       let showProducts = productosOrdenados.slice(primerProd, ultimoProd);
 
       if (showProducts.length < prodPerPage) {
@@ -88,7 +88,13 @@ export function ListadoProductos(props) {
   return (
     <div className="transfer_lista">
       <div className="transfer_lista_header">
-        <div>Laboratorio</div>
+        <div
+          id="laboratorioid"
+          className="transfer_lista_header_titulo"
+          onClick={handleSort}
+        >
+          Laboratorio
+        </div>
         <div
           id="codigo"
           className="transfer_lista_header_titulo"
@@ -142,12 +148,34 @@ export function ListadoProductos(props) {
         {showProducts.map((producto) => {
           return (
             <div key={producto._id} className="transfer_lista_item">
-              <div>
-                {
-                  laboratorios.filter(
-                    (lab) => lab._id === producto.laboratorioid
-                  )[0].nombre
-                }
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                {laboratorios.filter(
+                  (lab) => lab._id === producto.laboratorioid
+                )[0]?.imagen ? (
+                  <img
+                    src={
+                      image_path_server +
+                      laboratorios.filter(
+                        (lab) => lab._id === producto.laboratorioid
+                      )[0]?.imagen
+                    }
+                    className="transfer_lista_item_imagen"
+                  />
+                ) : null}
+                <p>
+                  {
+                    laboratorios.filter(
+                      (lab) => lab._id === producto.laboratorioid
+                    )[0]?.nombre
+                  }
+                </p>
               </div>
               <Item key={producto._id} producto={producto} />
             </div>

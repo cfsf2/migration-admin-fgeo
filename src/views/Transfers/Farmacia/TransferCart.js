@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Checkout from "./components/Checkout";
 import ListadoProductos from "./components/ListadoProductos";
 import Search from "./components/Search";
+import Barra from "./components/Barra";
 import {
   ADD_TRANSFER,
   SUBMITTING,
@@ -67,7 +68,7 @@ const Cart = (props) => {
 };
 
 function TransferCart(props) {
-  const [stage, setStage] = useState(0);
+  const [stage, setStage] = useState(props.stage ? props.stage : 0);
   const [productos, setProductos] = useState([]);
   const [allproducts, setAllProducts] = useState([]);
   const [lab, setLab] = useState({});
@@ -101,24 +102,9 @@ function TransferCart(props) {
         loading={loading}
         stage={stage}
         allproducts={allproducts}
+        nobar
       />
-      <div className="transfer_barra">
-        {stage !== 0 ? (
-          <button
-            className="btn volver"
-            onClick={() => setStage((state) => state - 1)}
-          >
-            Volver
-          </button>
-        ) : null}
-        <button
-          className="btn siguiente"
-          onClick={() => setStage((state) => state + 1)}
-          disabled={props.tranfersReducer.pedido.length === 0 || stage >= 1}
-        >
-          {stage === 1 ? "Finalizar" : "Siguiente"}
-        </button>
-      </div>
+      <Barra stage={stage} setStage={setStage} {...props} />
     </>
   );
 }
