@@ -20,12 +20,22 @@ export const GET_INSTITUCIONES = (limit) => {
   };
 };
 
-export const SEARCH_INSTITUCIONES = (search, limit) => {
+export const SEARCH_INSTITUCIONES = (
+  search,
+  limit,
+  habilitada,
+  id_institucion_madre
+) => {
   return (dispatch) => {
     return new Promise((resolve, rej) => {
       axios
         .get(farmageo_api + "/instituciones/search", {
-          params: { limit: limit, search: search },
+          params: {
+            limit: limit,
+            search: search,
+            habilitada: habilitada,
+            id_institucion_madre: id_institucion_madre,
+          },
         })
         .then((response) => {
           dispatch({

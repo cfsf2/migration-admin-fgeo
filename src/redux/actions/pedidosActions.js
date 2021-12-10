@@ -95,11 +95,7 @@ export const UPDATE_PEDIDO = (pedido) => {
 export const GET_ALL_PEDIDOS_ADMIN = (token) => {
   return (dispatch) => {
     axios
-      .get(farmageo_api + "/pedidos", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      })
+      .get(farmageo_api + "/pedidos")
       .then(function (response) {
         dispatch({
           type: "GET_PEDIDOS",

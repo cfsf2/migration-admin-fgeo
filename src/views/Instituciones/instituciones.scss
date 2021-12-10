@@ -10,9 +10,41 @@ $table: 1fr 6fr 6fr 2fr 2fr;
     display: block;
     z-index: 1000;
   }
-  &_buscar {
-    margin: 1rem 0;
+  &_container {
+    border: 1px solid rgb(207, 207, 207);
+    padding: 1rem;
+    background-color: rgb(245, 245, 245);
+    border-radius: 15px;
+    margin: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    &_titulo {
+      font-size: 1.1rem;
+      font-variant: small-caps;
+    }
   }
+  &_filtros {
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    &_buscar {
+      margin: 1rem 0;
+      width: 25%;
+    }
+    &_madre {
+      &.MuiAutocomplete-root {
+        width: 30% !important;
+        margin: 0 1rem;
+      }
+      &.MuiAutocomplete-input {
+        padding: 0;
+      }
+    }
+    &_habilitada {
+      width: 10%;
+    }
+  }
+
   &_cardheader {
     display: flex;
     align-items: baseline;

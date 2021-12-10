@@ -70,7 +70,7 @@ export function Instituciones(props) {
                     </div>
                   ) : null}
                   <Row>
-                    <Col xs="12" md="4">
+                    <Col xs="12">
                       <Filtros
                         listado={listado}
                         setListado={setListado}
