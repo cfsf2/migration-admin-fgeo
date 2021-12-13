@@ -242,6 +242,15 @@ export const SET_PEDIDO = (newPedido) => {
   };
 };
 
+export const RESET_PEDIDO = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "SET_PEDIDO",
+      payload: [],
+    });
+  };
+};
+
 export const GET_TRANSFERS = () => {
   return (dispatch) => {
     axios

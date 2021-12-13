@@ -1,8 +1,19 @@
 $table: 1fr;
 $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
+
 .transfer {
+  &_cart {
+    &_spinner {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 5rem;
+      transform: scale(2);
+    }
+  }
   &_barra {
     display: flex;
+    flex-wrap: nowrap;
     justify-content: space-between;
     background: rgb(218, 218, 218);
     width: 82%;
@@ -12,6 +23,9 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
     padding: 1rem 3rem;
     margin-right: 1rem;
     border-radius: 20px 20px 0% 0%;
+    &_nav {
+      width: 60%;
+    }
     .btn {
       color: white;
       font-weight: bold;
@@ -22,10 +36,54 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
       background-color: hsl(214, 43%, 40%);
     }
     & .siguiente {
-      background-color: rgb(87, 155, 87);
+      background-color: rgba(114, 156, 114, 1);
+      position: relative;
+      width: 200px;
+      transition: all 0.3s ease-in-out;
+    }
+    & .confirmar {
+      // animation-name: relleno;
+      // animation-duration: 3s;
+      position: relative;
+      width: 200px;
+      background-color: rgb(21, 202, 21);
+    }
+    .no-text {
+      color: rgba(255, 255, 255, 0);
+    }
+    & .enviando {
+      animation-name: relleno;
+      animation-duration: 2.5s;
+      animation-fill-mode: forwards;
+      background-color: rgb(21, 114, 202);
+      color: #ffffff;
+      &::before {
+        content: "Enviando";
+        height: 100%;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+      }
+    }
+    & .no-enviando {
+      position: absolute;
+      height: 100%;
+      width: 0%;
+      z-index: 1;
+      top: 0;
+      left: 0;
     }
     & .volver {
       background-color: rgb(87, 126, 155);
+    }
+
+    @keyframes relleno {
+      from {
+        width: 0px;
+      }
+      to {
+        width: 200px;
+      }
     }
   }
   &_search {
@@ -100,6 +158,14 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
       &#observaciones {
         cursor: default;
       }
+      &#nombre {
+        text-align: left;
+        padding-left: 2rem;
+      }
+      &#presentacion {
+        text-align: left;
+        padding-left: 2rem;
+      }
     }
     &_items {
       display: grid;
@@ -159,6 +225,7 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
       }
       &_presentacion {
         padding-left: 2rem;
+        text-align: left;
       }
       &_cantidad {
         padding: 0;
@@ -228,6 +295,35 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
       }
       textarea {
         resize: none;
+      }
+    }
+  }
+  &_confirmacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    & div:first-child {
+      width: 100%;
+    }
+    & div:nth-child(2) {
+      margin: 10rem;
+      display: flex;
+      align-items: center;
+      a {
+        &.btn {
+          color: white;
+          font-weight: bold;
+          letter-spacing: 1px;
+          margin: auto 1rem;
+          padding: 3rem;
+        }
+        &.btn-labs {
+          background-color: hsl(214, 43%, 40%);
+          &:hover {
+            background-color: hsl(214, 43%, 50%);
+          }
+        }
       }
     }
   }

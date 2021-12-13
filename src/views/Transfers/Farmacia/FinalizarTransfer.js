@@ -230,23 +230,15 @@ class FinalizarTransfer extends Component {
       nombre,
       direccioncompleta,
     } = this.props.authReducer.userprofile;
-    const { lab_selected } = this.props.tranfersReducer;
+    const { lab_selected, pedido } = this.props.tranfersReducer;
 
     this.setState({
       submitting: true,
     });
 
-    let productosFiltrados = [];
-
-    this.state.productos.forEach((producto) => {
-      if (producto.cantidad > 0) {
-        productosFiltrados.push(producto);
-      }
-    });
-
     let transfer = {
-      ...this.state.transfer,
-      productos_solicitados: productosFiltrados,
+      fecha: new Date(Date.now()).toISOString().substring(0, 10),
+      productos_solicitados: pedido,
       farmacia_id: farmaciaid,
       farmacia_nombre: nombre,
       estado: "nuevo",
@@ -453,9 +445,13 @@ class FinalizarTransfer extends Component {
               </Col>
             </Row>
             <hr />
-            <TransferCart />
+            <TransferCart
+              transfer={this.state.transfer}
+              history={this.props.history}
+            />
           </CardBody>
-          <CardFooter>
+          <div>
+            {/* <CardFooter>
             <Row>
               <Col>
                 {this.state.finalizar ? (
@@ -498,7 +494,8 @@ class FinalizarTransfer extends Component {
               </Col>
               <Col></Col>
             </Row>
-          </CardFooter>
+          </CardFooter> */}
+          </div>
         </Card>
       </div>
     );
