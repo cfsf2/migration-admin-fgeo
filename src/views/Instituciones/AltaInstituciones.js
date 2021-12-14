@@ -29,10 +29,10 @@ export function AltaInstituciones(props) {
     edit
       ? {
           id: institucion.id_institucion_madre
-            ? institucion.id_institucion_madre
+            ? institucion.id_institucion_madre._id
             : null,
-          name: institucion.nombre_institucion_madre
-            ? institucion.nombre_institucion_madre
+          name: institucion.id_institucion_madre
+            ? institucion.id_institucion_madre.nombre
             : "",
         }
       : { id: null, name: "" }
