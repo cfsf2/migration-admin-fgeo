@@ -46,7 +46,7 @@ export const LOGIN = (user, password) => {
           localStorage.setItem("pass", password);
 
           if (response.data.user_rol.includes("admin")) {
-            dispatch(GET_ALL_PEDIDOS_ADMIN(response.data.token));
+            //dispatch(GET_ALL_PEDIDOS_ADMIN(response.data.token));
           } else {
             dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }
@@ -61,7 +61,7 @@ export const LOGIN = (user, password) => {
 export const LOADPROFILE = (username, token) => {
   return (dispatch) => {
     axios
-      .get(farmageo_api + "/farmacias/login/" + username.toUpperCase(), {
+      .get(farmageo_api + "/farmacias/login/" + username?.toUpperCase(), {
         headers: {
           authorization: `Bearer ${token}`,
         },

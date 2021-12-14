@@ -161,7 +161,7 @@ const Login = (props) => {
   if (islogin) {
     // console.log("username " + username)
 
-    dispatch(LOADPROFILE(username));
+    dispatch(LOADPROFILE(username, window.localStorage.getItem("token")));
     return <Redirect to="/dashboard"></Redirect>;
   } else {
     //esto habrìa que correrlo

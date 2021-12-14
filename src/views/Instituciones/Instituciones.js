@@ -120,7 +120,7 @@ export function Instituciones(props) {
                                   <tr key={inst._id}>
                                     <td>{idx + 1}</td>
                                     <td>{inst.nombre}</td>
-                                    <td>{inst.nombre_institucion_madre}</td>
+                                    <td>{inst.id_institucion_madre?.nombre}</td>
                                     <td>{inst.habilitada ? "SI" : "NO"}</td>
                                     <td>
                                       <button
