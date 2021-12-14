@@ -92,6 +92,13 @@ export function AltaInstituciones(props) {
           <Card>
             <CardHeader>
               {edit ? "Edicion de Datos" : "Alta de instituciones"}
+
+              <div
+                className="altainstituciones_close"
+                onClick={() => setModal((state) => !state)}
+              >
+                X
+              </div>
             </CardHeader>
             <CardBody>
               <FormGroup>
@@ -146,7 +153,7 @@ export function AltaInstituciones(props) {
                 onClick={handleSubmit}
                 className="altainstituciones_submit"
               >
-                {edit ? "Guardar Cambios" : "Añadir Institucion"}
+                {edit ? "Guardar" : "Añadir Institucion"}
               </Button>
             </CardBody>
           </Card>

@@ -51,11 +51,11 @@ export function Instituciones(props) {
                   <Button
                     disabled={!instituciones}
                     className={`instituciones_btn_crear ${
-                      modal ? "cancelar" : null
+                      modal || editModal ? "cancelar" : null
                     }`}
                     onClick={() => setModal((modal) => !modal)}
                   >
-                    {modal ? "Cancelar" : "Añadir Institucion"}
+                    Añadir Institucion
                   </Button>
                 </CardHeader>
 
