@@ -141,7 +141,6 @@ export default function Filtros(props) {
               />
             )}
             onChange={(e, newMadre) => {
-              console.log(newMadre);
               if (!newMadre) {
                 newMadre = " ";
               }

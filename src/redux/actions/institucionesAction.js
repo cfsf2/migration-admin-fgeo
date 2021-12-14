@@ -3,6 +3,10 @@ import { farmageo_api } from "../../config";
 
 export const GET_INSTITUCIONES = (limit) => {
   return (dispatch) => {
+    dispatch({
+      type: "SET_LOADING",
+      payload: true,
+    });
     axios
       .get(farmageo_api + "/instituciones", { params: { limit: limit } })
       .then((response) => {
@@ -10,6 +14,11 @@ export const GET_INSTITUCIONES = (limit) => {
           type: "GET_INSTITUCIONES",
           payload: response.data,
         });
+        dispatch({
+          type: "SET_LOADING",
+          payload: false,
+        });
+
         return new Promise((resolve, reject) => {
           resolve(response.data);
         });

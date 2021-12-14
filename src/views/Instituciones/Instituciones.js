@@ -10,6 +10,7 @@ import {
 import { connect } from "react-redux";
 import { AltaInstituciones } from "./AltaInstituciones";
 import Filtros from "./Filtros";
+import Tabla from "./Tabla";
 
 import {
   Button,
@@ -20,12 +21,14 @@ import {
   Row,
   Input,
   Table,
+  Spinner,
 } from "reactstrap";
 
 export function Instituciones(props) {
   const {
-    institucionesReducer: { instituciones },
+    institucionesReducer: { instituciones, loading },
   } = props;
+
   const [listado, setListado] = React.useState([]);
   const [modal, setModal] = React.useState(false);
 
@@ -38,6 +41,10 @@ export function Instituciones(props) {
     }
     setListado(() => instituciones);
   }, [instituciones]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="animated fadeIn">
@@ -102,43 +109,7 @@ export function Instituciones(props) {
                     </Col>
                   </Row>
                   <Table>
-                    <div className="table-responsive table-striped table-fix">
-                      <table className="instituciones_tabla table">
-                        <thead className="instituciones_tabla_head">
-                          <tr>
-                            <th id="numero">#</th>
-                            <th>Nombre</th>
-                            <th>Institucion Madre</th>
-                            <th>Habilitada</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {listado
-                            ? listado.map((inst, idx) => {
-                                return (
-                                  <tr key={inst._id}>
-                                    <td>{idx + 1}</td>
-                                    <td>{inst.nombre}</td>
-                                    <td>{inst.id_institucion_madre?.nombre}</td>
-                                    <td>{inst.habilitada ? "SI" : "NO"}</td>
-                                    <td>
-                                      <button
-                                        onClick={() => {
-                                          setEditModal((state) => !state);
-                                          setEdit(() => inst);
-                                        }}
-                                      >
-                                        Editar
-                                      </button>
-                                    </td>
-                                  </tr>
-                                );
-                              })
-                            : "no hay instituciones"}
-                        </tbody>
-                      </table>
-                    </div>
+                    <Tabla {...props} rows={listado} />
                   </Table>
                 </CardBody>
               </Card>

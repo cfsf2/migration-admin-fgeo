@@ -1,6 +1,7 @@
 const defaultState = {
   instituciones: [],
   busqueda: [],
+  loading: true,
 };
 
 export default (state = defaultState, action) => {
@@ -19,6 +20,11 @@ export default (state = defaultState, action) => {
         busqueda: action.payload,
       };
       break;
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: action.payload,
+      };
     default:
       return state;
   }
