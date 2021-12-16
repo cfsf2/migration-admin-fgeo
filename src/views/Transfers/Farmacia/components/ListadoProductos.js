@@ -1,5 +1,8 @@
 import React from "react";
 import Item from "./Item";
+import { SET_PEDIDO } from "../../../../redux/actions/transfersActions";
+import { connect } from "react-redux";
+import { image_path_server } from "../../../../config";
 
 export const ordenar = (array, key, direccion) => {
   const sortedArray = array.sort(function (a, b) {
@@ -25,9 +28,9 @@ export const ordenar = (array, key, direccion) => {
   return sortedArray;
 };
 
-export default function ListadoProductos(props) {
-  const { allproducts, productos, setProductos, pedido, setPedido, loading } =
-    props;
+export function ListadoProductos(props) {
+  const { loading, productos, allproducts } = props;
+  const { laboratorios } = props.tranfersReducer;
 
   const [direccion, setDireccion] = React.useState(1);
   const [sortType, setSortType] = React.useState("nombre");
@@ -63,9 +66,10 @@ export default function ListadoProductos(props) {
     const primerProd = page * prodPerPage;
     const ultimoProd = primerProd + prodPerPage;
 
-    if (allproducts.length > 0) {
+    if (productos) {
       const productosOrdenados = ordenar([...productos], sortType, direccion);
       let showProducts = productosOrdenados.slice(primerProd, ultimoProd);
+
       if (showProducts.length < prodPerPage) {
         const empties = prodPerPage - showProducts.length;
         let vacios = [];
@@ -84,6 +88,13 @@ export default function ListadoProductos(props) {
   return (
     <div className="transfer_lista">
       <div className="transfer_lista_header">
+        <div
+          id="laboratorioid"
+          className="transfer_lista_header_titulo"
+          onClick={handleSort}
+        >
+          Laboratorio
+        </div>
         <div
           id="codigo"
           className="transfer_lista_header_titulo"
@@ -129,20 +140,44 @@ export default function ListadoProductos(props) {
       <div className="transfer_lista_items">
         {loading ? (
           <div>Cargando</div>
-        ) : productos?.length === 0 ? (
+        ) : showProducts?.length === 0 ? (
           <p className="transfer_lista_sinresultados">
             No se encontraron Productos
           </p>
         ) : null}
         {showProducts.map((producto) => {
           return (
-            <div className="transfer_lista_item">
-              <Item
-                key={producto._id}
-                producto={producto}
-                pedido={pedido}
-                setPedido={setPedido}
-              />
+            <div key={producto._id} className="transfer_lista_item">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                {laboratorios.filter(
+                  (lab) => lab._id === producto.laboratorioid
+                )[0]?.imagen ? (
+                  <img
+                    src={
+                      image_path_server +
+                      laboratorios.filter(
+                        (lab) => lab._id === producto.laboratorioid
+                      )[0]?.imagen
+                    }
+                    className="transfer_lista_item_imagen"
+                  />
+                ) : null}
+                <p>
+                  {
+                    laboratorios.filter(
+                      (lab) => lab._id === producto.laboratorioid
+                    )[0]?.nombre
+                  }
+                </p>
+              </div>
+              <Item key={producto._id} producto={producto} />
             </div>
           );
         })}
@@ -156,11 +191,22 @@ export default function ListadoProductos(props) {
             Pagina {page + 1} de {paginas + 1}
           </p>
         </div>
+        <div className="transfer_lista_footer_mostrando">
+          <p>
+            Mostrando {page * prodPerPage + 1} a{" "}
+            {(page + 1) * prodPerPage < productos.length
+              ? (page + 1) * prodPerPage
+              : productos.length}{" "}
+            de {productos.length}
+          </p>
+        </div>
         <div className="transfer_lista_footer_resultados">
           <p>Resultados por Pagina</p>
           <select
             value={prodPerPage}
-            onChange={(e) => setProdsPerPage(e.target.value)}
+            onChange={(e) => {
+              setProdsPerPage(Number(e.target.value));
+            }}
           >
             <option value={5}>5</option>
             <option value={10}>10</option>
@@ -172,3 +218,14 @@ export default function ListadoProductos(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    tranfersReducer: state.tranfersReducer,
+  };
+};
+const mapDispatchToProps = {
+  SET_PEDIDO,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListadoProductos);

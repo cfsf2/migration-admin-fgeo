@@ -6,11 +6,7 @@ import {
   CardHeader,
   Col,
   Row,
-  FormGroup,
   Input,
-  CardImg,
-  Label,
-  CardFooter,
 } from "reactstrap";
 
 import { connect } from "react-redux";
@@ -162,6 +158,7 @@ class MisTransfers extends Component {
                                             .productos_solicitados.length > 0
                                             ? this.state.transfer.productos_solicitados.map(
                                                 (linea, index) => {
+                                                  console.log(linea);
                                                   return (
                                                     <tr>
                                                       <td>

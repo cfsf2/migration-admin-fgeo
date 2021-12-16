@@ -8,7 +8,8 @@ export default function Search(props) {
 
   const handleChange = (e) => {
     const searchTerm = e.target.value.toLowerCase();
-    setSearch(searchTerm);
+    setSearch(() => searchTerm);
+    console.log("buscaste algo?");
     let filteredProds = [];
 
     const startsWithProducts = allproducts.filter((prod) =>
@@ -28,6 +29,7 @@ export default function Search(props) {
     filteredProds = Array.from(filteredProds);
 
     setProductos(() => filteredProds);
+    debugger;
   };
 
   return (
@@ -36,6 +38,7 @@ export default function Search(props) {
         name="search"
         type="text"
         placeholder="Buscar..."
+        value={search}
         onChange={handleChange}
       />
     </div>
