@@ -11,6 +11,7 @@ export const GET_PEDIDOS = (idFarmacia) => {
           type: "GET_PEDIDOS",
           payload: response.data,
         });
+        debugger;
         //console.log(response.data)
       })
       .catch(function (error) {
