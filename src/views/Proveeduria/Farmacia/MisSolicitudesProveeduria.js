@@ -24,13 +24,22 @@ class MisSolicitudesProveeduria extends Component {
     super(props);
     this.state = {
       solicitudproveeduria: null,
+      loading: true,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  setLoading = (load) => {
+    return this.setState({
+      ...this.state,
+      loading: load,
+    });
+  };
+
   componentDidMount() {
     const { farmaciaid } = this.props.authReducer.userprofile;
     this.props.GET_SOLICITUDES_PROVEEDURIA_FARMACIA(farmaciaid);
+    this.setLoading(false);
   }
 
   async handleInputChange(event) {
