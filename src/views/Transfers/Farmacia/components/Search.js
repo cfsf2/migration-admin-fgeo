@@ -29,6 +29,7 @@ export default function Search(props) {
     filteredProds = Array.from(filteredProds);
 
     setProductos(() => filteredProds);
+    debugger;
   };
 
   return (

@@ -52,7 +52,7 @@ export function ListadoProductos(props) {
   };
 
   //paginacion
-  const paginas = Math.ceil(allproducts.length / prodPerPage) - 1;
+  const paginas = Math.ceil(productos.length / prodPerPage) - 1;
   const handleNextPage = (e) => {
     if (page >= paginas) return;
     setPage((page) => page + 1);
@@ -66,8 +66,8 @@ export function ListadoProductos(props) {
     const primerProd = page * prodPerPage;
     const ultimoProd = primerProd + prodPerPage;
 
-    if (allproducts.length > 0) {
-      const productosOrdenados = ordenar([...allproducts], sortType, direccion);
+    if (productos) {
+      const productosOrdenados = ordenar([...productos], sortType, direccion);
       let showProducts = productosOrdenados.slice(primerProd, ultimoProd);
 
       if (showProducts.length < prodPerPage) {
@@ -194,10 +194,10 @@ export function ListadoProductos(props) {
         <div className="transfer_lista_footer_mostrando">
           <p>
             Mostrando {page * prodPerPage + 1} a{" "}
-            {(page + 1) * prodPerPage < allproducts.length
+            {(page + 1) * prodPerPage < productos.length
               ? (page + 1) * prodPerPage
-              : allproducts.length}{" "}
-            de {allproducts.length}
+              : productos.length}{" "}
+            de {productos.length}
           </p>
         </div>
         <div className="transfer_lista_footer_resultados">
