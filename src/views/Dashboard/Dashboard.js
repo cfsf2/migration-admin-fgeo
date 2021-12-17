@@ -70,34 +70,6 @@ class Dashboard extends Component {
     this.props.GET_ENTIDADES();
   }
 
-<<<<<<< HEAD
-  async handlePanelExistencias() {
-    const { mis_pedidos } = this.props.pedidosReducer;
-    const { userprofile, user } = this.props.authReducer;
-
-    if (userprofile !== null) {
-      if (!user.IS_ADMIN && userprofile.productos !== undefined) {
-        var pedidosnuevos = await mis_pedidos?.filter((p) => {
-          return p.estado == "nuevo";
-        }).length;
-        var pedidosenproceso = await mis_pedidos?.filter((p) => {
-          return p.estado == "enproceso";
-        }).length;
-        this.setState({ pedidosnuevos, pedidosenproceso });
-
-        var productoscasiagotados = await userprofile.productos.filter((p) => {
-          return p.inventario == "pocasexistencias";
-        }).length;
-        var productosagotados = await userprofile.productos.filter((p) => {
-          return p.inventario == "sinexistencias";
-        }).length;
-        this.setState({ productosagotados, productoscasiagotados });
-      }
-    }
-  }
-
-=======
->>>>>>> fixAPIcall
   async componentDidUpdate(prevProps, prevState) {
     const { userprofile } = this.props.authReducer;
     if (
