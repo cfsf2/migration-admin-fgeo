@@ -4,6 +4,7 @@ import { farmageo_api } from "../../config";
 
 export const GET_PEDIDOS = (idFarmacia) => {
   return (dispatch) => {
+    dispatch({ type: "LOADING" });
     axios
       .get(farmageo_api + "/pedidos/farmacias/" + idFarmacia)
       .then(function (response) {
@@ -11,7 +12,6 @@ export const GET_PEDIDOS = (idFarmacia) => {
           type: "GET_PEDIDOS",
           payload: response.data,
         });
-        debugger;
         //console.log(response.data)
       })
       .catch(function (error) {
