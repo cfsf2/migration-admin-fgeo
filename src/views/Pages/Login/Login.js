@@ -8,21 +8,7 @@ import iLocation from "../../../assets/images/iconLocation.svg";
 import iEmail from "../../../assets/images/iconEmail.svg";
 import logoWhiteColegio from "../../../assets/images/logoColegio.png";
 import { Input, Divider, Form2 } from "./style";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardGroup,
-  Col,
-  Container,
-  Form,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Row,
-  //FormGroup,
-  //Label,
-} from "reactstrap";
+import { Button } from "reactstrap";
 import {
   LOGIN,
   LOADPROFILE,

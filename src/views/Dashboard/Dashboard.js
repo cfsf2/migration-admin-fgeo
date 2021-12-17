@@ -9,6 +9,7 @@ import {
   Row,
   Button,
   Container,
+  Spinner,
 } from "reactstrap";
 import { connect } from "react-redux";
 import {
@@ -24,6 +25,7 @@ import {
 import YouTubeIcon from "@material-ui/icons/YouTube";
 
 import ButtonHome from "./components/ButtonHome";
+import MisPedidos from "./components/MisPedidos";
 import VentaOnlineSelect from "./components/VentaOnlineSelect";
 import { image_path_server } from "../../config";
 
@@ -34,14 +36,9 @@ class Dashboard extends Component {
       bannerAdmin: this.props.publicidadesReducer.publicidades
         .filter((p) => p.tipo === "banners_admin")
         .sort(),
-      pedidosnuevos: 0,
-      pedidosenproceso: 0,
-      productoscasiagotados: 0,
-      productosagotados: 0,
       publicidades: this.props.publicidadesReducer.publicidades.reverse(),
     };
     this.handleFiltro = this.handleFiltro.bind(this);
-    this.handlePanelExistencias = this.handlePanelExistencias.bind(this);
     this.handleBannerNutriendoEsperanza =
       this.handleBannerNutriendoEsperanza.bind(this);
   }
@@ -68,12 +65,12 @@ class Dashboard extends Component {
     });
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.GET_PUBLICIDADES();
-    this.handlePanelExistencias();
     this.props.GET_ENTIDADES();
   }
 
+<<<<<<< HEAD
   async handlePanelExistencias() {
     const { mis_pedidos } = this.props.pedidosReducer;
     const { userprofile, user } = this.props.authReducer;
@@ -99,6 +96,8 @@ class Dashboard extends Component {
     }
   }
 
+=======
+>>>>>>> fixAPIcall
   async componentDidUpdate(prevProps, prevState) {
     const { userprofile } = this.props.authReducer;
     if (
@@ -115,11 +114,11 @@ class Dashboard extends Component {
       });
     }
 
-    if (userprofile !== null) {
-      if (prevProps.authReducer.userprofile !== userprofile) {
-        this.handlePanelExistencias();
-      }
-    }
+    // if (userprofile !== null) {
+    //   if (prevProps.authReducer.userprofile !== userprofile) {
+    //     this.handlePanelExistencias();
+    //   }
+    // }
   }
 
   render() {
@@ -136,7 +135,10 @@ class Dashboard extends Component {
                   <Col>
                     {this.state.bannerAdmin?.map((banner) => {
                       return banner.habilitado ? (
-                        <Row style={{ marginBottom: 10, paddingBottom: 0 }}>
+                        <Row
+                          key={banner._id}
+                          style={{ marginBottom: 10, paddingBottom: 0 }}
+                        >
                           <Col md="12">
                             <a
                               //onClick={this.handleBannerNutriendoEsperanza}
@@ -267,230 +269,7 @@ class Dashboard extends Component {
                 </Row>
                 <Row>
                   <Col>
-                    <Card>
-                      <CardHeader>
-                        <b>MIS PEDIDOS</b>
-                      </CardHeader>
-                      <CardBody>
-                        <Row>
-                          <Col
-                            md="6"
-                            xs="12"
-                            style={{
-                              height: 80,
-                              marginTop: 15,
-                              marginBottom: 15,
-                            }}
-                            align="center"
-                            className={
-                              this.state.pedidosnuevos > 0
-                                ? "btn btn-success"
-                                : "btn btn-white"
-                            }
-                            style={{ color: "black", width: "100%" }}
-                          >
-                            <Row>
-                              <Col md="3" xs="3">
-                                <div
-                                  className="bg-success"
-                                  style={{
-                                    width: 40,
-                                    height: 40,
-                                    marginTop: 20,
-                                    borderRadius: 50,
-                                    float: "right",
-                                  }}
-                                >
-                                  <b style={{ fontSize: 20 }}>...</b>
-                                </div>
-                              </Col>
-                              <Col md="9" xs="9">
-                                <a
-                                  href={process.env.PUBLIC_URL + "/#/pedidos"}
-                                  style={{ color: "black", float: "left" }}
-                                >
-                                  <p
-                                    style={{
-                                      fontSize: 18,
-                                      paddingBottom: 0,
-                                      marginBottom: 0,
-                                      marginTop: 18,
-                                    }}
-                                  >
-                                    {this.state.pedidosnuevos} Pedidos
-                                  </p>
-                                  <p style={{ fontSize: 10 }}>nuevos</p>
-                                </a>
-                              </Col>
-                            </Row>
-                          </Col>
-
-                          <Col
-                            md="6"
-                            xs="12"
-                            style={{
-                              height: 80,
-                              marginTop: 15,
-                              marginBottom: 15,
-                            }}
-                            align="center"
-                            className={
-                              this.state.pedidosenproceso > 0
-                                ? "btn btn-success"
-                                : "btn btn-white"
-                            }
-                            style={{ color: "black", width: "100%" }}
-                          >
-                            <Row>
-                              <Col md="3" xs="3">
-                                <div
-                                  className="bg-secondary"
-                                  style={{
-                                    width: 40,
-                                    height: 40,
-                                    marginTop: 20,
-                                    borderRadius: 50,
-                                    float: "right",
-                                  }}
-                                >
-                                  <b style={{ fontSize: 25, color: "white" }}>
-                                    -
-                                  </b>
-                                </div>
-                              </Col>
-                              <Col md="9" xs="9">
-                                <a
-                                  href={process.env.PUBLIC_URL + "/#/pedidos"}
-                                  style={{ color: "black", float: "left" }}
-                                >
-                                  <p
-                                    style={{
-                                      fontSize: 18,
-                                      paddingBottom: 0,
-                                      marginBottom: 0,
-                                      marginTop: 18,
-                                    }}
-                                  >
-                                    {this.state.pedidosenproceso} Pedidos
-                                  </p>
-                                  <p style={{ fontSize: 10 }}>en proceso</p>
-                                </a>
-                              </Col>
-                            </Row>
-                          </Col>
-                        </Row>
-
-                        <Row>
-                          <Col
-                            md="6"
-                            xs="12"
-                            style={{
-                              height: 80,
-                              marginTop: 15,
-                              marginBottom: 15,
-                            }}
-                            align="center"
-                            className={
-                              this.state.pedidosnuevos > 0
-                                ? "btn btn-success"
-                                : "btn btn-white"
-                            }
-                            style={{ color: "black", width: "100%" }}
-                          >
-                            <Row>
-                              <Col md="3" xs="3">
-                                <div
-                                  className="bg-warning"
-                                  style={{
-                                    width: 40,
-                                    height: 40,
-                                    marginTop: 20,
-                                    borderRadius: 50,
-                                    float: "right",
-                                  }}
-                                >
-                                  <b style={{ fontSize: 25 }}>!</b>
-                                </div>
-                              </Col>
-                              <Col md="9" xs="9">
-                                <a
-                                  href={process.env.PUBLIC_URL + "/#/productos"}
-                                  style={{ color: "black", float: "left" }}
-                                >
-                                  <p
-                                    style={{
-                                      fontSize: 18,
-                                      paddingBottom: 0,
-                                      marginBottom: 0,
-                                      marginTop: 18,
-                                    }}
-                                  >
-                                    {this.state.productoscasiagotados} Productos
-                                  </p>
-                                  <p style={{ fontSize: 10 }}>
-                                    casi sin existencias
-                                  </p>
-                                </a>
-                              </Col>
-                            </Row>
-                          </Col>
-
-                          <Col
-                            md="6"
-                            xs="12"
-                            style={{
-                              height: 80,
-                              marginTop: 15,
-                              marginBottom: 15,
-                            }}
-                            align="center"
-                            className={
-                              this.state.pedidosenproceso > 0
-                                ? "btn btn-success"
-                                : "btn btn-white"
-                            }
-                            style={{ color: "black", width: "100%" }}
-                          >
-                            <Row>
-                              <Col md="3" xs="3">
-                                <div
-                                  className="bg-danger"
-                                  style={{
-                                    width: 40,
-                                    height: 40,
-                                    marginTop: 20,
-                                    borderRadius: 50,
-                                    float: "right",
-                                  }}
-                                >
-                                  <b style={{ fontSize: 25, color: "white" }}>
-                                    X
-                                  </b>
-                                </div>
-                              </Col>
-                              <Col md="9" xs="9">
-                                <a
-                                  href={process.env.PUBLIC_URL + "/#/productos"}
-                                  style={{ color: "black", float: "left" }}
-                                >
-                                  <p
-                                    style={{
-                                      fontSize: 18,
-                                      paddingBottom: 0,
-                                      marginBottom: 0,
-                                      marginTop: 18,
-                                    }}
-                                  >
-                                    {this.state.productosagotados} Productos
-                                  </p>
-                                  <p style={{ fontSize: 10 }}>agotados</p>
-                                </a>
-                              </Col>
-                            </Row>
-                          </Col>
-                        </Row>
-                      </CardBody>
-                    </Card>
+                    <MisPedidos {...this.props} {...this.state} />
                   </Col>
                 </Row>
                 <Row>
@@ -586,8 +365,8 @@ class Dashboard extends Component {
                     <hr />
                     {this.state.publicidades.map((p, index) => {
                       return p.tipo === "novedadesadmin" && p.habilitado ? (
-                        <Fragment key={index}>
-                          <Row>
+                        <Fragment key={p._id}>
+                          <Row key={p._id}>
                             <Col>
                               <Row>
                                 <Col className="col-1">
