@@ -33,7 +33,7 @@ export function Instituciones(props) {
   const [modal, setModal] = React.useState(false);
 
   const [editModal, setEditModal] = React.useState(false);
-  const [edit, setEdit] = React.useState();
+  const [edit, setEdit] = React.useState({});
   const [limit, setLimit] = React.useState(100);
 
   React.useEffect(() => {
@@ -60,9 +60,7 @@ export function Instituciones(props) {
                     disabled={!instituciones}
                     data-toggle="modal"
                     data-target=".bd-example-modal-lg"
-                    className={`instituciones_btn_crear ${
-                      modal || editModal ? "cancelar" : null
-                    }`}
+                    className={`instituciones_btn_crear`}
                   >
                     Añadir Institucion
                   </Button>
@@ -78,11 +76,34 @@ export function Instituciones(props) {
                   >
                     <div className="modal-dialog modal-lg">
                       <div className="modal-content">
-                        {" "}
                         <AltaInstituciones
+                          key="Altainstituciones"
                           {...props}
+                          edit={false}
                           setModal={() => {}}
                           limit={limit}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    className="modal fade  edit"
+                    tabIndex="-1"
+                    role="dialog"
+                    aria-labelledby="myLargeModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog modal-lg">
+                      <div className="modal-content">
+                        {" "}
+                        <AltaInstituciones
+                          edit={true}
+                          key="Editinstituciones"
+                          institucion={edit}
+                          {...props}
+                          limit={props.limit}
+                          setModal={() => {}}
                         />
                       </div>
                     </div>
@@ -99,12 +120,7 @@ export function Instituciones(props) {
                     </Col>
                   </Row>
                   <Table>
-                    <Tabla
-                      {...props}
-                      rows={listado}
-                      setEdit={setEdit}
-                      edit={edit}
-                    />
+                    <Tabla {...props} rows={listado} setEdit={setEdit} />
                   </Table>
                 </CardBody>
               </Card>

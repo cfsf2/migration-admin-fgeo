@@ -21,27 +21,15 @@ export function AltaInstituciones(props) {
     props.institucionesReducer.instituciones
   );
 
-  const { setModal, edit, institucion, limit } = props;
+  const { setModal, edit, institucion = {}, limit } = props;
 
-  const [madre, setMadre] = React.useState(
-    edit && institucion
-      ? {
-          id: institucion.id_institucion_madre
-            ? institucion.id_institucion_madre._id
-            : null,
-          name: institucion.id_institucion_madre
-            ? institucion.id_institucion_madre.nombre
-            : "",
-        }
-      : { id: null, name: "" }
-  );
+  const [madre, setMadre] = React.useState({
+    id: null,
+    name: "",
+  });
 
-  const [nombre, setNombre] = React.useState(
-    edit && institucion ? institucion.nombre : ""
-  );
-  const [habilitada, setHabilitada] = React.useState(
-    edit && institucion ? institucion.habilitada : true
-  );
+  const [nombre, setNombre] = React.useState("");
+  const [habilitada, setHabilitada] = React.useState(true);
 
   const [search, setSearch] = React.useState("");
 
@@ -67,7 +55,7 @@ export function AltaInstituciones(props) {
         .then((re) => {
           setMadre("");
           setNombre("");
-          setModal((state) => !state);
+          // setModal((state) => !state);
         });
       return;
     }
@@ -87,6 +75,27 @@ export function AltaInstituciones(props) {
     }
   }, [search, setSearch]);
 
+  React.useEffect(() => {
+    setMadre(() => {
+      if (institucion.id_institucion_madre) {
+        let insmadre = {
+          id: institucion.id_institucion_madre._id,
+          name: institucion.id_institucion_madre.nombre,
+        };
+
+        return insmadre;
+      }
+
+      return { id: null, name: "" };
+    });
+    setNombre(() => {
+      return institucion.nombre;
+    });
+    setHabilitada(() => {
+      return institucion.habilitada;
+    });
+  }, [institucion._id]);
+
   return (
     <div id="altainstituciones" className="animated fadeIn altainstituciones">
       <Row>
@@ -97,7 +106,7 @@ export function AltaInstituciones(props) {
 
               <div
                 className="altainstituciones_close"
-                onClick={() => setModal((state) => !state)}
+                onClick={() => {}}
                 data-dismiss="modal"
               >
                 X
@@ -155,10 +164,10 @@ export function AltaInstituciones(props) {
               <Button
                 onClick={handleSubmit}
                 className="altainstituciones_submit"
+                data-dismiss="modal"
               >
                 {edit ? "Guardar" : "Añadir Institucion"}
               </Button>
-              <Button onClick={() => console.log(institucion)}>Hola</Button>
             </CardBody>
           </Card>
         </Col>

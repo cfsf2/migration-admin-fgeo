@@ -357,35 +357,10 @@ export default function EnhancedTable(props) {
                         <Button
                           data-toggle="modal"
                           data-target=".edit"
-                          onClick={() => {
-                            console.log(row);
-                            return props.setEdit(() => {
-                              return row._id;
-                            });
-                          }}
+                          onClick={() => props.setEdit(() => row)}
                         >
                           Editar
                         </Button>
-                        <div
-                          className="modal fade bd-example-modal-lg edit"
-                          tabIndex="-1"
-                          role="dialog"
-                          aria-labelledby="myLargeModalLabel"
-                          aria-hidden="true"
-                        >
-                          <div className="modal-dialog modal-lg">
-                            <div className="modal-content">
-                              {" "}
-                              <AltaInstituciones
-                                edit
-                                institucion={row}
-                                {...props}
-                                limit={props.limit}
-                                setModal={() => {}}
-                              />
-                            </div>
-                          </div>
-                        </div>
                       </TableCell>
                     </TableRow>
                   );
