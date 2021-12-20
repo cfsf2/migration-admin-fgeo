@@ -61,7 +61,7 @@ export const SEARCH_INSTITUCIONES = (
 };
 
 export const CREAR_INSTITUCION = (data) => {
-  const { nombre, id_institucion_madre, habilitada } = data;
+  const { nombre, id_institucion_madre, habilitada, limit } = data;
   return (dispatch) => {
     return new Promise((resolve, rej) => {
       axios
@@ -72,7 +72,7 @@ export const CREAR_INSTITUCION = (data) => {
         })
         .then((res) => {
           alert(res.data);
-          dispatch(GET_INSTITUCIONES(10));
+          dispatch(GET_INSTITUCIONES(limit));
           resolve();
         })
         .catch((err) => {
@@ -83,7 +83,7 @@ export const CREAR_INSTITUCION = (data) => {
 };
 
 export const ACTUALIZAR_INSTITUCION = (data) => {
-  const { nombre, id_institucion_madre, habilitada, id } = data;
+  const { nombre, id_institucion_madre, habilitada, id, limit } = data;
   return (dispatch) => {
     return new Promise((resolve, rej) => {
       axios
@@ -93,7 +93,7 @@ export const ACTUALIZAR_INSTITUCION = (data) => {
         })
         .then((res) => {
           alert(res.data);
-          dispatch(GET_INSTITUCIONES(10));
+          dispatch(GET_INSTITUCIONES(limit));
           resolve();
         })
         .catch((err) => {

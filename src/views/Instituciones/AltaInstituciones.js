@@ -23,7 +23,7 @@ export function AltaInstituciones(props) {
   const [instituciones, setInstituciones] = React.useState(
     props.institucionesReducer.instituciones
   );
-  const { setModal, edit, institucion } = props;
+  const { setModal, edit, institucion, limit } = props;
   console.log(institucion);
   const [madre, setMadre] = React.useState(
     edit
@@ -52,6 +52,7 @@ export function AltaInstituciones(props) {
         id_institucion_madre: madre.id,
         habilitada: habilitada,
         id: institucion._id,
+        limit: limit,
       });
       return;
     }
@@ -61,6 +62,7 @@ export function AltaInstituciones(props) {
           nombre: nombre,
           id_institucion_madre: madre.id,
           habilitada: habilitada,
+          limit: limit,
         })
         .then((re) => {
           setMadre("");
@@ -75,7 +77,7 @@ export function AltaInstituciones(props) {
   React.useEffect(() => {
     if (!!search && search.length > 1) {
       props
-        .SEARCH_INSTITUCIONES(search, 10)
+        .SEARCH_INSTITUCIONES(search, limit)
         .then((res) => setInstituciones(() => res));
       return;
     }

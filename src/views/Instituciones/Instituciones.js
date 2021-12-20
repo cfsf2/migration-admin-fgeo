@@ -34,10 +34,11 @@ export function Instituciones(props) {
 
   const [editModal, setEditModal] = React.useState(false);
   const [edit, setEdit] = React.useState();
+  const [limit, setLimit] = React.useState(100);
 
   React.useEffect(() => {
     if (instituciones && instituciones.length === 0) {
-      props.GET_INSTITUCIONES(10);
+      props.GET_INSTITUCIONES(limit);
     }
     setListado(() => instituciones);
   }, [instituciones]);
@@ -77,7 +78,11 @@ export function Instituciones(props) {
                         }
                       }}
                     >
-                      <AltaInstituciones {...props} setModal={setModal} />
+                      <AltaInstituciones
+                        {...props}
+                        setModal={setModal}
+                        limit={limit}
+                      />
                     </div>
                   ) : null}
                   {editModal ? (
@@ -95,6 +100,7 @@ export function Instituciones(props) {
                         institucion={edit}
                         {...props}
                         setModal={setEditModal}
+                        limit={limit}
                       />
                     </div>
                   ) : null}
@@ -105,6 +111,7 @@ export function Instituciones(props) {
                         listado={listado}
                         setListado={setListado}
                         {...props}
+                        limit={limit}
                       />
                     </Col>
                   </Row>
