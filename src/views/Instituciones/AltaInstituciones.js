@@ -21,7 +21,7 @@ export function AltaInstituciones(props) {
     props.institucionesReducer.instituciones
   );
 
-  const { setModal, edit, institucion = {}, limit } = props;
+  const { edit, institucion = {}, limit } = props;
 
   const [madre, setMadre] = React.useState({
     id: null,
@@ -37,11 +37,12 @@ export function AltaInstituciones(props) {
     if (edit) {
       props.ACTUALIZAR_INSTITUCION({
         nombre: nombre,
-        id_institucion_madre: madre.id,
+        id_institucion_madre: madre?.id,
         habilitada: habilitada,
         id: institucion._id,
         limit: limit,
       });
+
       return;
     }
     if (nombre.trim() !== "") {
@@ -57,6 +58,7 @@ export function AltaInstituciones(props) {
           setNombre("");
           // setModal((state) => !state);
         });
+      debugger;
       return;
     }
     alert("El nombre es Obligatorio");
@@ -92,7 +94,7 @@ export function AltaInstituciones(props) {
       return institucion.nombre;
     });
     setHabilitada(() => {
-      return institucion.habilitada;
+      return institucion.habilitada ? institucion.habilitada : true;
     });
   }, [institucion._id]);
 

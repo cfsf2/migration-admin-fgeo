@@ -99,6 +99,7 @@ const headCells = [
     disablePadding: false,
     label: "Habilitada",
   },
+  {},
 ];
 
 function EnhancedTableHead(props) {
@@ -320,11 +321,11 @@ export default function EnhancedTable(props) {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.nombre)}
+                      //onClick={(event) => handleClick(event, row.nombre)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.nombre}
+                      key={row._id}
                       selected={isItemSelected}
                     >
                       {toolbar ? (
@@ -387,10 +388,6 @@ export default function EnhancedTable(props) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 }

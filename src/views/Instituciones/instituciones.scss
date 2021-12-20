@@ -1,4 +1,11 @@
 $table: 1fr 6fr 6fr 2fr 2fr;
+.modal-content {
+  margin-top: 15%;
+  width: 100%;
+}
+.modal-dialog {
+  max-width: 1200px;
+}
 .imodal {
   position: absolute;
   width: 100%;
