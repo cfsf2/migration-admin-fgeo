@@ -13,20 +13,18 @@ import {
   Col,
   Row,
   FormGroup,
-  Input,
   Label,
-  CardImg,
-  CardFooter,
 } from "reactstrap";
 
 export function AltaInstituciones(props) {
   const [instituciones, setInstituciones] = React.useState(
     props.institucionesReducer.instituciones
   );
+
   const { setModal, edit, institucion, limit } = props;
-  console.log(institucion);
+
   const [madre, setMadre] = React.useState(
-    edit
+    edit && institucion
       ? {
           id: institucion.id_institucion_madre
             ? institucion.id_institucion_madre._id
@@ -38,9 +36,11 @@ export function AltaInstituciones(props) {
       : { id: null, name: "" }
   );
 
-  const [nombre, setNombre] = React.useState(edit ? institucion.nombre : "");
+  const [nombre, setNombre] = React.useState(
+    edit && institucion ? institucion.nombre : ""
+  );
   const [habilitada, setHabilitada] = React.useState(
-    edit ? institucion.habilitada : true
+    edit && institucion ? institucion.habilitada : true
   );
 
   const [search, setSearch] = React.useState("");
@@ -98,6 +98,7 @@ export function AltaInstituciones(props) {
               <div
                 className="altainstituciones_close"
                 onClick={() => setModal((state) => !state)}
+                data-dismiss="modal"
               >
                 X
               </div>
@@ -157,6 +158,7 @@ export function AltaInstituciones(props) {
               >
                 {edit ? "Guardar" : "Añadir Institucion"}
               </Button>
+              <Button onClick={() => console.log(institucion)}>Hola</Button>
             </CardBody>
           </Card>
         </Col>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { AltaInstituciones } from "./AltaInstituciones";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -21,6 +22,7 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import { Button } from "reactstrap";
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -350,6 +352,40 @@ export default function EnhancedTable(props) {
                       </TableCell>
                       <TableCell align="left">
                         {row.habilitada ? "SI" : "NO"}
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          data-toggle="modal"
+                          data-target=".edit"
+                          onClick={() => {
+                            console.log(row);
+                            return props.setEdit(() => {
+                              return row._id;
+                            });
+                          }}
+                        >
+                          Editar
+                        </Button>
+                        <div
+                          className="modal fade bd-example-modal-lg edit"
+                          tabIndex="-1"
+                          role="dialog"
+                          aria-labelledby="myLargeModalLabel"
+                          aria-hidden="true"
+                        >
+                          <div className="modal-dialog modal-lg">
+                            <div className="modal-content">
+                              {" "}
+                              <AltaInstituciones
+                                edit
+                                institucion={row}
+                                {...props}
+                                limit={props.limit}
+                                setModal={() => {}}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </TableCell>
                     </TableRow>
                   );
