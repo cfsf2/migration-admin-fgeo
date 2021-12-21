@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -176,6 +176,34 @@ class Dashboard extends Component {
                       </Col>
                     </Row>
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
+                      <Col md="6" style={{ height: 50 }} align="center">
+                        <Link
+                          to={{
+                            pathname: "/tableropami",
+                            state: {
+                              pdf: "https://farmageo2.s3.amazonaws.com/tableroPAMI/tableropami.pdf",
+                            },
+                          }}
+                        >
+                          <ButtonHome
+                            titulo="CRONOGRAMA DE PAGOS"
+                            subtitulo="PAMI"
+                            align="left"
+                            icono={require("../../assets/images/icons/4.png")}
+                          />
+                        </Link>
+                      </Col>
+                      <Col md="6" style={{ height: 50 }} align="center">
+                        <ButtonHome
+                          href="https://campus.farmacursos.org.ar/archivos.cgi?wAccion=vergrupo&wIdGrupo=3320&id_curso=70"
+                          titulo="NORMATIVAS DE OBRAS SOCIALES"
+                          subtitulo="del D.O.S"
+                          align="left"
+                          icono={require("../../assets/images/icons/2.png")}
+                        />
+                      </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }}>
                         <ButtonHome
                           href="https://farma.pami.org.ar/seguridad/iniciar-sesion"
@@ -199,15 +227,6 @@ class Dashboard extends Component {
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
-                          href="http://cfsf2.e-ducativa.com/index.cgi?mod=contentFront&accion=get&comando=article&_wf=true&articleId=432&skin=extranet&currentPage=0&currentActionPager=0&orderBy=&orderMode=DESC&force_publish="
-                          titulo="PRECIOS SUGERIDOS"
-                          subtitulo="de medicamentos hospitalarios y accesorios"
-                          align="left"
-                          icono={require("../../assets/images/icons/6.png")}
-                        />
-                      </Col>
-                      <Col md="6" style={{ height: 50 }} align="center">
-                        <ButtonHome
                           href="http://www.cfsf2.org.ar/faltante-de-medicamentos/"
                           titulo="FALTANTES DE MEDICAMENTOS"
                           subtitulo="según ANMAT"
@@ -215,25 +234,13 @@ class Dashboard extends Component {
                           icono={require("../../assets/images/icons/3.png")}
                         />
                       </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
-                          href="https://campus.farmacursos.org.ar/archivos.cgi?wAccion=vergrupo&wIdGrupo=3320&id_curso=70"
-                          titulo="NORMATIVAS DE OBRAS SOCIALES"
-                          subtitulo="del D.O.S"
+                          href="http://cfsf2.e-ducativa.com/index.cgi?mod=contentFront&accion=get&comando=article&_wf=true&articleId=432&skin=extranet&currentPage=0&currentActionPager=0&orderBy=&orderMode=DESC&force_publish="
+                          titulo="PRECIOS SUGERIDOS"
+                          subtitulo="de medicamentos hospitalarios y accesorios"
                           align="left"
-                          icono={require("../../assets/images/icons/2.png")}
-                        />
-                      </Col>
-
-                      <Col md="6" style={{ height: 50 }} align="center">
-                        <ButtonHome
-                          href="http://www.cfsf2.org.ar/dos/presentacion-de-ooss/"
-                          titulo="CRONOGRAMA DE PRESENTACIÓN"
-                          subtitulo="del D.O.S"
-                          align="left"
-                          icono={require("../../assets/images/icons/4.png")}
+                          icono={require("../../assets/images/icons/6.png")}
                         />
                       </Col>
                     </Row>
