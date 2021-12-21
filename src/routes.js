@@ -18,6 +18,9 @@ const Soporte = React.lazy(() => import("./views/Soporte/Soporte"));
 const ReporteOOSS = React.lazy(() => import("./views/ReporteOOSS/ReporteOOSS"));
 const VideoCD = React.lazy(() => import("./views/Videos/VideoCD.js"));
 const DebitosPami = React.lazy(() => import("./views/DebitosPami/DebitosPami"));
+
+const Tableropami = React.lazy(() => import("./views/Tableropami/Tableropami"));
+
 const PedidosAdmin = React.lazy(() => import("./views/Pedidos/pedidosAdmin"));
 const Novedades = React.lazy(() => import("./views/Publicidades/Novedades"));
 const InfoInteres = React.lazy(() =>
@@ -82,73 +85,81 @@ const routes = [
   {
     path: "/papeleraproductos",
     name: "Papelera productos",
-    component: Papelera
+    component: Papelera,
   },
   { path: "/soporte", name: "Soporte", component: Soporte },
-  { path: "/reporteObras", name: "Reporte de Obras Sociales", component: ReporteOOSS },
+  {
+    path: "/reporteObras",
+    name: "Reporte de Obras Sociales",
+    component: ReporteOOSS,
+  },
 
-  { path: "/videosInstitucional", name: "Video Institucional", component: VideoCD },
+  {
+    path: "/videosInstitucional",
+    name: "Video Institucional",
+    component: VideoCD,
+  },
 
   { path: "/NuevoTransfer", name: "Nuevo Transfer", component: NuevoTransfer },
   { path: "/MisTransfers", name: "Mis Transfers", component: MisTransfers },
   {
     path: "/FinalizarTransfer",
     name: "Finalizar Transfer",
-    component: FinalizarTransfer
+    component: FinalizarTransfer,
   },
   {
     path: "/ConfirmacionPedido",
     name: "Confirmación Pedido",
-    component: ConfirmacionPedido
+    component: ConfirmacionPedido,
   },
   {
     path: "/SeleccionarPanel",
     name: "Seleccionar Panel de productos",
-    component: SeleccionarPanel
+    component: SeleccionarPanel,
   },
   {
     path: "/PacksDeProductosFarmacia",
     name: "Packs De Productos Farmageo",
-    component: PacksDeProductosFarmacia
+    component: PacksDeProductosFarmacia,
   },
 
   {
     path: "/NuevaSolicitudProveeduria",
     name: "Nueva Solicitud Proveeduría",
-    component: NuevaSolicitudProveeduria
+    component: NuevaSolicitudProveeduria,
   },
   {
     path: "/MisSolicitudesProveeduria",
     name: "Mis Solicitudes Proveeduria",
-    component: MisSolicitudesProveeduria
+    component: MisSolicitudesProveeduria,
   },
   {
     path: "/FinalizarSolicitudProveeduria",
     name: "Finalizar Solicitud Proveeduria",
-    component: FinalizarSolicitudProveeduria
+    component: FinalizarSolicitudProveeduria,
   },
   {
     path: "/ConfirmacionPedidoProveeduria",
     name: "Confirmación Pedido",
-    component: ConfirmacionSolicitudProveeduria
+    component: ConfirmacionSolicitudProveeduria,
   },
   {
     path: "/SeleccionarPanel",
     name: "Seleccionar Panel de productos",
-    component: SeleccionarPanel
+    component: SeleccionarPanel,
   },
   {
     path: "/perfilfarmageo",
     name: "perfilfarmageo",
-    component: VentaOnlineSelect
+    component: VentaOnlineSelect,
   },
   {
     path: "/debitosPami",
     name: "debitosPami",
-    component: DebitosPami
+    component: DebitosPami,
   },
 
-
+  { path: "/tableropami", name: "Tablero Pami", component: Tableropami },
 
   /*
   { path: '/pedidosadmin', exact: true, name: 'Pedidos Admin', component: PedidosAdmin },
