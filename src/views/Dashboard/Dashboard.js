@@ -186,7 +186,7 @@ class Dashboard extends Component {
                           }}
                         >
                           <ButtonHome
-                            titulo="CRONOGRAMA DE PAGOS"
+                            titulo="CRONOGRAMA DE PAGOS PAMI"
                             subtitulo="PAMI"
                             align="left"
                             icono={require("../../assets/images/icons/4.png")}
