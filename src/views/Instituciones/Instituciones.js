@@ -10,6 +10,7 @@ import {
 import { connect } from "react-redux";
 import { AltaInstituciones } from "./AltaInstituciones";
 import Filtros from "./Filtros";
+import Tabla from "./Tabla";
 
 import {
   Button,
@@ -20,24 +21,31 @@ import {
   Row,
   Input,
   Table,
+  Spinner,
 } from "reactstrap";
 
 export function Instituciones(props) {
   const {
-    institucionesReducer: { instituciones },
+    institucionesReducer: { instituciones, loading },
   } = props;
+
   const [listado, setListado] = React.useState([]);
   const [modal, setModal] = React.useState(false);
 
   const [editModal, setEditModal] = React.useState(false);
-  const [edit, setEdit] = React.useState();
+  const [edit, setEdit] = React.useState({});
+  const [limit, setLimit] = React.useState(100);
 
   React.useEffect(() => {
     if (instituciones && instituciones.length === 0) {
-      props.GET_INSTITUCIONES(10);
+      props.GET_INSTITUCIONES(limit);
     }
     setListado(() => instituciones);
   }, [instituciones]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="animated fadeIn">
@@ -50,47 +58,56 @@ export function Instituciones(props) {
                   <b>Listado de Instituciones</b>
                   <Button
                     disabled={!instituciones}
-                    className={`instituciones_btn_crear ${
-                      modal ? "cancelar" : null
-                    }`}
-                    onClick={() => setModal((modal) => !modal)}
+                    data-toggle="modal"
+                    data-target=".bd-example-modal-lg"
+                    className={`instituciones_btn_crear`}
                   >
-                    {modal ? "Cancelar" : "Añadir Institucion"}
+                    Añadir Institucion
                   </Button>
                 </CardHeader>
 
                 <CardBody>
-                  {modal ? (
-                    <div
-                      id="modal"
-                      className="modal"
-                      onClick={(e) => {
-                        if (e.target.id === "modal") {
-                          setModal((state) => !state);
-                        }
-                      }}
-                    >
-                      <AltaInstituciones {...props} setModal={setModal} />
+                  <div
+                    className="modal fade bd-example-modal-lg"
+                    tabIndex="-1"
+                    role="dialog"
+                    aria-labelledby="myLargeModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog modal-lg">
+                      <div className="modal-content">
+                        <AltaInstituciones
+                          key="Altainstituciones"
+                          {...props}
+                          edit={false}
+                          setModal={() => {}}
+                          limit={limit}
+                        />
+                      </div>
                     </div>
-                  ) : null}
-                  {editModal ? (
-                    <div
-                      id="modal"
-                      className="modal"
-                      onClick={(e) => {
-                        if (e.target.id === "modal") {
-                          setEditModal((state) => !state);
-                        }
-                      }}
-                    >
-                      <AltaInstituciones
-                        edit
-                        institucion={edit}
-                        {...props}
-                        setModal={setEditModal}
-                      />
+                  </div>
+
+                  <div
+                    className="modal fade  edit"
+                    tabIndex="-1"
+                    role="dialog"
+                    aria-labelledby="myLargeModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog modal-lg">
+                      <div className="modal-content">
+                        {" "}
+                        <AltaInstituciones
+                          edit={true}
+                          key="Editinstituciones"
+                          institucion={edit}
+                          {...props}
+                          limit={props.limit}
+                          setModal={() => {}}
+                        />
+                      </div>
                     </div>
-                  ) : null}
+                  </div>
 
                   <Row>
                     <Col xs="12">
@@ -98,47 +115,12 @@ export function Instituciones(props) {
                         listado={listado}
                         setListado={setListado}
                         {...props}
+                        limit={limit}
                       />
                     </Col>
                   </Row>
                   <Table>
-                    <div className="table-responsive table-striped table-fix">
-                      <table className="instituciones_tabla table">
-                        <thead className="instituciones_tabla_head">
-                          <tr>
-                            <th id="numero">#</th>
-                            <th>Nombre</th>
-                            <th>Institucion Madre</th>
-                            <th>Habilitada</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {listado
-                            ? listado.map((inst, idx) => {
-                                return (
-                                  <tr key={inst._id}>
-                                    <td>{idx + 1}</td>
-                                    <td>{inst.nombre}</td>
-                                    <td>{inst.id_institucion_madre?.nombre}</td>
-                                    <td>{inst.habilitada ? "SI" : "NO"}</td>
-                                    <td>
-                                      <button
-                                        onClick={() => {
-                                          setEditModal((state) => !state);
-                                          setEdit(() => inst);
-                                        }}
-                                      >
-                                        Editar
-                                      </button>
-                                    </td>
-                                  </tr>
-                                );
-                              })
-                            : "no hay instituciones"}
-                        </tbody>
-                      </table>
-                    </div>
+                    <Tabla {...props} rows={listado} setEdit={setEdit} />
                   </Table>
                 </CardBody>
               </Card>

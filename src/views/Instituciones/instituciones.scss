@@ -1,5 +1,12 @@
 $table: 1fr 6fr 6fr 2fr 2fr;
-.modal {
+.modal-content {
+  margin-top: 15%;
+  width: 100%;
+}
+.modal-dialog {
+  max-width: 1200px;
+}
+.imodal {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -67,6 +74,7 @@ $table: 1fr 6fr 6fr 2fr 2fr;
     &_crear.cancelar {
       background-color: hsl(0, 100%, 25%);
       color: #ffff;
+      display: none;
     }
   }
   &_tabla {
@@ -98,6 +106,22 @@ $table: 1fr 6fr 6fr 2fr 2fr;
 }
 
 .altainstituciones {
+  .card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  &_close {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgb(148, 146, 146);
+    background-color: #c9c9c9;
+    cursor: pointer;
+    padding: 0px 7px;
+  }
   margin: 2rem;
   &_row :nth-child(n) {
     margin-bottom: 0.3rem;

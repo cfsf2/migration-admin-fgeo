@@ -13,35 +13,23 @@ import {
   Col,
   Row,
   FormGroup,
-  Input,
   Label,
-  CardImg,
-  CardFooter,
 } from "reactstrap";
 
 export function AltaInstituciones(props) {
   const [instituciones, setInstituciones] = React.useState(
     props.institucionesReducer.instituciones
   );
-  const { setModal, edit, institucion } = props;
-  console.log(institucion);
-  const [madre, setMadre] = React.useState(
-    edit
-      ? {
-          id: institucion.id_institucion_madre
-            ? institucion.id_institucion_madre
-            : null,
-          name: institucion.nombre_institucion_madre
-            ? institucion.nombre_institucion_madre
-            : "",
-        }
-      : { id: null, name: "" }
-  );
 
-  const [nombre, setNombre] = React.useState(edit ? institucion.nombre : "");
-  const [habilitada, setHabilitada] = React.useState(
-    edit ? institucion.habilitada : true
-  );
+  const { edit, institucion = {}, limit } = props;
+
+  const [madre, setMadre] = React.useState({
+    id: null,
+    name: "",
+  });
+
+  const [nombre, setNombre] = React.useState("");
+  const [habilitada, setHabilitada] = React.useState(true);
 
   const [search, setSearch] = React.useState("");
 
@@ -49,10 +37,12 @@ export function AltaInstituciones(props) {
     if (edit) {
       props.ACTUALIZAR_INSTITUCION({
         nombre: nombre,
-        id_institucion_madre: madre.id,
+        id_institucion_madre: madre?.id,
         habilitada: habilitada,
         id: institucion._id,
+        limit: limit,
       });
+
       return;
     }
     if (nombre.trim() !== "") {
@@ -61,11 +51,12 @@ export function AltaInstituciones(props) {
           nombre: nombre,
           id_institucion_madre: madre.id,
           habilitada: habilitada,
+          limit: limit,
         })
         .then((re) => {
           setMadre("");
           setNombre("");
-          setModal((state) => !state);
+          // setModal((state) => !state);
         });
       return;
     }
@@ -75,7 +66,7 @@ export function AltaInstituciones(props) {
   React.useEffect(() => {
     if (!!search && search.length > 1) {
       props
-        .SEARCH_INSTITUCIONES(search, 10)
+        .SEARCH_INSTITUCIONES(search, limit)
         .then((res) => setInstituciones(() => res));
       return;
     }
@@ -85,6 +76,27 @@ export function AltaInstituciones(props) {
     }
   }, [search, setSearch]);
 
+  React.useEffect(() => {
+    setMadre(() => {
+      if (institucion.id_institucion_madre) {
+        let insmadre = {
+          id: institucion.id_institucion_madre._id,
+          name: institucion.id_institucion_madre.nombre,
+        };
+
+        return insmadre;
+      }
+
+      return { id: null, name: "" };
+    });
+    setNombre(() => {
+      return institucion.nombre;
+    });
+    setHabilitada(() => {
+      return institucion.habilitada ? institucion.habilitada : true;
+    });
+  }, [institucion._id]);
+
   return (
     <div id="altainstituciones" className="animated fadeIn altainstituciones">
       <Row>
@@ -92,6 +104,14 @@ export function AltaInstituciones(props) {
           <Card>
             <CardHeader>
               {edit ? "Edicion de Datos" : "Alta de instituciones"}
+
+              <div
+                className="altainstituciones_close"
+                onClick={() => {}}
+                data-dismiss="modal"
+              >
+                X
+              </div>
             </CardHeader>
             <CardBody>
               <FormGroup>
@@ -145,8 +165,9 @@ export function AltaInstituciones(props) {
               <Button
                 onClick={handleSubmit}
                 className="altainstituciones_submit"
+                data-dismiss="modal"
               >
-                {edit ? "Guardar Cambios" : "Añadir Institucion"}
+                {edit ? "Guardar" : "Añadir Institucion"}
               </Button>
             </CardBody>
           </Card>

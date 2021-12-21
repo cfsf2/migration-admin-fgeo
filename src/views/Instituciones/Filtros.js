@@ -35,7 +35,7 @@ export const Ordenar = (array, key, termino) => {
 };
 
 export default function Filtros(props) {
-  const { listado, setListado } = props;
+  const { listado, setListado, limit } = props;
   const allInstituciones = props.institucionesReducer.instituciones;
 
   const [search, setSearch] = React.useState("");
@@ -90,7 +90,7 @@ export default function Filtros(props) {
     ) {
       (async () => {
         await props
-          .SEARCH_INSTITUCIONES(search, 10, habilitada, madre?.id)
+          .SEARCH_INSTITUCIONES(search, limit, habilitada, madre?.id)
           .then((res) => {
             setListado(() => Ordenar(res, "nombre", search));
           });
@@ -103,7 +103,7 @@ export default function Filtros(props) {
   React.useEffect(() => {
     (async () => {
       await props
-        .SEARCH_INSTITUCIONES(search, 10, [], madre?.id)
+        .SEARCH_INSTITUCIONES(search, limit, [], madre?.id)
         .then((res) => {
           setListado(() => Ordenar(res, "nombre", search));
           setMadreListado(() => res);
@@ -141,7 +141,6 @@ export default function Filtros(props) {
               />
             )}
             onChange={(e, newMadre) => {
-              console.log(newMadre);
               if (!newMadre) {
                 newMadre = " ";
               }
