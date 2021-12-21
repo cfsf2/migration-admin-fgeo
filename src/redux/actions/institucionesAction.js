@@ -25,6 +25,10 @@ export const GET_INSTITUCIONES = (limit) => {
       })
       .catch(function (error) {
         console.log(error);
+        dispatch({
+          type: "SET_LOADING",
+          payload: false,
+        });
       });
   };
 };

@@ -58,7 +58,6 @@ export function AltaInstituciones(props) {
           setNombre("");
           // setModal((state) => !state);
         });
-      debugger;
       return;
     }
     alert("El nombre es Obligatorio");
