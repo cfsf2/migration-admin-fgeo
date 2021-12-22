@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { GET_REPORTE_OOSS } from "../../redux/actions/reportOSAtions";
 import pdf from "../../assets/ooss.pdf";
 import { Card, CardBody, CardHeader, Col, Row } from "reactstrap";
-import { farmageo_api } from "../../config";
+import { farmageo_api, image_path_server } from "../../config";
 
 const ReporteOOSS = (props) => {
   useEffect(() => {
@@ -24,7 +24,7 @@ const ReporteOOSS = (props) => {
                   <Row>
                     <Col>
                       <embed
-                        src={"https://farmageo2.s3.amazonaws.com/ooss/ooss.pdf"}
+                        src={image_path_server + "ooss/ooss.pdf"}
                         zoo="true"
                         width="100%"
                         height="700px"
