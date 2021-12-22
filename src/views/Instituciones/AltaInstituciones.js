@@ -56,7 +56,6 @@ export function AltaInstituciones(props) {
         .then((re) => {
           setMadre("");
           setNombre("");
-          // setModal((state) => !state);
         });
       return;
     }
@@ -93,7 +92,7 @@ export function AltaInstituciones(props) {
       return institucion.nombre;
     });
     setHabilitada(() => {
-      return institucion.habilitada ? institucion.habilitada : true;
+      return institucion.habilitada;
     });
   }, [institucion._id]);
 

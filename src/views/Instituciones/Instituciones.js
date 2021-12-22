@@ -24,15 +24,37 @@ import {
   Spinner,
 } from "reactstrap";
 
+const headCells = [
+  {
+    id: "nombre",
+    numeric: false,
+    disablePadding: true,
+    label: "Nombre",
+  },
+  {
+    id: "id_institucion_madre",
+    headCell: {
+      id: "nombre",
+      label: "Nombre",
+    },
+    numeric: false,
+    disablePadding: false,
+    label: "Institucion Madre",
+  },
+  {
+    id: "habilitada",
+    numeric: false,
+    disablePadding: false,
+    label: "Habilitada",
+  },
+];
+
 export function Instituciones(props) {
   const {
     institucionesReducer: { instituciones, loading },
   } = props;
 
   const [listado, setListado] = React.useState([]);
-  const [modal, setModal] = React.useState(false);
-
-  const [editModal, setEditModal] = React.useState(false);
   const [edit, setEdit] = React.useState({});
   const [limit, setLimit] = React.useState(100);
 
@@ -102,7 +124,7 @@ export function Instituciones(props) {
                           key="Editinstituciones"
                           institucion={edit}
                           {...props}
-                          limit={props.limit}
+                          limit={limit}
                           setModal={() => {}}
                         />
                       </div>
@@ -120,7 +142,12 @@ export function Instituciones(props) {
                     </Col>
                   </Row>
                   <Table>
-                    <Tabla {...props} rows={listado} setEdit={setEdit} />
+                    <Tabla
+                      {...props}
+                      rows={listado}
+                      setEdit={setEdit}
+                      headCells={headCells}
+                    />
                   </Table>
                 </CardBody>
               </Card>
