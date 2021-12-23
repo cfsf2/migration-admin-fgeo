@@ -5,6 +5,7 @@ import * as router from "react-router-dom";
 import { Container, Col, Row } from "reactstrap";
 
 import { LOGOUT } from "../../redux/actions/authActions";
+import store from "../../redux/store/index";
 
 import {
   AppAside,
@@ -49,6 +50,10 @@ axios.interceptors.response.use(
     if (err.response.status === 401) {
       alert("Denegado: No tiene permiso para realizar esta accion");
       window.location = process.env.PUBLIC_URL;
+    }
+    if (err.response.status === 440) {
+      alert("Su sesion ha expirado, debe loguearse de nuevo");
+      store.dispatch(LOGOUT());
     }
     return err.response;
   }
