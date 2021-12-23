@@ -47,14 +47,18 @@ axios.interceptors.request.use((request) => {
 axios.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response.status === 401) {
-      alert("Denegado: No tiene permiso para realizar esta accion");
-      window.location = process.env.PUBLIC_URL;
+    switch (err.response.status) {
+      case 401:
+        alert("Denegado: No tiene permiso para realizar esta accion");
+        window.location = process.env.PUBLIC_URL;
+        break;
+      case 440:
+        alert("Su sesion ha expirado, debe loguearse de nuevo");
+        store.dispatch(LOGOUT());
+      default:
+        break;
     }
-    if (err.response.status === 440) {
-      alert("Su sesion ha expirado, debe loguearse de nuevo");
-      store.dispatch(LOGOUT());
-    }
+
     return err.response;
   }
 );
