@@ -5,6 +5,7 @@ import * as router from "react-router-dom";
 import { Container, Col, Row } from "reactstrap";
 
 import { LOGOUT } from "../../redux/actions/authActions";
+import { ALERT } from "../../redux/actions/alertActions";
 import store from "../../redux/store/index";
 
 import {
@@ -49,12 +50,32 @@ axios.interceptors.response.use(
   (err) => {
     switch (err.response.status) {
       case 401:
-        alert("Denegado: No tiene permiso para realizar esta accion");
-        window.location = process.env.PUBLIC_URL;
+        // alert("Denegado: No tiene permiso para realizar esta accion");
+        store.dispatch(
+          ALERT(
+            "ACCESO DENEGADO",
+            "Usted no tiene acceso suficiente. Consulte con su administrador.",
+            "error",
+            "OK"
+          ).then(() => {
+            window.location = process.env.PUBLIC_URL;
+          })
+        );
+
         break;
       case 440:
-        alert("Su sesion ha expirado, debe loguearse de nuevo");
-        store.dispatch(LOGOUT());
+        //alert("Su sesion ha expirado, debe loguearse de nuevo");
+        store.dispatch(
+          ALERT(
+            "SESION EXPIRADA",
+            "Su sesion ha expirado debe loguearse nuevamente",
+            "error",
+            "OK"
+          ).then(() => {
+            store.dispatch(LOGOUT());
+          })
+        );
+
       default:
         break;
     }
@@ -253,5 +274,6 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   LOGOUT,
+  ALERT,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout);

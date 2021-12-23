@@ -15,7 +15,7 @@ export const GET_PEDIDOS = (idFarmacia) => {
       })
       .catch(function (error) {
         console.log(error);
-        alert("Ha ocurrido un error");
+        //alert("Ha ocurrido un error");
       });
   };
 };
