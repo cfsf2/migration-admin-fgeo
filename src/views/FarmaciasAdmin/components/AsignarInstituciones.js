@@ -10,7 +10,7 @@ import { Card, CardHeader, Input, Label } from "reactstrap";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import OutlinedInput from "@mui/material/OutlinedInput";
+import TextField from "@mui/material/TextField";
 import "./asignarInstituciones.scss";
 
 const ITEM_HEIGHT = 48;
@@ -26,9 +26,9 @@ const MenuProps = {
 
 export function AsignarInstituciones(props) {
   const { farmacia, setFarmacia } = props;
+  const [allinstituciones, setAllInstituciones] = React.useState([]);
   const [instituciones, setInstituciones] = React.useState([]);
   const [farmaciaInstituciones, setFarmaciaInstituciones] = React.useState([]);
-  const [values, setValues] = React.useState([]);
 
   const handleChange = (value) => {
     setFarmaciaInstituciones((state) => {
@@ -50,11 +50,22 @@ export function AsignarInstituciones(props) {
     });
   };
 
+  const handleFilter = (e) => {
+    const value = e.target.value;
+    let resultado = [...allinstituciones]
+      .filter((ins) => ins.nombre.toLowerCase().startsWith(value.toLowerCase()))
+      .sort();
+    setInstituciones(() => resultado);
+    if (value.trim() === "") {
+      setInstituciones(allinstituciones);
+    }
+  };
+
   React.useEffect(() => {
     if (instituciones.length === 0) {
       props.SEARCH_INSTITUCIONES("", 1000, true).then((res) => {
+        setAllInstituciones(() => res);
         setInstituciones(() => res);
-        setValues(() => instituciones.map((ins) => ins._id));
       });
     }
   }, []);
@@ -63,8 +74,15 @@ export function AsignarInstituciones(props) {
     <Card>
       <CardHeader>Asignar Instituciones</CardHeader>
       <div className="altafarmacia_asignarinstituciones">
+        <TextField
+          label="Buscar..."
+          type="text"
+          onChange={handleFilter}
+          className="altafarmacia_asignarinstituciones_instituciones_buscar"
+        />
         <div className="altafarmacia_asignarinstituciones_instituciones">
           <InputLabel>Instituciones</InputLabel>
+
           <div className="altafarmacia_asignarinstituciones_instituciones_lista">
             {instituciones &&
               instituciones.map((ins) => {
@@ -76,7 +94,7 @@ export function AsignarInstituciones(props) {
                     className={
                       farmaciaInstituciones.includes(ins._id)
                         ? "seleccionado"
-                        : null
+                        : "no-seleccionado"
                     }
                   >
                     {" "}
@@ -86,20 +104,23 @@ export function AsignarInstituciones(props) {
               })}
           </div>
         </div>
-        <div className="altafarmacia_asignarinstituciones_asignadas">
+        <div>
           <InputLabel>Instituciones Asignadas</InputLabel>
-          {farmaciaInstituciones &&
-            farmaciaInstituciones.map((ins) => {
-              return (
-                <MenuItem
-                  onClick={() => handleChange(ins)}
-                  key={ins}
-                  value={ins}
-                >
-                  {instituciones.find((inst) => inst._id === ins)?.nombre}
-                </MenuItem>
-              );
-            })}
+          <div className="altafarmacia_asignarinstituciones_asignadas">
+            {farmaciaInstituciones &&
+              farmaciaInstituciones.map((ins) => {
+                return (
+                  <MenuItem
+                    onClick={() => handleChange(ins)}
+                    key={ins}
+                    value={ins}
+                    className="asignada"
+                  >
+                    {allinstituciones.find((inst) => inst._id === ins)?.nombre}
+                  </MenuItem>
+                );
+              })}
+          </div>
         </div>
       </div>
     </Card>

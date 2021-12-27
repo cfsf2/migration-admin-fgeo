@@ -21,6 +21,7 @@ import {
 // import ItemFarmacia from './components/ItemFarmacia';
 import AsignarPermisos from "../Usuarios/component/AsignarPermisos";
 import AsignarInstitucion from "./components/AsignarInstituciones";
+import "./altafarmacia.scss";
 
 class AltaFarmacia extends Component {
   constructor(props) {
@@ -309,15 +310,18 @@ class AltaFarmacia extends Component {
                     </FormGroup>
                   </Col>
                 </Row>
-                <AsignarInstitucion
-                  farmacia={this.state}
-                  setFarmacia={this.setState.bind(this)}
-                />
-                <AsignarPermisos
-                  usuario={this.state}
-                  setUsuario={this.setState.bind(this)}
-                  tipo="farmacia"
-                />
+
+                <div className="asignar">
+                  <AsignarInstitucion
+                    farmacia={this.state}
+                    setFarmacia={this.setState.bind(this)}
+                  />
+                  <AsignarPermisos
+                    usuario={this.state}
+                    setUsuario={this.setState.bind(this)}
+                    tipo="farmacia"
+                  />
+                </div>
               </CardBody>
               <CardFooter>
                 <Row>
