@@ -76,7 +76,7 @@ export function AsignarInstituciones(props) {
   }, []);
 
   return (
-    <Card>
+    <Card className="w-100">
       <CardHeader>Asignar Instituciones</CardHeader>
       <div className="altafarmacia_asignarinstituciones">
         <TextField

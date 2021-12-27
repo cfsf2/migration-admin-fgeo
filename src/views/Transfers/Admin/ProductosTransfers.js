@@ -13,6 +13,8 @@ import {
   CardFooter,
 } from "reactstrap";
 
+import AsignarInstitucion from "../../FarmaciasAdmin/components/AsignarInstituciones";
+
 import { connect } from "react-redux";
 import {
   GET_PRODUCTOS_TRANSFERS,
@@ -438,6 +440,12 @@ class ProductosTransfers extends Component {
                               }
                             />
                           </Col>
+                        </Row>
+                        <Row>
+                          <AsignarInstitucion
+                            farmacia={{}}
+                            setFarmacia={() => {}}
+                          />
                         </Row>
                       </FormGroup>
                       <hr />
