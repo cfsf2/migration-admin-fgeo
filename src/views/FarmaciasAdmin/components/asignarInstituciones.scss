@@ -1,0 +1,19 @@
+.altafarmacia_asignarinstituciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2rem;
+  column-gap: 0.5rem;
+
+  &_instituciones {
+    &_lista {
+      max-height: 400px;
+      overflow: scroll;
+    }
+  }
+  .seleccionado {
+    background: rgba(19, 124, 19, 0.329);
+    &:hover {
+      background: hsla(120, 73%, 28%, 0.629);
+    }
+  }
+}
