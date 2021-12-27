@@ -1,24 +1,14 @@
 import React, { Component, Fragment } from "react";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  FormGroup,
-  Input,
-  CardImg,
-  Label,
-  CardFooter,
-} from "reactstrap";
-
+import "./components/transfer.scss";
 import { connect } from "react-redux";
 
 class ConfirmacionPedido extends Component {
   render() {
     return (
-      <div className="animated fadeIn" style={{ margin: 30, padding: 30 }}>
+      <div
+        className="animated fadeIn transfer_confirmacion"
+        style={{ margin: 30, padding: 30 }}
+      >
         <div
           style={{
             backgroundColor: "#20a8d8",
@@ -32,6 +22,14 @@ class ConfirmacionPedido extends Component {
         >
           Hemos procesado su pedido. Estaremos validando el mismo y
           actualizaremos el estado en el panel de Tranfers
+        </div>
+        <div>
+          <a
+            href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
+            className="btn btn-labs"
+          >
+            <b>Realizar otro Transfer</b>
+          </a>
         </div>
       </div>
     );

@@ -6,25 +6,21 @@ import {
   CardHeader,
   Col,
   Row,
-  FormGroup,
   Input,
-  CardImg,
-  Label,
-  CardFooter
 } from "reactstrap";
 
 import { connect } from "react-redux";
 import {
   GET_TRANSFERS_FARMACIA,
   GET_LABORATORIOS,
-  GET_DROGUERIAS
+  GET_DROGUERIAS,
 } from "../../../redux/actions/transfersActions";
 
 class MisTransfers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      transfer: null
+      transfer: null,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -42,8 +38,8 @@ class MisTransfers extends Component {
     this.setState({
       transfer: {
         ...this.state.transfer,
-        [name]: value
-      }
+        [name]: value,
+      },
     });
   }
 
@@ -153,6 +149,7 @@ class MisTransfers extends Component {
                                             <th>sku</th>
                                             <th>Producto</th>
                                             <th>Cantidad</th>
+                                            <th>Presentacion</th>
                                             <th>Observación</th>
                                           </tr>
                                         </thead>
@@ -161,6 +158,7 @@ class MisTransfers extends Component {
                                             .productos_solicitados.length > 0
                                             ? this.state.transfer.productos_solicitados.map(
                                                 (linea, index) => {
+                                                  console.log(linea);
                                                   return (
                                                     <tr>
                                                       <td>
@@ -168,6 +166,12 @@ class MisTransfers extends Component {
                                                       </td>
                                                       <td>{linea.nombre}</td>
                                                       <td>{linea.cantidad}</td>
+                                                      <td>
+                                                        {
+                                                          linea._id
+                                                            ?.presentacion
+                                                        }
+                                                      </td>
                                                       <td>
                                                         {linea.observacion}
                                                       </td>
@@ -211,16 +215,16 @@ class MisTransfers extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     tranfersReducer: state.tranfersReducer,
-    authReducer: state.authReducer
+    authReducer: state.authReducer,
   };
 };
 const mapDispatchToProps = {
   GET_TRANSFERS_FARMACIA,
   GET_LABORATORIOS,
-  GET_DROGUERIAS
+  GET_DROGUERIAS,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MisTransfers);

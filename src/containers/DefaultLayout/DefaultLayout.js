@@ -125,6 +125,17 @@ class DefaultLayout extends Component {
     const { IS_ADMIN, IS_FARMACIA } = this.props.user;
     const { userprofile } = this.props.authReducer;
     if (IS_ADMIN) {
+      let allowedNav = { items: [] };
+      let allowedRoutes;
+      allowedNav.items = nav_admin.items.filter((route) => {
+        return this.props.user.permisos.some((per) => route.permiso === per);
+      });
+      allowedRoutes = routesadmin.filter((route) => {
+        return this.props.user.permisos.some((per) => {
+          return route.permiso === per;
+        });
+      });
+
       this.setState({ navigation: nav_admin, routes: routesadmin });
     } else if (IS_FARMACIA) {
       var _nav_farmacia = await Filtrar_Sin_Venta_Online(

@@ -39,6 +39,9 @@ const MisTransfers = React.lazy(() =>
 const FinalizarTransfer = React.lazy(() =>
   import("./views/Transfers/Farmacia/FinalizarTransfer")
 );
+const Checkout = React.lazy(() =>
+  import("./views/Transfers/Farmacia/components/Checkout")
+);
 const ConfirmacionPedido = React.lazy(() =>
   import("./views/Transfers/Farmacia/ConfirmacionPedido")
 );
@@ -106,6 +109,11 @@ const routes = [
     path: "/FinalizarTransfer",
     name: "Finalizar Transfer",
     component: FinalizarTransfer,
+  },
+  {
+    path: "/CarritoTransfer",
+    name: "Carrito Transfer",
+    component: Checkout,
   },
   {
     path: "/ConfirmacionPedido",

@@ -8,21 +8,7 @@ import iLocation from "../../../assets/images/iconLocation.svg";
 import iEmail from "../../../assets/images/iconEmail.svg";
 import logoWhiteColegio from "../../../assets/images/logoColegio.png";
 import { Input, Divider, Form2 } from "./style";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardGroup,
-  Col,
-  Container,
-  Form,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Row,
-  //FormGroup,
-  //Label,
-} from "reactstrap";
+import { Button } from "reactstrap";
 import {
   LOGIN,
   LOADPROFILE,
@@ -161,7 +147,7 @@ const Login = (props) => {
   if (islogin) {
     // console.log("username " + username)
 
-    dispatch(LOADPROFILE(username));
+    dispatch(LOADPROFILE(username, window.localStorage.getItem("token")));
     return <Redirect to="/dashboard"></Redirect>;
   } else {
     //esto habrìa que correrlo
