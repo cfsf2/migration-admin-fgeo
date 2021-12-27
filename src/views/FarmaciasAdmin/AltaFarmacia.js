@@ -54,6 +54,7 @@ class AltaFarmacia extends Component {
       },
       permisos: [],
       perfil: "",
+      instituciones: [],
     };
     this.handleInputChangefarmacia = this.handleInputChangefarmacia.bind(this);
     this.handleUsuario = this.handleUsuario.bind(this);
@@ -100,7 +101,8 @@ class AltaFarmacia extends Component {
       this.state.login,
       this.props.history,
       this.state.permisos,
-      this.state.perfil
+      this.state.perfil,
+      this.state.instituciones
     );
   }
 

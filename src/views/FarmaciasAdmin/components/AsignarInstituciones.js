@@ -27,7 +27,9 @@ const MenuProps = {
 export function AsignarInstituciones(props) {
   const { farmacia, setFarmacia } = props;
   const [allinstituciones, setAllInstituciones] = React.useState([]);
-  const [instituciones, setInstituciones] = React.useState([]);
+  const [instituciones, setInstituciones] = React.useState(
+    farmacia.instituciones ? farmacia.instituciones : []
+  );
   const [farmaciaInstituciones, setFarmaciaInstituciones] = React.useState([]);
 
   const handleChange = (value) => {
@@ -46,6 +48,9 @@ export function AsignarInstituciones(props) {
       if (indx === -1) {
         newState = newState.concat(value);
       }
+      setFarmacia((state) => {
+        return { ...state, instituciones: newState };
+      });
       return newState;
     });
   };

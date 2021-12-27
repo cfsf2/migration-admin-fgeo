@@ -1,6 +1,6 @@
 import axios from "axios";
 import { farmageo_api, wp_api_auth } from "../../config";
-//const URL = "http://api.farmageo.com.ar:8000";
+import { ALERT } from "./alertActions";
 const URL = farmageo_api;
 
 // Falta implemwp_api_authentar.
@@ -80,7 +80,8 @@ export const ALTA_USUARIO_SUBMIT = (
   login,
   history,
   permisos,
-  perfil
+  perfil,
+  instituciones
 ) => {
   return async (dispatch) => {
     var token = await localStorage.getItem("token");
@@ -100,7 +101,15 @@ export const ALTA_USUARIO_SUBMIT = (
       })
       .then((response) => {
         if (response.status == "201" || response.status == "200") {
-          dispatch(ALTA_USER_API_FARMAGEO(farmacia, login, history, perfil));
+          dispatch(
+            ALTA_USER_API_FARMAGEO(
+              farmacia,
+              login,
+              history,
+              perfil,
+              instituciones
+            )
+          );
         } else {
           alert("Ha ocurrido un error");
         }
@@ -114,7 +123,13 @@ export const ALTA_USUARIO_SUBMIT = (
   };
 };
 
-const ALTA_USER_API_FARMAGEO = (farmacia, login, history, perfil) => {
+const ALTA_USER_API_FARMAGEO = (
+  farmacia,
+  login,
+  history,
+  perfil,
+  instituciones
+) => {
   var username = farmacia.usuario.includes("@")
     ? farmacia.usuario.toLowerCase()
     : farmacia.usuario.toUpperCase();
@@ -154,6 +169,7 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history, perfil) => {
           log: "",
           password: login.password,
           perfil,
+          instituciones,
         },
         { timeout: 10000 }
       )
@@ -161,7 +177,12 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history, perfil) => {
         if (response.status == "200") {
           console.log("se dió de alta en api farmageo");
           dispatch(GET_FARMACIAS);
-          alert("Se agregó una nueva farmacia correctamente");
+          ALERT(
+            "",
+            "Se agregó una nueva farmacia correctamente",
+            "success",
+            "Yay!"
+          );
           history.push("/farmaciasAdmin");
         } else {
           console.log(
