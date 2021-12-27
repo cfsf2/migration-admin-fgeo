@@ -39,6 +39,7 @@ class Dashboard extends Component {
       productoscasiagotados: 0,
       productosagotados: 0,
       publicidades: this.props.publicidadesReducer.publicidades.reverse(),
+      user: this.props.authReducer.user,
     };
     this.handleFiltro = this.handleFiltro.bind(this);
     this.handlePanelExistencias = this.handlePanelExistencias.bind(this);
@@ -69,9 +70,13 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.props.GET_PUBLICIDADES();
-    this.handlePanelExistencias();
-    this.props.GET_ENTIDADES();
+    const { user } = this.props.authReducer;
+
+    if (user?.permisos?.includes("packsdeproductos")) {
+      this.props.GET_PUBLICIDADES();
+      this.handlePanelExistencias();
+      this.props.GET_ENTIDADES();
+    }
   }
 
   async handlePanelExistencias() {

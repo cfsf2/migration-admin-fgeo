@@ -68,7 +68,10 @@ export const LOADPROFILE = (username, token) => {
       })
       .then(function (response) {
         dispatch({ type: "LOADPROFILE_OK", payload: response.data });
-        dispatch(GET_PEDIDOS(response.data.farmaciaid));
+
+        if (response.data.farmaciaid) {
+          dispatch(GET_PEDIDOS(response.data.farmaciaid));
+        }
       })
       .catch(function (error) {
         dispatch({
