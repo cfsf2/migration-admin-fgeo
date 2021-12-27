@@ -24,6 +24,9 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { Button } from "reactstrap";
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { esES } from "@mui/material/locale";
+
 function createData(name, calories, fat, carbs, protein) {
   return {
     name,
@@ -255,108 +258,110 @@ export default function EnhancedTable(props) {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        {toolbar ? (
-          <EnhancedTableToolbar numSelected={selected.length} />
-        ) : null}
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-              headCells={headCells}
-            />
-            <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+      <ThemeProvider theme={createTheme(esES)}>
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          {toolbar ? (
+            <EnhancedTableToolbar numSelected={selected.length} />
+          ) : null}
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={rows.length}
+                headCells={headCells}
+              />
+              <TableBody>
+                {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.nombre);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                {stableSort(rows, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.nombre);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      //onClick={(event) => handleClick(event, row.nombre)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row._id}
-                      selected={isItemSelected}
-                    >
-                      {toolbar ? (
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            color="primary"
-                            checked={isItemSelected}
-                            inputProps={{
-                              "aria-labelledby": labelId,
-                            }}
-                          />
+                    return (
+                      <TableRow
+                        hover
+                        //onClick={(event) => handleClick(event, row.nombre)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row._id}
+                        selected={isItemSelected}
+                      >
+                        {toolbar ? (
+                          <TableCell padding="checkbox">
+                            <Checkbox
+                              color="primary"
+                              checked={isItemSelected}
+                              inputProps={{
+                                "aria-labelledby": labelId,
+                              }}
+                            />
+                          </TableCell>
+                        ) : null}
+
+                        {headCells.map((head, indx) => {
+                          let options = {};
+                          if (indx === 1) {
+                            options.id = { labelId };
+                            options.scope = "row";
+                          }
+                          options.aling = "left";
+
+                          let content = row[head.id];
+
+                          if (typeof content === "boolean") {
+                            content = content ? "SI" : "NO";
+                          }
+                          if (typeof content === "object" && content !== null) {
+                            content = row[head.id][head.headCell.id];
+                          }
+                          return <TableCell {...options}>{content}</TableCell>;
+                        })}
+                        <TableCell>
+                          <Button
+                            data-toggle="modal"
+                            data-target=".edit"
+                            onClick={() => props.setEdit(() => row)}
+                          >
+                            Editar
+                          </Button>
                         </TableCell>
-                      ) : null}
-
-                      {headCells.map((head, indx) => {
-                        let options = {};
-                        if (indx === 1) {
-                          options.id = { labelId };
-                          options.scope = "row";
-                        }
-                        options.aling = "left";
-
-                        let content = row[head.id];
-
-                        if (typeof content === "boolean") {
-                          content = content ? "SI" : "NO";
-                        }
-                        if (typeof content === "object" && content !== null) {
-                          content = row[head.id][head.headCell.id];
-                        }
-                        return <TableCell {...options}>{content}</TableCell>;
-                      })}
-                      <TableCell>
-                        <Button
-                          data-toggle="modal"
-                          data-target=".edit"
-                          onClick={() => props.setEdit(() => row)}
-                        >
-                          Editar
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </ThemeProvider>
     </Box>
   );
 }
