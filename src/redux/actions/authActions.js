@@ -2,6 +2,8 @@ import axios from "axios";
 import { errorParser } from "../../helpers/errorHelper";
 import { wp_api, farmageo_api, wp_api_auth } from "../../config";
 import { GET_ALL_PEDIDOS_ADMIN, GET_PEDIDOS } from "./pedidosActions";
+import { ALERT } from "./alertActions";
+import store from "../store/index";
 
 export const RESET_ERROR = () => {
   return (dispatch) => {
@@ -29,7 +31,15 @@ export const LOGIN = (user, password) => {
       })
       .then(function (response) {
         if (response.data.statusCode == 500) {
-          alert("Usuario y/o contraseña incorrectos");
+          ALERT(
+            "Error",
+            "Usuario y/o contraseña incorrectos",
+            "error",
+            "OK"
+          ).then(() => {
+            store.dispatch(LOGOUT());
+            window.location = process.env.PUBLIC_URL;
+          });
         } else {
           dispatch({ type: "authenticated", payload: user });
           dispatch({ type: "LOGIN_OK", payload: response.data });
