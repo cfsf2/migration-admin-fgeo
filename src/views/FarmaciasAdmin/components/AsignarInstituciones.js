@@ -142,7 +142,6 @@ export function AsignarInstituciones(props) {
               </>
             )}
           </div>
-          <button onClick={() => console.log(obj)}>Click</button>
         </div>
       </div>
     </Card>
