@@ -315,8 +315,8 @@ class AltaFarmacia extends Component {
 
                 <div className="asignar">
                   <AsignarInstitucion
-                    farmacia={this.state}
-                    setFarmacia={this.setState.bind(this)}
+                    obj={this.state}
+                    setObj={this.setState.bind(this)}
                   />
                   <AsignarPermisos
                     usuario={this.state}

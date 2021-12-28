@@ -441,10 +441,14 @@ class ProductosTransfers extends Component {
                             />
                           </Col>
                         </Row>
-                        <Row>
+                        <Row className="productotransfer_asignar p-3">
                           <AsignarInstitucion
-                            farmacia={{}}
-                            setFarmacia={() => {}}
+                            obj={
+                              this.state.producto
+                                ? this.state.producto
+                                : undefined
+                            }
+                            setObj={this.setState.bind(this)}
                           />
                         </Row>
                       </FormGroup>
@@ -481,7 +485,8 @@ class ProductosTransfers extends Component {
                               data-dismiss="modal"
                               onClick={() => {
                                 this.props.ADD_PRODUCTO_TRANSFER(
-                                  this.state.producto
+                                  this.state.producto,
+                                  this.state.instituciones
                                 );
                               }}
                             >

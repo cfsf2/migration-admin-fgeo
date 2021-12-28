@@ -25,15 +25,15 @@ const MenuProps = {
 };
 
 export function AsignarInstituciones(props) {
-  const { farmacia, setFarmacia } = props;
+  const { obj = { _id: "" }, setObj } = props;
   const [allinstituciones, setAllInstituciones] = React.useState([]);
   const [instituciones, setInstituciones] = React.useState(
-    farmacia.instituciones ? farmacia.instituciones : []
+    obj && obj.instituciones ? obj.instituciones : []
   );
-  const [farmaciaInstituciones, setFarmaciaInstituciones] = React.useState([]);
+  const [objInstituciones, setObjInstituciones] = React.useState([]);
 
   const handleChange = (value) => {
-    setFarmaciaInstituciones((state) => {
+    setObjInstituciones((state) => {
       let newState = [...state];
       const indx = newState.indexOf(value);
       if (indx === 0) {
@@ -48,7 +48,7 @@ export function AsignarInstituciones(props) {
       if (indx === -1) {
         newState = newState.concat(value);
       }
-      setFarmacia((state) => {
+      setObj((state) => {
         return { ...state, instituciones: newState };
       });
       return newState;
@@ -75,6 +75,12 @@ export function AsignarInstituciones(props) {
     }
   }, []);
 
+  React.useEffect(() => {
+    if (obj && obj.instituciones) setObjInstituciones(() => obj.instituciones);
+    if (obj && !obj.instituciones) setObjInstituciones([]);
+    if (!obj) setObjInstituciones([]);
+  }, [obj._id]);
+
   return (
     <Card className="w-100">
       <CardHeader>Asignar Instituciones</CardHeader>
@@ -97,7 +103,7 @@ export function AsignarInstituciones(props) {
                     key={ins._id}
                     value={ins._id}
                     className={
-                      farmaciaInstituciones.includes(ins._id)
+                      objInstituciones.includes(ins._id)
                         ? "seleccionado"
                         : "no-seleccionado"
                     }
@@ -112,8 +118,8 @@ export function AsignarInstituciones(props) {
         <div>
           <InputLabel>Instituciones Asignadas</InputLabel>
           <div className="altafarmacia_asignarinstituciones_asignadas">
-            {farmaciaInstituciones &&
-              farmaciaInstituciones.map((ins) => {
+            {objInstituciones &&
+              objInstituciones.map((ins) => {
                 return (
                   <MenuItem
                     onClick={() => handleChange(ins)}
@@ -126,6 +132,7 @@ export function AsignarInstituciones(props) {
                 );
               })}
           </div>
+          <button onClick={() => console.log(obj)}>Click</button>
         </div>
       </div>
     </Card>

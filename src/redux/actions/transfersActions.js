@@ -112,7 +112,7 @@ export const UPDATE_DROGUERIA = (drogueria) => {
 };
 
 //********************** PRODUCTOS ******************************* */
-export const ADD_PRODUCTO_TRANSFER = (productosTransfers) => {
+export const ADD_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
   return (dispatch) => {
     axios
       .post(farmageo_api + "/productosTransfers", {
@@ -123,6 +123,7 @@ export const ADD_PRODUCTO_TRANSFER = (productosTransfers) => {
         imagen: productosTransfers.imagen,
         cantidad_minima: parseInt(productosTransfers.cantidad_minima),
         descuento_porcentaje: parseInt(productosTransfers.descuento_porcentaje),
+        instituciones: instituciones,
       })
       .then(function (response) {
         dispatch(GET_PRODUCTOS_TRANSFERS());
