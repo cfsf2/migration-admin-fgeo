@@ -151,14 +151,13 @@ export const GET_PRODUCTOS_TRANSFERS = () => {
   };
 };
 
-export const UPDATE_PRODUCTO_TRANSFER = (productosTransfers) => {
-  debugger;
+export const UPDATE_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
   return (dispatch) => {
     axios
-      .put(
-        farmageo_api + "/productosTransfers?id=" + productosTransfers._id,
-        productosTransfers
-      )
+      .put(farmageo_api + "/productosTransfers?id=" + productosTransfers._id, {
+        productosTransfers,
+        instituciones,
+      })
       .then(function (response) {
         dispatch(GET_PRODUCTOS_TRANSFERS());
       })

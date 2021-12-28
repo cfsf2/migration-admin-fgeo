@@ -68,18 +68,21 @@ export function EditProducto(props) {
           setInstituciones(() => res.data);
           setProducto((state) => {
             // aca pasa algo raro
-            return {
-              ...state.producto,
-              instituciones: res.data,
-            };
+            let newState = { ...state };
+            newState.instituciones = res.data;
+            return newState;
+          });
+          setState({
+            ...state,
+            instituciones: res.data,
           });
         })
         .then(() => {
-          setLoading(false);
+          setLoading(() => false);
         });
       return;
     }
-    setLoading(false);
+    setLoading(() => false);
   }, [state.producto?._id]);
 
   return (
@@ -252,21 +255,22 @@ export function EditProducto(props) {
                   <AsignarInstitucion
                     obj={producto ? producto : undefined}
                     setObj={setState.bind(this)}
+                    loading={loading}
                   />
                 </Row>
               </FormGroup>
               <hr />
             </CardBody>
             <CardFooter>
-              <Row>
-                <Col>
+              <Row className="w-100 d-flex justify-content-center">
+                <Col className="d-flex justify-content-center">
                   {" "}
                   <Button className="btn btn-warning" onClick={handleBlanquear}>
                     Blanquear
                   </Button>
                 </Col>
 
-                <Col>
+                <Col className="d-flex justify-content-center">
                   {state.editar ? (
                     <Button
                       className="btn btn-success"
@@ -296,12 +300,11 @@ export function EditProducto(props) {
                   )}
                 </Col>
 
-                <Col>
+                <Col className="d-flex justify-content-center">
                   <Button className="btn btn-danger" data-dismiss="modal">
                     Cancelar
                   </Button>
                 </Col>
-                <Col></Col>
               </Row>
             </CardFooter>
           </Card>

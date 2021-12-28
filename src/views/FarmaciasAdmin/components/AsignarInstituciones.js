@@ -6,8 +6,7 @@ import {
 } from "../../../redux/actions/institucionesAction";
 import { connect } from "react-redux";
 
-import { Card, CardHeader, Input, Label } from "reactstrap";
-import Select from "@mui/material/Select";
+import { Card, CardHeader, Input, Label, Spinner } from "reactstrap";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
@@ -25,12 +24,13 @@ const MenuProps = {
 };
 
 export function AsignarInstituciones(props) {
-  const { obj = { _id: "" }, setObj } = props;
+  const { obj = { _id: "" }, setObj, loading } = props;
   const [allinstituciones, setAllInstituciones] = React.useState([]);
-  const [instituciones, setInstituciones] = React.useState(
+  const [instituciones, setInstituciones] = React.useState([]);
+  const [objInstituciones, setObjInstituciones] = React.useState(
     obj && obj.instituciones ? obj.instituciones : []
   );
-  const [objInstituciones, setObjInstituciones] = React.useState([]);
+
   const handleChange = (value) => {
     setObjInstituciones((state) => {
       let newState = [...state];
@@ -75,11 +75,12 @@ export function AsignarInstituciones(props) {
   }, []);
 
   React.useEffect(() => {
-    if (obj && obj.instituciones)
+    if (obj && obj.instituciones) {
       setObjInstituciones((state) => obj.instituciones);
+    }
     if (obj && !obj.instituciones) setObjInstituciones([]);
     if (!obj) setObjInstituciones([]);
-  }, [obj._id]);
+  }, [obj._id, obj.instituciones]);
 
   return (
     <Card className="w-100">
@@ -118,19 +119,28 @@ export function AsignarInstituciones(props) {
         <div>
           <InputLabel>Instituciones Asignadas</InputLabel>
           <div className="altafarmacia_asignarinstituciones_asignadas">
-            {objInstituciones &&
-              objInstituciones.map((ins) => {
-                return (
-                  <MenuItem
-                    onClick={() => handleChange(ins)}
-                    key={ins}
-                    value={ins}
-                    className="asignada"
-                  >
-                    {allinstituciones.find((inst) => inst._id === ins)?.nombre}
-                  </MenuItem>
-                );
-              })}
+            {loading ? (
+              <Spinner />
+            ) : (
+              <>
+                {objInstituciones &&
+                  objInstituciones.map((ins) => {
+                    return (
+                      <MenuItem
+                        onClick={() => handleChange(ins)}
+                        key={ins}
+                        value={ins}
+                        className="asignada"
+                      >
+                        {
+                          allinstituciones.find((inst) => inst._id === ins)
+                            ?.nombre
+                        }
+                      </MenuItem>
+                    );
+                  })}
+              </>
+            )}
           </div>
           <button onClick={() => console.log(obj)}>Click</button>
         </div>
