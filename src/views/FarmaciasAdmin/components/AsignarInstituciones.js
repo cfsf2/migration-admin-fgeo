@@ -31,7 +31,6 @@ export function AsignarInstituciones(props) {
     obj && obj.instituciones ? obj.instituciones : []
   );
   const [objInstituciones, setObjInstituciones] = React.useState([]);
-
   const handleChange = (value) => {
     setObjInstituciones((state) => {
       let newState = [...state];
@@ -48,8 +47,8 @@ export function AsignarInstituciones(props) {
       if (indx === -1) {
         newState = newState.concat(value);
       }
-      setObj((state) => {
-        return { ...state, instituciones: newState };
+      setObj(() => {
+        return { ...obj, instituciones: newState };
       });
       return newState;
     });
@@ -76,7 +75,8 @@ export function AsignarInstituciones(props) {
   }, []);
 
   React.useEffect(() => {
-    if (obj && obj.instituciones) setObjInstituciones(() => obj.instituciones);
+    if (obj && obj.instituciones)
+      setObjInstituciones((state) => obj.instituciones);
     if (obj && !obj.instituciones) setObjInstituciones([]);
     if (!obj) setObjInstituciones([]);
   }, [obj._id]);

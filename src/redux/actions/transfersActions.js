@@ -152,6 +152,7 @@ export const GET_PRODUCTOS_TRANSFERS = () => {
 };
 
 export const UPDATE_PRODUCTO_TRANSFER = (productosTransfers) => {
+  debugger;
   return (dispatch) => {
     axios
       .put(
