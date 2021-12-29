@@ -1,6 +1,8 @@
 import axios from "axios";
 import { errorParser } from "../../helpers/errorHelper";
 import { farmageo_api } from "../../config";
+import store from "../store/index";
+import { ALERT } from "./alertActions";
 
 //******************** LABORATORIOS ********************************* */
 export const ADD_LABORATORIO = (laboratorio) => {
@@ -9,7 +11,6 @@ export const ADD_LABORATORIO = (laboratorio) => {
       .post(farmageo_api + "/laboratorios", laboratorio)
       .then(function (response) {
         dispatch(GET_LABORATORIOS());
-        console.log("y estos labs?");
       })
       .catch(function (error) {
         console.log(error);
@@ -127,8 +128,10 @@ export const ADD_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
       })
       .then(function (response) {
         dispatch(GET_PRODUCTOS_TRANSFERS());
+        dispatch(ALERT("Exito", "Producto Transfer Creado", "success", "OK"));
       })
       .catch(function (error) {
+        ALERT("Error", "Ha ocurrido un error", "error", ":(");
         console.log(error);
       });
   };
@@ -160,8 +163,12 @@ export const UPDATE_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
       })
       .then(function (response) {
         dispatch(GET_PRODUCTOS_TRANSFERS());
+        dispatch(
+          ALERT("Exito", "Los cambios han sido aceptados", "success", "OK")
+        );
       })
       .catch(function (error) {
+        ALERT("Error", "Ha ocurrido un error", "error", ":(");
         console.log(error);
       });
   };
