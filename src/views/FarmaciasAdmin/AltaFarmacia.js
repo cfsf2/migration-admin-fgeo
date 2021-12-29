@@ -28,33 +28,30 @@ class AltaFarmacia extends Component {
     super(props);
     this.state = {
       farmacia: {
-        matricula: "",
-        usuario: "",
-        nombre: "",
-        nombrefarmaceutico: "",
+        matricula: null,
+        usuario: null,
+        nombre: null,
+        nombrefarmaceutico: null,
         habilitado: true,
-        calle: "",
-        numero: 0,
-        localidad: "",
-        cp: "",
-        provincia: "",
-        telefono: "",
-        cuit: "",
-        cufe: "",
-        email: "",
+        calle: null,
+        numero: null,
+        localidad: null,
+        cp: null,
+        provincia: null,
+        telefono: null,
+        cuit: null,
+        cufe: null,
+        email: null,
       },
       login: {
-        username: "",
-        password: "",
-        name: "",
-        first_name: "",
-        last_name: "",
-        email: "",
+        username: null,
+        password: null,
         roles: ["farmacia"],
       },
       permisos: [],
       perfil: "",
       instituciones: [],
+      error: [],
     };
     this.handleInputChangefarmacia = this.handleInputChangefarmacia.bind(this);
     this.handleUsuario = this.handleUsuario.bind(this);
@@ -62,6 +59,7 @@ class AltaFarmacia extends Component {
     this.handleExistencias = this.handleExistencias.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePermisos = this.handlePermisos.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
   }
 
   handleInputChangefarmacia(event) {
@@ -96,14 +94,52 @@ class AltaFarmacia extends Component {
     this.props.CHEQUEAR_SI_EXISTE(this.state.farmacia.matricula);
   }
   handleSubmit() {
-    this.props.ALTA_USUARIO_SUBMIT(
-      this.state.farmacia,
-      this.state.login,
-      this.props.history,
-      this.state.permisos,
-      this.state.perfil,
-      this.state.instituciones
-    );
+    this.handleValidation();
+    // this.props.ALTA_USUARIO_SUBMIT(
+    //   this.state.farmacia,
+    //   this.state.login,
+    //   this.props.history,
+    //   this.state.permisos,
+    //   this.state.perfil,
+    //   this.state.instituciones
+    // );
+  }
+
+  handleValidation() {
+    return new Promise((resolve, reject) => {
+      const keys = Object.keys(this.state.farmacia);
+      const farmacia = this.state.farmacia;
+      const instituciones = this.state.instituciones;
+      const perfil = this.state.perfil;
+      debugger;
+      let errors = keys.filter((key) => {
+        if (typeof farmacia[key] === "string") {
+          if (farmacia[key] && farmacia[key].trim() !== "") {
+            debugger;
+            return;
+          }
+        }
+        if (farmacia[key] && farmacia[key] !== "") {
+          debugger;
+          return;
+        }
+        return key;
+      });
+      if (this.state.instituciones.length === 0) {
+        errors.push("instituciones");
+      }
+      if (this.state.perfil.length === 0) {
+        errors.push("perfil");
+      }
+
+      this.setState(
+        {
+          ...this.state,
+          error: errors,
+        },
+        resolve()
+      );
+    });
   }
 
   render() {
@@ -329,18 +365,13 @@ class AltaFarmacia extends Component {
                 <Row>
                   <Col xs="12" md="6">
                     <FormGroup>
-                      {yaExiste ? (
-                        <Button className="btn btn-success" disabled>
-                          Crear Farmacia
-                        </Button>
-                      ) : (
-                        <Button
-                          className="btn btn-success"
-                          onClick={this.handleSubmit}
-                        >
-                          Crear Farmacia
-                        </Button>
-                      )}
+                      <Button
+                        className="btn btn-success"
+                        onClick={this.handleSubmit}
+                        disabled={yaExiste}
+                      >
+                        Crear Farmacia
+                      </Button>
                     </FormGroup>
                   </Col>
                 </Row>
