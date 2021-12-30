@@ -1,4 +1,32 @@
+.error {
+  border: 1px blue solid;
+  &::after {
+    content: "x";
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    color: Red;
+    font-size: 1.5rem;
+    padding: 1rem;
+    position: relative;
+    top: -92%;
+  }
+}
 .createuser_ {
+  &error {
+    border: 1px red solid;
+    &::after {
+      content: "x";
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      color: Red;
+      font-size: 1.5rem;
+      padding: 1rem;
+      position: relative;
+      top: -31%;
+    }
+  }
   &lab {
     padding: 0rem 2rem;
     display: flex;

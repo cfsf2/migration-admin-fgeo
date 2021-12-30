@@ -18,6 +18,8 @@ import {
   CHEQUEAR_SI_EXISTE,
   ALTA_USUARIO_SUBMIT,
 } from "../../redux/actions/FarmaciasAdminActions";
+import store from "../../redux/store/index";
+import { ALERT } from "../../redux/actions/alertActions";
 // import ItemFarmacia from './components/ItemFarmacia';
 import AsignarPermisos from "../Usuarios/component/AsignarPermisos";
 import AsignarInstitucion from "./components/AsignarInstituciones";
@@ -60,23 +62,45 @@ class AltaFarmacia extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePermisos = this.handlePermisos.bind(this);
     this.handleValidation = this.handleValidation.bind(this);
+    this.handleErrorChange = this.handleErrorChange.bind(this);
+  }
+
+  handleErrorChange(name, value) {
+    if (value.trim() !== "") {
+      const newErr = this.state.error.filter((err) => {
+        return err !== name;
+      });
+
+      this.setState({
+        error: newErr,
+      });
+      return;
+    }
+    const newErr = this.state.error.concat(name);
+    this.setState({
+      error: newErr,
+    });
   }
 
   handleInputChangefarmacia(event) {
     const target = event.nativeEvent.target;
     const value = target.value;
     const name = target.name;
+
     this.setState({
       farmacia: { ...this.state.farmacia, [name]: value },
     });
+    this.handleErrorChange(name, value);
   }
   handleUsuario(event) {
     const target = event.nativeEvent.target;
     const value = target.value.toUpperCase();
+    const name = target.name;
     this.setState({
       login: { ...this.state.login, username: value },
       farmacia: { ...this.state.farmacia, usuario: value },
     });
+    this.handleErrorChange(name, value);
   }
 
   handlePermisos(e) {
@@ -86,9 +110,11 @@ class AltaFarmacia extends Component {
   handlePassword(event) {
     const target = event.nativeEvent.target;
     const value = target.value;
+    const name = target.name;
     this.setState({
       login: { ...this.state.login, password: value },
     });
+    this.handleErrorChange(name, value);
   }
   handleExistencias() {
     this.props.CHEQUEAR_SI_EXISTE(this.state.farmacia.matricula);
@@ -107,20 +133,18 @@ class AltaFarmacia extends Component {
 
   handleValidation() {
     return new Promise((resolve, reject) => {
-      const keys = Object.keys(this.state.farmacia);
+      const keys = Object.keys(this.state.farmacia).concat("password");
       const farmacia = this.state.farmacia;
       const instituciones = this.state.instituciones;
       const perfil = this.state.perfil;
-      debugger;
+
       let errors = keys.filter((key) => {
         if (typeof farmacia[key] === "string") {
           if (farmacia[key] && farmacia[key].trim() !== "") {
-            debugger;
             return;
           }
         }
         if (farmacia[key] && farmacia[key] !== "") {
-          debugger;
           return;
         }
         return key;
@@ -137,7 +161,21 @@ class AltaFarmacia extends Component {
           ...this.state,
           error: errors,
         },
-        resolve()
+        () => {
+          if (errors.length !== 0) {
+            reject(
+              store.dispatch(
+                ALERT(
+                  "Todos los campos son obligatorios",
+                  `Hay datos sin completar: ${errors.join(", ")}`,
+                  "warning",
+                  "OK"
+                )
+              )
+            );
+          }
+          resolve();
+        }
       );
     });
   }
@@ -152,7 +190,7 @@ class AltaFarmacia extends Component {
               <CardHeader>
                 <b>Nueva Farmacia</b>
               </CardHeader>
-              <CardBody>
+              <CardBody className="altafarmacia">
                 <Row>
                   <Col md="4" xs="12">
                     <FormGroup>
@@ -184,6 +222,7 @@ class AltaFarmacia extends Component {
                         autoComplete="off"
                         onChange={this.handleUsuario}
                         value={this.state.farmacia.usuario}
+                        invalid={this.state.error.includes("usuario")}
                       />
                     </FormGroup>
                   </Col>
@@ -196,6 +235,7 @@ class AltaFarmacia extends Component {
                         autoComplete="off"
                         onChange={this.handlePassword}
                         value={this.state.login.password}
+                        invalid={this.state.error.includes("password")}
                       />
                     </FormGroup>
                   </Col>
@@ -209,6 +249,7 @@ class AltaFarmacia extends Component {
                         name="nombre"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.nombre}
+                        invalid={this.state.error.includes("nombre")}
                       />
                     </FormGroup>
                   </Col>
@@ -220,6 +261,9 @@ class AltaFarmacia extends Component {
                         name="nombrefarmaceutico"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.nombrefarmaceutico}
+                        invalid={this.state.error.includes(
+                          "nombrefarmaceutico"
+                        )}
                       />
                     </FormGroup>
                   </Col>
@@ -234,6 +278,7 @@ class AltaFarmacia extends Component {
                         name="telefono"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.telefono}
+                        invalid={this.state.error.includes("telefono")}
                       />
                     </FormGroup>
                   </Col>
@@ -245,17 +290,19 @@ class AltaFarmacia extends Component {
                         name="cuit"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.cuit}
+                        invalid={this.state.error.includes("cuit")}
                       />
                     </FormGroup>
                   </Col>
                   <Col xs="12" md="4">
                     <FormGroup>
-                      <Label>Cod PAMI</Label>
+                      <Label>Cod PAMI / C.U.F.E.</Label>
                       <Input
                         type="text"
                         name="cufe"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.cufe}
+                        invalid={this.state.error.includes("cufe")}
                       />
                     </FormGroup>
                   </Col>
@@ -270,6 +317,7 @@ class AltaFarmacia extends Component {
                         name="calle"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.calle}
+                        invalid={this.state.error.includes("calle")}
                       />
                     </FormGroup>
                   </Col>
@@ -281,6 +329,7 @@ class AltaFarmacia extends Component {
                         name="numero"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.numero}
+                        invalid={this.state.error.includes("numero")}
                       />
                     </FormGroup>
                   </Col>
@@ -292,6 +341,7 @@ class AltaFarmacia extends Component {
                         name="localidad"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.localidad}
+                        invalid={this.state.error.includes("localidad")}
                       />
                     </FormGroup>
                   </Col>
@@ -303,6 +353,7 @@ class AltaFarmacia extends Component {
                         name="cp"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.cp}
+                        invalid={this.state.error.includes("cp")}
                       />
                     </FormGroup>
                   </Col>
@@ -316,6 +367,7 @@ class AltaFarmacia extends Component {
                         name="provincia"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.provincia}
+                        invalid={this.state.error.includes("provincia")}
                       />
                     </FormGroup>
                   </Col>
@@ -327,6 +379,7 @@ class AltaFarmacia extends Component {
                         name="email"
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.email}
+                        invalid={this.state.error.includes("email")}
                       />
                     </FormGroup>
                   </Col>
@@ -353,11 +406,13 @@ class AltaFarmacia extends Component {
                   <AsignarInstitucion
                     obj={this.state}
                     setObj={this.setState.bind(this)}
+                    invalid={this.state.error.includes("instituciones")}
                   />
                   <AsignarPermisos
                     usuario={this.state}
                     setUsuario={this.setState.bind(this)}
                     tipo="farmacia"
+                    invalid={this.state.error.includes("perfil")}
                   />
                 </div>
               </CardBody>

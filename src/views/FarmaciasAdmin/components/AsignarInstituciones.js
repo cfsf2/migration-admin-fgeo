@@ -24,7 +24,7 @@ const MenuProps = {
 };
 
 export function AsignarInstituciones(props) {
-  const { obj = { _id: "" }, setObj, loading } = props;
+  const { obj = { _id: "" }, setObj, loading, invalid, error } = props;
   const [allinstituciones, setAllInstituciones] = React.useState([]);
   const [instituciones, setInstituciones] = React.useState([]);
   const [objInstituciones, setObjInstituciones] = React.useState(
@@ -83,7 +83,11 @@ export function AsignarInstituciones(props) {
   }, [obj._id, obj.instituciones]);
 
   return (
-    <Card className="w-100">
+    <Card
+      className={` w-100 ${
+        objInstituciones.length === 0 && (invalid || error) ? "error" : null
+      }`}
+    >
       <CardHeader>Asignar Instituciones</CardHeader>
       <div className="altafarmacia_asignarinstituciones">
         <TextField
