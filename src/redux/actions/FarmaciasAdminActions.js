@@ -175,7 +175,6 @@ const ALTA_USER_API_FARMAGEO = (
       )
       .then((response) => {
         if (response.status == "200") {
-          console.log("se dió de alta en api farmageo");
           dispatch(GET_FARMACIAS);
           ALERT(
             "",
@@ -185,10 +184,7 @@ const ALTA_USER_API_FARMAGEO = (
           );
           history.push("/farmaciasAdmin");
         } else {
-          console.log(
-            "se creo el usuario de login pero no el perfil en la base de mongoo"
-          );
-          alert("Ha ocurrido un error");
+          ALERT("Ha ocurrido un error", "", "error", ":(");
         }
       })
       .catch((error) => {

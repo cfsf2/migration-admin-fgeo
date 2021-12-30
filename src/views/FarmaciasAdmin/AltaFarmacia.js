@@ -60,7 +60,6 @@ class AltaFarmacia extends Component {
     this.handlePassword = this.handlePassword.bind(this);
     this.handleExistencias = this.handleExistencias.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePermisos = this.handlePermisos.bind(this);
     this.handleValidation = this.handleValidation.bind(this);
     this.handleErrorChange = this.handleErrorChange.bind(this);
   }
@@ -103,10 +102,6 @@ class AltaFarmacia extends Component {
     this.handleErrorChange(name, value);
   }
 
-  handlePermisos(e) {
-    console.log(e);
-  }
-
   handlePassword(event) {
     const target = event.nativeEvent.target;
     const value = target.value;
@@ -120,15 +115,16 @@ class AltaFarmacia extends Component {
     this.props.CHEQUEAR_SI_EXISTE(this.state.farmacia.matricula);
   }
   handleSubmit() {
-    this.handleValidation();
-    // this.props.ALTA_USUARIO_SUBMIT(
-    //   this.state.farmacia,
-    //   this.state.login,
-    //   this.props.history,
-    //   this.state.permisos,
-    //   this.state.perfil,
-    //   this.state.instituciones
-    // );
+    this.handleValidation().then(() => {
+      this.props.ALTA_USUARIO_SUBMIT(
+        this.state.farmacia,
+        this.state.login,
+        this.props.history,
+        this.state.permisos,
+        this.state.perfil,
+        this.state.instituciones
+      );
+    });
   }
 
   handleValidation() {
@@ -150,10 +146,10 @@ class AltaFarmacia extends Component {
         return key;
       });
       if (this.state.instituciones.length === 0) {
-        errors.push("instituciones");
+        errors.push("Instituciones");
       }
       if (this.state.perfil.length === 0) {
-        errors.push("perfil");
+        errors.push("Perfil");
       }
 
       this.setState(
@@ -165,12 +161,7 @@ class AltaFarmacia extends Component {
           if (errors.length !== 0) {
             reject(
               store.dispatch(
-                ALERT(
-                  "Todos los campos son obligatorios",
-                  `Hay datos sin completar: ${errors.join(", ")}`,
-                  "warning",
-                  "OK"
-                )
+                ALERT("Todos los campos son obligatorios", "", "warning", "OK")
               )
             );
           }
@@ -223,6 +214,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleUsuario}
                         value={this.state.farmacia.usuario}
                         invalid={this.state.error.includes("usuario")}
+                        id={"Usuario"}
                       />
                     </FormGroup>
                   </Col>
@@ -236,6 +228,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handlePassword}
                         value={this.state.login.password}
                         invalid={this.state.error.includes("password")}
+                        id="Contraseña"
                       />
                     </FormGroup>
                   </Col>
@@ -250,6 +243,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.nombre}
                         invalid={this.state.error.includes("nombre")}
+                        id="Nombre de Farmacia"
                       />
                     </FormGroup>
                   </Col>
@@ -264,6 +258,7 @@ class AltaFarmacia extends Component {
                         invalid={this.state.error.includes(
                           "nombrefarmaceutico"
                         )}
+                        id="Nombre de Farmaceutico"
                       />
                     </FormGroup>
                   </Col>
@@ -279,6 +274,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.telefono}
                         invalid={this.state.error.includes("telefono")}
+                        id="telefono"
                       />
                     </FormGroup>
                   </Col>
@@ -291,6 +287,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.cuit}
                         invalid={this.state.error.includes("cuit")}
+                        id="C.U.I.T."
                       />
                     </FormGroup>
                   </Col>
@@ -303,6 +300,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.cufe}
                         invalid={this.state.error.includes("cufe")}
+                        id="C.U.F.E."
                       />
                     </FormGroup>
                   </Col>
@@ -318,6 +316,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.calle}
                         invalid={this.state.error.includes("calle")}
+                        id="Calle"
                       />
                     </FormGroup>
                   </Col>
@@ -330,6 +329,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.numero}
                         invalid={this.state.error.includes("numero")}
+                        id="Numero"
                       />
                     </FormGroup>
                   </Col>
@@ -342,6 +342,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.localidad}
                         invalid={this.state.error.includes("localidad")}
+                        id="Localidad"
                       />
                     </FormGroup>
                   </Col>
@@ -354,6 +355,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.cp}
                         invalid={this.state.error.includes("cp")}
+                        id="Codigo Postal"
                       />
                     </FormGroup>
                   </Col>
@@ -368,6 +370,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.provincia}
                         invalid={this.state.error.includes("provincia")}
+                        id="Provincia"
                       />
                     </FormGroup>
                   </Col>
@@ -380,6 +383,7 @@ class AltaFarmacia extends Component {
                         onChange={this.handleInputChangefarmacia}
                         value={this.state.farmacia.email}
                         invalid={this.state.error.includes("email")}
+                        id="Email"
                       />
                     </FormGroup>
                   </Col>
@@ -406,13 +410,13 @@ class AltaFarmacia extends Component {
                   <AsignarInstitucion
                     obj={this.state}
                     setObj={this.setState.bind(this)}
-                    invalid={this.state.error.includes("instituciones")}
+                    invalid={this.state.error.includes("Instituciones")}
                   />
                   <AsignarPermisos
                     usuario={this.state}
                     setUsuario={this.setState.bind(this)}
                     tipo="farmacia"
-                    invalid={this.state.error.includes("perfil")}
+                    invalid={this.state.error.includes("Perfil")}
                   />
                 </div>
               </CardBody>
