@@ -129,7 +129,7 @@ class AltaFarmacia extends Component {
 
   handleValidation() {
     return new Promise((resolve, reject) => {
-      const keys = Object.keys(this.state.farmacia).concat("password");
+      const keys = Object.keys(this.state.farmacia);
       const farmacia = this.state.farmacia;
       const instituciones = this.state.instituciones;
       const perfil = this.state.perfil;
@@ -150,6 +150,9 @@ class AltaFarmacia extends Component {
       }
       if (this.state.perfil.length === 0) {
         errors.push("Perfil");
+      }
+      if (this.state.login.password.trim() === "") {
+        errors.push("password");
       }
 
       this.setState(
