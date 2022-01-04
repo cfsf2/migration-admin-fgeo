@@ -379,3 +379,32 @@ export const GET_ALL_DENUNCIAS = () => {
       });
   };
 };
+
+export const FARMACIA_ADMIN_UPDATE = (props) => {
+  const { farmacia, perfil, login, instituciones } = props;
+  return (dispatch) => {
+    axios
+      .put(farmageo_api + "/farmacias/admin/", {
+        farmacia: farmacia,
+        login: login,
+        instituciones: instituciones,
+        perfil: perfil,
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          ALERT(
+            "Cambios Guardados con Exito",
+            "Los cambios han sido aplicados",
+            "success",
+            "OK"
+          ).then(() => {
+            window.location = process.env.PUBLIC_URL + "farmaciasAdmin";
+          });
+        }
+      })
+      .catch((err) => {
+        ALERT("Ha ocurrido un error", "", "error", ":(");
+        console.log(err);
+      });
+  };
+};

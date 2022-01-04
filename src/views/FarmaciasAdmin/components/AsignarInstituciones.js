@@ -29,7 +29,7 @@ export function AsignarInstituciones(props) {
   const [instituciones, setInstituciones] = React.useState([]);
   const [objInstituciones, setObjInstituciones] = React.useState(
     obj && obj.instituciones ? obj.instituciones : []
-  );
+  ); //obj.instituciones es un array de id de instituciones
 
   const handleChange = (value) => {
     setObjInstituciones((state) => {

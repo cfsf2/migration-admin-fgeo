@@ -285,6 +285,7 @@ class FarmaciasAdmin extends Component {
                         <Link
                           to={{
                             pathname: "/EditarFarmacia",
+                            search: `edit=${rowData._id}`,
                             state: { farmacia: rowData },
                           }}
                         >

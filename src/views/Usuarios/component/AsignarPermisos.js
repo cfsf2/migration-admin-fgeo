@@ -52,15 +52,10 @@ export default function AsignarPermisos(props) {
     setUsuario(() => {
       return {
         ...usuario,
-        perfil: "",
+        perfil: usuario.perfil ? usuario.perfil : "",
       };
     });
   }, [tipo]);
-
-  console.log("invalid: " + invalid);
-  console.log("error: " + error);
-  console.log("perfiles: " + perfiles);
-  console.log(perfiles.length === 0 && (invalid || error) ? "error" : null);
 
   return (
     <Card

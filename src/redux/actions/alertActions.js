@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 // CommonJS
 const S = require("sweetalert2");
 
-export const ALERT = (title, text, icon, confirmButtonText, timer = 50000) => {
+export const ALERT = (title, text, icon, confirmButtonText, timer = 5000) => {
   return S.fire({
     title: title,
     text: text,
