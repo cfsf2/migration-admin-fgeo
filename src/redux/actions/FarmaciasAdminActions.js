@@ -398,7 +398,7 @@ export const FARMACIA_ADMIN_UPDATE = (props) => {
             "success",
             "OK"
           ).then(() => {
-            window.location = process.env.PUBLIC_URL + "farmaciasAdmin";
+            window.location = process.env.PUBLIC_URL + "#/farmaciasAdmin";
           });
         }
       })
