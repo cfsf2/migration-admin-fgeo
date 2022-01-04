@@ -181,9 +181,6 @@ class Dashboard extends Component {
                         <Link
                           to={{
                             pathname: "/tableropami",
-                            state: {
-                              pdf: "https://farmageo2.s3.amazonaws.com/tableroPAMI/tableropami.pdf",
-                            },
                           }}
                         >
                           <ButtonHome

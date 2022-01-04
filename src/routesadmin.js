@@ -29,6 +29,10 @@ const FarmaciasAdmin = React.lazy(() =>
 const AltaFarmacia = React.lazy(() =>
   import("./views/FarmaciasAdmin/AltaFarmacia")
 );
+const EditarFarmacia = React.lazy(() =>
+  import("./views/FarmaciasAdmin/AltaFarmacia")
+);
+
 const Usuarios = React.lazy(() => import("./views/Usuarios/Usuarios"));
 const CrearUsuario = React.lazy(() => import("./views/Usuarios/CreateUser"));
 
@@ -213,6 +217,14 @@ const routes = [
     permiso: "farmacia",
   },
   {
+    path: "/EditarFarmacia",
+    exact: true,
+    name: "Editar Farmacia",
+    component: AltaFarmacia,
+    permiso: "farmacia",
+  },
+
+  {
     path: "/usuarios",
     exact: true,
     name: "Administración de usuarios",
@@ -224,6 +236,13 @@ const routes = [
     exact: true,
     name: "Administración de usuarios",
     component: CrearUsuario,
+    permiso: "usuarios",
+  },
+  {
+    path: "/EditUser",
+    exact: true,
+    name: "Editar usuario",
+    component: EditUser,
     permiso: "usuarios",
   },
   {
@@ -240,13 +259,7 @@ const routes = [
     component: AltaInstituciones,
     permiso: "instituciones",
   },
-  {
-    path: "/EditUser",
-    exact: true,
-    name: "Editar usuario",
-    component: EditUser,
-    permiso: "usuarios",
-  },
+
   {
     path: "/denuncias",
     exact: true,

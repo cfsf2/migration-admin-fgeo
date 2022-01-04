@@ -30,7 +30,7 @@ class AltaFarmacia extends Component {
     super(props);
     this.state = {
       farmacia: {
-        matricula: null,
+        matricula: props.farmacia?.matricula,
         usuario: null,
         nombre: null,
         nombrefarmaceutico: null,
