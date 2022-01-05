@@ -23,7 +23,7 @@ const MenuProps = {
   },
 };
 
-export function AsignarInstituciones(props) {
+function AsignarInstituciones(props) {
   const { obj = { _id: "" }, setObj, loading, invalid, error } = props;
   const [allinstituciones, setAllInstituciones] = React.useState([]);
   const [instituciones, setInstituciones] = React.useState([]);
@@ -134,7 +134,7 @@ export function AsignarInstituciones(props) {
                         onClick={() => handleChange(ins)}
                         key={ins}
                         value={ins}
-                        className="asignada"
+                        className="asignada_item"
                       >
                         {
                           allinstituciones.find((inst) => inst._id === ins)

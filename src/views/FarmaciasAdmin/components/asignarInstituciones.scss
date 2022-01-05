@@ -25,6 +25,8 @@
       max-height: 400px;
       overflow: scroll;
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
     }
     &_buscar {
       width: 30%;
@@ -61,7 +63,7 @@
     max-height: 400px;
     overflow: auto;
     overflow-x: hidden;
-    .asignada {
+    .asignada_item {
       background-color: rgba(95, 95, 86, 0.082);
       border-radius: 15px;
       margin: 1rem;

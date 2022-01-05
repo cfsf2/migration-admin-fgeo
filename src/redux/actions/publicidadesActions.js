@@ -2,7 +2,7 @@ import axios from "axios";
 import { errorParser } from "../../helpers/errorHelper";
 import { farmageo_api } from "../../config";
 
-export const ADD_PUBLICIDAD = (username, publicidad) => {
+export const ADD_PUBLICIDAD = (username, publicidad, instituciones) => {
   return (dispatch) => {
     axios
       .post(farmageo_api + "/publicidades", {
@@ -15,6 +15,7 @@ export const ADD_PUBLICIDAD = (username, publicidad) => {
         imagen: publicidad.imagen,
         habilitado: publicidad.habilitado,
         color: publicidad.color,
+        instituciones: instituciones,
       })
       .then(function (response) {
         dispatch(GET_PUBLICIDADES());
@@ -25,7 +26,7 @@ export const ADD_PUBLICIDAD = (username, publicidad) => {
   };
 };
 
-export const UPDATE_PUBLICIDAD = (publicidad) => {
+export const UPDATE_PUBLICIDAD = (publicidad, instituciones) => {
   return (dispatch) => {
     axios
       .put(farmageo_api + "/publicidades?id=" + publicidad._id, {
@@ -38,6 +39,7 @@ export const UPDATE_PUBLICIDAD = (publicidad) => {
         imagen: publicidad.imagen,
         habilitado: publicidad.habilitado,
         color: publicidad.color,
+        instituciones: instituciones,
       })
       .then(function (response) {
         dispatch(GET_PUBLICIDADES());

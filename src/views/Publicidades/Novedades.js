@@ -44,6 +44,8 @@ import MaterialTable from "material-table";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
+import AsignarInstituciones from "../FarmaciasAdmin/components/AsignarInstituciones";
+
 const theme = createMuiTheme({
   overrides: {
     MuiTableRow: {
@@ -92,6 +94,7 @@ class Novedades extends Component {
       novedadFilter: "",
       filtro: "",
       novedades: [],
+      instituciones: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleConfirmar = this.handleConfirmar.bind(this);
@@ -117,7 +120,8 @@ class Novedades extends Component {
   async handleConfirmar() {
     this.props.ADD_PUBLICIDAD(
       this.props.authReducer.user.username,
-      this.state.novedad
+      this.state.novedad,
+      this.state.instituciones
     );
   }
 
@@ -515,6 +519,13 @@ class Novedades extends Component {
                                     </Col>
                                     <Col className="col-8"></Col>
                                   </Row>
+                                  <Row className="p-3">
+                                    <AsignarInstituciones
+                                      obj={this.state.novedad}
+                                      setObj={this.setState.bind(this)}
+                                      invalid={false}
+                                    />
+                                  </Row>
                                 </FormGroup>
                               </CardBody>
                               <CardFooter>
@@ -527,7 +538,8 @@ class Novedades extends Component {
                                         data-dismiss="modal"
                                         onClick={() => {
                                           this.props.UPDATE_PUBLICIDAD(
-                                            this.state.novedad
+                                            this.state.novedad,
+                                            this.state.instituciones
                                           );
                                         }}
                                       >
