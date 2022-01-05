@@ -75,6 +75,18 @@ export const CHEQUEAR_SI_EXISTE = (farmaciaid) => {
   };
 };
 
+export const SAME_MATRICULA = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "CHEQUEAR_SI_EXISTE",
+      payload: {
+        yaExiste: false,
+        msj: "Matricula Actual",
+      },
+    });
+  };
+};
+
 export const ALTA_USUARIO_SUBMIT = (
   farmacia,
   login,

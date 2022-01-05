@@ -20,6 +20,7 @@ import {
   CHEQUEAR_SI_EXISTE,
   ALTA_USUARIO_SUBMIT,
   FARMACIA_ADMIN_UPDATE,
+  SAME_MATRICULA,
 } from "../../redux/actions/FarmaciasAdminActions";
 import store from "../../redux/store/index";
 import { ALERT } from "../../redux/actions/alertActions";
@@ -113,15 +114,17 @@ class AltaFarmacia extends Component {
             ...this.state,
             perfil: res.data.perfil,
           });
+          const newFarmacia = { ...this.state.farmacia, ...res.data.farmacia };
           this.setState(
             {
               ...this.state,
-              farmacia: res.data.farmacia,
+              farmacia: newFarmacia,
               login: {
                 ...this.state.login,
                 password: res.data.farmacia.password,
               },
               instituciones: res.data.instituciones,
+              matriculaOriginal: newFarmacia.matricula,
             },
             () => {
               this.setState({
@@ -130,6 +133,9 @@ class AltaFarmacia extends Component {
               });
             }
           );
+        })
+        .then(() => {
+          this.handleExistencias();
         })
         .catch(function (error) {
           console.log(error);
@@ -185,6 +191,10 @@ class AltaFarmacia extends Component {
     this.handleErrorChange(name, value);
   }
   handleExistencias() {
+    if (this.state.matriculaOriginal === this.state.farmacia.matricula) {
+      this.props.SAME_MATRICULA();
+      return;
+    }
     this.props.CHEQUEAR_SI_EXISTE(this.state.farmacia.matricula);
   }
   handleSubmit() {
@@ -214,8 +224,6 @@ class AltaFarmacia extends Component {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.state.farmacia);
       const farmacia = this.state.farmacia;
-      const instituciones = this.state.instituciones;
-      const perfil = this.state.perfil;
 
       let errors = keys.filter((key) => {
         if (typeof farmacia[key] === "string") {
@@ -525,7 +533,7 @@ class AltaFarmacia extends Component {
                                 ? this.handleSubmitChanges
                                 : this.handleSubmit
                             }
-                            disabled={this.state.edit ? false : yaExiste}
+                            disabled={yaExiste}
                           >
                             {this.state.edit ? "Guardar" : "Crear Farmacia"}
                           </Button>
@@ -555,6 +563,7 @@ const mapDispatchToProps = {
   ALTA_USUARIO_SUBMIT,
   ALERT,
   FARMACIA_ADMIN_UPDATE,
+  SAME_MATRICULA,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AltaFarmacia);
