@@ -192,7 +192,7 @@ const ALTA_USER_API_FARMAGEO = (
             "",
             "Se agregó una nueva farmacia correctamente",
             "success",
-            "Yay!"
+            "Ok"
           );
           history.push("/farmaciasAdmin");
         } else {

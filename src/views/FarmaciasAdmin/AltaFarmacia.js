@@ -90,6 +90,7 @@ class AltaFarmacia extends Component {
     this.handleUsuario = this.handleUsuario.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleExistencias = this.handleExistencias.bind(this);
+    this.checkUsuario = this.checkUsuario.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitChanges = this.handleSubmitChanges.bind(this);
     this.handleValidation = this.handleValidation.bind(this);
@@ -196,6 +197,16 @@ class AltaFarmacia extends Component {
       return;
     }
     this.props.CHEQUEAR_SI_EXISTE(this.state.farmacia.matricula);
+  }
+  checkUsuario() {
+    axios
+      .get(
+        farmageo_api + "/farmacias/usuario/" + this.state.farmacia.usuario,
+        {}
+      )
+      .then((res) => {
+        this.setState({ ...this.state, usuarioExiste: res.data });
+      });
   }
   handleSubmit() {
     this.handleValidation().then(() => {
@@ -307,13 +318,32 @@ class AltaFarmacia extends Component {
                     </Row>
                     <Row>
                       <Col xs="12" md="6">
-                        <FormGroup>
-                          <Label>Usuario</Label>
+                        <FormGroup style={{ position: "relative" }}>
+                          <Label>
+                            Usuario{" "}
+                            {this.state.usuarioExiste ? (
+                              <p
+                                className="text-danger mt-4"
+                                style={{
+                                  position: " absolute",
+                                  top: "-39%",
+                                  left: "7%",
+                                  width: "100%",
+                                }}
+                              >
+                                El nombre de usuario ya esta en uso
+                              </p>
+                            ) : (
+                              <p className="text-success mt-4 d-none"></p>
+                            )}
+                          </Label>
+
                           <Input
                             type="text"
                             name="usuario"
                             autoComplete="off"
                             onChange={this.handleUsuario}
+                            onBlur={this.checkUsuario}
                             value={this.state.farmacia.usuario}
                             invalid={this.state.error.includes("usuario")}
                             id={"Usuario"}
@@ -533,7 +563,7 @@ class AltaFarmacia extends Component {
                                 ? this.handleSubmitChanges
                                 : this.handleSubmit
                             }
-                            disabled={yaExiste}
+                            disabled={yaExiste || this.state.usuarioExiste}
                           >
                             {this.state.edit ? "Guardar" : "Crear Farmacia"}
                           </Button>
