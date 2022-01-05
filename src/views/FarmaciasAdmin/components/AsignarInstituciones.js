@@ -108,7 +108,9 @@ function AsignarInstituciones(props) {
                     key={ins._id}
                     value={ins._id}
                     className={
-                      objInstituciones.includes(ins._id)
+                      loading
+                        ? "no-seleccionado"
+                        : objInstituciones.includes(ins._id)
                         ? "seleccionado"
                         : "no-seleccionado"
                     }

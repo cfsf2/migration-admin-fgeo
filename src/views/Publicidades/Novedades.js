@@ -38,6 +38,7 @@ import {
   GET_PUBLICIDADES,
   UPDATE_PUBLICIDAD,
   DELETE_PUBLICIDAD,
+  GET_PUBLICIDADES_RELACIONES,
 } from "../../redux/actions/publicidadesActions";
 
 import MaterialTable from "material-table";
@@ -147,6 +148,7 @@ class Novedades extends Component {
                   onClick={() =>
                     this.setState({
                       editar: false,
+                      instituciones: [],
                       novedad: {
                         username: this.props.authReducer.user.username,
                         tipo: "novedadesadmin",
@@ -260,9 +262,25 @@ class Novedades extends Component {
                           <Button
                             data-toggle="modal"
                             data-target=".bd-example-modal-lg"
-                            onClick={() =>
-                              this.setState({ editar: true, novedad: rowData })
-                            }
+                            onClick={() => {
+                              this.setState({ ...this.state, loading: true });
+                              this.setState({ editar: true, novedad: rowData });
+                              this.props
+                                .GET_PUBLICIDADES_RELACIONES(rowData._id)
+                                .then((data) => {
+                                  this.setState(
+                                    {
+                                      ...this.state,
+                                      instituciones: data,
+                                    },
+                                    () =>
+                                      this.setState({
+                                        ...this.state,
+                                        loading: false,
+                                      })
+                                  );
+                                });
+                            }}
                             className="btn btn-sm btn-info"
                           >
                             Editar
@@ -521,9 +539,10 @@ class Novedades extends Component {
                                   </Row>
                                   <Row className="p-3">
                                     <AsignarInstituciones
-                                      obj={this.state.novedad}
+                                      obj={this.state}
                                       setObj={this.setState.bind(this)}
                                       invalid={false}
+                                      loading={this.state.loading}
                                     />
                                   </Row>
                                 </FormGroup>
@@ -593,6 +612,7 @@ const mapDispatchToProps = {
   GET_PUBLICIDADES,
   UPDATE_PUBLICIDAD,
   DELETE_PUBLICIDAD,
+  GET_PUBLICIDADES_RELACIONES,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Novedades);

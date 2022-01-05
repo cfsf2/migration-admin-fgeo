@@ -66,6 +66,19 @@ export const GET_PUBLICIDADES = () => {
   };
 };
 
+export const GET_PUBLICIDADES_RELACIONES = (id) => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(farmageo_api + "/publicidades/relaciones/" + id)
+        .then((res) => {
+          resolve(res.data);
+        })
+        .catch((err) => reject(console.log(err)));
+    });
+  };
+};
+
 export const DELETE_PUBLICIDAD = (data) => {
   return (dispatch) => {
     console.log(data._id);
