@@ -109,14 +109,11 @@ const routes = [
     path: "/FinalizarTransfer",
     name: "Finalizar Transfer",
     component: FinalizarTransfer,
-<<<<<<< HEAD
-=======
   },
   {
     path: "/CarritoTransfer",
     name: "Carrito Transfer",
     component: Checkout,
->>>>>>> transfer
   },
   {
     path: "/ConfirmacionPedido",
