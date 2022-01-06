@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {
   Button,
   Card,
@@ -22,6 +23,7 @@ import {
   CLEAN_PRODUCTOS,
 } from "../../../redux/actions/transfersActions";
 import ButtonHome from "../../Dashboard/components/ButtonHome";
+import Checkout from "./components/Checkout";
 
 class NuevoTransfer extends Component {
   componentDidMount() {

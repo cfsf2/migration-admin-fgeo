@@ -39,6 +39,9 @@ const MisTransfers = React.lazy(() =>
 const FinalizarTransfer = React.lazy(() =>
   import("./views/Transfers/Farmacia/FinalizarTransfer")
 );
+const Checkout = React.lazy(() =>
+  import("./views/Transfers/Farmacia/components/Checkout")
+);
 const ConfirmacionPedido = React.lazy(() =>
   import("./views/Transfers/Farmacia/ConfirmacionPedido")
 );
@@ -106,6 +109,14 @@ const routes = [
     path: "/FinalizarTransfer",
     name: "Finalizar Transfer",
     component: FinalizarTransfer,
+<<<<<<< HEAD
+=======
+  },
+  {
+    path: "/CarritoTransfer",
+    name: "Carrito Transfer",
+    component: Checkout,
+>>>>>>> transfer
   },
   {
     path: "/ConfirmacionPedido",
@@ -159,8 +170,11 @@ const routes = [
     component: DebitosPami,
   },
 
+<<<<<<< HEAD
   { path: "/tableropami", name: "Tablero Pami", component: Tableropami },
 
+=======
+>>>>>>> transfer
   /*
   { path: '/pedidosadmin', exact: true, name: 'Pedidos Admin', component: PedidosAdmin },
   { path: '/publicidadesadmin/novedades', exact: true, name: 'Novedades Farmacias', component: Novedades },

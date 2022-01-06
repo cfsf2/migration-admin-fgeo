@@ -80,10 +80,10 @@ class Dashboard extends Component {
 
     if (userprofile !== null) {
       if (!user.IS_ADMIN && userprofile.productos !== undefined) {
-        var pedidosnuevos = await mis_pedidos.filter((p) => {
+        var pedidosnuevos = await mis_pedidos?.filter((p) => {
           return p.estado == "nuevo";
         }).length;
-        var pedidosenproceso = await mis_pedidos.filter((p) => {
+        var pedidosenproceso = await mis_pedidos?.filter((p) => {
           return p.estado == "enproceso";
         }).length;
         this.setState({ pedidosnuevos, pedidosenproceso });

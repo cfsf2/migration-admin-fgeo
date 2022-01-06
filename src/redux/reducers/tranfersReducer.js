@@ -3,6 +3,7 @@ const defaultState = {
   laboratorios: [],
   droguerias: [],
   productos: [],
+  pedido: [],
   lab_selected: null,
   submitting: false,
 };
@@ -38,6 +39,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         submitting: action.payload,
+      };
+    case "SET_PEDIDO":
+      return {
+        ...state,
+        pedido: action.payload,
       };
 
     default:

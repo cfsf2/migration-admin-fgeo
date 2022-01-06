@@ -23,6 +23,8 @@ import {
   SUBMITTING,
 } from "../../../redux/actions/transfersActions";
 
+import TransferCart from "./TransferCart";
+
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -228,23 +230,15 @@ class FinalizarTransfer extends Component {
       nombre,
       direccioncompleta,
     } = this.props.authReducer.userprofile;
-    const { lab_selected } = this.props.tranfersReducer;
+    const { lab_selected, pedido } = this.props.tranfersReducer;
 
     this.setState({
       submitting: true,
     });
 
-    let productosFiltrados = [];
-
-    this.state.productos.forEach((producto) => {
-      if (producto.cantidad > 0) {
-        productosFiltrados.push(producto);
-      }
-    });
-
     let transfer = {
-      ...this.state.transfer,
-      productos_solicitados: productosFiltrados,
+      fecha: new Date(Date.now()).toISOString().substring(0, 10),
+      productos_solicitados: pedido,
       farmacia_id: farmaciaid,
       farmacia_nombre: nombre,
       estado: "nuevo",
@@ -289,7 +283,7 @@ class FinalizarTransfer extends Component {
 
     return (
       <div className="animated fadeIn">
-        <ModalStep />
+        {/* <ModalStep /> */}
 
         <Row>
           <Col md="3" xs="12">
@@ -378,7 +372,7 @@ class FinalizarTransfer extends Component {
         <Card>
           <CardBody>
             <Row style={{ color: "#20a8d8", fontSize: 18 }}>
-              <Col md="3" xs="12">
+              {/* <Col md="3" xs="12">
                 <FormGroup>
                   <Label>Fecha del transfer</Label>
                   <Input
@@ -393,9 +387,9 @@ class FinalizarTransfer extends Component {
                     onChange={this.handleInputChange}
                   />
                 </FormGroup>
-              </Col>
+              </Col> */}
 
-              <Col md="3" xs="12">
+              <Col md="4" xs="12">
                 <FormGroup>
                   <Label>Elegir Droguería</Label>
 
@@ -437,7 +431,7 @@ class FinalizarTransfer extends Component {
                 </FormGroup>
               </Col>
 
-              <Col md="3" xs="12">
+              <Col md="4" xs="12">
                 <FormGroup>
                   <Label>Laboratorio elegido</Label>
                   <Input
@@ -450,193 +444,15 @@ class FinalizarTransfer extends Component {
                 </FormGroup>
               </Col>
             </Row>
-
             <hr />
-
-            {this.state.vistaprevia ? (
-              <Row style={{ margin: 5 }}>
-                <Col>
-                  <Row>
-                    <Col>
-                      <p>
-                        <b>Farmacia: </b> {nombre} / <b>Cuit</b>: {cuit}
-                      </p>
-                      <p>
-                        <b>Teléfono</b>: {telefono} / <b>Cufe</b>: {cufe}
-                      </p>
-                      <p>
-                        <b>Email destino: </b> {email}
-                      </p>
-                      <p>
-                        <b>Domicilio: </b> {direccioncompleta}
-                      </p>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <div className="table-responsive table-striped table-fix">
-                        <table className="table">
-                          <thead className="bg-secondary">
-                            <tr>
-                              <th>Código</th>
-                              <th>Producto</th>
-                              <th>Presentación</th>
-                              <th>Unidades a pedir</th>
-                              <th>Observaciones</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {this.state.productos.map((p, index) => {
-                              return (
-                                <tr>
-                                  <td>{p.codigo}</td>
-                                  <td>{p.nombre}</td>
-                                  <td>{p.presentacion}</td>
-                                  <td>{p.cantidad}</td>
-                                  <td>{p.observacion}</td>
-                                </tr>
-                              );
-                            })}
-
-                            {console.log(this.state.productos)}
-                          </tbody>
-                        </table>
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            ) : (
-              <Row style={{ margin: 5 }}>
-                <div style={{ width: "100%" }}>
-                  <MaterialTable
-                    icons={tableIcons}
-                    localization={{
-                      body: {
-                        emptyDataSourceMessage: "No se encontraron datos",
-                        addTooltip: "Agregar",
-                        editRow: {
-                          saveTooltip: "Guardar",
-                          cancelTooltip: "Cancelar",
-                        },
-                      },
-                      pagination: {
-                        labelDisplayedRows: "{from}-{to} de {count}",
-                        labelRowsSelect: "Filas",
-                        labelRowsPerPage: "Productos x pág",
-                        firstAriaLabel: "Primera",
-                        lastAriaLabel: "Ultima",
-                        firstTooltip: "Primera página",
-                        lastTooltip: "Ultima página",
-                        previousAriaLabel: "Página anterior",
-                        previousTooltip: "Página anterior",
-                        nextAriaLabel: "Próxima pagina",
-                        nextTooltip: "Próxima pagina",
-                      },
-                      toolbar: {
-                        searchTooltip: "Buscar",
-                        searchPlaceholder: "Buscar",
-                      },
-                    }}
-                    cellEditable={{
-                      onCellEditApproved: (
-                        newValue,
-                        oldValue,
-                        rowData,
-                        columnDef
-                      ) => {
-                        return new Promise((resolve, reject) => {
-                          const newproducto = [...productos];
-
-                          switch (columnDef.field) {
-                            case "cantidad":
-                              if (
-                                newproducto[rowData.tableData.id]
-                                  .cantidad_minima <= newValue
-                              ) {
-                                newproducto[rowData.tableData.id].cantidad =
-                                  newValue;
-                              } else {
-                                newproducto[rowData.tableData.id].cantidad =
-                                  newValue;
-                                alert(
-                                  "La cantidad minima para este producto es de " +
-                                    newproducto[rowData.tableData.id]
-                                      .cantidad_minima
-                                );
-                              }
-                              break;
-
-                            case "observacion":
-                              newproducto[rowData.tableData.id].observacion =
-                                newValue;
-                              break;
-                          }
-
-                          this.setState({
-                            productos: newproducto,
-                          });
-
-                          setTimeout(resolve, 1000);
-                        });
-                      },
-                    }}
-                    style={{ width: "100%" }}
-                    columns={[
-                      { title: "Código", field: "codigo", editable: "never" },
-                      { title: "Producto", field: "nombre", editable: "never" },
-                      {
-                        title: "Presentación",
-                        field: "presentacion",
-                        editable: "never",
-                      },
-                      {
-                        title: "%",
-                        field: "descuento_porcentaje",
-                        type: "numeric",
-                        editable: "never",
-                      },
-                      {
-                        title: "Mínimo",
-                        field: "cantidad_minima",
-                        type: "numeric",
-                        editable: "never",
-                      },
-                      {
-                        title: "Unidades a pedir",
-                        field: "cantidad",
-                        type: "numeric",
-                        align: "left",
-                        editable: "allways",
-                      },
-                      {
-                        title: "Observaciones",
-                        field: "observacion",
-                        editable: "allways",
-                      },
-                    ]}
-                    title="Productos"
-                    data={productos?.map((producto) => {
-                      if (!producto.cantidad) {
-                        producto.cantidad = 0;
-                      }
-                      if (!producto.observacion) {
-                        producto.observacion = "...";
-                      }
-                      return producto;
-                    })}
-                    options={{
-                      pageSize: 50,
-                      pageSizeOptions: [5, 10, 20, 30, 50],
-                    }}
-                  />
-                </div>
-              </Row>
-            )}
+            <TransferCart
+              transfer={this.state.transfer}
+              history={this.props.history}
+            />
           </CardBody>
-          <CardFooter>
+          <div>
+            {/* <CardFooter>
             <Row>
-              <Col></Col>
               <Col>
                 {this.state.finalizar ? (
                   <Fragment key={new Date()}>
@@ -646,9 +462,9 @@ class FinalizarTransfer extends Component {
                         this.handleVistaPrevia(false);
                         //this.handleLimpiarProductos();
                       }}
-                      className="btn btn-danger"
+                      className="btn btn-info"
                     >
-                      Cancelar
+                      Volver
                     </Button>
 
                     <Button
@@ -678,7 +494,8 @@ class FinalizarTransfer extends Component {
               </Col>
               <Col></Col>
             </Row>
-          </CardFooter>
+          </CardFooter> */}
+          </div>
         </Card>
       </div>
     );
