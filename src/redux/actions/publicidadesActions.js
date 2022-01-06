@@ -66,15 +66,19 @@ export const GET_PUBLICIDADES = () => {
   };
 };
 
-export const GET_PUBLICIDADES_RELACIONES = (id) => {
+export const GET_NOVEDADES_RELACIONES = (id) => {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(farmageo_api + "/publicidades/relaciones/" + id)
+        .get(farmageo_api + "/instituciones/novedades/" + id)
         .then((res) => {
           resolve(res.data);
         })
-        .catch((err) => reject(console.log(err)));
+        .catch((err) => {
+          console.log("this is err");
+          console.log(err);
+          reject();
+        });
     });
   };
 };

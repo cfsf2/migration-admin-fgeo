@@ -38,7 +38,7 @@ import {
   GET_PUBLICIDADES,
   UPDATE_PUBLICIDAD,
   DELETE_PUBLICIDAD,
-  GET_PUBLICIDADES_RELACIONES,
+  GET_NOVEDADES_RELACIONES,
 } from "../../redux/actions/publicidadesActions";
 
 import MaterialTable from "material-table";
@@ -266,7 +266,7 @@ class Novedades extends Component {
                               this.setState({ ...this.state, loading: true });
                               this.setState({ editar: true, novedad: rowData });
                               this.props
-                                .GET_PUBLICIDADES_RELACIONES(rowData._id)
+                                .GET_NOVEDADES_RELACIONES(rowData._id)
                                 .then((data) => {
                                   this.setState(
                                     {
@@ -612,7 +612,7 @@ const mapDispatchToProps = {
   GET_PUBLICIDADES,
   UPDATE_PUBLICIDAD,
   DELETE_PUBLICIDAD,
-  GET_PUBLICIDADES_RELACIONES,
+  GET_NOVEDADES_RELACIONES,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Novedades);
