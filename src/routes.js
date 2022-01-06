@@ -167,11 +167,8 @@ const routes = [
     component: DebitosPami,
   },
 
-<<<<<<< HEAD
   { path: "/tableropami", name: "Tablero Pami", component: Tableropami },
 
-=======
->>>>>>> transfer
   /*
   { path: '/pedidosadmin', exact: true, name: 'Pedidos Admin', component: PedidosAdmin },
   { path: '/publicidadesadmin/novedades', exact: true, name: 'Novedades Farmacias', component: Novedades },
