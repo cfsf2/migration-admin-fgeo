@@ -156,12 +156,13 @@ class FinalizarTransfer extends Component {
   handleTable(transfer) {
     let stringTable = "";
     transfer.productos_solicitados.map((p) => {
+      console.log(p);
       stringTable = `${stringTable}<tr>
                             <td>${p.codigo}</td>
                             <td>${p.nombre}</td>
                             <td>${p.presentacion}</td>
                             <td>${p.cantidad}</td>
-                            <td>${p.observacion}</td>
+                            <td>${p.observaciones}</td>
                         </tr>`;
     });
     return stringTable;
