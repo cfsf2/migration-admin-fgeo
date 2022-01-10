@@ -21,6 +21,7 @@ import {
 } from "../../../redux/actions/transfersActions";
 import LineaImportTransfer from "./LineaImportTransfer";
 import ejemplo_transfer_csv from "./ejemplo_importar_transfers.csv";
+import AsignarInstituciones from "../../FarmaciasAdmin/components/AsignarInstituciones";
 
 class ImportProductosTransfers extends Component {
   constructor(props) {
@@ -85,7 +86,7 @@ class ImportProductosTransfers extends Component {
         <Row>
           <Col xs="12" sm="12">
             <Row>
-              <Col>
+              <Col sm="9">
                 <Card>
                   <CardHeader>
                     <Row>
@@ -145,7 +146,7 @@ class ImportProductosTransfers extends Component {
                         </Button>
                       </Col>
                     </Row>
-
+                    <Row></Row>
                     <Row>
                       <Col>
                         <div className="table-responsive table-striped table-fix">
@@ -205,6 +206,9 @@ class ImportProductosTransfers extends Component {
                     </Row>
                   </CardBody>
                 </Card>
+              </Col>
+              <Col sm="3">
+                <AsignarInstituciones key="f3qw4erf" compacto />
               </Col>
             </Row>
           </Col>

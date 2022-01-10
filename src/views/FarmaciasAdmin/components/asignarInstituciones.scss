@@ -79,3 +79,30 @@
     }
   }
 }
+
+.altafarmacia_asignarinstituciones.compacto {
+  // height: 400px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .altafarmacia_asignarinstituciones {
+    &_instituciones {
+      &_lista {
+        // height: 200px;
+        // max-height: 200px;
+        height: 100%;
+        max-height: 100%;
+        overflow: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      &_buscar {
+        width: 100%;
+      }
+    }
+    &_asignadas_lol {
+      display: none;
+    }
+  }
+}

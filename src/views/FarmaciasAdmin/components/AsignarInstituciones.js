@@ -24,7 +24,15 @@ const MenuProps = {
 };
 
 function AsignarInstituciones(props) {
-  const { obj = { _id: "" }, setObj, loading, invalid, error } = props;
+  const {
+    obj = { _id: "" },
+    setObj,
+    loading,
+    invalid,
+    error,
+    compacto = false,
+    key,
+  } = props;
   const [allinstituciones, setAllInstituciones] = React.useState([]);
   const [instituciones, setInstituciones] = React.useState([]);
   const [objInstituciones, setObjInstituciones] = React.useState(
@@ -86,10 +94,15 @@ function AsignarInstituciones(props) {
     <Card
       className={` w-100 ${
         objInstituciones.length === 0 && (invalid || error) ? "error" : null
-      }`}
+      } ${compacto ? "h-100" : null}`}
+      key={key}
     >
       <CardHeader>Asignar Instituciones</CardHeader>
-      <div className="altafarmacia_asignarinstituciones">
+      <div
+        className={`altafarmacia_asignarinstituciones ${
+          compacto ? "compacto" : null
+        }`}
+      >
         <TextField
           label="Buscar..."
           type="text"
@@ -99,7 +112,13 @@ function AsignarInstituciones(props) {
         <div className="altafarmacia_asignarinstituciones_instituciones">
           <InputLabel>Instituciones</InputLabel>
 
-          <div className="altafarmacia_asignarinstituciones_instituciones_lista">
+          <div
+            className={
+              compacto
+                ? `altafarmacia_asignarinstituciones_instituciones_lista `
+                : `altafarmacia_asignarinstituciones_instituciones_lista`
+            }
+          >
             {instituciones &&
               instituciones.map((ins) => {
                 return (
@@ -122,7 +141,8 @@ function AsignarInstituciones(props) {
               })}
           </div>
         </div>
-        <div>
+
+        <div className="altafarmacia_asignarinstituciones_asignadas_lol">
           <InputLabel>Instituciones Asignadas</InputLabel>
           <div className="altafarmacia_asignarinstituciones_asignadas">
             {loading ? (
