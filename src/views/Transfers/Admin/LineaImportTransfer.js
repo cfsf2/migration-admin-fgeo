@@ -42,6 +42,7 @@ class LineaImportTransfer extends Component {
       cantidad_minima,
       descuento_porcentaje,
       precio,
+      instituciones,
     } = this.props;
 
     try {
@@ -53,6 +54,7 @@ class LineaImportTransfer extends Component {
         cantidad_minima: parseInt(cantidad_minima),
         descuento_porcentaje: parseInt(descuento_porcentaje),
         precio: parseFloat(precio),
+        instituciones: instituciones,
       });
       console.log(result.data);
       this.setState({
