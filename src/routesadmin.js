@@ -192,7 +192,7 @@ const routes = [
     permiso: "comunicados",
   },
   {
-    path: "/publicidadesAdmin/agregarnovedades",
+    path: "/publicidadesAdmin/abmnovedades",
     exact: true,
     name: "Agregar Novedades",
     component: ABMNovedades,

@@ -12,6 +12,7 @@ import {
   CardFooter,
   Spinner,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 
 import { forwardRef } from "react";
 import RestoreIcon from "@material-ui/icons/Restore";
@@ -166,30 +167,6 @@ class Novedades extends Component {
         <Row>
           <Col xs="12" sm="12">
             <Card>
-              <CardHeader>
-                <Button
-                  data-toggle="modal"
-                  data-target=".bd-example-modal-lg"
-                  onClick={() =>
-                    this.setState({
-                      editar: false,
-                      instituciones: [],
-                      novedad: {
-                        username: this.props.authReducer.user.username,
-                        tipo: "novedadesadmin",
-                        titulo: "sin título",
-                        descripcion: "",
-                        link: "",
-                        imagen: "",
-                        habilitado: true,
-                        color: "verde",
-                      },
-                    })
-                  }
-                >
-                  + Agregar Novedad
-                </Button>
-              </CardHeader>
               <CardBody>
                 <ThemeProvider theme={theme}>
                   {this.state.loading ? (
@@ -335,35 +312,17 @@ class Novedades extends Component {
                           field: "editNovedad",
                           width: "5%",
                           render: (rowData) => (
-                            <Button
-                              data-toggle="modal"
-                              data-target=".bd-example-modal-lg"
-                              onClick={() => {
-                                this.setState({ ...this.state, loading: true });
-                                this.setState({
-                                  editar: true,
-                                  novedad: rowData,
-                                });
-                                this.props
-                                  .GET_NOVEDADES_RELACIONES(rowData._id)
-                                  .then((data) => {
-                                    this.setState(
-                                      {
-                                        ...this.state,
-                                        instituciones: data,
-                                      },
-                                      () =>
-                                        this.setState({
-                                          ...this.state,
-                                          loading: false,
-                                        })
-                                    );
-                                  });
+                            <Link
+                              to={{
+                                pathname: "abmnovedades",
+                                search: `edit=${rowData._id}`,
+                                state: { novedad: rowData },
                               }}
-                              className="btn btn-sm btn-info"
                             >
-                              Editar
-                            </Button>
+                              <Button className="btn btn-sm btn-info">
+                                Edit
+                              </Button>
+                            </Link>
                           ),
                         },
                       ]}
@@ -390,177 +349,6 @@ class Novedades extends Component {
                     />
                   )}
                 </ThemeProvider>
-
-                <div
-                  className="modal fade bd-example-modal-lg"
-                  tabIndex="-1"
-                  role="dialog"
-                  aria-labelledby="myLargeModalLabel"
-                  aria-hidden="true"
-                >
-                  <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                      {this.state.novedad !== null ? (
-                        <Row>
-                          <Col xs="12" sm="12">
-                            <Card>
-                              <CardHeader>
-                                <Row>
-                                  <Col>Agregar Novedad</Col>
-                                </Row>
-                              </CardHeader>
-                              <CardBody>
-                                <Row>
-                                  <Col>
-                                    <FormGroup>
-                                      <Label htmlFor="titulo">Título</Label>
-                                      <Input
-                                        type="text"
-                                        id="titulo"
-                                        name="titulo"
-                                        onChange={this.handleInputChange}
-                                        value={this.state.novedad.titulo}
-                                      />
-                                    </FormGroup>
-                                  </Col>
-                                  <Col className="col-3">
-                                    <FormGroup>
-                                      <Label htmlFor="habilitado">
-                                        Mostrar en Novedades
-                                      </Label>
-                                      <Input
-                                        type="select"
-                                        id="habilitado"
-                                        name="habilitado"
-                                        onChange={this.handleInputChange}
-                                        value={this.state.novedad.habilitado}
-                                      >
-                                        <option value={true}>SI</option>
-                                        <option value={false}>NO</option>
-                                      </Input>
-                                    </FormGroup>
-                                  </Col>
-                                </Row>
-
-                                <hr />
-                                <FormGroup>
-                                  <Row>
-                                    <Col>
-                                      <Label htmlFor="descripcion">
-                                        Descripción
-                                      </Label>
-                                      <textarea
-                                        id="descripcion"
-                                        name="descripcion"
-                                        onChange={this.handleInputChange}
-                                        style={{ height: 200, width: "100%" }}
-                                        value={this.state.novedad.descripcion}
-                                      />
-                                    </Col>
-                                  </Row>
-                                </FormGroup>
-                                <hr />
-                                <FormGroup>
-                                  <Row>
-                                    <Col className="col-3">
-                                      <Label htmlFor="color" className="ml-3">
-                                        Color
-                                      </Label>
-                                      <select
-                                        id="color"
-                                        name="color"
-                                        style={{ marginLeft: 20 }}
-                                        onChange={this.handleInputChange}
-                                        value={this.state.novedad.color}
-                                      >
-                                        <option value="verde">Verde</option>
-                                        <option value="rojo">Rojo</option>
-                                        <option value="amarillo">
-                                          Amarillo
-                                        </option>
-                                      </select>
-                                    </Col>
-                                    <Col className="col-1" align="center">
-                                      <div
-                                        style={{
-                                          backgroundColor:
-                                            this.state.novedad.color === "verde"
-                                              ? "#00D579"
-                                              : this.state.novedad.color ===
-                                                "rojo"
-                                              ? "red"
-                                              : "yellow",
-                                          color: "white",
-                                          borderRadius: "50%",
-                                          width: 20,
-                                          height: 20,
-                                          borderWidth: 10,
-                                          borderColor: "black",
-                                        }}
-                                      ></div>
-                                    </Col>
-                                    <Col className="col-8"></Col>
-                                  </Row>
-                                  <Row className="p-3">
-                                    <AsignarInstituciones
-                                      obj={this.state}
-                                      setObj={this.setState.bind(this)}
-                                      invalid={false}
-                                      loading={this.state.loading}
-                                    />
-                                  </Row>
-                                </FormGroup>
-                              </CardBody>
-                              <CardFooter>
-                                <Row>
-                                  <Col></Col>
-                                  <Col>
-                                    {this.state.editar ? (
-                                      <Button
-                                        className="btn btn-success"
-                                        data-dismiss="modal"
-                                        onClick={() => {
-                                          this.props.UPDATE_PUBLICIDAD(
-                                            this.state.novedad,
-                                            this.state.instituciones
-                                          );
-                                        }}
-                                      >
-                                        Guardar Cambios
-                                      </Button>
-                                    ) : (
-                                      <Button
-                                        className="btn btn-success"
-                                        onClick={this.handleConfirmar}
-                                        data-dismiss="modal"
-                                      >
-                                        Confirmar
-                                      </Button>
-                                    )}
-                                  </Col>
-                                  <Col>
-                                    <Button
-                                      className="btn btn-danger"
-                                      data-dismiss="modal"
-                                    >
-                                      Cancelar
-                                    </Button>
-                                  </Col>
-                                  <Col></Col>
-                                </Row>
-                              </CardFooter>
-                            </Card>
-                          </Col>
-                        </Row>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-                {/* <ABMNovedades
-                  {...this.props}
-                  state={this.state}
-                  setState={this.setState.bind(this)}
-                /> */}
               </CardBody>
             </Card>
           </Col>

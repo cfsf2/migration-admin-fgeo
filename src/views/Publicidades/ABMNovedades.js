@@ -107,6 +107,11 @@ export function ABMNovedades(props) {
     });
   };
 
+  React.useEffect(() => {
+    const search = props.location.search;
+    const id = new URLSearchParams(search).get("edit");
+  }, []);
+
   return (
     <Row>
       <Col xs="12" sm="12">
@@ -118,7 +123,7 @@ export function ABMNovedades(props) {
           </CardHeader>
           <CardBody>
             <Row>
-              <Col>
+              <Col className="col-6">
                 <FormGroup>
                   <Label htmlFor="titulo">Título</Label>
                   <Input
@@ -146,6 +151,50 @@ export function ABMNovedades(props) {
                     <option value={false}>NO</option>
                   </Input>
                 </FormGroup>
+              </Col>
+              <Col className="col-3">
+                <Label htmlFor="color" className="ml-3">
+                  Color
+                </Label>
+                <select
+                  id="color"
+                  name="color"
+                  style={{ marginLeft: 20 }}
+                  onChange={handleInputChange}
+                  value={novedad.color}
+                  defaultValue="verde"
+                  default="verde"
+                >
+                  <option selected="selected" value="verde">
+                    Verde
+                  </option>
+                  <option value="rojo">Rojo</option>
+                  <option value="amarillo">Amarillo</option>
+                </select>
+                <div
+                  style={{
+                    width: "50%",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      backgroundColor:
+                        novedad.color === "verde"
+                          ? "#00D579"
+                          : novedad.color === "rojo"
+                          ? "red"
+                          : "yellow",
+                      color: "white",
+                      borderRadius: "50%",
+                      width: 20,
+                      height: 20,
+                      borderWidth: 10,
+                      borderColor: "black",
+                    }}
+                  ></div>
+                </div>
               </Col>
             </Row>
 
@@ -181,45 +230,6 @@ export function ABMNovedades(props) {
             <FormGroup>
               <Row>
                 <Col className="col-3">
-                  <Label htmlFor="color" className="ml-3">
-                    Color
-                  </Label>
-                  <select
-                    id="color"
-                    name="color"
-                    style={{ marginLeft: 20 }}
-                    onChange={handleInputChange}
-                    value={novedad.color}
-                    defaultValue="verde"
-                    default="verde"
-                  >
-                    <option selected="selected" value="verde">
-                      Verde
-                    </option>
-                    <option value="rojo">Rojo</option>
-                    <option value="amarillo">Amarillo</option>
-                  </select>
-                </Col>
-                <Col className="col-1" align="center">
-                  <div
-                    style={{
-                      backgroundColor:
-                        novedad.color === "verde"
-                          ? "#00D579"
-                          : novedad.color === "rojo"
-                          ? "red"
-                          : "yellow",
-                      color: "white",
-                      borderRadius: "50%",
-                      width: 20,
-                      height: 20,
-                      borderWidth: 10,
-                      borderColor: "black",
-                    }}
-                  ></div>
-                </Col>
-
-                <Col>
                   <Label>Fecha de Inicio de Vigencia </Label>
                   <Input
                     name="fechainicio"
@@ -229,7 +239,7 @@ export function ABMNovedades(props) {
                     invalid={errors.includes("fechainicio")}
                   />
                 </Col>
-                <Col>
+                <Col className="col-3">
                   <Label>Fecha de Fin de Vigencia </Label>
                   <Input
                     name="fechafin"
@@ -242,10 +252,10 @@ export function ABMNovedades(props) {
               </Row>
               <Row className="p-3">
                 <AsignarInstituciones
-                  obj={novedad}
+                  obj={{ novedad }}
                   setObj={setNovedad}
                   invalid={errors.includes("Instituciones")}
-                  //loading={props.state.loading}
+                  loading={props.institucionesReducer.loading}
                 />
               </Row>
             </FormGroup>
