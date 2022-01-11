@@ -1,0 +1,26 @@
+#admin_novedades_listado_textarea {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  z-index: 200;
+  color: #000000;
+  &:hover {
+    background-color: rgb(255, 255, 255);
+  }
+}
+
+.novedades {
+  &_instituciones {
+    &_lista {
+      list-style: none;
+      height: 6vh;
+      overflow: auto;
+      width: 100%;
+      li {
+        width: 100%;
+        min-width: 10vw;
+      }
+    }
+  }
+}

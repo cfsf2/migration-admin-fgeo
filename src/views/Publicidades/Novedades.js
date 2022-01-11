@@ -10,6 +10,7 @@ import {
   Input,
   Label,
   CardFooter,
+  Spinner,
 } from "reactstrap";
 
 import { forwardRef } from "react";
@@ -41,11 +42,17 @@ import {
   GET_NOVEDADES_RELACIONES,
 } from "../../redux/actions/publicidadesActions";
 
+import {
+  GET_INSTITUCIONES,
+  SEARCH_INSTITUCIONES,
+} from "../../redux/actions/institucionesAction";
+
 import MaterialTable from "material-table";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
 import AsignarInstituciones from "../FarmaciasAdmin/components/AsignarInstituciones";
+import "./novedades.scss";
 
 const theme = createMuiTheme({
   overrides: {
@@ -102,7 +109,24 @@ class Novedades extends Component {
   }
 
   async componentDidMount() {
-    this.props.GET_PUBLICIDADES();
+    this.setState({ ...this.state, loading: true });
+    this.props.GET_PUBLICIDADES().then((publicidades) => {
+      this.props.GET_INSTITUCIONES(1000).then((instituciones) => {
+        publicidades.forEach((novedad) =>
+          this.props.GET_NOVEDADES_RELACIONES(novedad._id).then((response) => {
+            const relaciones = response;
+            let novedadesInstituciones = [];
+            if (response.length > 0) {
+              novedadesInstituciones = instituciones.filter((ins) =>
+                relaciones.includes(ins._id)
+              );
+            }
+            this.setState({ ...this.state, loading: false });
+            novedad.instituciones = novedadesInstituciones; //esta modificacion del estado es dudosa pero anda
+          })
+        );
+      });
+    });
   }
 
   async handleInputChange(event) {
@@ -167,266 +191,205 @@ class Novedades extends Component {
               </CardHeader>
               <CardBody>
                 <ThemeProvider theme={theme}>
-                  <MaterialTable
-                    title="Listado de Novedades"
-                    hideSortIcon={false}
-                    icons={tableIcons}
-                    localization={{
-                      header: {
-                        actions: "Acciones",
-                      },
-                      body: {
-                        emptyDataSourceMessage: "No se encontraron datos",
-                      },
-                      pagination: {
-                        labelDisplayedRows: "{from}-{to} de {count}",
-                        labelRowsSelect: "Filas",
-                        labelRowsPerPage: "Productos x pág",
-                        firstAriaLabel: "Primera",
-                        lastAriaLabel: "Ultima",
-                        firstTooltip: "Primera página",
-                        lastTooltip: "Ultima página",
-                        previousAriaLabel: "Página anterior",
-                        previousTooltip: "Página anterior",
-                        nextAriaLabel: "Próxima pagina",
-                        nextTooltip: "Próxima pagina",
-                      },
-                      toolbar: {
-                        searchTooltip: "Buscar",
-                        searchPlaceholder: "Buscar",
-                      },
-                    }}
-                    columns={[
-                      {
-                        title: "Color",
-                        field: "color",
-                        width: "5%",
-                        render: (rowData) => (
-                          <div
-                            style={{
-                              backgroundColor:
-                                rowData.color === "verde"
-                                  ? "#00D579"
-                                  : rowData.color === "rojo"
-                                  ? "red"
-                                  : "yellow",
-                              color: "white",
-                              borderRadius: "50%",
-                              width: 20,
-                              height: 20,
-                              borderWidth: 10,
-                              borderColor: "black",
-                              opacity: rowData.habilitado ? 1 : 0.4,
-                            }}
-                          ></div>
-                        ),
-                      },
-                      {
-                        title: "Titulo",
-                        field: "titulo",
-                        width: "5%",
-                        render: (rowData) => (
-                          <p
-                            style={{
-                              textJustify: "initial",
-                              fontSize: 12,
-                              fontWeight: "bold",
-                              opacity: rowData.habilitado ? 1 : 0.4,
-                            }}
-                            className="d-inline"
-                          >
-                            {" "}
-                            {rowData.titulo}{" "}
-                          </p>
-                        ),
-                      },
-                      {
-                        title: "Fecha Alta",
-                        field: "fechaalta",
-                        width: "5%",
-                        render: (rowData) =>
-                          new Date(rowData.fechaalta).toLocaleDateString(
-                            "es-AR"
+                  {this.state.loading ? (
+                    <Spinner />
+                  ) : (
+                    <MaterialTable
+                      title="Listado de Novedades"
+                      hideSortIcon={false}
+                      icons={tableIcons}
+                      localization={{
+                        header: {
+                          actions: "Acciones",
+                        },
+                        body: {
+                          emptyDataSourceMessage: "No se encontraron datos",
+                        },
+                        pagination: {
+                          labelDisplayedRows: "{from}-{to} de {count}",
+                          labelRowsSelect: "Filas",
+                          labelRowsPerPage: "Productos x pág",
+                          firstAriaLabel: "Primera",
+                          lastAriaLabel: "Ultima",
+                          firstTooltip: "Primera página",
+                          lastTooltip: "Ultima página",
+                          previousAriaLabel: "Página anterior",
+                          previousTooltip: "Página anterior",
+                          nextAriaLabel: "Próxima pagina",
+                          nextTooltip: "Próxima pagina",
+                        },
+                        toolbar: {
+                          searchTooltip: "Buscar",
+                          searchPlaceholder: "Buscar",
+                        },
+                      }}
+                      columns={[
+                        {
+                          title: "Color",
+                          field: "color",
+                          width: "5%",
+                          render: (rowData) => (
+                            <div
+                              style={{
+                                backgroundColor:
+                                  rowData.color === "verde"
+                                    ? "#00D579"
+                                    : rowData.color === "rojo"
+                                    ? "red"
+                                    : "yellow",
+                                color: "white",
+                                borderRadius: "50%",
+                                width: 20,
+                                height: 20,
+                                borderWidth: 10,
+                                borderColor: "black",
+                                opacity: rowData.habilitado ? 1 : 0.4,
+                              }}
+                            ></div>
                           ),
-                      },
-                      {
-                        title: "Descripción",
-                        field: "descripcion",
-                        width: "75%",
-                      },
-                      {
-                        title: "Editar",
-                        field: "editNovedad",
-                        width: "5%",
-                        render: (rowData) => (
-                          <Button
-                            data-toggle="modal"
-                            data-target=".bd-example-modal-lg"
-                            onClick={() => {
-                              this.setState({ ...this.state, loading: true });
-                              this.setState({ editar: true, novedad: rowData });
-                              this.props
-                                .GET_NOVEDADES_RELACIONES(rowData._id)
-                                .then((data) => {
-                                  this.setState(
-                                    {
-                                      ...this.state,
-                                      instituciones: data,
-                                    },
-                                    () =>
-                                      this.setState({
-                                        ...this.state,
-                                        loading: false,
-                                      })
-                                  );
+                        },
+                        {
+                          title: "Titulo",
+                          field: "titulo",
+                          width: "2%",
+                          render: (rowData) => (
+                            <p
+                              style={{
+                                textJustify: "initial",
+                                fontSize: 12,
+                                fontWeight: "bold",
+                                opacity: rowData.habilitado ? 1 : 0.4,
+                              }}
+                              className="d-inline"
+                            >
+                              {" "}
+                              {rowData.titulo}{" "}
+                            </p>
+                          ),
+                        },
+                        {
+                          title: "Fecha Alta",
+                          field: "fechaalta",
+                          width: "5%",
+                          render: (rowData) =>
+                            new Date(rowData.fechaalta).toLocaleDateString(
+                              "es-AR"
+                            ),
+                        },
+                        {
+                          title: "Inicio",
+                          field: "fechaalta",
+                          width: "5%",
+                          render: (rowData) =>
+                            rowData.fechainicio
+                              ? new Date(
+                                  rowData.fechainicio
+                                ).toLocaleDateString("es-AR")
+                              : "-",
+                        },
+                        {
+                          title: "Fin",
+                          field: "fechaalta",
+                          width: "5%",
+                          render: (rowData) =>
+                            rowData.fechafin
+                              ? new Date(rowData.fechafin).toLocaleDateString(
+                                  "es-AR"
+                                )
+                              : "-",
+                        },
+                        {
+                          title: "Instituciones",
+                          field: "instituciones",
+                          width: "25%",
+                          render: (rowData) => {
+                            return (
+                              <>
+                                {/* <select
+                                  value={"instituciones"}
+                                  className={"novedades_instituciones_lista"}
+                                >
+                                  {rowData.instituciones?.map((ins) => {
+                                    return (
+                                      <option key={ins._id}>
+                                        {ins.nombre}
+                                      </option>
+                                    );
+                                  })}
+                                  <option value="instituciones">
+                                    Ver Instituciones
+                                  </option>
+                                </select> */}
+                                <ul className="novedades_instituciones_lista">
+                                  {rowData.instituciones?.map((ins) => {
+                                    return <li key={ins._id}>{ins.nombre}</li>;
+                                  })}
+                                </ul>
+                              </>
+                            );
+                          },
+                        },
+                        {
+                          title: "Editar",
+                          field: "editNovedad",
+                          width: "5%",
+                          render: (rowData) => (
+                            <Button
+                              data-toggle="modal"
+                              data-target=".bd-example-modal-lg"
+                              onClick={() => {
+                                this.setState({ ...this.state, loading: true });
+                                this.setState({
+                                  editar: true,
+                                  novedad: rowData,
                                 });
-                            }}
-                            className="btn btn-sm btn-info"
-                          >
-                            Editar
-                          </Button>
-                        ),
-                      },
-                      {
-                        title: "Borrar",
-                        field: "borrarNovedad",
-                        width: "5%",
-                        render: (rowData) => (
-                          <Button
-                            onClick={() => {
-                              if (window.confirm("Confirma eliminar ?")) {
-                                this.props.DELETE_PUBLICIDAD(rowData);
-                              }
-                            }}
-                            className="btn btn-sm btn-danger"
-                          >
-                            {" "}
-                            Eliminar{" "}
-                          </Button>
-                        ),
-                      },
-                    ]}
-                    data={this.props.publicidadesReducer.publicidades
-                      .filter(function (p) {
-                        if (p.tipo !== "novedadesadmin") {
-                          return false; // skip
-                        }
-                        return true;
-                      })
-                      .map((p) => {
-                        return p;
-                      })}
-                    actions={[]}
-                    options={{
-                      actionsColumnIndex: -1,
-                      pageSize: 5,
-                      pageSizeOptions: [5, 10, 20, 30],
-                      headerStyle: {
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      },
-                    }}
-                  />
+                                this.props
+                                  .GET_NOVEDADES_RELACIONES(rowData._id)
+                                  .then((data) => {
+                                    this.setState(
+                                      {
+                                        ...this.state,
+                                        instituciones: data,
+                                      },
+                                      () =>
+                                        this.setState({
+                                          ...this.state,
+                                          loading: false,
+                                        })
+                                    );
+                                  });
+                              }}
+                              className="btn btn-sm btn-info"
+                            >
+                              Editar
+                            </Button>
+                          ),
+                        },
+                      ]}
+                      data={this.props.publicidadesReducer.publicidades
+                        .filter(function (p) {
+                          if (p.tipo !== "novedadesadmin") {
+                            return false; // skip
+                          }
+                          return true;
+                        })
+                        .map((p) => {
+                          return p;
+                        })}
+                      actions={[]}
+                      options={{
+                        actionsColumnIndex: -1,
+                        pageSize: 5,
+                        pageSizeOptions: [5, 10, 20, 30],
+                        headerStyle: {
+                          textAlign: "center",
+                          fontWeight: "bold",
+                        },
+                      }}
+                    />
+                  )}
                 </ThemeProvider>
 
-                {/* <Row>
-                                    <Col>
-                                        <Card>
-                                            <CardHeader>
-                                                <b>Listado de Novedades</b>
-                                            </CardHeader>
-                                            <CardBody>
-                                                {this.props.publicidadesReducer.publicidades.map(
-                                                    (p, index) => {
-                                                        return p.tipo === "novedadesadmin" ? (
-                                                            <Fragment key={index}>
-                                                                <Row>
-                                                                    <Col>
-                                                                        <Row>
-                                                                            <Col xs="1" md="1" className="my-2">
-                                                                                <div
-                                                                                    style={{
-                                                                                        backgroundColor:
-                                                                                            p.color === "verde"
-                                                                                                ? "#00D579"
-                                                                                                : p.color === "rojo"
-                                                                                                    ? "red"
-                                                                                                    : "yellow",
-                                                                                        color: "white",
-                                                                                        borderRadius: "50%",
-                                                                                        width: 20,
-                                                                                        height: 20,
-                                                                                        borderWidth: 10,
-                                                                                        borderColor: "black",
-                                                                                        opacity: p.habilitado ? 1 : 0.4,
-                                                                                    }}
-                                                                                ></div>
-                                                                            </Col>
-                                                                            <Col xs="10" md="6" className="my-2">
-                                                                                <p
-                                                                                    style={{
-                                                                                        textJustify: "initial",
-                                                                                        fontSize: 12,
-                                                                                        fontWeight: "bold",
-                                                                                        opacity: p.habilitado ? 1 : 0.4,
-                                                                                    }}
-                                                                                    className="d-inline"
-                                                                                >
-                                                                                    {p.titulo}
-                                                                                </p>
-                                                                            </Col>
-                                                                            <Col xs="6" md="2" className="my-2">
-                                                                                <Button
-                                                                                    data-toggle="modal"
-                                                                                    data-target=".bd-example-modal-lg"
-                                                                                    onClick={() =>
-                                                                                        this.setState({
-                                                                                            editar: true,
-                                                                                            novedad: p,
-                                                                                        })
-                                                                                    }
-                                                                                    className="btn btn-sm btn-info"
-                                                                                >
-                                                                                    Editar
-                                                                                </Button>
-                                                                                <Button
-                                                                                    onClick={() =>
-                                                                                        this.props.DELETE_PUBLICIDAD(p)
-                                                                                    }
-                                                                                    className="btn btn-sm btn-danger"
-                                                                                >
-                                                                                    Eliminar
-                                                                                </Button>
-                                                                            </Col>
-                                                                            <Col xs="6" md="3" className="my-2">
-                                                                                {p.fechaalta.substring(0, 10)}
-                                                                            </Col>
-                                                                        </Row>
-
-                                                                        <Row>
-                                                                            <Col md="1"></Col>
-                                                                            <Col xs="12" md="11" className="my-2">
-                                                                                <p
-                                                                                    style={{
-                                                                                        fontSize: 12,
-                                                                                        opacity: p.habilitado ? 1 : 0.4,
-                                                                                    }}
-                                                                                >
-                                                                                    {p.descripcion}
-                                                                                </p>
-                                                                            </Col>
-                                                                        </Row>
-                                                                    </Col>
-                                                                </Row>
-                                                                <hr />
-                                                            </Fragment>
-                                                        ) : null;
-                                                    }
-                                                )}
-                                            </CardBody>
-                                        </Card>
-                                    </Col>
-                                </Row> */}
                 <div
                   className="modal fade bd-example-modal-lg"
                   tabIndex="-1"
@@ -605,6 +568,7 @@ const mapStateToProps = (state) => {
   return {
     authReducer: state.authReducer,
     publicidadesReducer: state.publicidadesReducer,
+    institucionesReducer: state.institucionesReducer,
   };
 };
 const mapDispatchToProps = {
@@ -613,6 +577,8 @@ const mapDispatchToProps = {
   UPDATE_PUBLICIDAD,
   DELETE_PUBLICIDAD,
   GET_NOVEDADES_RELACIONES,
+  GET_INSTITUCIONES,
+  SEARCH_INSTITUCIONES,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Novedades);

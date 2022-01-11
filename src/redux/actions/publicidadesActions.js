@@ -52,17 +52,21 @@ export const UPDATE_PUBLICIDAD = (publicidad, instituciones) => {
 
 export const GET_PUBLICIDADES = () => {
   return (dispatch) => {
-    axios
-      .get(farmageo_api + "/publicidades")
-      .then(function (response) {
-        dispatch({
-          type: "GET_PUBLICIDADES",
-          payload: response.data,
+    return new Promise((resolve, reject) => {
+      //
+      axios
+        .get(farmageo_api + "/publicidades")
+        .then(function (response) {
+          dispatch({
+            type: "GET_PUBLICIDADES",
+            payload: response.data,
+          });
+          resolve(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
         });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    }); //
   };
 };
 
