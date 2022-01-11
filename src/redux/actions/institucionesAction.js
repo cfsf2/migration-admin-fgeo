@@ -42,10 +42,6 @@ export const SEARCH_INSTITUCIONES = (
   id_institucion_madre
 ) => {
   return (dispatch) => {
-    dispatch({
-      type: "SET_LOADING",
-      payload: true,
-    });
     return new Promise((resolve, rej) => {
       axios
         .get(farmageo_api + "/instituciones/search", {
