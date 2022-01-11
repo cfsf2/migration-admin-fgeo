@@ -134,19 +134,36 @@ class ImportProductosTransfers extends Component {
                           className="btn btn-success"
                           disabled={
                             this.state.laboratorioid === "none" ||
-                            this.state.instituciones.length === 0
+                            this.state.instituciones.length === 0 ||
+                            this.state.vistaPrevia.length === 0
                           }
-                          onClick={() => this.setState({ action: "submit" })}
+                          onClick={() =>
+                            this.setState({
+                              action: "submit",
+                              alreadySubmitted: true,
+                            })
+                          }
                         >
                           Confirmar
                         </Button>
                       </Col>
                       <Col align="left">
                         <Button
-                          className="btn btn-danger"
-                          onClick={() => this.setState({ vistaPrevia: [] })}
+                          className={
+                            this.state.alreadySubmitted
+                              ? "btn btn-info"
+                              : "btn btn-danger"
+                          }
+                          onClick={() =>
+                            this.setState({
+                              vistaPrevia: [],
+                              alreadySubmitted: false,
+                              instituciones: [],
+                              laboratorioid: "none",
+                            })
+                          }
                         >
-                          Cancelar
+                          {this.state.alreadySubmitted ? "Limpiar" : "Cancelar"}
                         </Button>
                       </Col>
                     </Row>
