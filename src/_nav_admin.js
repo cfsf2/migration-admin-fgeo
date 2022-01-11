@@ -33,6 +33,10 @@ export default {
           name: "Novedades farmacias",
           url: "/publicidadesAdmin/novedades",
         },
+        {
+          name: "Agregar Novedad",
+          url: "/publicidadesAdmin/agregarnovedades",
+        },
       ],
     },
     {

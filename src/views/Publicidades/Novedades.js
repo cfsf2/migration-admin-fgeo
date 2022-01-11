@@ -50,6 +50,7 @@ import {
 import MaterialTable from "material-table";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
+import { ABMNovedades } from "./ABMNovedades";
 
 import AsignarInstituciones from "../FarmaciasAdmin/components/AsignarInstituciones";
 import "./novedades.scss";
@@ -555,6 +556,11 @@ class Novedades extends Component {
                     </div>
                   </div>
                 </div>
+                {/* <ABMNovedades
+                  {...this.props}
+                  state={this.state}
+                  setState={this.setState.bind(this)}
+                /> */}
               </CardBody>
             </Card>
           </Col>
