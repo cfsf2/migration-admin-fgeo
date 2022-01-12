@@ -1,21 +1,8 @@
 import React, { Component, Fragment } from "react";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  FormGroup,
-  Input,
-  Label,
-  CardFooter,
-  Spinner,
-} from "reactstrap";
+import { Button, Card, CardBody, Col, Row, Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
 
 import { forwardRef } from "react";
-import RestoreIcon from "@material-ui/icons/Restore";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -50,6 +37,7 @@ import {
 } from "../../redux/actions/institucionesAction";
 
 import MaterialTable from "material-table";
+import { MostrarFilter } from "./components/mostrarFilter";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
@@ -100,6 +88,7 @@ class Novedades extends Component {
     this.state = {
       novedad: null,
       novedades: [],
+      showNovedades: [],
       instituciones: [],
       loading: true,
       filter: true,
@@ -111,7 +100,8 @@ class Novedades extends Component {
   async componentDidMount() {
     this.setState({ ...this.state, loading: true });
     this.props.GET_PUBLICIDADES().then((publicidades) => {
-      this.setState({ ...this.state, showPublicidades: publicidades });
+      this.setState({ ...this.state, showNovedades: publicidades });
+
       this.props.GET_INSTITUCIONES(1000).then((instituciones) => {
         publicidades.forEach((novedad) =>
           this.props.GET_NOVEDADES_RELACIONES(novedad._id).then((response) => {
@@ -339,7 +329,7 @@ class Novedades extends Component {
                           ),
                         },
                       ]}
-                      data={this.state.showPublicidades
+                      data={this.state.showNovedades
                         .filter(function (p) {
                           if (p.tipo !== "novedadesadmin") {
                             return false; // skip
@@ -349,7 +339,20 @@ class Novedades extends Component {
                         .map((p) => {
                           return p;
                         })}
-                      actions={[]}
+                      actions={[
+                        {
+                          icon: () => (
+                            <MostrarFilter
+                              listado={
+                                this.props.publicidadesReducer.publicidades
+                              }
+                              setListado={this.setState.bind(this)}
+                            />
+                          ),
+                          tooltip: "Filter",
+                          isFreeAction: true,
+                        },
+                      ]}
                       options={{
                         actionsColumnIndex: -1,
                         pageSize: 5,
