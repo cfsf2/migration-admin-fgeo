@@ -102,6 +102,7 @@ class Novedades extends Component {
       novedades: [],
       instituciones: [],
       loading: true,
+      filter: true,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleConfirmar = this.handleConfirmar.bind(this);

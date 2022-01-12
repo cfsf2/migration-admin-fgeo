@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Button,
   Card,
@@ -308,9 +308,11 @@ export function ABMNovedades(props) {
                 )}
               </Col>
               <Col>
-                <Button className="btn btn-danger" data-dismiss="modal">
-                  Cancelar
-                </Button>
+                <Link to="novedades">
+                  <Button className="btn btn-danger" data-dismiss="modal">
+                    Cancelar
+                  </Button>
+                </Link>
               </Col>
               <Col></Col>
             </Row>
