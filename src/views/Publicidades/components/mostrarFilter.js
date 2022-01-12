@@ -8,13 +8,20 @@ import {
   FormControl,
 } from "@mui/material";
 
-export const MostrarFilter = (listado, setListado) => {
+export const MostrarFilter = (props) => {
+  const { listado, setListado } = props;
   const [state, setState] = React.useState("todas");
 
   React.useEffect(() => {
-    if (state === "todas") setListado(() => listado);
-    listado.filter((item) => item["habilitado"] === state);
+    const filteredListado = listado.filter((item) => {
+      return item["habilitado"] === state;
+    });
+    setListado(() => filteredListado);
+    if (state === "todas") {
+      setListado(() => listado);
+    }
   }, [state]);
+
   return (
     <Select
       style={{ width: "200px" }}
@@ -22,9 +29,13 @@ export const MostrarFilter = (listado, setListado) => {
       variant="standard"
       onChange={(e) => setState(e.target.value)}
     >
-      <MenuItem value={true}>Si</MenuItem>
-      <MenuItem value={false}>No</MenuItem>
-      <MenuItem value={"todas"}>
+      <MenuItem style={{ width: "100%", textAlign: "left" }} value={true}>
+        Si
+      </MenuItem>
+      <MenuItem style={{ width: "100%", textAlign: "left" }} value={false}>
+        No
+      </MenuItem>
+      <MenuItem style={{ width: "100%", textAlign: "left" }} value={"todas"}>
         <em>Todas</em>
       </MenuItem>
     </Select>

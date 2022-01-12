@@ -26,7 +26,7 @@ export const ADD_PUBLICIDAD = (username, publicidad, instituciones) => {
         ALERT(
           "Novedad Publicada",
           `"${publicidad.titulo}" se mostrara desde ${publicidad.fechainicio} hasta ${publicidad.fechafin}`,
-          "Success",
+          "success",
           "OK",
           "10000"
         );
@@ -56,7 +56,7 @@ export const UPDATE_PUBLICIDAD = (publicidad, instituciones) => {
       })
       .then(function (response) {
         dispatch(GET_PUBLICIDADES());
-        ALERT("Novedad Actualizada", "", "Success", "OK");
+        ALERT("Novedad Actualizada", "", "success", "OK");
       })
       .catch(function (error) {
         console.log(error);
