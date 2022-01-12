@@ -22,6 +22,8 @@ export default (state = defaultState, action) => {
         ...state,
         comunicadoTransfers: action.payload,
       };
+    case "SET_NOVEDAD_EDITABLE":
+      return { ...state, editable: action.payload };
     default:
       return state;
   }

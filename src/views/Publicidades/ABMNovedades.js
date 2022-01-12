@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-
+import { useLocation } from "react-router-dom";
 import {
   Button,
   Card,
@@ -30,27 +30,40 @@ import {
 } from "../../redux/actions/institucionesAction";
 
 import "./novedades.scss";
+import { dateFormaterYYYYMMDD } from "../../helpers/parser";
 
 const initNovedad = {
   titulo: "",
   color: "verde",
   fechainicio: "",
   fechafin: "",
-  habilitado: "",
+  tipo: "novedadesadmin",
+  habilitado: true,
   descripcion: "",
   instituciones: [],
 };
 
 export function ABMNovedades(props) {
-  const { editar, id } = props;
   const [novedad, setNovedad] = React.useState(initNovedad);
   const [errors, setErrors] = React.useState([]);
+  const [id, setId] = React.useState();
 
   const handleInputChange = async (event) => {
-    debugger;
     const target = event.nativeEvent.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+
+    if (name === "fechainicio") {
+      if (novedad.fechainicio >= novedad.fechafin) {
+        setNovedad(() => {
+          return {
+            ...novedad,
+            fechafin: "",
+          };
+        });
+        return;
+      }
+    }
 
     setNovedad({
       ...novedad,
@@ -61,18 +74,21 @@ export function ABMNovedades(props) {
 
   const handleConfirmar = async () => {
     handleValidation().then(() => {
-      // props.ADD_PUBLICIDAD(
-      //     props.authReducer.user.username,
-      //     novedad,
-      //     novedad.instituciones
-      //   );
+      if (id) {
+        props.UPDATE_PUBLICIDAD(novedad, novedad.instituciones);
+        return;
+      }
+      props.ADD_PUBLICIDAD(
+        props.authReducer.user.username,
+        novedad,
+        novedad.instituciones
+      );
     });
   };
 
   const handleErrorChange = (name, value) => {
     if (value.trim() !== "") {
       const newErr = errors.filter((err) => {
-        debugger;
         return err !== name;
       });
 
@@ -86,7 +102,7 @@ export function ABMNovedades(props) {
 
   const handleValidation = () => {
     return new Promise((resolve, reject) => {
-      const keys = Object.keys(novedad);
+      const keys = Object.keys(initNovedad);
 
       let errors = keys.filter((key) => {
         if (typeof novedad[key] === "string") {
@@ -103,6 +119,9 @@ export function ABMNovedades(props) {
         errors.push("Instituciones");
       }
       setErrors(() => errors);
+      if (errors.length > 0) {
+        reject();
+      }
       resolve();
     });
   };
@@ -110,6 +129,13 @@ export function ABMNovedades(props) {
   React.useEffect(() => {
     const search = props.location.search;
     const id = new URLSearchParams(search).get("edit");
+    setId(() => id);
+    let news = props.publicidadesReducer.editable;
+
+    if (!news) {
+      return;
+    }
+    setNovedad(news);
   }, []);
 
   return (
@@ -231,11 +257,12 @@ export function ABMNovedades(props) {
               <Row>
                 <Col className="col-3">
                   <Label>Fecha de Inicio de Vigencia </Label>
+
                   <Input
                     name="fechainicio"
                     type="date"
                     onChange={handleInputChange}
-                    value={novedad.fechainicio}
+                    value={dateFormaterYYYYMMDD(novedad.fechainicio)}
                     invalid={errors.includes("fechainicio")}
                   />
                 </Col>
@@ -245,17 +272,23 @@ export function ABMNovedades(props) {
                     name="fechafin"
                     type="date"
                     onChange={handleInputChange}
-                    value={novedad.fechafin}
+                    value={
+                      novedad.fechafin > novedad.fechainicio
+                        ? dateFormaterYYYYMMDD(novedad.fechafin)
+                        : ""
+                    }
+                    min={dateFormaterYYYYMMDD(novedad.fechainicio)}
                     invalid={errors.includes("fechafin")}
                   />
                 </Col>
               </Row>
               <Row className="p-3">
                 <AsignarInstituciones
-                  obj={{ novedad }}
+                  obj={novedad}
                   setObj={setNovedad}
                   invalid={errors.includes("Instituciones")}
                   loading={props.institucionesReducer.loading}
+                  {...props}
                 />
               </Row>
             </FormGroup>
@@ -264,13 +297,8 @@ export function ABMNovedades(props) {
             <Row>
               <Col></Col>
               <Col>
-                {editar ? (
-                  <Button
-                    className="btn btn-success"
-                    onClick={() => {
-                      props.UPDATE_PUBLICIDAD(novedad, novedad.instituciones);
-                    }}
-                  >
+                {id ? (
+                  <Button className="btn btn-success" onClick={handleConfirmar}>
                     Guardar Cambios
                   </Button>
                 ) : (

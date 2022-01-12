@@ -68,10 +68,17 @@ function AsignarInstituciones(props) {
   React.useEffect(() => {
     if (instituciones.length === 0) {
       props.SEARCH_INSTITUCIONES("", 1000, true).then((res) => {
-        setAllInstituciones(() => res);
         setInstituciones(() => res);
       });
     }
+    if (props.institucionesReducer.instituciones.length === 0) {
+      props.GET_INSTITUCIONES(1000).then((res) => {
+        setAllInstituciones(() => res);
+      });
+      return;
+    }
+    setAllInstituciones(() => props.institucionesReducer.instituciones);
+    setInstituciones(() => props.institucionesReducer.busqueda);
   }, []);
 
   React.useEffect(() => {
@@ -107,13 +114,13 @@ function AsignarInstituciones(props) {
                     onClick={() => handleChange(ins._id)}
                     key={ins._id}
                     value={ins._id}
-                    className={
+                    className={`${
                       loading
                         ? "no-seleccionado"
                         : objInstituciones.includes(ins._id)
                         ? "seleccionado"
                         : "no-seleccionado"
-                    }
+                    } ${ins.habilitada ? null : "no-habilitada"}`}
                   >
                     {" "}
                     {ins.nombre}

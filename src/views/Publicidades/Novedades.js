@@ -41,6 +41,7 @@ import {
   UPDATE_PUBLICIDAD,
   DELETE_PUBLICIDAD,
   GET_NOVEDADES_RELACIONES,
+  SET_NOVEDAD_EDITABLE,
 } from "../../redux/actions/publicidadesActions";
 
 import {
@@ -51,9 +52,7 @@ import {
 import MaterialTable from "material-table";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import { ABMNovedades } from "./ABMNovedades";
 
-import AsignarInstituciones from "../FarmaciasAdmin/components/AsignarInstituciones";
 import "./novedades.scss";
 
 const theme = createMuiTheme({
@@ -99,12 +98,10 @@ class Novedades extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editar: null,
       novedad: null,
-      novedadFilter: "",
-      filtro: "",
       novedades: [],
       instituciones: [],
+      loading: true,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleConfirmar = this.handleConfirmar.bind(this);
@@ -113,6 +110,7 @@ class Novedades extends Component {
   async componentDidMount() {
     this.setState({ ...this.state, loading: true });
     this.props.GET_PUBLICIDADES().then((publicidades) => {
+      this.setState({ ...this.state, showPublicidades: publicidades });
       this.props.GET_INSTITUCIONES(1000).then((instituciones) => {
         publicidades.forEach((novedad) =>
           this.props.GET_NOVEDADES_RELACIONES(novedad._id).then((response) => {
@@ -124,7 +122,9 @@ class Novedades extends Component {
               );
             }
             this.setState({ ...this.state, loading: false });
-            novedad.instituciones = novedadesInstituciones; //esta modificacion del estado es dudosa pero anda
+            novedad.instituciones = novedadesInstituciones.map(
+              (novins) => novins._id
+            ); //esta modificacion del estado es dudosa pero anda
           })
         );
       });
@@ -176,6 +176,7 @@ class Novedades extends Component {
                       title="Listado de Novedades"
                       hideSortIcon={false}
                       icons={tableIcons}
+                      options={{ filtering: true }}
                       localization={{
                         header: {
                           actions: "Acciones",
@@ -300,7 +301,13 @@ class Novedades extends Component {
                                 </select> */}
                                 <ul className="novedades_instituciones_lista">
                                   {rowData.instituciones?.map((ins) => {
-                                    return <li key={ins._id}>{ins.nombre}</li>;
+                                    let nombre =
+                                      this.props.institucionesReducer.instituciones.find(
+                                        (inst) => {
+                                          return inst._id === ins;
+                                        }
+                                      ).nombre;
+                                    return <li key={ins}>{nombre}</li>;
                                   })}
                                 </ul>
                               </>
@@ -319,14 +326,19 @@ class Novedades extends Component {
                                 state: { novedad: rowData },
                               }}
                             >
-                              <Button className="btn btn-sm btn-info">
+                              <Button
+                                className="btn btn-sm btn-info"
+                                onClick={() =>
+                                  this.props.SET_NOVEDAD_EDITABLE(rowData)
+                                }
+                              >
                                 Edit
                               </Button>
                             </Link>
                           ),
                         },
                       ]}
-                      data={this.props.publicidadesReducer.publicidades
+                      data={this.state.showPublicidades
                         .filter(function (p) {
                           if (p.tipo !== "novedadesadmin") {
                             return false; // skip
@@ -373,6 +385,7 @@ const mapDispatchToProps = {
   GET_NOVEDADES_RELACIONES,
   GET_INSTITUCIONES,
   SEARCH_INSTITUCIONES,
+  SET_NOVEDAD_EDITABLE,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Novedades);
