@@ -1,6 +1,8 @@
 const defaultState = {
   publicidades: [],
   comunicadoTransfers: "{...}",
+  novedades: [],
+  editable: {},
 };
 
 export default (state = defaultState, action) => {
@@ -24,6 +26,8 @@ export default (state = defaultState, action) => {
       };
     case "SET_NOVEDAD_EDITABLE":
       return { ...state, editable: action.payload };
+    case "GET_NOVEDADES":
+      return { ...state, novedades: action.payload };
     default:
       return state;
   }

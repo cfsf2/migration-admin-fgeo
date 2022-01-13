@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Autocomplete,
-  TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-} from "@mui/material";
+import { Select, MenuItem } from "@mui/material";
 
 export const MostrarFilter = (props) => {
   const { listado, setListado } = props;

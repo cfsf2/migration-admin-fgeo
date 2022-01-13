@@ -84,6 +84,26 @@ export const GET_PUBLICIDADES = () => {
   };
 };
 
+export const GET_NOVEDADES = () => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      //
+      axios
+        .get(farmageo_api + "/publicidades/novedades")
+        .then(function (response) {
+          dispatch({
+            type: "GET_NOVEDADES",
+            payload: response.data,
+          });
+          resolve(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }); //
+  };
+};
+
 export const GET_NOVEDADES_RELACIONES = (id) => {
   return (dispatch) => {
     return new Promise((resolve, reject) => {

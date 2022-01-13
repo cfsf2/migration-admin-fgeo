@@ -29,6 +29,7 @@ import {
   DELETE_PUBLICIDAD,
   GET_NOVEDADES_RELACIONES,
   SET_NOVEDAD_EDITABLE,
+  GET_NOVEDADES,
 } from "../../redux/actions/publicidadesActions";
 
 import {
@@ -92,47 +93,19 @@ const Novedades = (props) => {
 
   useEffect(() => {
     setLoading(true);
-
-    props.GET_PUBLICIDADES().then((publicidades) => {
-      setShowNovedades(publicidades);
-
-      props.GET_INSTITUCIONES(1000).then((instituciones) => {
-        publicidades.forEach((novedad) =>
-          props.GET_NOVEDADES_RELACIONES(novedad._id).then((response) => {
-            const relaciones = response;
-            let novedadesInstituciones = [];
-            if (response.length > 0) {
-              novedadesInstituciones = instituciones.filter((ins) =>
-                relaciones.includes(ins._id)
-              );
-            }
-            setLoading(false);
-            novedad.instituciones = novedadesInstituciones.map(
-              (novins) => novins._id
-            ); //esta modificacion del estado es dudosa pero anda
-          })
-        );
+    props.GET_INSTITUCIONES(1000).then(() => {
+      props.GET_NOVEDADES().then((novedades) => {
+        setNovedades(novedades);
+        setShowNovedades(novedades);
+        setLoading(false);
       });
     });
   }, []);
 
-  const handleInputChange = async (event) => {
-    const target = event.nativeEvent.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-
-    setNovedad((state) => {
-      return { ...state, [name]: value };
-    });
-  };
-
-  const handleConfirmar = async () => {
-    props.ADD_PUBLICIDAD(
-      props.authReducer.user.username,
-      novedad,
-      instituciones
-    );
-  };
+  useEffect(() => {
+    //setTimeout(() => {
+    // }, [3000]);
+  }, [showNovedades]);
 
   return (
     <div className="animated fadeIn">
@@ -250,13 +223,34 @@ const Novedades = (props) => {
                             : "-",
                       },
                       {
+                        title: "Mostrar",
+                        field: "habilitado",
+                        width: "50px",
+                        render: (rowData) => (
+                          <div style={{ textAlign: "center" }}>
+                            {rowData.habilitado ? "SI" : "NO"}
+                          </div>
+                        ),
+                      },
+                      {
                         title: "Instituciones",
                         field: "instituciones",
-                        width: "25%",
-                        render: (rowData) => {
-                          return (
-                            <>
-                              {/* <select
+                        width: "300px",
+                        render: (rowData) => (
+                          <>
+                            <ul className="novedades_instituciones_lista">
+                              {rowData.instituciones.map((ins) => {
+                                let nombre =
+                                  props.institucionesReducer.instituciones.find(
+                                    (inst) => {
+                                      return inst._id === ins;
+                                    }
+                                  ).nombre;
+
+                                return <li key={ins}>{nombre} </li>;
+                              })}
+                            </ul>
+                            {/* <select
                                   value={"instituciones"}
                                   className={"novedades_instituciones_lista"}
                                 >
@@ -271,21 +265,10 @@ const Novedades = (props) => {
                                     Ver Instituciones
                                   </option>
                                 </select> */}
-                              <ul className="novedades_instituciones_lista">
-                                {rowData.instituciones?.map((ins) => {
-                                  let nombre =
-                                    props.institucionesReducer.instituciones.find(
-                                      (inst) => {
-                                        return inst._id === ins;
-                                      }
-                                    ).nombre;
-                                  return <li key={ins}>{nombre}</li>;
-                                })}
-                              </ul>
-                            </>
-                          );
-                        },
+                          </>
+                        ),
                       },
+
                       {
                         title: "Editar",
                         field: "editNovedad",
@@ -324,7 +307,7 @@ const Novedades = (props) => {
                       {
                         icon: () => (
                           <MostrarFilter
-                            listado={props.publicidadesReducer.publicidades}
+                            listado={props.publicidadesReducer.novedades}
                             setListado={setShowNovedades}
                           />
                         ),
@@ -368,6 +351,7 @@ const mapDispatchToProps = {
   GET_INSTITUCIONES,
   SEARCH_INSTITUCIONES,
   SET_NOVEDAD_EDITABLE,
+  GET_NOVEDADES,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Novedades);
