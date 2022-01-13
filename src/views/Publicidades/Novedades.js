@@ -102,11 +102,6 @@ const Novedades = (props) => {
     });
   }, []);
 
-  useEffect(() => {
-    //setTimeout(() => {
-    // }, [3000]);
-  }, [showNovedades]);
-
   return (
     <div className="animated fadeIn">
       <Row>
@@ -286,6 +281,7 @@ const Novedades = (props) => {
                               onClick={() =>
                                 props.SET_NOVEDAD_EDITABLE(rowData)
                               }
+                              style={{ width: "100%" }}
                             >
                               Edit
                             </Button>
