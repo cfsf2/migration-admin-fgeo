@@ -1,5 +1,13 @@
 import React, { Component, Fragment, useState, useEffect } from "react";
-import { Button, Card, CardBody, Col, Row, Spinner } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardBody,
+  Col,
+  Row,
+  Spinner,
+  CardHeader,
+} from "reactstrap";
 import { Link } from "react-router-dom";
 
 import { forwardRef } from "react";
@@ -30,6 +38,8 @@ import {
   GET_NOVEDADES_RELACIONES,
   SET_NOVEDAD_EDITABLE,
   GET_NOVEDADES,
+  GET_NOVEDADES_SEARCH,
+  SET_FILTRANDO,
 } from "../../redux/actions/publicidadesActions";
 
 import {
@@ -39,6 +49,7 @@ import {
 
 import MaterialTable from "material-table";
 import { MostrarFilter } from "./components/mostrarFilter";
+
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
@@ -84,16 +95,26 @@ const tableIcons = {
 };
 
 const Novedades = (props) => {
-  const [novedad, setNovedad] = useState(null);
   const [novedades, setNovedades] = useState([]);
   const [showNovedades, setShowNovedades] = useState([]);
   const [instituciones, setInstituciones] = useState([]);
+  const [opcionesInstituciones, setOpcionesInstituciones] = useState([]); //para pasar al componente de filtrado
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState(true);
+  const [filter, setFilter] = useState({
+    habilitado: "todas",
+    instituciones: "todas",
+    vigencia: "todas",
+    titulo: "",
+  });
 
   useEffect(() => {
     setLoading(true);
-    props.GET_INSTITUCIONES(1000).then(() => {
+    props.GET_INSTITUCIONES(1000).then((instituciones) => {
+      setInstituciones(instituciones);
+      let optInsti = instituciones.map((institucion) => {
+        return { nombre: institucion.nombre, value: institucion._id };
+      });
+      setOpcionesInstituciones(() => optInsti);
       props.GET_NOVEDADES().then((novedades) => {
         setNovedades(novedades);
         setShowNovedades(novedades);
@@ -102,17 +123,38 @@ const Novedades = (props) => {
     });
   }, []);
 
+  useEffect(() => {
+    props.SET_FILTRANDO(true);
+    props
+      .GET_NOVEDADES_SEARCH(
+        filter.habilitado,
+        filter.instituciones,
+        filter.vigencia,
+        filter.titulo
+      )
+      .then((resultado) => {
+        setShowNovedades(() => resultado);
+        props.SET_FILTRANDO(false);
+      });
+  }, [filter.habilitado, filter.instituciones, filter.vigencia, filter.titulo]);
+
   return (
-    <div className="animated fadeIn">
+    <div className="animated fadeIn novedades_lista">
       <Row>
         <Col xs="12" sm="12">
           <Card>
+            <CardHeader>
+              <Link to="abmnovedades">
+                <Button>+ Agregar Novedad</Button>
+              </Link>
+            </CardHeader>
             <CardBody>
               <ThemeProvider theme={theme}>
                 {loading ? (
                   <Spinner />
                 ) : (
                   <MaterialTable
+                    isLoading={props.publicidadesReducer.filtrando}
                     title="Listado de Novedades"
                     hideSortIcon={false}
                     icons={tableIcons}
@@ -146,7 +188,7 @@ const Novedades = (props) => {
                       {
                         title: "Color",
                         field: "color",
-                        width: "5%",
+                        width: "20px",
                         render: (rowData) => (
                           <div
                             style={{
@@ -163,6 +205,7 @@ const Novedades = (props) => {
                               borderWidth: 10,
                               borderColor: "black",
                               opacity: rowData.habilitado ? 1 : 0.4,
+                              backgroundPosition: "center",
                             }}
                           ></div>
                         ),
@@ -170,7 +213,7 @@ const Novedades = (props) => {
                       {
                         title: "Titulo",
                         field: "titulo",
-                        width: "2%",
+                        width: "52%",
                         render: (rowData) => (
                           <p
                             style={{
@@ -189,7 +232,7 @@ const Novedades = (props) => {
                       {
                         title: "Fecha Alta",
                         field: "fechaalta",
-                        width: "5%",
+                        width: "8%",
                         render: (rowData) =>
                           new Date(rowData.fechaalta).toLocaleDateString(
                             "es-AR"
@@ -198,7 +241,7 @@ const Novedades = (props) => {
                       {
                         title: "Inicio",
                         field: "fechaalta",
-                        width: "5%",
+                        width: "8%",
                         render: (rowData) =>
                           rowData.fechainicio
                             ? new Date(rowData.fechainicio).toLocaleDateString(
@@ -209,7 +252,7 @@ const Novedades = (props) => {
                       {
                         title: "Fin",
                         field: "fechaalta",
-                        width: "5%",
+                        width: "8%",
                         render: (rowData) =>
                           rowData.fechafin
                             ? new Date(rowData.fechafin).toLocaleDateString(
@@ -220,7 +263,7 @@ const Novedades = (props) => {
                       {
                         title: "Mostrar",
                         field: "habilitado",
-                        width: "50px",
+                        width: "8%",
                         render: (rowData) => (
                           <div style={{ textAlign: "center" }}>
                             {rowData.habilitado ? "SI" : "NO"}
@@ -230,7 +273,7 @@ const Novedades = (props) => {
                       {
                         title: "Instituciones",
                         field: "instituciones",
-                        width: "300px",
+                        width: "10%",
                         render: (rowData) => (
                           <>
                             <ul className="novedades_instituciones_lista">
@@ -267,7 +310,7 @@ const Novedades = (props) => {
                       {
                         title: "Editar",
                         field: "editNovedad",
-                        width: "5%",
+                        width: "8%",
                         render: (rowData) => (
                           <Link
                             to={{
@@ -289,22 +332,60 @@ const Novedades = (props) => {
                         ),
                       },
                     ]}
-                    data={showNovedades
-                      .filter(function (p) {
-                        if (p.tipo !== "novedadesadmin") {
-                          return false; // skip
-                        }
-                        return true;
-                      })
-                      .map((p) => {
-                        return p;
-                      })}
+                    data={showNovedades.map((p) => {
+                      return p;
+                    })}
                     actions={[
                       {
                         icon: () => (
                           <MostrarFilter
-                            listado={props.publicidadesReducer.novedades}
-                            setListado={setShowNovedades}
+                            label="Mostrar en Novedades"
+                            campo="habilitado"
+                            filter={filter}
+                            setFilter={setFilter}
+                            opciones={[
+                              {
+                                nombre: "Todas",
+                                value: "todas",
+                                default: true,
+                              },
+                              { nombre: "SI", value: true },
+                              { nombre: "NO", value: false },
+                            ]}
+                          />
+                        ),
+                        tooltip: "Filter",
+                        isFreeAction: true,
+                      },
+                      {
+                        icon: () => (
+                          <MostrarFilter
+                            label="Vigencia"
+                            campo="vigencia"
+                            filter={filter}
+                            setFilter={setFilter}
+                            opciones={[
+                              {
+                                nombre: "Todas",
+                                value: "todas",
+                                default: true,
+                              },
+                              { nombre: "SI", value: true },
+                              { nombre: "NO", value: false },
+                            ]}
+                          />
+                        ),
+                        tooltip: "Filter",
+                        isFreeAction: true,
+                      },
+                      {
+                        icon: () => (
+                          <MostrarFilter
+                            label="Institucion"
+                            campo="instituciones"
+                            filter={filter}
+                            setFilter={setFilter}
+                            opciones={opcionesInstituciones}
                           />
                         ),
                         tooltip: "Filter",
@@ -319,6 +400,7 @@ const Novedades = (props) => {
                         textAlign: "center",
                         fontWeight: "bold",
                       },
+                      tableLayout: "fixed",
                     }}
                   />
                 )}
@@ -348,6 +430,8 @@ const mapDispatchToProps = {
   SEARCH_INSTITUCIONES,
   SET_NOVEDAD_EDITABLE,
   GET_NOVEDADES,
+  GET_NOVEDADES_SEARCH,
+  SET_FILTRANDO,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Novedades);

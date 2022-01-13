@@ -50,8 +50,14 @@
       text-align: center;
       li {
         width: 100%;
-        min-width: 10vw;
       }
+    }
+  }
+}
+.novedades_lista {
+  .MuiIconButton-root {
+    &:hover {
+      background-color: rgba(32, 168, 216, 0);
     }
   }
 }

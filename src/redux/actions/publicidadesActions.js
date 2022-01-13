@@ -104,6 +104,34 @@ export const GET_NOVEDADES = () => {
   };
 };
 
+export const GET_NOVEDADES_SEARCH = (
+  habilitado,
+  instituciones,
+  vigencia,
+  titulo
+) => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      //
+      axios
+        .get(farmageo_api + "/publicidades/novedades/search", {
+          params: {
+            habilitado,
+            instituciones,
+            vigencia,
+            titulo,
+          },
+        })
+        .then(function (response) {
+          resolve(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }); //
+  };
+};
+
 export const GET_NOVEDADES_RELACIONES = (id) => {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
@@ -133,6 +161,15 @@ export const DELETE_PUBLICIDAD = (data) => {
       .catch(function (error) {
         console.log(error);
       });
+  };
+};
+
+export const SET_FILTRANDO = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: "SET_FILTRANDO",
+      payload: data,
+    });
   };
 };
 

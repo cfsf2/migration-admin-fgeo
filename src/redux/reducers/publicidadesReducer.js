@@ -3,6 +3,7 @@ const defaultState = {
   comunicadoTransfers: "{...}",
   novedades: [],
   editable: {},
+  filtrando: false,
 };
 
 export default (state = defaultState, action) => {
@@ -28,6 +29,8 @@ export default (state = defaultState, action) => {
       return { ...state, editable: action.payload };
     case "GET_NOVEDADES":
       return { ...state, novedades: action.payload };
+    case "SET_FILTRANDO":
+      return { ...state, filtrando: action.payload };
     default:
       return state;
   }
