@@ -17,6 +17,9 @@ const Horarios = React.lazy(() => import("./views/Horarios/Horarios"));
 
 const PedidosAdmin = React.lazy(() => import("./views/Pedidos/pedidosAdmin"));
 const Novedades = React.lazy(() => import("./views/Publicidades/Novedades"));
+const ABMNovedades = React.lazy(() =>
+  import("./views/Publicidades/ABMNovedades")
+);
 const InfoInteres = React.lazy(() =>
   import("./views/Publicidades/Infointeres")
 );
@@ -186,6 +189,20 @@ const routes = [
     exact: true,
     name: "Novedades Farmacias",
     component: Novedades,
+    permiso: "comunicados",
+  },
+  {
+    path: "/publicidadesAdmin/abmnovedades",
+    exact: true,
+    name: "Agregar Novedades",
+    component: ABMNovedades,
+    permiso: "comunicados",
+  },
+  {
+    path: "/publicidadesAdmin/editnovedades",
+    exact: true,
+    name: "Editar Novedades",
+    component: ABMNovedades,
     permiso: "comunicados",
   },
   {

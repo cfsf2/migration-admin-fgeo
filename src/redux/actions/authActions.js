@@ -4,6 +4,7 @@ import { wp_api, farmageo_api, wp_api_auth } from "../../config";
 import { GET_ALL_PEDIDOS_ADMIN, GET_PEDIDOS } from "./pedidosActions";
 import { ALERT } from "./alertActions";
 import store from "../store/index";
+import { GET_NOVEDADES_FARMACIA } from "./publicidadesActions";
 
 export const RESET_ERROR = () => {
   return (dispatch) => {
@@ -78,9 +79,9 @@ export const LOADPROFILE = (username, token) => {
       })
       .then(function (response) {
         dispatch({ type: "LOADPROFILE_OK", payload: response.data });
-
         if (response.data.farmaciaid) {
           dispatch(GET_PEDIDOS(response.data.farmaciaid));
+          dispatch(GET_NOVEDADES_FARMACIA(response.data._id));
         }
       })
       .catch(function (error) {

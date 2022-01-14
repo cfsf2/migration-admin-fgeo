@@ -1,10 +1,16 @@
 const defaultState = {
   publicidades: [],
   comunicadoTransfers: "{...}",
+  novedades: [],
+  editable: {},
+  filtrando: false,
+  submitting: false,
 };
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+    case "SET_SUBMITTING":
+      return { ...state, submitting: action.payload };
     case "GET_PUBLICIDADES":
       return {
         ...state,
@@ -22,6 +28,12 @@ export default (state = defaultState, action) => {
         ...state,
         comunicadoTransfers: action.payload,
       };
+    case "SET_NOVEDAD_EDITABLE":
+      return { ...state, editable: action.payload };
+    case "GET_NOVEDADES":
+      return { ...state, novedades: action.payload };
+    case "SET_FILTRANDO":
+      return { ...state, filtrando: action.payload };
     default:
       return state;
   }

@@ -1,0 +1,63 @@
+#admin_novedades_listado_textarea {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  z-index: 200;
+  color: #000000;
+  &:hover {
+    background-color: rgb(255, 255, 255);
+  }
+}
+
+.novedades {
+  &_error {
+    border: 1px red solid;
+    position: relative;
+    &::after {
+      content: "x";
+      display: flex;
+      justify-content: flex-end;
+
+      color: Red;
+      font-size: 1.5rem;
+      padding: 1rem;
+      position: absolute;
+      top: 0%;
+      right: 0%;
+    }
+  }
+  &_textarea {
+    &:focus-within {
+      color: #5c6873;
+      background-color: #fff;
+      border-color: #8ad4ee;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(32, 168, 216, 0.25);
+    }
+    border: 1px solid rgb(218, 213, 213);
+    & textarea:focus {
+      color: #5c6873;
+      outline: 0;
+    }
+  }
+  &_instituciones {
+    &_lista {
+      list-style: none;
+      height: 6vh;
+      overflow: auto;
+      width: 100%;
+      text-align: center;
+      li {
+        width: 100%;
+      }
+    }
+  }
+}
+.novedades_lista {
+  .MuiIconButton-root {
+    &:hover {
+      background-color: rgba(32, 168, 216, 0);
+    }
+  }
+}

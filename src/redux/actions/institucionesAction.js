@@ -3,33 +3,35 @@ import { farmageo_api } from "../../config";
 
 export const GET_INSTITUCIONES = (limit) => {
   return (dispatch) => {
-    dispatch({
-      type: "SET_LOADING",
-      payload: true,
-    });
-    axios
-      .get(farmageo_api + "/instituciones", { params: { limit: limit } })
-      .then((response) => {
-        dispatch({
-          type: "GET_INSTITUCIONES",
-          payload: response.data,
-        });
-        dispatch({
-          type: "SET_LOADING",
-          payload: false,
-        });
-
-        return new Promise((resolve, reject) => {
-          resolve(response.data);
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-        dispatch({
-          type: "SET_LOADING",
-          payload: false,
-        });
+    return new Promise((resolve, reject) => {
+      dispatch({
+        type: "SET_LOADING",
+        payload: true,
       });
+      axios
+        .get(farmageo_api + "/instituciones", { params: { limit: limit } })
+        .then((response) => {
+          dispatch({
+            type: "GET_INSTITUCIONES",
+            payload: response.data,
+          });
+          dispatch({
+            type: "SET_LOADING",
+            payload: false,
+          });
+
+          return resolve(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+
+          dispatch({
+            type: "SET_LOADING",
+            payload: false,
+          });
+          reject(error);
+        });
+    }); //
   };
 };
 
@@ -54,6 +56,10 @@ export const SEARCH_INSTITUCIONES = (
           dispatch({
             type: "SEARCH_INSTITUCIONES",
             payload: response.data,
+          });
+          dispatch({
+            type: "SET_LOADING",
+            payload: false,
           });
           resolve(response.data);
         })

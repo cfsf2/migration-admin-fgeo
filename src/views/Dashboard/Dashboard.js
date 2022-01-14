@@ -11,10 +11,12 @@ import {
   Container,
   Spinner,
 } from "reactstrap";
+import NoInstitucionesFound from "../../components/NoInstitucionesFound";
 import { connect } from "react-redux";
 import {
   ADD_PUBLICIDAD,
   GET_PUBLICIDADES,
+  GET_NOVEDADES_FARMACIA,
 } from "../../redux/actions/publicidadesActions";
 import { GET_PEDIDOS } from "../../redux/actions/pedidosActions";
 import {
@@ -22,7 +24,7 @@ import {
   GET_ENTIDADES,
 } from "../../redux/actions/packsproductosActions";
 
-import YouTubeIcon from "@material-ui/icons/YouTube";
+import "./dashboard.scss";
 
 import ButtonHome from "./components/ButtonHome";
 import MisPedidos from "./components/MisPedidos";
@@ -36,8 +38,10 @@ class Dashboard extends Component {
       bannerAdmin: this.props.publicidadesReducer.publicidades
         .filter((p) => p.tipo === "banners_admin")
         .sort(),
-      publicidades: this.props.publicidadesReducer.publicidades.reverse(),
+      publicidades: this.props.publicidadesReducer.publicidades,
+      novedades: this.props.publicidadesReducer.novedades,
       user: this.props.authReducer.user,
+      farmacia: this.props.authReducer.userprofile,
     };
     this.handleFiltro = this.handleFiltro.bind(this);
     this.handleBannerNutriendoEsperanza =
@@ -73,12 +77,13 @@ class Dashboard extends Component {
 
   async componentDidUpdate(prevProps, prevState) {
     const { userprofile } = this.props.authReducer;
+
     if (
       prevProps.publicidadesReducer.publicidades !==
       this.props.publicidadesReducer.publicidades
     ) {
       await this.setState({
-        publicidades: this.props.publicidadesReducer.publicidades.reverse(),
+        publicidades: this.props.publicidadesReducer.publicidades,
       });
       await this.setState({
         bannerAdmin: this.props.publicidadesReducer.publicidades
@@ -315,7 +320,7 @@ class Dashboard extends Component {
                   </Col>
                 </Row>
               </Col>
-              <Col md="6">
+              <Col md="6" className="dashboard_info">
                 <Card>
                   <CardHeader>
                     <Row>
@@ -340,56 +345,70 @@ class Dashboard extends Component {
                   </CardHeader>
                   <CardBody>
                     <hr />
-                    {this.state.publicidades.map((p, index) => {
-                      return p.tipo === "novedadesadmin" && p.habilitado ? (
-                        <Fragment key={p._id}>
-                          <Row key={p._id}>
-                            <Col>
-                              <Row>
-                                <Col className="col-1">
-                                  <div
-                                    style={{
-                                      backgroundColor:
-                                        p.color === "verde"
-                                          ? "#00D579"
-                                          : p.color === "rojo"
-                                          ? "red"
-                                          : "yellow",
-                                      color: "white",
-                                      borderRadius: "50%",
-                                      width: 20,
-                                      height: 20,
-                                      borderWidth: 10,
-                                      borderColor: "black",
-                                    }}
-                                  ></div>
-                                </Col>
-                                <Col>
-                                  <p
-                                    style={{
-                                      textJustify: "initial",
-                                      fontSize: 16,
-                                      fontWeight: "bold",
-                                    }}
-                                    className="d-inline"
-                                  >
-                                    {p.titulo}
-                                  </p>
-                                </Col>
-                                <Col className="col-3">
-                                  {p.fechaalta.substring(0, 10)}
-                                </Col>
-                              </Row>
-                              <Row>
-                                <Col className="col-1"></Col>
-                                <Col>{p.descripcion}</Col>
-                              </Row>
-                            </Col>
-                          </Row>
-                          <hr />
-                        </Fragment>
-                      ) : null;
-                    })}
+                    {this.props.authReducer.userprofile.instituciones.length ===
+                    0 ? (
+                      <Row>
+                        <Col>
+                          <NoInstitucionesFound />
+                        </Col>
+                      </Row>
+                    ) : null}
+                    {this.props.publicidadesReducer.novedades?.map(
+                      (p, index) => {
+                        return (
+                          <Fragment key={p._id}>
+                            <Row key={p._id}>
+                              <Col>
+                                <Row>
+                                  <Col className="col-1">
+                                    <div
+                                      style={{
+                                        backgroundColor:
+                                          p.color === "verde"
+                                            ? "#00D579"
+                                            : p.color === "rojo"
+                                            ? "red"
+                                            : "yellow",
+                                        color: "white",
+                                        borderRadius: "50%",
+                                        width: 20,
+                                        height: 20,
+                                        borderWidth: 10,
+                                        borderColor: "black",
+                                      }}
+                                    ></div>
+                                  </Col>
+                                  <Col>
+                                    <p
+                                      style={{
+                                        textJustify: "initial",
+                                        fontSize: 16,
+                                        fontWeight: "bold",
+                                      }}
+                                      className="d-inline"
+                                    >
+                                      {p.titulo}
+                                    </p>
+                                  </Col>
+                                  <Col className="col-3">
+                                    {p.fechaalta.substring(0, 10)}
+                                  </Col>
+                                </Row>
+                                <Row>
+                                  <Col className="col-1"></Col>
+                                  <Col className="col-11">
+                                    <div className="dashboard_info_descripcion">
+                                      {p.descripcion}
+                                    </div>
+                                  </Col>
+                                </Row>
+                              </Col>
+                            </Row>
+                            <hr />
+                          </Fragment>
+                        );
+                      }
+                    )}
                   </CardBody>
                 </Card>
               </Col>
@@ -415,6 +434,7 @@ const mapDispatchToProps = {
   GET_PEDIDOS,
   GET_PRODUCTOS_PACK_BY_ENTIDAD,
   GET_ENTIDADES,
+  GET_NOVEDADES_FARMACIA,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

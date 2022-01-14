@@ -115,7 +115,6 @@ export default function Filtros(props) {
   return (
     <>
       <div className="instituciones_container">
-        <div className="instituciones_container_titulo">Filtros</div>
         <div className="instituciones_filtros">
           <TextField
             type="text"
