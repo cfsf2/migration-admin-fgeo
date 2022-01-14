@@ -104,6 +104,26 @@ export const GET_NOVEDADES = () => {
   };
 };
 
+export const GET_NOVEDADES_FARMACIA = (id) => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      //
+      axios
+        .get(farmageo_api + "/publicidades/novedades/farmacia/" + id)
+        .then(function (response) {
+          dispatch({
+            type: "GET_NOVEDADES",
+            payload: response.data,
+          });
+          resolve(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }); //
+  };
+};
+
 export const GET_NOVEDADES_SEARCH = (
   habilitado,
   instituciones,
