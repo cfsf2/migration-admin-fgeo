@@ -24,6 +24,8 @@ import {
   GET_NOVEDADES_RELACIONES,
 } from "../../redux/actions/publicidadesActions";
 
+import { ALERT } from "../../redux/actions/alertActions";
+
 import {
   GET_INSTITUCIONES,
   SEARCH_INSTITUCIONES,
@@ -34,7 +36,7 @@ import { dateFormaterYYYYMMDD } from "../../helpers/parser";
 
 const initNovedad = {
   titulo: "",
-  color: "verde",
+  color: "",
   fechainicio: "",
   fechafin: "",
   tipo: "novedadesadmin",
@@ -116,6 +118,12 @@ export function ABMNovedades(props) {
         return key;
       });
       if (novedad.instituciones.length === 0) {
+        ALERT(
+          "Instituciones",
+          "Debe asignar instituciones a la publicacion",
+          "warning",
+          "Aceptar"
+        );
         errors.push("Instituciones");
       }
       setErrors(() => errors);
@@ -182,47 +190,56 @@ export function ABMNovedades(props) {
                 </FormGroup>
               </Col>
               <Col className="col-3">
-                <Label htmlFor="color" className="ml-3">
-                  Color
-                </Label>
-                <select
-                  id="color"
-                  name="color"
-                  style={{ marginLeft: 20 }}
-                  onChange={handleInputChange}
-                  value={novedad.color}
-                  defaultValue="verde"
-                  default="verde"
-                >
-                  <option selected="selected" value="verde">
-                    Verde
-                  </option>
-                  <option value="rojo">Rojo</option>
-                  <option value="amarillo">Amarillo</option>
-                </select>
                 <div
-                  style={{
-                    width: "50%",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
+                  className={
+                    errors.includes("descripcion") ? "novedades_error" : ""
+                  }
                 >
+                  <Label htmlFor="color" className="ml-3">
+                    Color
+                  </Label>
+                  <select
+                    id="color"
+                    name="color"
+                    style={{ marginLeft: 20 }}
+                    onChange={handleInputChange}
+                    value={novedad.color}
+                    defaultValue="verde"
+                    default="verde"
+                  >
+                    <option value="" selected="selected" disabled>
+                      --Color--
+                    </option>
+                    <option value="verde">Verde</option>
+                    <option value="rojo">Rojo</option>
+                    <option value="amarillo">Amarillo</option>
+                  </select>
                   <div
                     style={{
-                      backgroundColor:
-                        novedad.color === "verde"
-                          ? "#00D579"
-                          : novedad.color === "rojo"
-                          ? "red"
-                          : "yellow",
-                      color: "white",
-                      borderRadius: "50%",
-                      width: 20,
-                      height: 20,
-                      borderWidth: 10,
-                      borderColor: "black",
+                      width: "50%",
+                      display: "flex",
+                      justifyContent: "center",
                     }}
-                  ></div>
+                  >
+                    <div
+                      style={{
+                        backgroundColor:
+                          novedad.color === "verde"
+                            ? "#00D579"
+                            : novedad.color === "rojo"
+                            ? "red"
+                            : novedad.color === "amarillo"
+                            ? "yellow"
+                            : "lightblue",
+                        color: "white",
+                        borderRadius: "50%",
+                        width: 20,
+                        height: 20,
+                        borderWidth: 10,
+                        borderColor: "black",
+                      }}
+                    ></div>
+                  </div>
                 </div>
               </Col>
             </Row>
@@ -341,6 +358,7 @@ const mapDispatchToProps = {
   GET_NOVEDADES_RELACIONES,
   GET_INSTITUCIONES,
   SEARCH_INSTITUCIONES,
+  ALERT,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ABMNovedades);
