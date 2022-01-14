@@ -319,7 +319,7 @@ export function ABMNovedades(props) {
               <Col>
                 {props.publicidadesReducer.submitting ? (
                   <Button className="btn btn-info">
-                    <Spinner />
+                    <Spinner size="sm" /> {`  `}Enviando ...
                   </Button>
                 ) : id ? (
                   <Button className="btn btn-success" onClick={handleConfirmar}>

@@ -40,6 +40,7 @@ export const ADD_PUBLICIDAD = (username, publicidad, instituciones) => {
 
 export const UPDATE_PUBLICIDAD = (publicidad, instituciones) => {
   return (dispatch) => {
+    dispatch({ type: "SET_SUBMITTING", payload: true });
     axios
       .put(farmageo_api + "/publicidades?id=" + publicidad._id, {
         username: publicidad.username,
@@ -59,6 +60,7 @@ export const UPDATE_PUBLICIDAD = (publicidad, instituciones) => {
         dispatch(GET_PUBLICIDADES());
         ALERT("Novedad Actualizada", "", "success", "OK");
       })
+      .then(() => dispatch({ type: "SET_SUBMITTING", payload: false }))
       .catch(function (error) {
         console.log(error);
       });
