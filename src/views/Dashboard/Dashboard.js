@@ -11,6 +11,7 @@ import {
   Container,
   Spinner,
 } from "reactstrap";
+import NoInstitucionesFound from "../../components/NoInstitucionesFound";
 import { connect } from "react-redux";
 import {
   ADD_PUBLICIDAD,
@@ -344,6 +345,14 @@ class Dashboard extends Component {
                   </CardHeader>
                   <CardBody>
                     <hr />
+                    {this.props.authReducer.userprofile.instituciones.length ===
+                    0 ? (
+                      <Row>
+                        <Col>
+                          <NoInstitucionesFound />
+                        </Col>
+                      </Row>
+                    ) : null}
                     {this.props.publicidadesReducer.novedades?.map(
                       (p, index) => {
                         return (
