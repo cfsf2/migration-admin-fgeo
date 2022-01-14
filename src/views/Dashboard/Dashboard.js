@@ -22,7 +22,7 @@ import {
   GET_ENTIDADES,
 } from "../../redux/actions/packsproductosActions";
 
-import YouTubeIcon from "@material-ui/icons/YouTube";
+import "./dashboard.scss";
 
 import ButtonHome from "./components/ButtonHome";
 import MisPedidos from "./components/MisPedidos";
@@ -36,7 +36,7 @@ class Dashboard extends Component {
       bannerAdmin: this.props.publicidadesReducer.publicidades
         .filter((p) => p.tipo === "banners_admin")
         .sort(),
-      publicidades: this.props.publicidadesReducer.publicidades.reverse(),
+      publicidades: this.props.publicidadesReducer.publicidades,
       user: this.props.authReducer.user,
     };
     this.handleFiltro = this.handleFiltro.bind(this);
@@ -78,7 +78,7 @@ class Dashboard extends Component {
       this.props.publicidadesReducer.publicidades
     ) {
       await this.setState({
-        publicidades: this.props.publicidadesReducer.publicidades.reverse(),
+        publicidades: this.props.publicidadesReducer.publicidades,
       });
       await this.setState({
         bannerAdmin: this.props.publicidadesReducer.publicidades
@@ -315,7 +315,7 @@ class Dashboard extends Component {
                   </Col>
                 </Row>
               </Col>
-              <Col md="6">
+              <Col md="6" className="dashboard_info">
                 <Card>
                   <CardHeader>
                     <Row>
@@ -382,7 +382,11 @@ class Dashboard extends Component {
                               </Row>
                               <Row>
                                 <Col className="col-1"></Col>
-                                <Col>{p.descripcion}</Col>
+                                <Col className="col-11">
+                                  <div className="dashboard_info_descripcion">
+                                    {p.descripcion}
+                                  </div>
+                                </Col>
                               </Row>
                             </Col>
                           </Row>
