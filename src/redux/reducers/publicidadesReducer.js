@@ -4,10 +4,13 @@ const defaultState = {
   novedades: [],
   editable: {},
   filtrando: false,
+  submitting: false,
 };
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+    case "SET_SUBMITTING":
+      return { ...state, submitting: action.payload };
     case "GET_PUBLICIDADES":
       return {
         ...state,

@@ -6,6 +6,7 @@ import store from "../store/index";
 
 export const ADD_PUBLICIDAD = (username, publicidad, instituciones) => {
   return (dispatch) => {
+    dispatch({ type: "SET_SUBMITTING", payload: true });
     axios
       .post(farmageo_api + "/publicidades", {
         username: username,
@@ -29,7 +30,7 @@ export const ADD_PUBLICIDAD = (username, publicidad, instituciones) => {
           "success",
           "OK",
           "10000"
-        );
+        ).then(() => dispatch({ type: "SET_SUBMITTING", payload: false }));
       })
       .catch(function (error) {
         console.log(error);
