@@ -144,8 +144,10 @@ const Novedades = (props) => {
         <Col xs="12" sm="12">
           <Card>
             <CardHeader>
-              <Link to="abmnovedades">
-                <Button>+ Agregar Novedad</Button>
+              <Link to={{ pathname: "abmnovedades" }}>
+                <Button onClick={() => props.SET_NOVEDAD_EDITABLE({})}>
+                  + Agregar Novedad
+                </Button>
               </Link>
             </CardHeader>
             <CardBody>
@@ -314,7 +316,7 @@ const Novedades = (props) => {
                         render: (rowData) => (
                           <Link
                             to={{
-                              pathname: "abmnovedades",
+                              pathname: "editnovedades",
                               search: `edit=${rowData._id}`,
                               state: { novedad: rowData },
                             }}

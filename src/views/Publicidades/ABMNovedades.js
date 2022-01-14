@@ -132,10 +132,13 @@ export function ABMNovedades(props) {
     setId(() => id);
     let news = props.publicidadesReducer.editable;
 
-    if (!news) {
-      return;
+    if (news) {
+      setNovedad(news);
     }
-    setNovedad(news);
+
+    if (!id) {
+      setNovedad(initNovedad);
+    }
   }, []);
 
   return (

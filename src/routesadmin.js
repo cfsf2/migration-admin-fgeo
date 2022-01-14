@@ -199,6 +199,13 @@ const routes = [
     permiso: "comunicados",
   },
   {
+    path: "/publicidadesAdmin/editnovedades",
+    exact: true,
+    name: "Editar Novedades",
+    component: ABMNovedades,
+    permiso: "comunicados",
+  },
+  {
     path: "/publicidadesadmin/infointeres",
     exact: true,
     name: "Información de interés",

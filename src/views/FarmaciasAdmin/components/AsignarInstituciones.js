@@ -82,11 +82,12 @@ function AsignarInstituciones(props) {
   }, []);
 
   React.useEffect(() => {
+    setObjInstituciones([]);
     if (obj && obj.instituciones) {
       setObjInstituciones((state) => obj.instituciones);
     }
     if (obj && !obj.instituciones) setObjInstituciones([]);
-    if (!obj) setObjInstituciones([]);
+    //if (!obj) setObjInstituciones([]);
   }, [obj._id, obj.instituciones]);
 
   return (
