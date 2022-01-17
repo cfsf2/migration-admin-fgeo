@@ -391,7 +391,9 @@ class Dashboard extends Component {
                                     </p>
                                   </Col>
                                   <Col className="col-3">
-                                    {p.fechaalta.substring(0, 10)}
+                                    {p.fecha_alta
+                                      ? p.fecha_alta.substring(0, 10)
+                                      : p.fechaalta.substring(0, 10)}
                                   </Col>
                                 </Row>
                                 <Row>
