@@ -3,6 +3,7 @@ import { errorParser } from "../../helpers/errorHelper";
 import { farmageo_api } from "../../config";
 import store from "../store/index";
 import { ALERT } from "./alertActions";
+import authReducer from "../reducers/authReducer";
 
 //******************** LABORATORIOS ********************************* */
 export const ADD_LABORATORIO = (laboratorio) => {
@@ -174,10 +175,24 @@ export const UPDATE_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
   };
 };
 
-export const GET_PRODUCTOS_TRANSFERS_BY_LAB = (laboratorio) => {
+export const GET_PRODUCTOS_TRANSFERS_BY_LAB = async (laboratorio) => {
+  const instituciones = await store.getState().authReducer.userprofile
+    .instituciones;
   return (dispatch) => {
     axios
-      .get(farmageo_api + "/productosTransfers/laboratorio/" + laboratorio._id)
+      .get(
+        farmageo_api +
+          "/productosTransfers/laboratorio/" +
+          laboratorio._id +
+          "?instituciones=" +
+          instituciones,
+        {
+          query: {
+            instituciones: instituciones,
+            laboratorioid: laboratorio._id,
+          },
+        }
+      )
       .then(function (response) {
         //console.log(response.data);
 
