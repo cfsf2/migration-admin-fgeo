@@ -224,7 +224,7 @@ const Novedades = (props) => {
                         title: "Titulo",
                         field: "titulo",
                         cellStyle: {
-                          width: "30%",
+                          width: "35%",
                           // maxWidth: "300px",
                           //  minWidth: "300px",
                         },
@@ -247,7 +247,7 @@ const Novedades = (props) => {
                       {
                         title: "Fecha Alta",
                         field: "fechaalta",
-                        cellStyle: { width: "10%" },
+                        cellStyle: { width: "9%" },
                         render: (rowData) =>
                           new Date(rowData.fecha_alta).toLocaleDateString(
                             "es-AR"
@@ -256,7 +256,7 @@ const Novedades = (props) => {
                       {
                         title: "Inicio",
                         field: "fechaalta",
-                        cellStyle: { width: "10%" },
+                        cellStyle: { width: "9%" },
                         render: (rowData) =>
                           rowData.fechainicio
                             ? new Date(rowData.fechainicio).toLocaleDateString(
@@ -267,7 +267,7 @@ const Novedades = (props) => {
                       {
                         title: "Fin",
                         field: "fechaalta",
-                        cellStyle: { width: "10%" },
+                        cellStyle: { width: "9%" },
                         render: (rowData) =>
                           rowData.fechafin
                             ? new Date(rowData.fechafin).toLocaleDateString(
@@ -278,7 +278,7 @@ const Novedades = (props) => {
                       {
                         title: "Mostrar",
                         field: "habilitado",
-                        cellStyle: { width: "10%" },
+                        cellStyle: { width: "8%" },
                         render: (rowData) => (
                           <div style={{ textAlign: "center" }}>
                             {rowData.habilitado ? "SI" : "NO"}
@@ -288,7 +288,7 @@ const Novedades = (props) => {
                       {
                         title: "Instituciones",
                         field: "instituciones",
-                        cellStyle: { width: "15%" },
+                        cellStyle: { width: "16%" },
                         render: (rowData) => (
                           <>
                             <ul className="novedades_instituciones_lista">
