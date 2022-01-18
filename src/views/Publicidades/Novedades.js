@@ -192,7 +192,13 @@ const Novedades = (props) => {
                       {
                         title: "Color",
                         field: "color",
-                        width: "80px",
+                        cellStyle: {
+                          width: "80px",
+                          position: "relative",
+                          left: "1%",
+                          // maxWidth: "300px",
+                          //  minWidth: "300px",
+                        },
                         render: (rowData) => (
                           <div
                             style={{
@@ -217,10 +223,10 @@ const Novedades = (props) => {
                       {
                         title: "Titulo",
                         field: "titulo",
-                        headerStyle: {
-                          width: "300px",
-                          maxWidth: "300px",
-                          minWidth: "300px",
+                        cellStyle: {
+                          width: "30%",
+                          // maxWidth: "300px",
+                          //  minWidth: "300px",
                         },
 
                         render: (rowData) => (
@@ -241,7 +247,7 @@ const Novedades = (props) => {
                       {
                         title: "Fecha Alta",
                         field: "fechaalta",
-                        headerStyle: { width: "80px" },
+                        cellStyle: { width: "10%" },
                         render: (rowData) =>
                           new Date(rowData.fecha_alta).toLocaleDateString(
                             "es-AR"
@@ -250,7 +256,7 @@ const Novedades = (props) => {
                       {
                         title: "Inicio",
                         field: "fechaalta",
-                        width: "8%",
+                        cellStyle: { width: "10%" },
                         render: (rowData) =>
                           rowData.fechainicio
                             ? new Date(rowData.fechainicio).toLocaleDateString(
@@ -261,7 +267,7 @@ const Novedades = (props) => {
                       {
                         title: "Fin",
                         field: "fechaalta",
-                        width: "8%",
+                        cellStyle: { width: "10%" },
                         render: (rowData) =>
                           rowData.fechafin
                             ? new Date(rowData.fechafin).toLocaleDateString(
@@ -272,7 +278,7 @@ const Novedades = (props) => {
                       {
                         title: "Mostrar",
                         field: "habilitado",
-                        width: "8%",
+                        cellStyle: { width: "10%" },
                         render: (rowData) => (
                           <div style={{ textAlign: "center" }}>
                             {rowData.habilitado ? "SI" : "NO"}
@@ -282,7 +288,7 @@ const Novedades = (props) => {
                       {
                         title: "Instituciones",
                         field: "instituciones",
-                        width: "10%",
+                        cellStyle: { width: "15%" },
                         render: (rowData) => (
                           <>
                             <ul className="novedades_instituciones_lista">
@@ -319,7 +325,7 @@ const Novedades = (props) => {
                       {
                         title: "Editar",
                         field: "editNovedad",
-                        width: "8%",
+                        cellStyle: { width: "5%" },
                         render: (rowData) => (
                           <Link
                             to={{
@@ -411,7 +417,7 @@ const Novedades = (props) => {
                       },
                       tableLayout: "auto",
                       search: true,
-                      // searchFieldStyle: { width: "200px" },
+                      searchFieldStyle: { top: "3px" },
                     }}
                     style={{ minWidth: "1300px", overflowX: "auto" }}
                   />
