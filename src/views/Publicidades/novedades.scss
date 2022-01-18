@@ -48,6 +48,7 @@
       overflow: auto;
       width: 100%;
       text-align: center;
+      padding-inline-start: 0;
       li {
         width: 100%;
       }
@@ -55,9 +56,20 @@
   }
 }
 .novedades_lista {
+  overflow-x: auto;
   .MuiIconButton-root {
     &:hover {
       background-color: rgba(32, 168, 216, 0);
     }
+  }
+  .mostrarFilter {
+    margin-left: 1rem;
+  }
+  .MTableToolbar-spacer-7 {
+    display: none;
+  }
+  .MuiToolbar-gutters {
+    padding: 0;
+    margin-bottom: 0.5rem;
   }
 }

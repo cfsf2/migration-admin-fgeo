@@ -7,6 +7,7 @@ import {
   Row,
   Spinner,
   CardHeader,
+  CardTitle,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -151,19 +152,20 @@ const Novedades = (props) => {
               </Link>
             </CardHeader>
             <CardBody>
+              <CardTitle style={{ fontSize: "1.8rem" }}>Novedades</CardTitle>
               <ThemeProvider theme={theme}>
                 {loading ? (
                   <Spinner />
                 ) : (
                   <MaterialTable
                     isLoading={props.publicidadesReducer.filtrando}
-                    title="Listado de Novedades"
+                    title=""
                     hideSortIcon={false}
                     icons={tableIcons}
-                    options={{ filtering: true }}
+                    options={{ filtering: false }}
                     localization={{
                       header: {
-                        actions: "Acciones",
+                        //actions: "Acciones",
                       },
                       body: {
                         emptyDataSourceMessage: "No se encontraron datos",
@@ -190,7 +192,7 @@ const Novedades = (props) => {
                       {
                         title: "Color",
                         field: "color",
-                        width: "20px",
+                        width: "80px",
                         render: (rowData) => (
                           <div
                             style={{
@@ -202,8 +204,8 @@ const Novedades = (props) => {
                                   : "yellow",
                               color: "white",
                               borderRadius: "50%",
-                              width: 20,
-                              height: 20,
+                              width: "20px",
+                              height: "20px",
                               borderWidth: 10,
                               borderColor: "black",
                               opacity: rowData.habilitado ? 1 : 0.4,
@@ -215,7 +217,12 @@ const Novedades = (props) => {
                       {
                         title: "Titulo",
                         field: "titulo",
-                        width: "52%",
+                        headerStyle: {
+                          width: "300px",
+                          maxWidth: "300px",
+                          minWidth: "300px",
+                        },
+
                         render: (rowData) => (
                           <p
                             style={{
@@ -234,9 +241,9 @@ const Novedades = (props) => {
                       {
                         title: "Fecha Alta",
                         field: "fechaalta",
-                        width: "8%",
+                        headerStyle: { width: "80px" },
                         render: (rowData) =>
-                          new Date(rowData.fechaalta).toLocaleDateString(
+                          new Date(rowData.fecha_alta).toLocaleDateString(
                             "es-AR"
                           ),
                       },
@@ -402,8 +409,11 @@ const Novedades = (props) => {
                         textAlign: "center",
                         fontWeight: "bold",
                       },
-                      tableLayout: "fixed",
+                      tableLayout: "auto",
+                      search: true,
+                      // searchFieldStyle: { width: "200px" },
                     }}
+                    style={{ minWidth: "1300px", overflowX: "auto" }}
                   />
                 )}
               </ThemeProvider>
