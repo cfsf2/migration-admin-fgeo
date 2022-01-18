@@ -92,7 +92,7 @@ export const GET_NOVEDADES = () => {
     return new Promise((resolve, reject) => {
       //
       axios
-        .get(farmageo_api + "/publicidades/novedades")
+        .get(farmageo_api + "/farmacias/novedades/admin")
         .then(function (response) {
           dispatch({
             type: "GET_NOVEDADES",
@@ -112,7 +112,7 @@ export const GET_NOVEDADES_FARMACIA = (id) => {
     return new Promise((resolve, reject) => {
       //
       axios
-        .get(farmageo_api + "/publicidades/novedades/farmacia/" + id)
+        .get(farmageo_api + "/farmacias/novedades/farmacia/" + id)
         .then(function (response) {
           dispatch({
             type: "GET_NOVEDADES",
@@ -137,7 +137,7 @@ export const GET_NOVEDADES_SEARCH = (
     return new Promise((resolve, reject) => {
       //
       axios
-        .get(farmageo_api + "/publicidades/novedades/search", {
+        .get(farmageo_api + "/farmacias/novedades/search", {
           params: {
             habilitado,
             instituciones,

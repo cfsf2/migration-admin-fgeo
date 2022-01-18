@@ -55,7 +55,7 @@ export function ABMNovedades(props) {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
-    if (name === "fechainicio") {
+    if (name === "fechainicio" && novedad.fechafin !== "") {
       if (novedad.fechainicio >= novedad.fechafin) {
         setNovedad(() => {
           return {
