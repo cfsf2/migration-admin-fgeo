@@ -29,6 +29,7 @@ export const MostrarFilter = (props) => {
           })
         }
         labelId="mostrarFilter"
+        className="mostrarFilter_select"
       >
         {hasdefault ? null : (
           <MenuItem

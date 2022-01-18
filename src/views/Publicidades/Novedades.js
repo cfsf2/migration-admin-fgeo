@@ -419,7 +419,7 @@ const Novedades = (props) => {
                       search: true,
                       searchFieldStyle: { top: "3px" },
                     }}
-                    style={{ minWidth: "1300px", overflowX: "auto" }}
+                    // style={{ minWidth: "1300px", overflowX: "auto" }}
                   />
                 )}
               </ThemeProvider>
