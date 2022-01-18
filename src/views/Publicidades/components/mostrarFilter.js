@@ -3,14 +3,17 @@ import { Select, MenuItem, InputLabel } from "@mui/material";
 import PropTypes from "prop-types";
 
 export const MostrarFilter = (props) => {
-  const { label, campo, filter, setFilter, opciones } = props;
+  const { label, campo, filter, setFilter, opciones, className } = props;
 
   const hasdefault = opciones.find((opcion) => {
     return opcion.default === true;
   });
 
   return (
-    <div style={{ position: "relative" }} className="mostrarFilter">
+    <div
+      style={{ position: "relative" }}
+      className={"mostrarFilter" + className}
+    >
       <InputLabel
         style={{ position: "absolute", top: "-16px" }}
         id="mostrarFilter"

@@ -159,7 +159,9 @@ const Novedades = (props) => {
                 ) : (
                   <MaterialTable
                     isLoading={props.publicidadesReducer.filtrando}
-                    title=""
+                    title={<div></div>}
+                    className="novedades_materialtable"
+                    id="novedades_materialtable"
                     hideSortIcon={false}
                     icons={tableIcons}
                     options={{ filtering: false }}
