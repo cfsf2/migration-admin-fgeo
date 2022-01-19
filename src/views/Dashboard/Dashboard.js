@@ -345,8 +345,8 @@ class Dashboard extends Component {
                   </CardHeader>
                   <CardBody>
                     <hr />
-                    {this.props.authReducer.userprofile.instituciones.length ===
-                    0 ? (
+                    {this.props.authReducer.userprofile.instituciones
+                      ?.length === 0 ? (
                       <Row>
                         <Col>
                           <NoInstitucionesFound />
