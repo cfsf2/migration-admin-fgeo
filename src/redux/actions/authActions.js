@@ -81,7 +81,12 @@ export const LOADPROFILE = (username, token) => {
         dispatch({ type: "LOADPROFILE_OK", payload: response.data });
         if (response.data.farmaciaid) {
           dispatch(GET_PEDIDOS(response.data.farmaciaid));
-          dispatch(GET_NOVEDADES_FARMACIA(response.data._id));
+          dispatch(
+            GET_NOVEDADES_FARMACIA(
+              response.data._id,
+              response.data.instituciones
+            )
+          );
         }
       })
       .catch(function (error) {

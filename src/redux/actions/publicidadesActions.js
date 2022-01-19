@@ -107,12 +107,16 @@ export const GET_NOVEDADES = () => {
   };
 };
 
-export const GET_NOVEDADES_FARMACIA = (id) => {
+export const GET_NOVEDADES_FARMACIA = (id, instituciones) => {
+  console.log("desde get novedades farmacia action");
+  console.log(instituciones);
   return (dispatch) => {
     return new Promise((resolve, reject) => {
       //
       axios
-        .get(farmageo_api + "/farmacias/novedades/farmacia/" + id)
+        .get(farmageo_api + "/farmacias/novedades/farmacia/" + id, {
+          params: { instituciones: instituciones },
+        })
         .then(function (response) {
           dispatch({
             type: "GET_NOVEDADES",
