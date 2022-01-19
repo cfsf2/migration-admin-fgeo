@@ -60,7 +60,7 @@ export default function AsignarPermisos(props) {
   return (
     <Card
       className={` ${
-        usuario.perfil.length === 0 && (invalid || error)
+        usuario.perfil?.length === 0 && (invalid || error)
           ? "createuser_error"
           : null
       }`}

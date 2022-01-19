@@ -28,6 +28,7 @@ const initUsuario = {
   farmaciaId: "",
   permisos: ["inicio"],
   labid: "",
+  perfil: [],
 };
 
 export default function CreateUser() {
@@ -77,7 +78,6 @@ export default function CreateUser() {
       return errors.filter((thisfield) => thisfield !== field);
     });
 
-    console.log(value !== "farmacia");
     if (value !== "demolab") {
       setNuevoUsuario(() => {
         return { ...nuevoUsuario, labid: undefined };
