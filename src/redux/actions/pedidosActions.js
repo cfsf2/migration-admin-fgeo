@@ -4,6 +4,7 @@ import { farmageo_api } from "../../config";
 
 export const GET_PEDIDOS = (idFarmacia) => {
   return (dispatch) => {
+    dispatch({ type: "LOADING" });
     axios
       .get(farmageo_api + "/pedidos/farmacias/" + idFarmacia)
       .then(function (response) {
@@ -11,11 +12,10 @@ export const GET_PEDIDOS = (idFarmacia) => {
           type: "GET_PEDIDOS",
           payload: response.data,
         });
-        //console.log(response.data)
       })
       .catch(function (error) {
         console.log(error);
-        alert("Ha ocurrido un error");
+        //alert("Ha ocurrido un error");
       });
   };
 };
@@ -95,11 +95,7 @@ export const UPDATE_PEDIDO = (pedido) => {
 export const GET_ALL_PEDIDOS_ADMIN = (token) => {
   return (dispatch) => {
     axios
-      .get(farmageo_api + "/pedidos", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      })
+      .get(farmageo_api + "/pedidos")
       .then(function (response) {
         dispatch({
           type: "GET_PEDIDOS",

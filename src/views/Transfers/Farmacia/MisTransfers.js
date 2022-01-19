@@ -149,6 +149,7 @@ class MisTransfers extends Component {
                                             <th>sku</th>
                                             <th>Producto</th>
                                             <th>Cantidad</th>
+                                            <th>Presentacion</th>
                                             <th>Observación</th>
                                           </tr>
                                         </thead>
@@ -165,6 +166,12 @@ class MisTransfers extends Component {
                                                       </td>
                                                       <td>{linea.nombre}</td>
                                                       <td>{linea.cantidad}</td>
+                                                      <td>
+                                                        {
+                                                          linea._id
+                                                            ?.presentacion
+                                                        }
+                                                      </td>
                                                       <td>
                                                         {linea.observacion}
                                                       </td>

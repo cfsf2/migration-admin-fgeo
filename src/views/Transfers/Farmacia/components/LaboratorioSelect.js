@@ -56,7 +56,10 @@ class LaboratorioSelect extends Component {
           }}
         >
           <a
-            href={process.env.PUBLIC_URL + `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`}
+            href={
+              process.env.PUBLIC_URL +
+              `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`
+            }
             style={{
               color: "#20a8d8",
               backgroundColor: "#ffffff",
@@ -66,7 +69,7 @@ class LaboratorioSelect extends Component {
             }}
             className="btn btn-light"
             onClick={() => {
-              this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
+              // this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
             }}
           >
             ELEGIR

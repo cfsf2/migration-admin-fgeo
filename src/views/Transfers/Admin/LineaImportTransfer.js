@@ -42,6 +42,7 @@ class LineaImportTransfer extends Component {
       cantidad_minima,
       descuento_porcentaje,
       precio,
+      instituciones,
     } = this.props;
 
     try {
@@ -53,8 +54,9 @@ class LineaImportTransfer extends Component {
         cantidad_minima: parseInt(cantidad_minima),
         descuento_porcentaje: parseInt(descuento_porcentaje),
         precio: parseFloat(precio),
+        instituciones: instituciones,
       });
-      console.log(result.data);
+
       this.setState({
         submiting: false,
         status: "ok",
@@ -89,7 +91,19 @@ class LineaImportTransfer extends Component {
         <td>{descuento_porcentaje}</td>
         <td>{precio}</td>
         <td>{habilitado}</td>
-        <td>{this.state.status}</td>
+        <td
+          style={
+            this.state.status === "ok"
+              ? {
+                  fontWeight: "bold",
+                  color: "green",
+                  textTransform: "uppercase",
+                }
+              : null
+          }
+        >
+          {this.state.status}
+        </td>
         <td>
           {this.state.status === "error" ? (
             <button className="btn btn-success" onClick={this.handleSubmit}>

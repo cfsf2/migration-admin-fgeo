@@ -6,7 +6,7 @@ import { Card, CardHeader, Input, Label } from "reactstrap";
 import "../createUser.scss";
 
 export default function AsignarPermisos(props) {
-  const { usuario, setUsuario, tipo } = props;
+  const { usuario, setUsuario, tipo, invalid, error } = props;
   const [perfiles, setPerfiles] = React.useState([]);
   const [descripcion, setDescripcion] = React.useState("");
 
@@ -52,13 +52,19 @@ export default function AsignarPermisos(props) {
     setUsuario(() => {
       return {
         ...usuario,
-        perfil: "",
+        perfil: usuario.perfil ? usuario.perfil : "",
       };
     });
   }, [tipo]);
 
   return (
-    <Card>
+    <Card
+      className={` ${
+        usuario.perfil.length === 0 && (invalid || error)
+          ? "createuser_error"
+          : null
+      }`}
+    >
       <CardHeader>Permisos</CardHeader>
       <div className="createuser_asignarPermisos">
         <Label>Perfil de Usuario</Label>

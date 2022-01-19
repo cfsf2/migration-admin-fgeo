@@ -21,6 +21,7 @@ import {
 } from "../../../redux/actions/transfersActions";
 import LineaImportTransfer from "./LineaImportTransfer";
 import ejemplo_transfer_csv from "./ejemplo_importar_transfers.csv";
+import AsignarInstituciones from "../../FarmaciasAdmin/components/AsignarInstituciones";
 
 class ImportProductosTransfers extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class ImportProductosTransfers extends Component {
       laboratorioid: "none",
       vistaPrevia: [],
       action: "stand",
+      instituciones: [],
     };
     this.handleConvertToJson = this.handleConvertToJson.bind(this);
     this.handleLaboratorio = this.handleLaboratorio.bind(this);
@@ -85,7 +87,7 @@ class ImportProductosTransfers extends Component {
         <Row>
           <Col xs="12" sm="12">
             <Row>
-              <Col>
+              <Col sm="9">
                 <Card>
                   <CardHeader>
                     <Row>
@@ -121,7 +123,7 @@ class ImportProductosTransfers extends Component {
                           })}
                         </Input>
                       </Col>
-                      <Col xs="12" md="6" style={{ marginBottom: 10 }}>
+                      <Col xs="12" md="5" style={{ marginBottom: 10 }}>
                         <ImportarCsv
                           handleResponse={this.handleConvertToJson}
                           disabled={this.state.laboratorioid === "none"}
@@ -130,22 +132,42 @@ class ImportProductosTransfers extends Component {
                       <Col align="right">
                         <Button
                           className="btn btn-success"
-                          disabled={this.state.laboratorioid === "none"}
-                          onClick={() => this.setState({ action: "submit" })}
+                          disabled={
+                            this.state.laboratorioid === "none" ||
+                            this.state.instituciones.length === 0 ||
+                            this.state.vistaPrevia.length === 0
+                          }
+                          onClick={() =>
+                            this.setState({
+                              action: "submit",
+                              alreadySubmitted: true,
+                            })
+                          }
                         >
                           Confirmar
                         </Button>
                       </Col>
                       <Col align="left">
                         <Button
-                          className="btn btn-danger"
-                          onClick={() => this.setState({ vistaPrevia: [] })}
+                          className={
+                            this.state.alreadySubmitted
+                              ? "btn btn-info"
+                              : "btn btn-danger"
+                          }
+                          onClick={() =>
+                            this.setState({
+                              vistaPrevia: [],
+                              alreadySubmitted: false,
+                              instituciones: [],
+                              laboratorioid: "none",
+                            })
+                          }
                         >
-                          Cancelar
+                          {this.state.alreadySubmitted ? "Limpiar" : "Cancelar"}
                         </Button>
                       </Col>
                     </Row>
-
+                    <Row></Row>
                     <Row>
                       <Col>
                         <div className="table-responsive table-striped table-fix">
@@ -184,6 +206,7 @@ class ImportProductosTransfers extends Component {
                                     key={index}
                                     action={this.state.action}
                                     precio={linea.precio}
+                                    instituciones={this.state.instituciones}
                                   />
                                 );
                                 {
@@ -205,6 +228,14 @@ class ImportProductosTransfers extends Component {
                     </Row>
                   </CardBody>
                 </Card>
+              </Col>
+              <Col sm="3">
+                <AsignarInstituciones
+                  key="f3qw4erf"
+                  obj={this.state}
+                  setObj={this.setState.bind(this)}
+                  compacto
+                />
               </Col>
             </Row>
           </Col>

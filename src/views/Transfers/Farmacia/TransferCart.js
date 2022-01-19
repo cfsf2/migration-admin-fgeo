@@ -178,7 +178,12 @@ function TransferCart(props) {
         .then((res) => setLab(res.data));
 
       axios
-        .get(farmageo_api + "/productosTransfers/laboratorio/" + laboratorio)
+        .get(farmageo_api + "/productosTransfers/laboratorio/" + laboratorio, {
+          params: {
+            instituciones: props.authReducer.userprofile.instituciones,
+            from: "TransferCart",
+          },
+        })
         .then((res) => {
           setProductos(res.data);
           setAllProducts(res.data);

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { farmageo_api, wp_api_auth } from "../../config";
-//const URL = "http://api.farmageo.com.ar:8000";
+import { ALERT } from "./alertActions";
 const URL = farmageo_api;
 
 // Falta implemwp_api_authentar.
@@ -75,12 +75,25 @@ export const CHEQUEAR_SI_EXISTE = (farmaciaid) => {
   };
 };
 
+export const SAME_MATRICULA = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "CHEQUEAR_SI_EXISTE",
+      payload: {
+        yaExiste: false,
+        msj: "Matricula Actual",
+      },
+    });
+  };
+};
+
 export const ALTA_USUARIO_SUBMIT = (
   farmacia,
   login,
   history,
   permisos,
-  perfil
+  perfil,
+  instituciones
 ) => {
   return async (dispatch) => {
     var token = await localStorage.getItem("token");
@@ -100,7 +113,15 @@ export const ALTA_USUARIO_SUBMIT = (
       })
       .then((response) => {
         if (response.status == "201" || response.status == "200") {
-          dispatch(ALTA_USER_API_FARMAGEO(farmacia, login, history, perfil));
+          dispatch(
+            ALTA_USER_API_FARMAGEO(
+              farmacia,
+              login,
+              history,
+              perfil,
+              instituciones
+            )
+          );
         } else {
           alert("Ha ocurrido un error");
         }
@@ -114,7 +135,13 @@ export const ALTA_USUARIO_SUBMIT = (
   };
 };
 
-const ALTA_USER_API_FARMAGEO = (farmacia, login, history, perfil) => {
+const ALTA_USER_API_FARMAGEO = (
+  farmacia,
+  login,
+  history,
+  perfil,
+  instituciones
+) => {
   var username = farmacia.usuario.includes("@")
     ? farmacia.usuario.toLowerCase()
     : farmacia.usuario.toUpperCase();
@@ -154,20 +181,22 @@ const ALTA_USER_API_FARMAGEO = (farmacia, login, history, perfil) => {
           log: "",
           password: login.password,
           perfil,
+          instituciones,
         },
         { timeout: 10000 }
       )
       .then((response) => {
         if (response.status == "200") {
-          console.log("se dió de alta en api farmageo");
           dispatch(GET_FARMACIAS);
-          alert("Se agregó una nueva farmacia correctamente");
+          ALERT(
+            "",
+            "Se agregó una nueva farmacia correctamente",
+            "success",
+            "Ok"
+          );
           history.push("/farmaciasAdmin");
         } else {
-          console.log(
-            "se creo el usuario de login pero no el perfil en la base de mongoo"
-          );
-          alert("Ha ocurrido un error");
+          ALERT("Ha ocurrido un error", "", "error", ":(");
         }
       })
       .catch((error) => {
@@ -359,6 +388,35 @@ export const GET_ALL_DENUNCIAS = () => {
       })
       .catch(function (error) {
         console.log(error);
+      });
+  };
+};
+
+export const FARMACIA_ADMIN_UPDATE = (props) => {
+  const { farmacia, perfil, login, instituciones } = props;
+  return (dispatch) => {
+    axios
+      .put(farmageo_api + "/farmacias/admin/", {
+        farmacia: farmacia,
+        login: login,
+        instituciones: instituciones,
+        perfil: perfil,
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          ALERT(
+            "Cambios Guardados con Exito",
+            "Los cambios han sido aplicados",
+            "success",
+            "OK"
+          ).then(() => {
+            window.location = process.env.PUBLIC_URL + "#/farmaciasAdmin";
+          });
+        }
+      })
+      .catch((err) => {
+        ALERT("Ha ocurrido un error", "", "error", ":(");
+        console.log(err);
       });
   };
 };

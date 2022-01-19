@@ -5,6 +5,8 @@ import * as router from "react-router-dom";
 import { Container, Col, Row } from "reactstrap";
 
 import { LOGOUT } from "../../redux/actions/authActions";
+import { ALERT } from "../../redux/actions/alertActions";
+import store from "../../redux/store/index";
 
 import {
   AppAside,
@@ -46,10 +48,38 @@ axios.interceptors.request.use((request) => {
 axios.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response.status === 401) {
-      alert("Denegado: No tiene permiso para realizar esta accion");
-      window.location = process.env.PUBLIC_URL;
+    switch (err.response.status) {
+      case 401:
+        // alert("Denegado: No tiene permiso para realizar esta accion");
+        store.dispatch(
+          ALERT(
+            "ACCESO DENEGADO",
+            "Usted no tiene acceso suficiente. Consulte con su administrador.",
+            "error",
+            "OK"
+          ).then(() => {
+            window.location = process.env.PUBLIC_URL;
+          })
+        );
+
+        break;
+      case 440:
+        //alert("Su sesion ha expirado, debe loguearse de nuevo");
+        store.dispatch(
+          ALERT(
+            "SESION EXPIRADA",
+            "Su sesion ha expirado debe loguearse nuevamente",
+            "error",
+            "OK"
+          ).then(() => {
+            store.dispatch(LOGOUT());
+          })
+        );
+
+      default:
+        break;
     }
+
     return err.response;
   }
 );
@@ -95,6 +125,17 @@ class DefaultLayout extends Component {
     const { IS_ADMIN, IS_FARMACIA } = this.props.user;
     const { userprofile } = this.props.authReducer;
     if (IS_ADMIN) {
+      let allowedNav = { items: [] };
+      let allowedRoutes;
+      allowedNav.items = nav_admin.items.filter((route) => {
+        return this.props.user.permisos.some((per) => route.permiso === per);
+      });
+      allowedRoutes = routesadmin.filter((route) => {
+        return this.props.user.permisos.some((per) => {
+          return route.permiso === per;
+        });
+      });
+
       this.setState({ navigation: nav_admin, routes: routesadmin });
     } else if (IS_FARMACIA) {
       var _nav_farmacia = await Filtrar_Sin_Venta_Online(
@@ -244,5 +285,6 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   LOGOUT,
+  ALERT,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout);

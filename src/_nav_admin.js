@@ -33,6 +33,10 @@ export default {
           name: "Novedades farmacias",
           url: "/publicidadesAdmin/novedades",
         },
+        {
+          name: "Agregar Novedad",
+          url: "/publicidadesAdmin/abmnovedades",
+        },
       ],
     },
     {
@@ -70,6 +74,12 @@ export default {
           url: "/CreateUser",
         },
       ],
+    },
+    {
+      name: "Instituciones",
+      icon: "instituciones",
+      url: "/instituciones",
+      permiso: "instituciones",
     },
     {
       name: "Denuncias",

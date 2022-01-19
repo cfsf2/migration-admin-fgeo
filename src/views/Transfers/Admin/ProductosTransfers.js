@@ -13,6 +13,8 @@ import {
   CardFooter,
 } from "reactstrap";
 
+import AsignarInstitucion from "../../FarmaciasAdmin/components/AsignarInstituciones";
+import { EditProducto } from "./EditProducto";
 import { connect } from "react-redux";
 import {
   GET_PRODUCTOS_TRANSFERS,
@@ -30,9 +32,7 @@ class ProductosTransfers extends Component {
       producto: null,
       labFilter: null,
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleEditImagen = this.handleEditImagen.bind(this);
-    this.handleBlanquear = this.handleBlanquear.bind(this);
+
     this.handleFilter = this.handleFilter.bind(this);
     this.handleListadoPapelera = this.handleListadoPapelera.bind(this);
   }
@@ -52,39 +52,12 @@ class ProductosTransfers extends Component {
     this.props.GET_PRODUCTOS_TRANSFERS();
   }
 
-  async handleEditImagen(urlImagen) {
-    await this.setState({
-      producto: {
-        ...this.state.producto,
-        imagen: urlImagen,
-      },
-    });
-  }
-  async handleInputChange(event) {
-    const target = event.nativeEvent.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    //console.log([name] + ": " + value);
-    this.setState({
-      producto: {
-        ...this.state.producto,
-        [name]: value,
-      },
-    });
-  }
-
   handleFilter(event) {
     const target = event.nativeEvent.target;
     const value = target.value;
     const name = target.name;
     this.setState({
       [name]: value,
-    });
-  }
-
-  handleBlanquear() {
-    this.setState({
-      producto: null,
     });
   }
 
@@ -246,256 +219,12 @@ class ProductosTransfers extends Component {
         >
           <div className="modal-dialog modal-lg">
             <div className="modal-content">
-              <Row>
-                <Col xs="12" sm="12">
-                  <Card>
-                    <CardHeader>
-                      <Row>
-                        <Col></Col>
-                      </Row>
-                      <Row>
-                        <Col>
-                          {this.state.editar ? (
-                            <b>Editar producto</b>
-                          ) : (
-                            <b>Nuevo producto</b>
-                          )}
-                        </Col>
-                        <Col>
-                          <FormGroup>
-                            <Label htmlFor="titulo">Habilitado</Label>
-                            <Input
-                              type="select"
-                              id="habilitado"
-                              name="habilitado"
-                              value={
-                                this.state.producto !== null
-                                  ? this.state.producto.habilitado
-                                  : ""
-                              }
-                              onChange={this.handleInputChange}
-                            >
-                              <option value={null}>Seleccionar...</option>
-                              <option value={true}>SI</option>
-                              <option value={false}>NO</option>
-                            </Input>
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    </CardHeader>
-                    <CardBody>
-                      <Row>
-                        <Col>
-                          <Row>
-                            <Col>
-                              <FormGroup>
-                                <Label htmlFor="titulo">Código</Label>
-                                <Input
-                                  type="text"
-                                  id="codigo"
-                                  name="codigo"
-                                  onChange={this.handleInputChange}
-                                  value={
-                                    this.state.producto !== null
-                                      ? this.state.producto.codigo
-                                      : ""
-                                  }
-                                />
-                              </FormGroup>
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col>
-                              <FormGroup>
-                                <Label htmlFor="titulo">Precio</Label>
-                                <Input
-                                  type="Number"
-                                  id="precio"
-                                  name="precio"
-                                  onChange={this.handleInputChange}
-                                  value={
-                                    this.state.producto !== null
-                                      ? this.state.producto.precio
-                                      : ""
-                                  }
-                                />
-                              </FormGroup>
-                            </Col>
-                          </Row>
-                        </Col>
-                        <Col>
-                          <p>
-                            <b>Imagen</b>
-                          </p>
-                          <CardImg
-                            src={
-                              this.state.producto
-                                ? this.state.producto.imagen !== undefined
-                                  ? image_path_server +
-                                    this.state.producto.imagen
-                                  : null
-                                : null
-                            }
-                          />
-                          <Uploader
-                            handleEditImagen={this.handleEditImagen}
-                            isPerfil={false}
-                          />
-                        </Col>
-                      </Row>
-
-                      <hr />
-                      <FormGroup>
-                        <Row>
-                          <Col>
-                            <Label htmlFor="titulo">Nombre</Label>
-                            <Input
-                              type="text"
-                              id="nombre"
-                              name="nombre"
-                              onChange={this.handleInputChange}
-                              value={
-                                this.state.producto !== null
-                                  ? this.state.producto.nombre
-                                  : ""
-                              }
-                            />
-                          </Col>
-                          <Col>
-                            <Label htmlFor="titulo">Presentación</Label>
-                            <Input
-                              type="text"
-                              id="presentacion"
-                              name="presentacion"
-                              onChange={this.handleInputChange}
-                              value={
-                                this.state.producto !== null
-                                  ? this.state.producto.presentacion
-                                  : ""
-                              }
-                            />
-                          </Col>
-                        </Row>
-                      </FormGroup>
-                      <FormGroup>
-                        <Row>
-                          <Col>
-                            <Label htmlFor="titulo">Laboratorio</Label>
-                            <Input
-                              type="select"
-                              id="laboratorioid"
-                              name="laboratorioid"
-                              value={
-                                this.state.producto !== null
-                                  ? this.state.producto.laboratorioid
-                                  : ""
-                              }
-                              onChange={this.handleInputChange}
-                            >
-                              <option value={null}>Seleccionar...</option>
-                              {laboratorios.map((lab, index) => {
-                                return (
-                                  <option value={lab._id} key={index}>
-                                    {lab.nombre}
-                                  </option>
-                                );
-                              })}
-                            </Input>
-                          </Col>
-                        </Row>
-                      </FormGroup>
-
-                      <hr />
-                      <FormGroup>
-                        <Row>
-                          <Col>
-                            <Label htmlFor="titulo">Cantidad Mínima</Label>
-                            <Input
-                              type="Number"
-                              id="cantidad_minima"
-                              name="cantidad_minima"
-                              onChange={this.handleInputChange}
-                              value={
-                                this.state.producto !== null
-                                  ? this.state.producto.cantidad_minima
-                                  : ""
-                              }
-                            />
-                          </Col>
-                          <Col>
-                            <Label htmlFor="titulo">
-                              Porcentaje de Descuento
-                            </Label>
-                            <Input
-                              type="Number"
-                              id="descuento_porcentaje"
-                              name="descuento_porcentaje"
-                              onChange={this.handleInputChange}
-                              value={
-                                this.state.producto !== null
-                                  ? this.state.producto.descuento_porcentaje
-                                  : ""
-                              }
-                            />
-                          </Col>
-                        </Row>
-                      </FormGroup>
-                      <hr />
-                    </CardBody>
-                    <CardFooter>
-                      <Row>
-                        <Col>
-                          {" "}
-                          <Button
-                            className="btn btn-warning"
-                            onClick={this.handleBlanquear}
-                          >
-                            Blanquear
-                          </Button>
-                        </Col>
-
-                        <Col>
-                          {this.state.editar ? (
-                            <Button
-                              className="btn btn-success"
-                              data-dismiss="modal"
-                              onClick={() => {
-                                this.props.UPDATE_PRODUCTO_TRANSFER(
-                                  this.state.producto
-                                );
-                              }}
-                            >
-                              Guardar Cambios
-                            </Button>
-                          ) : (
-                            <Button
-                              className="btn btn-success"
-                              data-dismiss="modal"
-                              onClick={() => {
-                                this.props.ADD_PRODUCTO_TRANSFER(
-                                  this.state.producto
-                                );
-                              }}
-                            >
-                              Confirmar
-                            </Button>
-                          )}
-                        </Col>
-
-                        <Col>
-                          <Button
-                            className="btn btn-danger"
-                            data-dismiss="modal"
-                          >
-                            Cancelar
-                          </Button>
-                        </Col>
-                        <Col></Col>
-                      </Row>
-                    </CardFooter>
-                  </Card>
-                </Col>
-              </Row>
+              <EditProducto
+                state={this.state}
+                setState={this.setState.bind(this)}
+                laboratorios={laboratorios}
+                {...this.props}
+              />
             </div>
           </div>
         </div>

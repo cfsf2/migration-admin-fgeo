@@ -1,0 +1,18 @@
+.asignar {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  column-gap: 2rem;
+  .createuser_asignarPermisos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    p {
+      margin: 1rem;
+    }
+  }
+}
+.altafarmacia {
+  .error {
+  }
+}

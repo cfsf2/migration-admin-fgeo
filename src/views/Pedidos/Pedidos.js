@@ -23,18 +23,35 @@ class Pedidos extends Component {
   constructor(props) {
     super(props);
     this.state = { pedido: null };
+    this.state = { loading: true };
   }
+
+  setLoading = (load) => {
+    return this.setState({
+      ...this.state,
+      loading: load,
+    });
+  };
 
   async componentDidMount() {
     const { userprofile } = this.props.authReducer;
+
     await this.props.GET_PEDIDOS(userprofile.farmaciaid);
+    this.setLoading(false);
     this.props.GET_ENTIDADES();
     //para que chequee si hay cambios en los pedidos cada 1 minuto.
-    setInterval(this.refreshPedidos, 60000);
+    this.interval = setInterval(this.refreshPedidos, 60000);
   }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   refreshPedidos = async () => {
     const { userprofile } = this.props.authReducer;
+    this.setLoading(true);
     await this.props.GET_PEDIDOS(userprofile.farmaciaid);
+    this.setLoading(false);
   };
 
   handleInputChange = async (event) => {
@@ -94,80 +111,82 @@ class Pedidos extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {mis_pedidos.map((p, index) => {
-                      return (
-                        <tr key={index}>
-                          <td className="text-center">
-                            {p.origen === "ecommerce" ? (
-                              <p className="bg-success">Ecommerce</p>
-                            ) : (
-                              <p className="bg-warning">APP</p>
-                            )}
-                          </td>
-                          <td>{p._id}</td>
-                          <td>{p.descripcion}</td>
-                          <td>{p.fechaalta.substring(0, 10)} </td>
-                          <td>{p.envio ? p.domicilioenvio : "Farmacia"}</td>
-                          <td>
-                            <div
-                              style={{
-                                backgroundColor:
-                                  p.estado === "nuevo"
-                                    ? "#00D579"
-                                    : p.estado === "enproceso"
-                                    ? "yellow"
-                                    : p.estado === "entregado"
-                                    ? "#20a8d8"
-                                    : p.estado === "anulado"
-                                    ? "red"
-                                    : p.estado === "resuelto"
-                                    ? "#c8ced3"
-                                    : "",
-                                color: "white",
-                                borderRadius: "50%",
-                                width: 20,
-                                height: 20,
-                                borderWidth: 10,
-                                borderColor: "black",
-                                margin: 10,
-                              }}
-                            ></div>
-                            {p.estado === "nuevo" ? (
-                              <p style={{ fontSize: 8 }}>En espera</p>
-                            ) : p.estado === "enproceso" ? (
-                              <p style={{ fontSize: 8 }}>En proceso</p>
-                            ) : p.estado === "entregado" ? (
-                              <p style={{ fontSize: 8 }}>Entregado</p>
-                            ) : p.estado === "anulado" ? (
-                              <p style={{ fontSize: 8 }}>Anulado</p>
-                            ) : p.estado === "resuelto" ? (
-                              <p style={{ fontSize: 8 }}>Resuelto</p>
-                            ) : null}
-                          </td>
-                          <td>
-                            {p.gruposproductos[0].precio != null
-                              ? parseFloat(p.gruposproductos[0].precio).toFixed(
-                                  2
-                                )
-                              : "A confirmar"}
-                          </td>
-                          <td>
-                            <button
-                              type="button"
-                              className="btn btn-secondary"
-                              data-toggle="modal"
-                              data-target=".bd-example-modal-lg"
-                              onClick={() => {
-                                this.props.GET_INFO_SOCIO(p.username);
-                                this.setState({ pedido: p });
-                              }}
-                            >
-                              ver
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                    {this.state.loading
+                      ? "Cargando..."
+                      : mis_pedidos.map((p, index) => {
+                          return (
+                            <tr key={index}>
+                              <td className="text-center">
+                                {p.origen === "ecommerce" ? (
+                                  <p className="bg-success">Ecommerce</p>
+                                ) : (
+                                  <p className="bg-warning">APP</p>
+                                )}
+                              </td>
+                              <td>{p._id}</td>
+                              <td>{p.descripcion}</td>
+                              <td>{p.fechaalta.substring(0, 10)} </td>
+                              <td>{p.envio ? p.domicilioenvio : "Farmacia"}</td>
+                              <td>
+                                <div
+                                  style={{
+                                    backgroundColor:
+                                      p.estado === "nuevo"
+                                        ? "#00D579"
+                                        : p.estado === "enproceso"
+                                        ? "yellow"
+                                        : p.estado === "entregado"
+                                        ? "#20a8d8"
+                                        : p.estado === "anulado"
+                                        ? "red"
+                                        : p.estado === "resuelto"
+                                        ? "#c8ced3"
+                                        : "",
+                                    color: "white",
+                                    borderRadius: "50%",
+                                    width: 20,
+                                    height: 20,
+                                    borderWidth: 10,
+                                    borderColor: "black",
+                                    margin: 10,
+                                  }}
+                                ></div>
+                                {p.estado === "nuevo" ? (
+                                  <p style={{ fontSize: 8 }}>En espera</p>
+                                ) : p.estado === "enproceso" ? (
+                                  <p style={{ fontSize: 8 }}>En proceso</p>
+                                ) : p.estado === "entregado" ? (
+                                  <p style={{ fontSize: 8 }}>Entregado</p>
+                                ) : p.estado === "anulado" ? (
+                                  <p style={{ fontSize: 8 }}>Anulado</p>
+                                ) : p.estado === "resuelto" ? (
+                                  <p style={{ fontSize: 8 }}>Resuelto</p>
+                                ) : null}
+                              </td>
+                              <td>
+                                {p.gruposproductos[0].precio != null
+                                  ? parseFloat(
+                                      p.gruposproductos[0].precio
+                                    ).toFixed(2)
+                                  : "A confirmar"}
+                              </td>
+                              <td>
+                                <button
+                                  type="button"
+                                  className="btn btn-secondary"
+                                  data-toggle="modal"
+                                  data-target=".bd-example-modal-lg"
+                                  onClick={() => {
+                                    this.props.GET_INFO_SOCIO(p.username);
+                                    this.setState({ pedido: p });
+                                  }}
+                                >
+                                  ver
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
                   </tbody>
                 </table>
               </div>

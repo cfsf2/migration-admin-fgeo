@@ -2,6 +2,9 @@ import axios from "axios";
 import { errorParser } from "../../helpers/errorHelper";
 import { wp_api, farmageo_api, wp_api_auth } from "../../config";
 import { GET_ALL_PEDIDOS_ADMIN, GET_PEDIDOS } from "./pedidosActions";
+import { ALERT } from "./alertActions";
+import store from "../store/index";
+import { GET_NOVEDADES_FARMACIA } from "./publicidadesActions";
 
 export const RESET_ERROR = () => {
   return (dispatch) => {
@@ -29,7 +32,15 @@ export const LOGIN = (user, password) => {
       })
       .then(function (response) {
         if (response.data.statusCode == 500) {
-          alert("Usuario y/o contraseña incorrectos");
+          ALERT(
+            "Error",
+            "Usuario y/o contraseña incorrectos",
+            "error",
+            "OK"
+          ).then(() => {
+            store.dispatch(LOGOUT());
+            window.location = process.env.PUBLIC_URL;
+          });
         } else {
           dispatch({ type: "authenticated", payload: user });
           dispatch({ type: "LOGIN_OK", payload: response.data });
@@ -46,7 +57,7 @@ export const LOGIN = (user, password) => {
           localStorage.setItem("pass", password);
 
           if (response.data.user_rol.includes("admin")) {
-            dispatch(GET_ALL_PEDIDOS_ADMIN(response.data.token));
+            //dispatch(GET_ALL_PEDIDOS_ADMIN(response.data.token));
           } else {
             dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }
@@ -61,14 +72,22 @@ export const LOGIN = (user, password) => {
 export const LOADPROFILE = (username, token) => {
   return (dispatch) => {
     axios
-      .get(farmageo_api + "/farmacias/login/" + username.toUpperCase(), {
+      .get(farmageo_api + "/farmacias/login/" + username?.toUpperCase(), {
         headers: {
           authorization: `Bearer ${token}`,
         },
       })
       .then(function (response) {
         dispatch({ type: "LOADPROFILE_OK", payload: response.data });
-        dispatch(GET_PEDIDOS(response.data.farmaciaid));
+        if (response.data.farmaciaid) {
+          dispatch(GET_PEDIDOS(response.data.farmaciaid));
+          dispatch(
+            GET_NOVEDADES_FARMACIA(
+              response.data._id,
+              response.data.instituciones
+            )
+          );
+        }
       })
       .catch(function (error) {
         dispatch({

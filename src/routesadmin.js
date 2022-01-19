@@ -17,6 +17,9 @@ const Horarios = React.lazy(() => import("./views/Horarios/Horarios"));
 
 const PedidosAdmin = React.lazy(() => import("./views/Pedidos/pedidosAdmin"));
 const Novedades = React.lazy(() => import("./views/Publicidades/Novedades"));
+const ABMNovedades = React.lazy(() =>
+  import("./views/Publicidades/ABMNovedades")
+);
 const InfoInteres = React.lazy(() =>
   import("./views/Publicidades/Infointeres")
 );
@@ -29,8 +32,20 @@ const FarmaciasAdmin = React.lazy(() =>
 const AltaFarmacia = React.lazy(() =>
   import("./views/FarmaciasAdmin/AltaFarmacia")
 );
+const EditarFarmacia = React.lazy(() =>
+  import("./views/FarmaciasAdmin/AltaFarmacia")
+);
+
 const Usuarios = React.lazy(() => import("./views/Usuarios/Usuarios"));
 const CrearUsuario = React.lazy(() => import("./views/Usuarios/CreateUser"));
+
+const Instituciones = React.lazy(() =>
+  import("./views/Instituciones/Instituciones")
+);
+const AltaInstituciones = React.lazy(() =>
+  import("./views/Instituciones/AltaInstituciones")
+);
+
 const EditUser = React.lazy(() => import("./views/Usuarios/EditUser"));
 const Denuncias = React.lazy(() => import("./views/Denuncias/Denuncias"));
 
@@ -177,6 +192,20 @@ const routes = [
     permiso: "comunicados",
   },
   {
+    path: "/publicidadesAdmin/abmnovedades",
+    exact: true,
+    name: "Agregar Novedades",
+    component: ABMNovedades,
+    permiso: "comunicados",
+  },
+  {
+    path: "/publicidadesAdmin/editnovedades",
+    exact: true,
+    name: "Editar Novedades",
+    component: ABMNovedades,
+    permiso: "comunicados",
+  },
+  {
     path: "/publicidadesadmin/infointeres",
     exact: true,
     name: "Información de interés",
@@ -205,6 +234,14 @@ const routes = [
     permiso: "farmacia",
   },
   {
+    path: "/EditarFarmacia",
+    exact: true,
+    name: "Editar Farmacia",
+    component: AltaFarmacia,
+    permiso: "farmacia",
+  },
+
+  {
     path: "/usuarios",
     exact: true,
     name: "Administración de usuarios",
@@ -225,6 +262,21 @@ const routes = [
     component: EditUser,
     permiso: "usuarios",
   },
+  {
+    path: "/instituciones",
+    exact: true,
+    name: "Listado de Instituciones",
+    component: Instituciones,
+    permiso: "instituciones",
+  },
+  {
+    path: "/altainstituciones",
+    exact: true,
+    name: "Alta de Instituciones",
+    component: AltaInstituciones,
+    permiso: "instituciones",
+  },
+
   {
     path: "/denuncias",
     exact: true,

@@ -6,11 +6,7 @@ import {
   CardHeader,
   Col,
   Row,
-  FormGroup,
-  Input,
-  Label,
   CardImg,
-  CardFooter,
 } from "reactstrap";
 import { connect } from "react-redux";
 import { UPDATE_FARMACIA_ADMIN_RESPONSE } from "../../redux/actions/FarmaciasAdminActions";
@@ -19,12 +15,11 @@ import {
   GET_PASSWORDS_FARMACIAS,
 } from "../../redux/actions/FarmaciasAdminActions";
 import ItemFarmacia from "./components/ItemFarmacia";
+import { Link } from "react-router-dom";
 
 import { image_path_server } from "../../config";
-import FlatList, { PlainList } from "flatlist-react";
 
 import { forwardRef } from "react";
-import RestoreIcon from "@material-ui/icons/Restore";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -282,6 +277,20 @@ class FarmaciasAdmin extends Component {
                           change={this.handleDescubrir}
                           rowData={rowData}
                         />
+                      ),
+                    },
+                    {
+                      title: "Editar",
+                      render: (rowData) => (
+                        <Link
+                          to={{
+                            pathname: "/EditarFarmacia",
+                            search: `edit=${rowData._id}`,
+                            state: { farmacia: rowData },
+                          }}
+                        >
+                          <Button className="btn btn-sm btn-info">Edit</Button>
+                        </Link>
                       ),
                     },
                   ]}
