@@ -19,7 +19,7 @@ import { image_path_server } from "../../../../config";
 class LaboratorioSelect extends Component {
   render() {
     return (
-      <Col md="2" style={{ marginBottom: 30 }}>
+      <Col md="3" sm="4" lg="3" xl="2" style={{ marginBottom: 30 }}>
         <a
           href={
             process.env.PUBLIC_URL +
@@ -57,16 +57,20 @@ class LaboratorioSelect extends Component {
               alt={this.props.laboratorio.nombre}
             />
           </div>
+
+          <div
+            style={{
+              padding: "3px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: 176,
+              background: "aliceblue",
+            }}
+          >
+            {this.props.laboratorio.nombre}
+          </div>
         </a>
-        <div
-          style={{
-            marginTop: 20,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: 150,
-          }}
-        ></div>
       </Col>
     );
   }
