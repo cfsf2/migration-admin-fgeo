@@ -99,7 +99,7 @@ export const ALTA_USUARIO_SUBMIT = (
     var token = await localStorage.getItem("token");
     var emailDefault = login.username.toLowerCase() + "@farmageoapp.com.ar";
     axios
-      .post(farmageo_api + "/users/alta-usuario", {
+      .post(farmageo_api + "/users/alta-usuario-farmacia", {
         username: login.username,
         password: login.password,
         name: farmacia.nombre,

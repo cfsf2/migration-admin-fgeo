@@ -72,11 +72,24 @@ class Dashboard extends Component {
 
   async componentDidMount() {
     this.props.GET_PUBLICIDADES();
-    this.props.GET_ENTIDADES();
+
+    if (
+      this.props.authReducer.user.permisos &&
+      this.props.authReducer.user.permisos.includes("packsdeproductos")
+    ) {
+      this.props.GET_ENTIDADES();
+    }
   }
 
   async componentDidUpdate(prevProps, prevState) {
     const { userprofile } = this.props.authReducer;
+
+    if (
+      this.props.authReducer.user.permisos &&
+      this.props.authReducer.user.permisos.includes("packsdeproductos")
+    ) {
+      this.props.GET_ENTIDADES();
+    }
 
     if (
       prevProps.publicidadesReducer.publicidades !==

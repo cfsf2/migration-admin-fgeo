@@ -81,7 +81,7 @@ export const CREAR_INSTITUCION = (data) => {
           habilitada,
         })
         .then((res) => {
-          alert(res.data);
+          //alert(res.data);
           dispatch(GET_INSTITUCIONES(limit));
           resolve();
         })
@@ -102,7 +102,7 @@ export const ACTUALIZAR_INSTITUCION = (data) => {
           id: id,
         })
         .then((res) => {
-          alert(res.data);
+          //alert(res.data);
           dispatch(GET_INSTITUCIONES(limit));
           resolve();
         })
