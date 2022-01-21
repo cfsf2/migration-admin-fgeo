@@ -19,6 +19,33 @@ import { Redirect } from "react-router-dom";
 import Alertmessage from "../../../components/Alertmessage";
 import { GET_SESSION } from "../../../redux/actions/authActions";
 
+const backgroundStyle = {
+  backgroundImage: `url(${bgImage})`,
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+};
+const h1Stule = {
+  color: "white",
+  fontSize: "50px",
+  fontWeight: "bold",
+};
+const whiteStyle = {
+  color: "white",
+};
+const boldStyle = {
+  fontWeight: "bold",
+};
+const lineStyle = {
+  backgroundColor: "white",
+  height: 1,
+  width: 50,
+};
+const formStyle = {
+  backgroundColor: "rgba(0,0,0,0.6)",
+  borderRadius: "10px",
+};
+
 const Login = (props) => {
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
@@ -44,7 +71,6 @@ const Login = (props) => {
   };
 
   function pruebaemail(valor) {
-    console.log(valor);
     const re = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
     if (!re.exec(valor) || valor === "") {
       return true;
@@ -117,33 +143,6 @@ const Login = (props) => {
     setTerminos(event.target.value);
   };
 
-  const backgroundStyle = {
-    backgroundImage: `url(${bgImage})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  };
-  const h1Stule = {
-    color: "white",
-    fontSize: "50px",
-    fontWeight: "bold",
-  };
-  const whiteStyle = {
-    color: "white",
-  };
-  const boldStyle = {
-    fontWeight: "bold",
-  };
-  const lineStyle = {
-    backgroundColor: "white",
-    height: 1,
-    width: 50,
-  };
-  const formStyle = {
-    backgroundColor: "rgba(0,0,0,0.6)",
-    borderRadius: "10px",
-  };
-
   if (islogin) {
     // console.log("username " + username)
 
@@ -153,7 +152,10 @@ const Login = (props) => {
     //esto habrìa que correrlo
     dispatch(GET_SESSION());
     return (
-      <div style={{ width: "100%" }} className="container-fluid">
+      <div
+        style={{ width: "100%", height: "100%" }}
+        className="container-fluid"
+      >
         <div style={backgroundStyle} className="row ">
           {window.innerWidth > 769 ? (
             <div
@@ -232,11 +234,15 @@ const Login = (props) => {
             </div>
           )}
           <div
-            className="col-md-4 col-sm-12 d-flex flex-column overflow-hidden pr-md-5 pr-sm-3"
-            style={{ ...whiteStyle }}
+            className="col-md-4 col-sm-12 d-flex flex-column justify-content-center    overflow-hidden pr-md-5 pr-sm-3"
+            style={{
+              color: "white",
+              width: "100%",
+              maxWidth: "500px",
+            }}
           >
             <form
-              className="d-flex flex-column mt-auto mb-2 text-center"
+              className="d-flex flex-column  mb-2 text-center"
               style={formStyle}
             >
               <h4 className="mt-2">Acceso al sistema</h4>
@@ -281,13 +287,13 @@ const Login = (props) => {
                 </Button>
               </div>
             </form>
-            <Divider className="my-3" />
+            <Divider className="my-3 d-none" />
             <Form2
               onSubmit={(e) => {
                 e.preventDefault();
                 createHtmlMail(e.target);
               }}
-              className="d-flex flex-column mb-md-auto mb-sm-2 my-2 text-center"
+              className="d-none flex-column mb-md-auto mb-sm-2 my-2 text-center"
               style={formStyle}
             >
               <h4 className="mt-2">¿Querés ser parte?</h4>
@@ -328,96 +334,6 @@ const Login = (props) => {
             </Form2>
           </div>
           <div></div>
-          {/* <Container>
-          asd
-          <Row className="justify-content-center">
-            <Col md="8">
-              <CardGroup>
-                <Card
-                //className="text-white custom-bgcolor py-5 d-md-down-none"
-                >
-                  <CardBody // className="text-center"
-                    className="p-0"
-                  >
-                    <img src={logo} className="w-100" alt="Logo" />
-                    
-                  </CardBody>
-                </Card>
-                <Card className="p-4">
-                  <CardBody>
-                    <Form>
-                      <h1>Entrar</h1>
-                      <p className="text-muted">Acceso al sistema</p>
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-user"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="text"
-                          onChange={handleChangeUsername}
-                          placeholder="Usuario"
-                          autoComplete="username"
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-lock"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="password"
-                          onChange={handleChangePassword}
-                          placeholder="Contraseña"
-                          autoComplete="current-password"
-                        />
-                      </InputGroup>
-                      <Row>
-                        <Col xs="12">
-                          <Alertmessage
-                            error={{ errorCode, errorTitle, errorMessage }}
-                          />
-                        </Col>
-                      </Row>
-                      <Row style={{ marginLeft: 10, marginBottom: 10 }}>
-                        <Col md="12">
-                          <input
-                            type="checkbox"
-                            onChange={handleChangeTerminos}
-                            style={{ marginRight: 10 }}
-                          />
-                          <a
-                            href="https://farmageo.com.ar/terminos-legales.html"
-                            target="_blank"
-                            style={{ fontSize: 10 }}
-                            rel="noopener noreferrer"
-                          >
-                            Acepto los términos y condiciones
-                          </a>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col xs="12">
-                          <Button
-                            type="button"
-                            color="primary"
-                            className="px-4"
-                            disabled={!validateForm()}
-                            onClick={handleLoginClick}
-                          >
-                            v
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </CardBody>
-                </Card>
-              </CardGroup>
-            </Col>
-          </Row>
-        </Container> */}
         </div>
       </div>
     );
