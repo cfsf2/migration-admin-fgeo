@@ -57,7 +57,7 @@ axios.interceptors.response.use(
             "Usted no tiene acceso suficiente. Consulte con su administrador.",
             "error",
             "OK"
-          ).then(() => {
+          ).finally(() => {
             window.location = process.env.PUBLIC_URL;
           })
         );
@@ -71,7 +71,7 @@ axios.interceptors.response.use(
             "Su sesion ha expirado debe loguearse nuevamente",
             "error",
             "OK"
-          ).then(() => {
+          ).finally(() => {
             store.dispatch(LOGOUT());
           })
         );
