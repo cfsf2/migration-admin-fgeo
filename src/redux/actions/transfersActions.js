@@ -179,36 +179,36 @@ export const GET_PRODUCTOS_TRANSFERS_BY_LAB = async (laboratorio) => {
   const instituciones = await store.getState().authReducer.userprofile
     .instituciones;
   return (dispatch) => {
-    axios
-      .get(
-        farmageo_api +
-          "/productosTransfers/laboratorio/" +
-          laboratorio._id +
-          "?instituciones=" +
-          instituciones,
-        {
-          query: {
-            instituciones: instituciones,
-            laboratorioid: laboratorio._id,
-          },
-        }
-      )
-      .then(function (response) {
-        //console.log(response.data);
+    dispatch({
+      type: "SET_LABORATORIO_SELECTED",
+      payload: laboratorio,
+    });
+    // axios
+    //   .get(
+    //     farmageo_api +
+    //       "/productosTransfers/laboratorio/" +
+    //       laboratorio._id +
+    //       "?instituciones=" +
+    //       instituciones,
+    //     {
+    //       query: {
+    //         instituciones: instituciones,
+    //         laboratorioid: laboratorio._id,
+    //       },
+    //     }
+    //   )
+    //   .then(function (response) {
+    //     //console.log(response.data);
 
-        dispatch({
-          type: "GET_PRODUCTOS_TRANSFERS",
-          payload: response.data,
-        });
+    //     dispatch({
+    //       type: "GET_PRODUCTOS_TRANSFERS",
+    //       payload: response.data,
+    //     });
 
-        dispatch({
-          type: "SET_LABORATORIO_SELECTED",
-          payload: laboratorio,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   };
 };
 
