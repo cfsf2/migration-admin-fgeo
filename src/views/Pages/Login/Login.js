@@ -18,6 +18,7 @@ import {
 import { Redirect } from "react-router-dom";
 import Alertmessage from "../../../components/Alertmessage";
 import { GET_SESSION } from "../../../redux/actions/authActions";
+import "./login.scss";
 
 const backgroundStyle = {
   backgroundImage: `url(${bgImage})`,
@@ -234,7 +235,7 @@ const Login = (props) => {
             </div>
           )}
           <div
-            className="col-md-4 col-sm-12 d-flex flex-column justify-content-center    overflow-hidden pr-md-5 pr-sm-3"
+            className="col-md-4 col-sm-12 d-flex flex-column   overflow-hidden pr-md-5 pr-sm-3 login_container"
             style={{
               color: "white",
               width: "100%",
@@ -242,7 +243,7 @@ const Login = (props) => {
             }}
           >
             <form
-              className="d-flex flex-column  mb-2 text-center"
+              className="d-flex flex-column  mb-2 text-center login_container_form"
               style={formStyle}
             >
               <h4 className="mt-2">Acceso al sistema</h4>
