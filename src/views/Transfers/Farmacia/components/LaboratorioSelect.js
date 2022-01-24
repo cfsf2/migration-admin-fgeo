@@ -69,7 +69,7 @@ class LaboratorioSelect extends Component {
             }}
             className="btn btn-light"
             onClick={() => {
-              // this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
+              this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
             }}
           >
             ELEGIR
