@@ -7,7 +7,6 @@ export const GET_REPORTE_OOSS = () => {
     axios
       .get(farmageo_api + "/repooss", {})
       .then(function (response) {
-        console.log(response)
         dispatch({
           type: "GET_REPORTE_OOSS",
           payload: response.data,
@@ -21,32 +20,25 @@ export const GET_REPORTE_OOSS = () => {
 
 export const NEW_REPORT_OOSS = (file, oossInactivas, alerta) => {
   return async (dispatch) => {
-    var token = await localStorage.getItem("token");
     let formData = new FormData();
-    formData.append("adjunto", file)
-    oossInactivas.forEach(os => {
-      formData.append("oossInactivas",os)
+    formData.append("file", file);
+    oossInactivas.forEach((os) => {
+      formData.append("oossInactivas", os);
     });
-    formData.append("alert", alerta)
-    console.log(formData)
-    // console.log(token)
-    //var emailDefault = login.username.toLowerCase() + "@farmageoapp.com.ar";
+    formData.append("alert", alerta);
+
     axios
-      .post(
-        farmageo_api + "/repooss",
-        formData,
-        {
-          headers: {  
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post(farmageo_api + "/repooss", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         if (response.status == "201" || response.status == "200") {
           alert("Se modifico correctamente");
           dispatch({
             type: NEW_REPORT_OOSS,
-            payload: response.data
+            payload: response.data,
           });
         } else {
           console.log("Ha ocurrido un error");
