@@ -27,7 +27,7 @@ class LaboratorioSelect extends Component {
           }
           className="btn btn-light"
           onClick={() => {
-            // this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
+            this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
           }}
         >
           <div
@@ -64,8 +64,9 @@ class LaboratorioSelect extends Component {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              width: 176,
+              maxWidth: "150px",
               background: "aliceblue",
+              whiteSpace: "normal",
             }}
           >
             {this.props.laboratorio.nombre}
