@@ -28,6 +28,7 @@ import "./dashboard.scss";
 
 import ButtonHome from "./components/ButtonHome";
 import MisPedidos from "./components/MisPedidos";
+import MisVentas from "./components/MisVentas";
 import VentaOnlineSelect from "./components/VentaOnlineSelect";
 import { image_path_server } from "../../config";
 
@@ -42,6 +43,7 @@ class Dashboard extends Component {
       novedades: this.props.publicidadesReducer.novedades,
       user: this.props.authReducer.user,
       farmacia: this.props.authReducer.userprofile,
+      misventas: false,
     };
     this.handleFiltro = this.handleFiltro.bind(this);
     this.handleBannerNutriendoEsperanza =
@@ -264,74 +266,16 @@ class Dashboard extends Component {
                 </Row>
                 <Row>
                   <Col>
-                    <MisPedidos {...this.props} {...this.state} />
+                    <MisPedidos pedidosNuevos {...this.props} {...this.state} />
                   </Col>
                 </Row>
-                <Row>
-                  <Col>
-                    <Card>
-                      <CardHeader>
-                        <b>MIS VENTAS</b>
-                      </CardHeader>
-                      <CardBody>
-                        <Row>
-                          <Col
-                            md="6"
-                            xs="12"
-                            style={{
-                              height: 80,
-                              marginTop: 15,
-                              marginBottom: 15,
-                              width: "100%",
-                            }}
-                            align="center"
-                          >
-                            <p
-                              style={{
-                                fontSize: 18,
-                                paddingBottom: 0,
-                                marginBottom: 0,
-                                marginTop: 18,
-                              }}
-                            >
-                              $0.00
-                            </p>
-                            <hr />
-                            <p style={{ fontSize: 10 }}>
-                              Ventas netas este mes
-                            </p>
-                          </Col>
-                          <Col
-                            md="6"
-                            xs="12"
-                            style={{
-                              height: 80,
-                              marginTop: 15,
-                              marginBottom: 15,
-                              width: "100%",
-                            }}
-                            align="center"
-                          >
-                            <p
-                              style={{
-                                fontSize: 18,
-                                paddingBottom: 0,
-                                marginBottom: 0,
-                                marginTop: 18,
-                              }}
-                            >
-                              ...
-                            </p>
-                            <hr />
-                            <p style={{ fontSize: 10 }}>
-                              Es el más vendido este mes{" "}
-                            </p>
-                          </Col>
-                        </Row>
-                      </CardBody>
-                    </Card>
-                  </Col>
-                </Row>
+                {this.state.misventas ? (
+                  <Row>
+                    <Col>
+                      <MisVentas {...this.props} {...this.state} />
+                    </Col>
+                  </Row>
+                ) : null}
               </Col>
               <Col md="6" className="dashboard_info">
                 <Card>
