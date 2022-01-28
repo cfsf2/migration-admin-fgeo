@@ -13,6 +13,8 @@ import {
 } from "reactstrap";
 
 export default function MisPedidos(props) {
+  const { pedidosNuevos, pedidosProceso, productosCasi, productosAgotados } =
+    props;
   const { loading } = props.pedidosReducer;
 
   const [productoscasiagotados, setProductosCasiAgotados] = React.useState(0);
@@ -62,209 +64,216 @@ export default function MisPedidos(props) {
           </CardHeader>
           <CardBody>
             <Row>
-              <Col
-                md="6"
-                xs="12"
-                style={{
-                  height: 80,
-                  marginTop: 15,
-                  marginBottom: 15,
-                }}
-                align="center"
-                className={
-                  pedidosnuevos > 0 ? "btn btn-success" : "btn btn-white"
-                }
-                style={{ color: "black", width: "100%" }}
-              >
-                <Row>
-                  <Col md="3" xs="3">
-                    <div
-                      className="bg-success"
-                      style={{
-                        width: 40,
-                        height: 40,
-                        marginTop: 20,
-                        borderRadius: 50,
-                        float: "right",
-                      }}
-                    >
-                      <b style={{ fontSize: 20 }}>...</b>
-                    </div>
-                  </Col>
-                  <Col md="9" xs="9">
-                    <a
-                      href={process.env.PUBLIC_URL + "/#/pedidos"}
-                      style={{ color: "black", float: "left" }}
-                    >
-                      <p
+              {pedidosNuevos ? (
+                <Col
+                  md="6"
+                  xs="12"
+                  style={{
+                    height: 80,
+                    marginTop: 15,
+                    marginBottom: 15,
+                  }}
+                  align="center"
+                  className={
+                    pedidosnuevos > 0 ? "btn btn-success" : "btn btn-white"
+                  }
+                  style={{ color: "black", width: "100%" }}
+                >
+                  <Row>
+                    <Col md="3" xs="3">
+                      <div
+                        className="bg-success"
                         style={{
-                          fontSize: 18,
-                          paddingBottom: 0,
-                          marginBottom: 0,
-                          marginTop: 18,
+                          width: 40,
+                          height: 40,
+                          marginTop: 20,
+                          borderRadius: 50,
+                          float: "right",
                         }}
                       >
-                        {pedidosnuevos} Pedidos
-                      </p>
-                      <p style={{ fontSize: 10 }}>nuevos</p>
-                    </a>
-                  </Col>
-                </Row>
-              </Col>
+                        <b style={{ fontSize: 20 }}>...</b>
+                      </div>
+                    </Col>
+                    <Col md="9" xs="9">
+                      <a
+                        href={process.env.PUBLIC_URL + "/#/pedidos"}
+                        style={{ color: "black", float: "left" }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 18,
+                            paddingBottom: 0,
+                            marginBottom: 0,
+                            marginTop: 18,
+                          }}
+                        >
+                          {pedidosnuevos} Pedidos
+                        </p>
+                        <p style={{ fontSize: 10 }}>nuevos</p>
+                      </a>
+                    </Col>
+                  </Row>
+                </Col>
+              ) : null}
 
-              <Col
-                md="6"
-                xs="12"
-                style={{
-                  height: 80,
-                  marginTop: 15,
-                  marginBottom: 15,
-                }}
-                align="center"
-                className={
-                  pedidosenproceso > 0 ? "btn btn-success" : "btn btn-white"
-                }
-                style={{ color: "black", width: "100%" }}
-              >
-                <Row>
-                  <Col md="3" xs="3">
-                    <div
-                      className="bg-secondary"
-                      style={{
-                        width: 40,
-                        height: 40,
-                        marginTop: 20,
-                        borderRadius: 50,
-                        float: "right",
-                      }}
-                    >
-                      <b style={{ fontSize: 25, color: "white" }}>-</b>
-                    </div>
-                  </Col>
-                  <Col md="9" xs="9">
-                    <a
-                      href={process.env.PUBLIC_URL + "/#/pedidos"}
-                      style={{ color: "black", float: "left" }}
-                    >
-                      <p
+              {pedidosProceso ? (
+                <Col
+                  md="6"
+                  xs="12"
+                  style={{
+                    height: 80,
+                    marginTop: 15,
+                    marginBottom: 15,
+                  }}
+                  align="center"
+                  className={
+                    pedidosenproceso > 0 ? "btn btn-success" : "btn btn-white"
+                  }
+                  style={{ color: "black", width: "100%" }}
+                >
+                  <Row>
+                    <Col md="3" xs="3">
+                      <div
+                        className="bg-secondary"
                         style={{
-                          fontSize: 18,
-                          paddingBottom: 0,
-                          marginBottom: 0,
-                          marginTop: 18,
+                          width: 40,
+                          height: 40,
+                          marginTop: 20,
+                          borderRadius: 50,
+                          float: "right",
                         }}
                       >
-                        {pedidosenproceso} Pedidos
-                      </p>
-                      <p style={{ fontSize: 10 }}>en proceso</p>
-                    </a>
-                  </Col>
-                </Row>
-              </Col>
+                        <b style={{ fontSize: 25, color: "white" }}>-</b>
+                      </div>
+                    </Col>
+                    <Col md="9" xs="9">
+                      <a
+                        href={process.env.PUBLIC_URL + "/#/pedidos"}
+                        style={{ color: "black", float: "left" }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 18,
+                            paddingBottom: 0,
+                            marginBottom: 0,
+                            marginTop: 18,
+                          }}
+                        >
+                          {pedidosenproceso} Pedidos
+                        </p>
+                        <p style={{ fontSize: 10 }}>en proceso</p>
+                      </a>
+                    </Col>
+                  </Row>
+                </Col>
+              ) : null}
             </Row>
 
             <Row>
-              <Col
-                md="6"
-                xs="12"
-                style={{
-                  height: 80,
-                  marginTop: 15,
-                  marginBottom: 15,
-                }}
-                align="center"
-                className={
-                  productoscasiagotados > 0
-                    ? "btn btn-warning"
-                    : "btn btn-white"
-                }
-                style={{ color: "black", width: "100%" }}
-              >
-                <Row>
-                  <Col md="3" xs="3">
-                    <div
-                      className="bg-warning"
-                      style={{
-                        width: 40,
-                        height: 40,
-                        marginTop: 20,
-                        borderRadius: 50,
-                        float: "right",
-                      }}
-                    >
-                      <b style={{ fontSize: 25 }}>!</b>
-                    </div>
-                  </Col>
-                  <Col md="9" xs="9">
-                    <a
-                      href={process.env.PUBLIC_URL + "/#/productos"}
-                      style={{ color: "black", float: "left" }}
-                    >
-                      <p
+              {productosCasi ? (
+                <Col
+                  md="6"
+                  xs="12"
+                  style={{
+                    height: 80,
+                    marginTop: 15,
+                    marginBottom: 15,
+                  }}
+                  align="center"
+                  className={
+                    productoscasiagotados > 0
+                      ? "btn btn-warning"
+                      : "btn btn-white"
+                  }
+                  style={{ color: "black", width: "100%" }}
+                >
+                  <Row>
+                    <Col md="3" xs="3">
+                      <div
+                        className="bg-warning"
                         style={{
-                          fontSize: 18,
-                          paddingBottom: 0,
-                          marginBottom: 0,
-                          marginTop: 18,
+                          width: 40,
+                          height: 40,
+                          marginTop: 20,
+                          borderRadius: 50,
+                          float: "right",
                         }}
                       >
-                        {productoscasiagotados} Productos
-                      </p>
-                      <p style={{ fontSize: 10 }}>casi sin existencias</p>
-                    </a>
-                  </Col>
-                </Row>
-              </Col>
-
-              <Col
-                md="6"
-                xs="12"
-                style={{
-                  height: 80,
-                  marginTop: 15,
-                  marginBottom: 15,
-                }}
-                align="center"
-                className={
-                  pedidosenproceso > 0 ? "btn btn-success" : "btn btn-white"
-                }
-                style={{ color: "black", width: "100%" }}
-              >
-                <Row>
-                  <Col md="3" xs="3">
-                    <div
-                      className="bg-danger"
-                      style={{
-                        width: 40,
-                        height: 40,
-                        marginTop: 20,
-                        borderRadius: 50,
-                        float: "right",
-                      }}
-                    >
-                      <b style={{ fontSize: 25, color: "white" }}>X</b>
-                    </div>
-                  </Col>
-                  <Col md="9" xs="9">
-                    <a
-                      href={process.env.PUBLIC_URL + "/#/productos"}
-                      style={{ color: "black", float: "left" }}
-                    >
-                      <p
+                        <b style={{ fontSize: 25 }}>!</b>
+                      </div>
+                    </Col>
+                    <Col md="9" xs="9">
+                      <a
+                        href={process.env.PUBLIC_URL + "/#/productos"}
+                        style={{ color: "black", float: "left" }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 18,
+                            paddingBottom: 0,
+                            marginBottom: 0,
+                            marginTop: 18,
+                          }}
+                        >
+                          {productoscasiagotados} Productos
+                        </p>
+                        <p style={{ fontSize: 10 }}>casi sin existencias</p>
+                      </a>
+                    </Col>
+                  </Row>
+                </Col>
+              ) : null}
+              {productosAgotados ? (
+                <Col
+                  md="6"
+                  xs="12"
+                  style={{
+                    height: 80,
+                    marginTop: 15,
+                    marginBottom: 15,
+                  }}
+                  align="center"
+                  className={
+                    pedidosenproceso > 0 ? "btn btn-success" : "btn btn-white"
+                  }
+                  style={{ color: "black", width: "100%" }}
+                >
+                  <Row>
+                    <Col md="3" xs="3">
+                      <div
+                        className="bg-danger"
                         style={{
-                          fontSize: 18,
-                          paddingBottom: 0,
-                          marginBottom: 0,
-                          marginTop: 18,
+                          width: 40,
+                          height: 40,
+                          marginTop: 20,
+                          borderRadius: 50,
+                          float: "right",
                         }}
                       >
-                        {productosagotados} Productos
-                      </p>
-                      <p style={{ fontSize: 10 }}>agotados</p>
-                    </a>
-                  </Col>
-                </Row>
-              </Col>
+                        <b style={{ fontSize: 25, color: "white" }}>X</b>
+                      </div>
+                    </Col>
+                    <Col md="9" xs="9">
+                      <a
+                        href={process.env.PUBLIC_URL + "/#/productos"}
+                        style={{ color: "black", float: "left" }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 18,
+                            paddingBottom: 0,
+                            marginBottom: 0,
+                            marginTop: 18,
+                          }}
+                        >
+                          {productosagotados} Productos
+                        </p>
+                        <p style={{ fontSize: 10 }}>agotados</p>
+                      </a>
+                    </Col>
+                  </Row>
+                </Col>
+              ) : null}
             </Row>
           </CardBody>
         </Card>
