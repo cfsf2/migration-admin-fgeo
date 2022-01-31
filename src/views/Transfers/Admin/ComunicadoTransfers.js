@@ -18,6 +18,9 @@ import {
   GET_PUBLICIDADES,
   UPDATE_PUBLICIDAD,
 } from "../../../redux/actions/publicidadesActions";
+import { GET_INSTITUCIONES } from "../../../redux/actions/institucionesAction";
+
+import AsignarInstituciones from "../../FarmaciasAdmin/components/AsignarInstituciones";
 
 class ComunicadoTransfers extends Component {
   constructor(props) {
@@ -32,6 +35,7 @@ class ComunicadoTransfers extends Component {
 
   async componentDidMount() {
     this.props.GET_PUBLICIDADES();
+    this.props.GET_INSTITUCIONES(1000);
   }
 
   async handleInputChange(event) {
@@ -78,9 +82,59 @@ class ComunicadoTransfers extends Component {
                               <Fragment key={index}>
                                 <Row>
                                   <Col xs="12" md="10" className="my-2">
-                                    <p style={{ fontSize: 12 }}>
-                                      {p.descripcion}
-                                    </p>
+                                    <div
+                                      style={{
+                                        fontSize: 12,
+                                        padding: "1rem",
+                                        border: "1px solid rgba(0, 0, 0, 0.1",
+                                        borderRadius: "15px",
+                                        position: "relative",
+                                      }}
+                                    >
+                                      <p
+                                        style={{
+                                          whiteSpace: "pre-wrap",
+                                          width: "calc(100% - 230px)",
+                                        }}
+                                      >
+                                        {p.descripcion}
+                                      </p>
+                                      <div
+                                        style={{
+                                          position: "absolute",
+                                          top: "20px",
+                                          right: "20px",
+
+                                          minWidth: "200px",
+                                          textAlign: "center",
+                                        }}
+                                      >
+                                        {false
+                                          ? p.instituciones?.map((ins) => {
+                                              const instituciones =
+                                                this.props.institucionesReducer.instituciones.find(
+                                                  (institucion) =>
+                                                    institucion._id === ins
+                                                );
+
+                                              return (
+                                                <div
+                                                  key={ins}
+                                                  style={{
+                                                    marginBottom: "0.3rem",
+                                                    background: "darkseagreen",
+                                                    color: "ghostwhite",
+                                                    padding: "0.4rem",
+                                                    borderRadius: "16px",
+                                                  }}
+                                                >
+                                                  {instituciones?.nombre}
+                                                </div>
+                                              );
+                                            })
+                                          : null}
+                                      </div>
+                                    </div>
                                   </Col>
                                   <Col xs="12" md="2" className="my-2">
                                     <Button
@@ -129,8 +183,19 @@ class ComunicadoTransfers extends Component {
                                         id="descripcion"
                                         name="descripcion"
                                         onChange={this.handleInputChange}
-                                        style={{ height: 200, width: "100%" }}
+                                        style={{
+                                          height: "200px",
+                                          width: "100%",
+                                        }}
                                         value={this.state.novedad.descripcion}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row style={{ display: "none" }}>
+                                    <Col>
+                                      <AsignarInstituciones
+                                        obj={this.state.novedad}
+                                        setObj={this.setState.bind(this)}
                                       />
                                     </Col>
                                   </Row>
@@ -146,7 +211,9 @@ class ComunicadoTransfers extends Component {
                                         data-dismiss="modal"
                                         onClick={() => {
                                           this.props.UPDATE_PUBLICIDAD(
-                                            this.state.novedad
+                                            this.state.novedad,
+                                            this.props.institucionesReducer
+                                              .instituciones
                                           );
                                         }}
                                       >
@@ -193,12 +260,14 @@ const mapStateToProps = (state) => {
   return {
     authReducer: state.authReducer,
     publicidadesReducer: state.publicidadesReducer,
+    institucionesReducer: state.institucionesReducer,
   };
 };
 const mapDispatchToProps = {
   ADD_PUBLICIDAD,
   GET_PUBLICIDADES,
   UPDATE_PUBLICIDAD,
+  GET_INSTITUCIONES,
 };
 
 export default connect(
