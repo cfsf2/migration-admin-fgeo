@@ -19,6 +19,8 @@ import {
   UPDATE_PUBLICIDAD,
 } from "../../../redux/actions/publicidadesActions";
 
+import AsignarInstituciones from "../../FarmaciasAdmin/components/AsignarInstituciones";
+
 class ComunicadoTransfers extends Component {
   constructor(props) {
     super(props);
@@ -134,6 +136,14 @@ class ComunicadoTransfers extends Component {
                                       />
                                     </Col>
                                   </Row>
+                                  <Row>
+                                    <Col>
+                                      <AsignarInstituciones
+                                        obj={this.state}
+                                        setObj={this.setState.bind(this)}
+                                      />
+                                    </Col>
+                                  </Row>
                                 </FormGroup>
                               </CardBody>
                               <CardFooter>
@@ -146,7 +156,8 @@ class ComunicadoTransfers extends Component {
                                         data-dismiss="modal"
                                         onClick={() => {
                                           this.props.UPDATE_PUBLICIDAD(
-                                            this.state.novedad
+                                            this.state.novedad,
+                                            this.state.instituciones
                                           );
                                         }}
                                       >
