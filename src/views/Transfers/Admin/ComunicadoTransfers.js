@@ -109,7 +109,7 @@ class ComunicadoTransfers extends Component {
                                           textAlign: "center",
                                         }}
                                       >
-                                        {p.instituciones.map((ins) => {
+                                        {p.instituciones?.map((ins) => {
                                           const instituciones =
                                             this.props.institucionesReducer.instituciones.find(
                                               (institucion) =>
