@@ -335,8 +335,10 @@ class FinalizarTransfer extends Component {
                 fontWeight: "bold",
               }}
             >
-              <p>{lab_selected !== null ? lab_selected.novedades : ""}</p>
-              <p>{comunicadoTransfers}</p>
+              <p style={{ whitSpace: "pre-wrap" }}>
+                {lab_selected !== null ? lab_selected.novedades : ""}
+              </p>
+              <p style={{ whitSpace: "pre-wrap" }}>{comunicadoTransfers}</p>
             </div>
           </Col>
         </Row>
