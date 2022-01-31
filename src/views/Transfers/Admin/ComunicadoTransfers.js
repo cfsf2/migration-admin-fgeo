@@ -82,22 +82,29 @@ class ComunicadoTransfers extends Component {
                               <Fragment key={index}>
                                 <Row>
                                   <Col xs="12" md="10" className="my-2">
-                                    <p
+                                    <div
                                       style={{
                                         fontSize: 12,
-                                        whiteSpace: "pre",
-                                        padding: "2rem",
+                                        padding: "1rem",
                                         border: "1px solid rgba(0, 0, 0, 0.1",
                                         borderRadius: "15px",
                                         position: "relative",
                                       }}
                                     >
-                                      {p.descripcion}
+                                      <p
+                                        style={{
+                                          whiteSpace: "pre-wrap",
+                                          width: "calc(100% - 230px)",
+                                        }}
+                                      >
+                                        {p.descripcion}
+                                      </p>
                                       <div
                                         style={{
                                           position: "absolute",
                                           top: "20px",
                                           right: "20px",
+
                                           minWidth: "200px",
                                           textAlign: "center",
                                         }}
@@ -125,7 +132,7 @@ class ComunicadoTransfers extends Component {
                                           );
                                         })}
                                       </div>
-                                    </p>
+                                    </div>
                                   </Col>
                                   <Col xs="12" md="2" className="my-2">
                                     <Button
