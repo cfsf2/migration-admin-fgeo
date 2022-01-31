@@ -98,7 +98,6 @@ class ComunicadoTransfers extends Component {
                                           position: "absolute",
                                           top: "20px",
                                           right: "20px",
-
                                           minWidth: "200px",
                                           textAlign: "center",
                                         }}
