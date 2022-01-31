@@ -87,7 +87,9 @@ class Dashboard extends Component {
   async componentDidUpdate(prevProps, prevState) {
     const { userprofile } = this.props.authReducer;
 
-    this.props.GET_INSTITUCIONES(1000);
+    if (this.props.authReducer.user.admin) {
+      this.props.GET_INSTITUCIONES(1000);
+    }
 
     if (
       this.props.authReducer.user.permisos &&
