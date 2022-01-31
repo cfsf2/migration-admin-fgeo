@@ -109,28 +109,30 @@ class ComunicadoTransfers extends Component {
                                           textAlign: "center",
                                         }}
                                       >
-                                        {p.instituciones?.map((ins) => {
-                                          const instituciones =
-                                            this.props.institucionesReducer.instituciones.find(
-                                              (institucion) =>
-                                                institucion._id === ins
-                                            );
+                                        {false
+                                          ? p.instituciones?.map((ins) => {
+                                              const instituciones =
+                                                this.props.institucionesReducer.instituciones.find(
+                                                  (institucion) =>
+                                                    institucion._id === ins
+                                                );
 
-                                          return (
-                                            <div
-                                              key={ins}
-                                              style={{
-                                                marginBottom: "0.3rem",
-                                                background: "darkseagreen",
-                                                color: "ghostwhite",
-                                                padding: "0.4rem",
-                                                borderRadius: "16px",
-                                              }}
-                                            >
-                                              {instituciones?.nombre}
-                                            </div>
-                                          );
-                                        })}
+                                              return (
+                                                <div
+                                                  key={ins}
+                                                  style={{
+                                                    marginBottom: "0.3rem",
+                                                    background: "darkseagreen",
+                                                    color: "ghostwhite",
+                                                    padding: "0.4rem",
+                                                    borderRadius: "16px",
+                                                  }}
+                                                >
+                                                  {instituciones?.nombre}
+                                                </div>
+                                              );
+                                            })
+                                          : null}
                                       </div>
                                     </div>
                                   </Col>
@@ -189,7 +191,7 @@ class ComunicadoTransfers extends Component {
                                       />
                                     </Col>
                                   </Row>
-                                  <Row>
+                                  <Row style={{ display: "none" }}>
                                     <Col>
                                       <AsignarInstituciones
                                         obj={this.state.novedad}
@@ -210,7 +212,8 @@ class ComunicadoTransfers extends Component {
                                         onClick={() => {
                                           this.props.UPDATE_PUBLICIDAD(
                                             this.state.novedad,
-                                            this.state.instituciones
+                                            this.props.institucionesReducer
+                                              .instituciones
                                           );
                                         }}
                                       >
