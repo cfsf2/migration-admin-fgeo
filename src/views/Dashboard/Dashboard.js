@@ -23,6 +23,7 @@ import {
   GET_PRODUCTOS_PACK_BY_ENTIDAD,
   GET_ENTIDADES,
 } from "../../redux/actions/packsproductosActions";
+import { GET_INSTITUCIONES } from "../../redux/actions/institucionesAction";
 
 import "./dashboard.scss";
 
@@ -85,6 +86,8 @@ class Dashboard extends Component {
 
   async componentDidUpdate(prevProps, prevState) {
     const { userprofile } = this.props.authReducer;
+
+    this.props.GET_INSTITUCIONES(1000);
 
     if (
       this.props.authReducer.user.permisos &&
@@ -394,6 +397,7 @@ const mapDispatchToProps = {
   GET_PRODUCTOS_PACK_BY_ENTIDAD,
   GET_ENTIDADES,
   GET_NOVEDADES_FARMACIA,
+  GET_INSTITUCIONES,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
