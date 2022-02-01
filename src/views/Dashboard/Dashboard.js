@@ -124,7 +124,7 @@ class Dashboard extends Component {
           userprofile.perfil_farmageo === "indefinido" ? (
             <VentaOnlineSelect />
           ) : (
-            <Row>
+            <Row className="colorDeFondo">
               <Col md="6">
                 <Row>
                   <Col>
