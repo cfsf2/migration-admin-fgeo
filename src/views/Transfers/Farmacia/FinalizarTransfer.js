@@ -72,7 +72,7 @@ class FinalizarTransfer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      transfer: { fecha: new Date(Date.now()).toISOString().substring(0, 10) },
+      transfer: {},
       productos: [],
       finalizar: false,
       vistaprevia: false,
@@ -84,7 +84,6 @@ class FinalizarTransfer extends Component {
     this.handleVistaPrevia = this.handleVistaPrevia.bind(this);
     this.handleLineaChange = this.handleLineaChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.createHtmlMail = this.createHtmlMail.bind(this);
     this.handleLimpiarProductos = this.handleLimpiarProductos.bind(this);
     this.handlequery = this.handlequery.bind(this);
   }
@@ -153,84 +152,7 @@ class FinalizarTransfer extends Component {
     });
   }
 
-  handleTable(transfer) {
-    let stringTable = "";
-    transfer.productos_solicitados.map((p) => {
-      console.log(p);
-      stringTable = `${stringTable}<tr>
-                            <td>${p.codigo}</td>
-                            <td>${p.nombre}</td>
-                            <td>${p.presentacion}</td>
-                            <td>${p.cantidad}</td>
-                            <td>${p.observaciones}</td>
-                        </tr>`;
-    });
-    return stringTable;
-  }
-
-  createHtmlMail = async (transfer, direccioncompleta) => {
-    let body = `<head>
-                        <style>
-                          table {
-                            font-family: arial, sans-serif;
-                            border-collapse: collapse;
-                            width: 100%;
-                          }
-                          
-                          td, th {
-                            border: 1px solid #dddddd;
-                            text-align: left;
-                            padding: 8px;
-                          }
-                          
-                          tr:nth-child(even) {
-                            background-color: #dddddd;
-                          }
-
-                        </style>
-                      </head>
-                      <body>
-                        <div>
-                          <p><b>Farmacia: </b>${
-                            transfer.farmacia_nombre
-                          } / <b>Cuit: </b>${transfer.cuit}</p>
-                          <p><b>Telefono: </b>${transfer.telefono}</p>
-                          <p><b>Nro Cufe: </b>${transfer.cufe}</p>
-                          <p><b>Nro Cuenta de Droguería: </b>${
-                            transfer.nro_cuenta_drogueria
-                          }</p> 
-                          <p><b>Droguería: </b>${transfer.drogueria_id}</p>
-                          <p><b>Laboratorio elegido: </b>${
-                            transfer.laboratorio_id
-                          }</p>
-                          <p><b>Dirección: </b>${direccioncompleta}</p>
-                        </div>
-                      <table>
-                          <tr>
-                            <th>Código</th>
-                            <th>Producto</th>
-                            <th>Presentación</th>
-                            <th>Cantidad</th>
-                            <th>Observaciones</th>
-                          </tr>
-                        <tbody>
-                        ${this.handleTable(transfer)}                    
-                        </tbody>
-                      </table>
-                    </body>`;
-    return body;
-  };
-
   async handleSubmit() {
-    const {
-      farmaciaid,
-      email,
-      cuit,
-      telefono,
-      cufe,
-      nombre,
-      direccioncompleta,
-    } = this.props.authReducer.userprofile;
     const { lab_selected, pedido } = this.props.tranfersReducer;
 
     this.setState({
@@ -238,20 +160,11 @@ class FinalizarTransfer extends Component {
     });
 
     let transfer = {
-      fecha: new Date(Date.now()).toISOString().substring(0, 10),
       productos_solicitados: pedido,
-      farmacia_id: farmaciaid,
-      farmacia_nombre: nombre,
-      estado: "nuevo",
-      laboratorio_id: lab_selected.nombre,
-      email_destinatario: email,
-      telefono,
-      cuit,
-      cufe,
+      laboratorio_nombre: lab_selected.nombre,
     };
 
-    let html = await this.createHtmlMail(transfer, direccioncompleta);
-    this.props.ADD_TRANSFER(transfer, this.props.history, html, email);
+    this.props.ADD_TRANSFER(transfer, this.props.history);
   }
 
   handlequery = () => {
@@ -276,10 +189,8 @@ class FinalizarTransfer extends Component {
   }
 
   render() {
-    const { productos, droguerias } = this.props.tranfersReducer;
+    const { droguerias } = this.props.tranfersReducer;
     const { lab_selected } = this.state;
-    const { email, cuit, telefono, cufe, nombre, direccioncompleta } =
-      this.props.authReducer.userprofile;
     const { comunicadoTransfers } = this.props.publicidadesReducer;
 
     return (
@@ -401,7 +312,7 @@ class FinalizarTransfer extends Component {
                     name="drogueria_id"
                     value={
                       this.state.transfer
-                        ? this.state.transfer.drogueria_id
+                        ? this.state.transfer.drogueria_nombre
                         : undefined
                     }
                     onChange={this.handleInputChange}

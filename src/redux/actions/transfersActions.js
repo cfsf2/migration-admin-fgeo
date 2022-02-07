@@ -233,14 +233,11 @@ export const DELETE_PRODUCTO_TRANSFER = (obj) => {
 };
 
 //********************** TRANSFERS ******************************* */
-export const ADD_TRANSFER = (transfer, history, html, destinatario) => {
+export const ADD_TRANSFER = (transfer, history) => {
   return (dispatch) => {
     axios
       .post(farmageo_api + "/transfers", {
         ...transfer,
-        destinatario: destinatario + ";transfers@farmageo.com.ar;",
-        asunto: "Confirmación de pedido de Transfer",
-        html,
         version: "2",
       })
       .then(function (response) {
