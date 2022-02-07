@@ -54,7 +54,7 @@ export function Item(props) {
 
     if (cantidad <= 0) return;
     if (cantidad === producto.cantidad_minima) {
-      pedidoProd.observaciones = "";
+      pedidoProd.observacion = "";
       newPedido = newPedido.filter((prod) => prod._id !== producto._id);
       setCantidad(() => 0);
       setObservaciones("");
@@ -107,7 +107,7 @@ export function Item(props) {
     const idx = newPedido.findIndex((prod) => prod._id === id);
 
     if (idx !== -1) {
-      pedidoProd.observaciones = e.target.value;
+      pedidoProd.observacion = e.target.value;
       newPedido[idx] = pedidoProd;
       props.SET_PEDIDO(newPedido);
       return;

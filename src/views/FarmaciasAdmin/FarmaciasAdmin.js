@@ -245,7 +245,7 @@ class FarmaciasAdmin extends Component {
                     },
                     {
                       title: "Último acceso",
-                      field: "ultimoacceso4table",
+                      field: "ultimoacceso",
                       align: "center",
                     },
                     {
