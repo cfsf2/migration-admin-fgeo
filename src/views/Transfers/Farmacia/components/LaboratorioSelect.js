@@ -19,13 +19,13 @@ import { image_path_server } from "../../../../config";
 class LaboratorioSelect extends Component {
   render() {
     return (
-      <Col md="3" sm="4" lg="3" xl="2" style={{ marginBottom: 30 }}>
+      <Col md="3" sm="4" lg="3" xl="2" style={{ marginBottom: 30}}> 
         <a
           href={
             process.env.PUBLIC_URL +
             `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`
           }
-          className="btn btn-light"
+          // className="btn btn-light"
           onClick={() => {
             this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
           }}
@@ -58,7 +58,7 @@ class LaboratorioSelect extends Component {
             />
           </div>
 
-          <div
+          {/* <div
             style={{
               padding: "3px",
               display: "flex",
@@ -70,7 +70,7 @@ class LaboratorioSelect extends Component {
             }}
           >
             {this.props.laboratorio.nombre}
-          </div>
+          </div> */}
         </a>
       </Col>
     );
