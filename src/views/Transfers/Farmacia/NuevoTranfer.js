@@ -35,7 +35,9 @@ class NuevoTransfer extends Component {
     const { laboratorios } = this.props.tranfersReducer;
     return (
       <div className="animated fadeIn" style={{ margin: 30, padding: 30 }}>
-        <Row style={{ marginBottom: 30, paddingRight: 20}}> {/*centre el contenido*/}
+        <Row style={{ marginBottom: 30, paddingRight: 16 }}>
+          {" "}
+          {/*centre*/}
           <Col>
             <ButtonHome
               //href=""

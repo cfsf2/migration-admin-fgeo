@@ -19,7 +19,7 @@ import { image_path_server } from "../../../../config";
 class LaboratorioSelect extends Component {
   render() {
     return (
-      <Col md="3" sm="4" lg="3" xl="2" style={{ marginBottom: 30}}> 
+      <Col md="3" sm="4" lg="3" xl="2" style={{ marginBottom: 30 }}>
         <a
           href={
             process.env.PUBLIC_URL +
@@ -31,6 +31,7 @@ class LaboratorioSelect extends Component {
           }}
         >
           <div
+            className="transfer_laboratorioSelect_hover"
             style={{
               width: 150,
               height: 150,

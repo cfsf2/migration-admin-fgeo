@@ -297,34 +297,44 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
         resize: none;
       }
     }
-  }
-  &_confirmacion {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    & div:first-child {
-      width: 100%;
-    }
-    & div:nth-child(2) {
-      margin: 10rem;
+    &_confirmacion {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      a {
-        &.btn {
-          color: white;
-          font-weight: bold;
-          letter-spacing: 1px;
-          margin: auto 1rem;
-          padding: 3rem;
-        }
-        &.btn-labs {
-          background-color: hsl(214, 43%, 40%);
-          &:hover {
-            background-color: hsl(214, 43%, 50%);
+      height: 100%;
+      & div:first-child {
+        width: 100%;
+      }
+      & div:nth-child(2) {
+        margin: 10rem;
+        display: flex;
+        align-items: center;
+        a {
+          &.btn {
+            color: white;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin: auto 1rem;
+            padding: 3rem;
+          }
+          &.btn-labs {
+            background-color: hsl(214, 43%, 40%);
+            &:hover {
+              background-color: hsl(214, 43%, 50%);
+            }
           }
         }
       }
     }
+  }
+
+  //hover efect de cada uno de los elementos
+  &_laboratorioSelect_hover {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    transition: box-shadow 0.3s ease-in-out;
+
+    &:hover{
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        }
   }
 }
