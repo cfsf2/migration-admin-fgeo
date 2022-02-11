@@ -33,6 +33,8 @@ import MisVentas from "./components/MisVentas";
 import VentaOnlineSelect from "./components/VentaOnlineSelect";
 import { image_path_server } from "../../config";
 
+import EsLink from "./components/EsLink";
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -134,9 +136,9 @@ class Dashboard extends Component {
                           style={{ marginBottom: 10, paddingBottom: 0 }}
                         >
                           <Col md="12">
-                            <a
+                            {/* <Link
                               //onClick={this.handleBannerNutriendoEsperanza}
-                              href={banner.link}
+                              to={banner.link}
                               target={
                                 banner.link.trim() !== "" ? "_blank" : "_self"
                               }
@@ -146,7 +148,14 @@ class Dashboard extends Component {
                                 style={{ width: "100%" }}
                                 src={image_path_server + banner.imagen}
                               />
-                            </a>
+                            </Link> */}
+
+                            <EsLink link={banner.link}>
+                              <img
+                                style={{ width: "100%" }}
+                                src={image_path_server + banner.imagen}
+                              />
+                            </EsLink>
                           </Col>
                         </Row>
                       ) : null;
