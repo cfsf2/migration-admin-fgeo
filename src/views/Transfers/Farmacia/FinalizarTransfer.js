@@ -21,6 +21,7 @@ import LineaProducto from "./components/LineaProducto";
 import {
   ADD_TRANSFER,
   GET_LABORATORIOS,
+  SET_LABORATORIO_SELECTED,
   SUBMITTING,
 } from "../../../redux/actions/transfersActions";
 
@@ -271,7 +272,7 @@ class FinalizarTransfer extends Component {
         );
         if (result.data) {
           this.setState({ lab_selected: result.data });
-          console.log(result.data);
+          this.props.SET_LABORATORIO_SELECTED(result.data);
         }
       } catch (error) {
         this.setState({ lab_selected: null });
@@ -525,6 +526,7 @@ const mapDispatchToProps = {
   ADD_TRANSFER,
   SUBMITTING,
   GET_LABORATORIOS,
+  SET_LABORATORIO_SELECTED,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinalizarTransfer);
