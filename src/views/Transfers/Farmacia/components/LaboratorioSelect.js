@@ -55,11 +55,17 @@ class LaboratorioSelect extends Component {
             width: 150,
           }}
         >
+
           <a
             href={
+              this.props.laboratorio.transfer_farmageo ?
+
               process.env.PUBLIC_URL +
               `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`
+
+              : this.props.laboratorio.url 
             }
+            target={ !this.props.laboratorio.transfer_farmageo ? "_blank" : null }
             style={{
               color: "#20a8d8",
               backgroundColor: "#ffffff",
