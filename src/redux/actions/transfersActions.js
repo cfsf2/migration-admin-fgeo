@@ -175,6 +175,15 @@ export const UPDATE_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
   };
 };
 
+export const SET_LABORATORIO_SELECTED = async (lab) => {
+  return (dispatch) => {
+    dispatch({
+      type: "SET_LABORATORIO_SELECTED",
+      payload: lab,
+    });
+  };
+};
+
 export const GET_PRODUCTOS_TRANSFERS_BY_LAB = async (laboratorio) => {
   const instituciones = await store.getState().authReducer.userprofile
     .instituciones;
