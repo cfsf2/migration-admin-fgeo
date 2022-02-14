@@ -61,6 +61,7 @@ class LaboratorioSelect extends Component {
 
           {/* <div
             style={{
+<<<<<<< HEAD
               padding: "3px",
               display: "flex",
               justifyContent: "center",
@@ -69,6 +70,18 @@ class LaboratorioSelect extends Component {
               background: "aliceblue",
               whiteSpace: "normal",
             }}
+=======
+              color: "#20a8d8",
+              backgroundColor: "#ffffff",
+              width: 150,
+              fontWeight: "bold",
+              fontSize: 20,
+            }}
+            className="btn btn-light"
+            // onClick={() => {
+            //   this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
+            // }}
+>>>>>>> transfer
           >
             {this.props.laboratorio.nombre}
           </div> */}

@@ -138,10 +138,12 @@ class Dashboard extends Component {
                           <Col md="12">
                             {/* <Link
                               //onClick={this.handleBannerNutriendoEsperanza}
-                              to={banner.link}
-                              target={
-                                banner.link.trim() !== "" ? "_blank" : "_self"
+                              href={
+                                "http://localhost:3000/#/FinalizarTransfer?l=616a1169469336a90d0ad077"
                               }
+                              // target={
+                              //   banner.link.trim() !== "" ? "_blank" : "_self"
+                              // }
                               rel="noopener"
                             >
                               <img

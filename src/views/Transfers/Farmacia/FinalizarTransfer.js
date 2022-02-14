@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import LineaProducto from "./components/LineaProducto";
 import {
   ADD_TRANSFER,
+  GET_LABORATORIOS,
   SUBMITTING,
 } from "../../../redux/actions/transfersActions";
 
@@ -79,6 +80,7 @@ class FinalizarTransfer extends Component {
       submitting: false,
       lab_selected: null,
     };
+<<<<<<< HEAD
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFiltroFinalizar = this.handleFiltroFinalizar.bind(this);
     this.handleVistaPrevia = this.handleVistaPrevia.bind(this);
@@ -166,6 +168,182 @@ class FinalizarTransfer extends Component {
 
     this.props.ADD_TRANSFER(transfer, this.props.history);
   }
+=======
+    // this.handleInputChange = this.handleInputChange.bind(this);
+    // this.handleFiltroFinalizar = this.handleFiltroFinalizar.bind(this);
+    //this.handleVistaPrevia = this.handleVistaPrevia.bind(this);
+    //this.handleLineaChange = this.handleLineaChange.bind(this);
+    //this.handleSubmit = this.handleSubmit.bind(this);
+    // this.createHtmlMail = this.createHtmlMail.bind(this);
+    //this.handleLimpiarProductos = this.handleLimpiarProductos.bind(this);
+    this.handlequery = this.handlequery.bind(this);
+  }
+
+  // handleVistaPrevia(value) {
+  //   this.setState({
+  //     vistaprevia: value,
+  //   });
+  // }
+
+  // handleFiltroFinalizar(value) {
+  //   let nuevoStado = false;
+  //   if (value) {
+  //     let productosFiltrados = [];
+
+  //     this.state.productos.forEach((producto) => {
+  //       if (producto.cantidad >= producto.cantidad_minima) {
+  //         productosFiltrados.push(producto);
+  //         nuevoStado = true;
+  //       }
+  //     });
+
+  //     this.setState({
+  //       productos: productosFiltrados,
+  //     });
+  //     if (nuevoStado) {
+  //       this.setState({
+  //         vistaprevia: value,
+  //         finalizar: value,
+  //       });
+  //     }
+  //   } else {
+  //     this.setState({
+  //       vistaprevia: value,
+  //       finalizar: value,
+  //     });
+  //   }
+  // }
+
+  // handleLimpiarProductos() {
+  //   this.setState({
+  //     productos: [],
+  //   });
+  // }
+
+  // async handleInputChange(event) {
+  //   const target = event.nativeEvent.target;
+  //   const value = target.type === "checkbox" ? target.checked : target.value;
+  //   const name = target.name;
+  //   await this.setState({
+  //     transfer: { ...this.state.transfer, [name]: value },
+  //   });
+  // }
+
+  // async handleLineaChange(linea, minimo) {
+  //   let _productos = await this.state.productos.filter((p) => {
+  //     return p._id != linea._id;
+  //   });
+
+  //   if (linea.cantidad >= minimo) {
+  //     _productos = await _productos.concat(linea);
+  //   }
+
+  //   await this.setState({
+  //     productos: _productos,
+  //   });
+  // }
+
+  // handleTable(transfer) {
+  //   let stringTable = "";
+  //   transfer.productos_solicitados.map((p) => {
+  //     console.log(p);
+  //     stringTable = `${stringTable}<tr>
+  //                           <td>${p.codigo}</td>
+  //                           <td>${p.nombre}</td>
+  //                           <td>${p.presentacion}</td>
+  //                           <td>${p.cantidad}</td>
+  //                           <td>${p.observaciones}</td>
+  //                       </tr>`;
+  //   });
+  //   return stringTable;
+  // }
+
+  // createHtmlMail = async (transfer, direccioncompleta) => {
+  //   let body = `<head>
+  //                       <style>
+  //                         table {
+  //                           font-family: arial, sans-serif;
+  //                           border-collapse: collapse;
+  //                           width: 100%;
+  //                         }
+
+  //                         td, th {
+  //                           border: 1px solid #dddddd;
+  //                           text-align: left;
+  //                           padding: 8px;
+  //                         }
+
+  //                         tr:nth-child(even) {
+  //                           background-color: #dddddd;
+  //                         }
+
+  //                       </style>
+  //                     </head>
+  //                     <body>
+  //                       <div>
+  //                         <p><b>Farmacia: </b>${
+  //                           transfer.farmacia_nombre
+  //                         } / <b>Cuit: </b>${transfer.cuit}</p>
+  //                         <p><b>Telefono: </b>${transfer.telefono}</p>
+  //                         <p><b>Nro Cufe: </b>${transfer.cufe}</p>
+  //                         <p><b>Nro Cuenta de Droguería: </b>${
+  //                           transfer.nro_cuenta_drogueria
+  //                         }</p>
+  //                         <p><b>Droguería: </b>${transfer.drogueria_id}</p>
+  //                         <p><b>Laboratorio elegido: </b>${
+  //                           transfer.laboratorio_id
+  //                         }</p>
+  //                         <p><b>Dirección: </b>${direccioncompleta}</p>
+  //                       </div>
+  //                     <table>
+  //                         <tr>
+  //                           <th>Código</th>
+  //                           <th>Producto</th>
+  //                           <th>Presentación</th>
+  //                           <th>Cantidad</th>
+  //                           <th>Observaciones</th>
+  //                         </tr>
+  //                       <tbody>
+  //                       ${this.handleTable(transfer)}
+  //                       </tbody>
+  //                     </table>
+  //                   </body>`;
+  //   return body;
+  // };
+
+  // async handleSubmit() {
+  //   const {
+  //     farmaciaid,
+  //     email,
+  //     cuit,
+  //     telefono,
+  //     cufe,
+  //     nombre,
+  //     direccioncompleta,
+  //   } = this.props.authReducer.userprofile;
+  //   const { lab_selected, pedido } = this.props.tranfersReducer;
+
+  //   this.setState({
+  //     submitting: true,
+  //   });
+
+  //   let transfer = {
+  //     fecha: new Date(Date.now()).toISOString().substring(0, 10),
+  //     productos_solicitados: pedido,
+  //     farmacia_id: farmaciaid,
+  //     farmacia_nombre: nombre,
+  //     estado: "nuevo",
+  //     laboratorio_id: lab_selected.nombre,
+  //     email_destinatario: email,
+  //     telefono,
+  //     cuit,
+  //     cufe,
+  //   };
+
+  //   let html = await this.createHtmlMail(transfer, direccioncompleta);
+  //   this.props.ADD_TRANSFER(transfer, this.props.history, html, email);
+  // }
+>>>>>>> transfer
 
   handlequery = () => {
     return new URLSearchParams(window.location.hash.split("?")[1]);
@@ -173,6 +351,9 @@ class FinalizarTransfer extends Component {
 
   async componentDidMount() {
     var laboratorio = this.handlequery().get("l");
+    if (this.props.tranfersReducer.laboratorios.length === 0) {
+      this.props.GET_LABORATORIOS();
+    }
     if (laboratorio) {
       try {
         const result = await axios.get(
@@ -185,6 +366,11 @@ class FinalizarTransfer extends Component {
       } catch (error) {
         this.setState({ lab_selected: null });
       }
+    }
+  }
+  async componentDidUpdate() {
+    if (this.props.tranfersReducer.laboratorios.length === 0) {
+      this.props.GET_LABORATORIOS();
     }
   }
 
@@ -426,6 +612,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   ADD_TRANSFER,
   SUBMITTING,
+  GET_LABORATORIOS,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinalizarTransfer);
