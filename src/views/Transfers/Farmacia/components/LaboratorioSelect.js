@@ -22,9 +22,12 @@ class LaboratorioSelect extends Component {
       <Col md="3" sm="4" lg="3" xl="2" style={{ marginBottom: 30 }}>
         <a
           href={
-            process.env.PUBLIC_URL +
-            `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`
+            this.props.laboratorio.transfer_farmageo
+              ? process.env.PUBLIC_URL +
+                `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`
+              : this.props.laboratorio.url
           }
+          target={!this.props.laboratorio.transfer_farmageo ? "_blank" : null}
           // className="btn btn-light"
           onClick={() => {
             this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
