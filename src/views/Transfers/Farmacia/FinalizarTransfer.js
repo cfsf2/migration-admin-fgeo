@@ -80,95 +80,6 @@ class FinalizarTransfer extends Component {
       submitting: false,
       lab_selected: null,
     };
-<<<<<<< HEAD
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleFiltroFinalizar = this.handleFiltroFinalizar.bind(this);
-    this.handleVistaPrevia = this.handleVistaPrevia.bind(this);
-    this.handleLineaChange = this.handleLineaChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleLimpiarProductos = this.handleLimpiarProductos.bind(this);
-    this.handlequery = this.handlequery.bind(this);
-  }
-
-  handleVistaPrevia(value) {
-    this.setState({
-      vistaprevia: value,
-    });
-  }
-
-  handleFiltroFinalizar(value) {
-    let nuevoStado = false;
-    if (value) {
-      let productosFiltrados = [];
-
-      this.state.productos.forEach((producto) => {
-        if (producto.cantidad >= producto.cantidad_minima) {
-          productosFiltrados.push(producto);
-          nuevoStado = true;
-        }
-      });
-
-      this.setState({
-        productos: productosFiltrados,
-      });
-      if (nuevoStado) {
-        this.setState({
-          vistaprevia: value,
-          finalizar: value,
-        });
-      }
-    } else {
-      this.setState({
-        vistaprevia: value,
-        finalizar: value,
-      });
-    }
-  }
-
-  handleLimpiarProductos() {
-    this.setState({
-      productos: [],
-    });
-  }
-
-  async handleInputChange(event) {
-    const target = event.nativeEvent.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    await this.setState({
-      transfer: { ...this.state.transfer, [name]: value },
-    });
-  }
-
-  async handleLineaChange(linea, minimo) {
-    let _productos = await this.state.productos.filter((p) => {
-      return p._id != linea._id;
-    });
-
-    if (linea.cantidad >= minimo) {
-      _productos = await _productos.concat(linea);
-    }
-
-    await this.setState({
-      productos: _productos,
-    });
-  }
-
-  async handleSubmit() {
-    const { lab_selected, pedido } = this.props.tranfersReducer;
-
-    this.setState({
-      submitting: true,
-    });
-
-    let transfer = {
-      productos_solicitados: pedido,
-      laboratorio_nombre: lab_selected.nombre,
-    };
-
-    this.props.ADD_TRANSFER(transfer, this.props.history);
-  }
-=======
     // this.handleInputChange = this.handleInputChange.bind(this);
     // this.handleFiltroFinalizar = this.handleFiltroFinalizar.bind(this);
     //this.handleVistaPrevia = this.handleVistaPrevia.bind(this);
@@ -343,7 +254,6 @@ class FinalizarTransfer extends Component {
   //   let html = await this.createHtmlMail(transfer, direccioncompleta);
   //   this.props.ADD_TRANSFER(transfer, this.props.history, html, email);
   // }
->>>>>>> transfer
 
   handlequery = () => {
     return new URLSearchParams(window.location.hash.split("?")[1]);
