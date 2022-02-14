@@ -22,9 +22,12 @@ class LaboratorioSelect extends Component {
       <Col md="3" sm="4" lg="3" xl="2" style={{ marginBottom: 30 }}>
         <a
           href={
-            process.env.PUBLIC_URL +
-            `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`
+            this.props.laboratorio.transfer_farmageo
+              ? process.env.PUBLIC_URL +
+                `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`
+              : this.props.laboratorio.url
           }
+          target={!this.props.laboratorio.transfer_farmageo ? "_blank" : null}
           // className="btn btn-light"
           onClick={() => {
             this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
@@ -61,7 +64,6 @@ class LaboratorioSelect extends Component {
 
           {/* <div
             style={{
-<<<<<<< HEAD
               padding: "3px",
               display: "flex",
               justifyContent: "center",
@@ -70,18 +72,6 @@ class LaboratorioSelect extends Component {
               background: "aliceblue",
               whiteSpace: "normal",
             }}
-=======
-              color: "#20a8d8",
-              backgroundColor: "#ffffff",
-              width: 150,
-              fontWeight: "bold",
-              fontSize: 20,
-            }}
-            className="btn btn-light"
-            // onClick={() => {
-            //   this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
-            // }}
->>>>>>> transfer
           >
             {this.props.laboratorio.nombre}
           </div> */}

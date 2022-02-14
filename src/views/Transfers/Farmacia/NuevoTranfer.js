@@ -34,29 +34,56 @@ class NuevoTransfer extends Component {
   render() {
     const { laboratorios } = this.props.tranfersReducer;
     return (
-      <div className="animated fadeIn" style={{ margin: 30, padding: 30 }}>
-        <Row style={{ marginBottom: 30, paddingRight: 16 }}>
-          {" "}
-          {/*centre*/}
-          <Col>
-            <ButtonHome
-              //href=""
-              titulo="TRANSFERS FARMACIAS"
-              subtitulo={<br />}
-              align="left"
-              tipo="grande"
-              icono={require("../../../assets/images/icons/1.png")}
-            />
-          </Col>
-        </Row>
-        <Row>
-          {laboratorios.map((lab, index) => {
-            return !lab.habilitado ? null : (
-              <LaboratorioSelect laboratorio={lab} key={index} />
-            );
-          })}
-        </Row>
-      </div>
+      <>
+        <div className="animated fadeIn" style={{ margin: 30, padding: 30 }}>
+          <Row style={{ marginBottom: 30 }}>
+            <Col>
+              <ButtonHome
+                //href=""
+                titulo="TRANSFERS FARMACIAS"
+                subtitulo={<br />}
+                align="left"
+                tipo="grande"
+                icono={require("../../../assets/images/icons/1.png")}
+              />
+            </Col>
+          </Row>
+          <Row>
+            {laboratorios.map((lab, index) => {
+              return lab.habilitado && lab.transfer_farmageo ? <LaboratorioSelect laboratorio={lab} key={index} /> : 
+                null;
+            })}
+          </Row>
+        </div>
+        <div
+          className="animated fadeIn"
+          style={{
+            marginTop: 0,
+            marginBottom: 30,
+            marginLeft: 30,
+            marginRight: 30,
+            padding: 30,
+          }}
+          >
+          <Row style={{ marginBottom: 30 }}>
+            <Col>
+              <ButtonHome
+                //href=""
+                titulo="TRANSFERS EXTERNOS"
+                subtitulo={<br />}
+                align="left"
+                tipo="grande"
+                icono={require("../../../assets/images/icons/1.png")}
+                />
+            </Col>
+                <Row>
+                  {laboratorios.map((lab, index) => {
+                    return lab.habilitado && !lab.transfer_farmageo ? <LaboratorioSelect laboratorio={lab} key={index} /> : null 
+                  })}
+                </Row>
+          </Row>
+        </div>
+      </>
     );
   }
 }
