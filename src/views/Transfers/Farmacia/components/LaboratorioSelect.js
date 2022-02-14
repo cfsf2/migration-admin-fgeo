@@ -68,9 +68,9 @@ class LaboratorioSelect extends Component {
               fontSize: 20,
             }}
             className="btn btn-light"
-            onClick={() => {
-              this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
-            }}
+            // onClick={() => {
+            //   this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
+            // }}
           >
             ELEGIR
           </a>
