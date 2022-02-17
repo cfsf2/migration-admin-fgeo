@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Laboratorios from "./Laboratorios";
 import {
   Button,
@@ -13,30 +13,70 @@ import {
   Label,
   CardFooter,
 } from "reactstrap";
+
 import { image_path_server } from "../../../config";
 import Uploader from "../../../components/Uploader";
 
-const FormularioLaboratorio = (props) => {
-  const { state, setState, handleInputChange, handleEditImagen, labInit } =
-    props;
+const labinit = {
+  _id: "",
+  nombre: "",
+  habilitado: true,
+  transfer_farmageo: true,
+  url: "",
+  novedades: "",
+  condiciones_comerciales: "",
+  imagen: undefined,
+};
 
-  const [datos, setDatos] = React.useState(labInit);
+const FormularioLaboratorio = (props) => {
+  const { laboratorio } = props;
+
+  const [datos, setDatos] = useState(laboratorio);
+
+  const handleEditImagen = (urlImagen) => {
+    console.log(urlImagen);
+    setDatos({
+      ...datos,
+      imagen: urlImagen,
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const target = e.nativeEvent.target;
+    let value = target.type === "checkbox" ? target.checked : target.value;
+
+    if (e.target.value === "true" || e.target.value === "false") {
+      if (e.target.value === "true") {
+        value = true;
+      } else {
+        value = false;
+      }
+    }
+    const name = target.name;
+
+    setDatos({
+      ...datos,
+      [name]: value,
+    });
+  };
 
   useEffect(() => {
-    setDatos(() => {
-      const newState = { ...labInit };
-      return newState;
-    });
-
-    if (state.laboratorio._id) {
-      setDatos(() => {
-        let newState = { ...state.laboratorio };
-        newState.url = state.laboratorio.url ? state.laboratorio.url : "";
-
-        return newState;
+    setDatos(labinit);
+    if (laboratorio) {
+      setDatos({
+        _id: laboratorio._id,
+        nombre: laboratorio.nombre,
+        habilitado: laboratorio.habilitado,
+        transfer_farmageo: laboratorio.transfer_farmageo,
+        url: laboratorio.url ? laboratorio.url : "",
+        novedades: laboratorio.novedades,
+        condiciones_comerciales: laboratorio.condiciones_comerciales,
+        imagen: laboratorio.imagen,
       });
+    } else {
+      setDatos(labinit);
     }
-  }, [state.laboratorio._id]);
+  }, [laboratorio._id]);
 
   return (
     <>
@@ -45,7 +85,7 @@ const FormularioLaboratorio = (props) => {
           <Card>
             <CardHeader>
               <Row>
-                <Col>{state.editar ? "Editar" : "Nuevo Laboratorio"}</Col>
+                <Col>{datos.editar ? "Editar" : "Nuevo Laboratorio"}</Col>
               </Row>
             </CardHeader>
             <CardBody>
@@ -58,7 +98,7 @@ const FormularioLaboratorio = (props) => {
                       id="nombre"
                       name="nombre"
                       onChange={handleInputChange}
-                      value={datos != null ? datos.nombre : ""}
+                      value={datos.nombre}
                     />
                   </FormGroup>
                 </Col>
@@ -68,7 +108,7 @@ const FormularioLaboratorio = (props) => {
                     <Input
                       type="select"
                       name="habilitado"
-                      value={datos ? datos.habilitado : undefined}
+                      value={datos ? null : datos.habilitado}
                       onChange={handleInputChange}
                     >
                       <option value={undefined}>seleccionar...</option>
@@ -84,7 +124,7 @@ const FormularioLaboratorio = (props) => {
                       // select devuelve un string
                       type="select"
                       name="transfer_farmageo"
-                      value={datos ? datos.transfer_farmageo : undefined}
+                      value={datos.transfer_farmageo}
                       onChange={handleInputChange}
                     >
                       <option value={undefined}>seleccionar...</option>
@@ -119,7 +159,7 @@ const FormularioLaboratorio = (props) => {
                       id="novedades"
                       name="novedades"
                       onChange={handleInputChange}
-                      value={datos != null ? datos.novedades : ""}
+                      value={datos.novedades}
                     />
                   </FormGroup>
                 </Col>
@@ -135,7 +175,7 @@ const FormularioLaboratorio = (props) => {
                       id="condiciones_comerciales"
                       name="condiciones_comerciales"
                       onChange={handleInputChange}
-                      value={datos != null ? datos.condiciones_comerciales : ""}
+                      value={datos.condiciones_comerciales}
                     />
                   </FormGroup>
                 </Col>
@@ -155,6 +195,7 @@ const FormularioLaboratorio = (props) => {
                             : null
                           : null
                       }
+                      className="laboratorios_formulariolaboratorio_cardimg"
                     />
                     <Uploader
                       handleEditImagen={handleEditImagen}
@@ -169,7 +210,7 @@ const FormularioLaboratorio = (props) => {
               <Row>
                 <Col></Col>
                 <Col>
-                  {state.editar ? (
+                  {datos._id !== "" ? (
                     <Button
                       className="btn btn-success"
                       data-dismiss="modal"

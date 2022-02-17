@@ -21,12 +21,12 @@ import {
 } from "../../../redux/actions/transfersActions";
 import { image_path_server } from "../../../config";
 import FormularioLaboratorio from "./FormularioLaboratorio";
-
-const labInit = {
-  _id: null,
+import "./laboratorio.scss";
+const labinit = {
+  _id: "",
   nombre: "",
-  habilitado: undefined,
-  transfer_farmageo: null,
+  habilitado: true,
+  transfer_farmageo: true,
   url: "",
   novedades: "",
   condiciones_comerciales: "",
@@ -38,10 +38,10 @@ class Laboratorios extends Component {
     super(props);
     this.state = {
       laboratorio: {
-        _id: null,
+        _id: "",
         nombre: "",
-        habilitado: undefined,
-        transfer_farmageo: null,
+        habilitado: true,
+        transfer_farmageo: true,
         url: "",
         novedades: "",
         condiciones_comerciales: "",
@@ -49,42 +49,10 @@ class Laboratorios extends Component {
       },
       laboratorioEdit: {},
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleEditImagen = this.handleEditImagen.bind(this);
   }
 
   componentDidMount() {
     this.props.GET_LABORATORIOS();
-  }
-
-  handleEditImagen(urlImagen) {
-    console.log(urlImagen);
-    this.setState({
-      laboratorioEdit: {
-        ...this.state.laboratorioEdit,
-        imagen: urlImagen,
-      },
-    });
-  }
-  async handleInputChange(event) {
-    const target = event.nativeEvent.target;
-    let value = target.type === "checkbox" ? target.checked : target.value;
-
-    if (event.target.value === "true" || event.target.value === "false") {
-      if (event.target.value === "true") {
-        value = true;
-      } else {
-        value = false;
-      }
-    }
-    const name = target.name;
-
-    this.setState({
-      laboratorioEdit: {
-        ...this.state.laboratorioEdit,
-        [name]: value,
-      },
-    });
   }
 
   render() {
@@ -116,7 +84,7 @@ class Laboratorios extends Component {
                           onClick={() =>
                             this.setState({
                               editar: false,
-                              laboratorio: labInit,
+                              laboratorio: labinit,
                             })
                           }
                         >
@@ -204,15 +172,9 @@ class Laboratorios extends Component {
         >
           <div className="modal-dialog modal-lg">
             <div className="modal-content">
-              {/* se copio state, props y funcinoes en nueva variable para usarlos tal cual en el nuevo componente Form...*/}
               <FormularioLaboratorio
-                state={{ ...this.state }}
+                laboratorio={this.state.laboratorio}
                 {...this.props}
-                {...this.setState}
-                handleInputChange={this.handleInputChange.bind(this)}
-                handleEditImagen={this.handleEditImagen.bind(this)}
-                labInit={labInit}
-                setState={this.setState.bind(this)}
               />
             </div>
           </div>
