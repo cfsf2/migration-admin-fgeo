@@ -35,7 +35,7 @@ class NuevoTransfer extends Component {
     const { laboratorios } = this.props.tranfersReducer;
     return (
       <>
-        <div className="animated fadeIn" style={{ margin: 30, padding: 30 }}>
+        <div className="animated fadeIn" style={{ margin: 30, marginBottom: 0, padding: 30, paddingBottom: 5 }}>
           <Row style={{ marginBottom: 30 }}>
             <Col>
               <ButtonHome
@@ -50,21 +50,25 @@ class NuevoTransfer extends Component {
           </Row>
           <Row>
             {laboratorios.map((lab, index) => {
-              return lab.habilitado && lab.transfer_farmageo ? <LaboratorioSelect laboratorio={lab} key={index} /> : 
-                null;
+              return lab.habilitado && lab.transfer_farmageo ? (
+                <LaboratorioSelect laboratorio={lab} key={index} />
+              ) : null;
             })}
           </Row>
         </div>
+
+        {/*-----Container del bloque de links externos-----*/}
         <div
           className="animated fadeIn"
           style={{
-            marginTop: 0,
+            //marginTop: 0,
             marginBottom: 30,
             marginLeft: 30,
             marginRight: 30,
             padding: 30,
+            paddingBottom: 5
           }}
-          >
+        >
           <Row style={{ marginBottom: 30 }}>
             <Col>
               <ButtonHome
@@ -74,13 +78,15 @@ class NuevoTransfer extends Component {
                 align="left"
                 tipo="grande"
                 icono={require("../../../assets/images/icons/1.png")}
-                />
+              />
             </Col>
-                <Row>
-                  {laboratorios.map((lab, index) => {
-                    return lab.habilitado && !lab.transfer_farmageo ? <LaboratorioSelect laboratorio={lab} key={index} /> : null 
-                  })}
-                </Row>
+          </Row>
+          <Row>
+            {laboratorios.map((lab, index) => {
+              return lab.habilitado && !lab.transfer_farmageo ? (
+                <LaboratorioSelect laboratorio={lab} key={index} />
+              ) : null;
+            })}
           </Row>
         </div>
       </>
