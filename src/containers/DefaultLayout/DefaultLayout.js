@@ -215,7 +215,8 @@ class DefaultLayout extends Component {
                 style={{ backgroundColor: "#00788f" }}
               >
                 {userprofile && userprofile.esfarmacia ? (
-                  userprofile.perfil_farmageo !== "vender_online" ? (
+                  userprofile.perfil_farmageo !== "solo_visible" ||
+                  userprofile.perfil_farmageo === "no_visible" ? (
                     <Col md="8">
                       <a
                         href={process.env.PUBLIC_URL + "/#/perfilfarmageo"}
