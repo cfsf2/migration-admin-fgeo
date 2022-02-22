@@ -46,7 +46,7 @@ export const Novedades = (props) => {
           </Row>
         ) : null}
         {loading ? <Spinner color="info" /> : null}
-        {novedades.length > 0 && loading === false ? (
+        {novedades && novedades.length > 0 && loading === false ? (
           novedades.map((p, index) => {
             return (
               <>
