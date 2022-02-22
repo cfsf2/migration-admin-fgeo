@@ -11,7 +11,7 @@ import {
   Container,
   Spinner,
 } from "reactstrap";
-import NoInstitucionesFound from "../../components/NoInstitucionesFound";
+
 import { connect } from "react-redux";
 import {
   ADD_PUBLICIDAD,
@@ -31,6 +31,7 @@ import ButtonHome from "./components/ButtonHome";
 import MisPedidos from "./components/MisPedidos";
 import MisVentas from "./components/MisVentas";
 import VentaOnlineSelect from "./components/VentaOnlineSelect";
+import Novedades from "./components/Novedades";
 import { image_path_server } from "../../config";
 
 class Dashboard extends Component {
@@ -91,12 +92,12 @@ class Dashboard extends Component {
       this.props.GET_INSTITUCIONES(1000);
     }
 
-    if (
-      this.props.authReducer.user.permisos &&
-      this.props.authReducer.user.permisos.includes("packsdeproductos")
-    ) {
-      this.props.GET_ENTIDADES();
-    }
+    // if (
+    //   this.props.authReducer.user.permisos &&
+    //   this.props.authReducer.user.permisos.includes("packsdeproductos")
+    // ) {
+    //   this.props.GET_ENTIDADES();
+    // }
 
     if (
       prevProps.publicidadesReducer.publicidades !==
@@ -283,98 +284,7 @@ class Dashboard extends Component {
                 ) : null}
               </Col>
               <Col md="6" className="dashboard_info">
-                <Card>
-                  <CardHeader>
-                    <Row>
-                      <Col>
-                        <b>Novedades de interés</b>
-                      </Col>
-                      <Col>
-                        <select
-                          value={this.state.filtro}
-                          onChange={this.handleFiltro}
-                          name="filtro"
-                        >
-                          <option value="recientes">
-                            Más recientes primero
-                          </option>
-                          <option value="hoy">Hoy</option>
-                          <option value="semana">Últimos 7 días</option>
-                          <option value="mes">Último mes</option>
-                        </select>
-                      </Col>
-                    </Row>
-                  </CardHeader>
-                  <CardBody>
-                    <hr />
-                    {this.props.authReducer.userprofile.instituciones
-                      ?.length === 0 ? (
-                      <Row>
-                        <Col>
-                          <NoInstitucionesFound />
-                        </Col>
-                      </Row>
-                    ) : null}
-                    {this.props.publicidadesReducer.novedades?.map(
-                      (p, index) => {
-                        return (
-                          <Fragment key={p._id}>
-                            <Row key={p._id}>
-                              <Col>
-                                <Row>
-                                  <Col className="col-1">
-                                    <div
-                                      style={{
-                                        backgroundColor:
-                                          p.color === "verde"
-                                            ? "#00D579"
-                                            : p.color === "rojo"
-                                            ? "red"
-                                            : "yellow",
-                                        color: "white",
-                                        borderRadius: "50%",
-                                        width: 20,
-                                        height: 20,
-                                        borderWidth: 10,
-                                        borderColor: "black",
-                                      }}
-                                    ></div>
-                                  </Col>
-                                  <Col>
-                                    <p
-                                      style={{
-                                        textJustify: "initial",
-                                        fontSize: 16,
-                                        fontWeight: "bold",
-                                      }}
-                                      className="d-inline"
-                                    >
-                                      {p.titulo}
-                                    </p>
-                                  </Col>
-                                  <Col className="col-3">
-                                    {p.fecha_alta
-                                      ? p.fecha_alta.substring(0, 10)
-                                      : p.fechaalta.substring(0, 10)}
-                                  </Col>
-                                </Row>
-                                <Row>
-                                  <Col className="col-1"></Col>
-                                  <Col className="col-11">
-                                    <div className="dashboard_info_descripcion">
-                                      {p.descripcion}
-                                    </div>
-                                  </Col>
-                                </Row>
-                              </Col>
-                            </Row>
-                            <hr />
-                          </Fragment>
-                        );
-                      }
-                    )}
-                  </CardBody>
-                </Card>
+                <Novedades {...this.props} />
               </Col>
             </Row>
           )
