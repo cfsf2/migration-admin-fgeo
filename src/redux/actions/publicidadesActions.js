@@ -109,6 +109,10 @@ export const GET_NOVEDADES = () => {
 
 export const GET_NOVEDADES_FARMACIA = (id, instituciones) => {
   return (dispatch) => {
+    dispatch({
+      type: "SET_LOADING",
+      payload: true,
+    });
     return new Promise((resolve, reject) => {
       //
       axios
@@ -119,6 +123,10 @@ export const GET_NOVEDADES_FARMACIA = (id, instituciones) => {
           dispatch({
             type: "GET_NOVEDADES",
             payload: response.data,
+          });
+          dispatch({
+            type: "SET_LOADING",
+            payload: false,
           });
           resolve(response.data);
         })

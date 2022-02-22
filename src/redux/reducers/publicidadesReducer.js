@@ -34,6 +34,8 @@ export default (state = defaultState, action) => {
       return { ...state, novedades: action.payload };
     case "SET_FILTRANDO":
       return { ...state, filtrando: action.payload };
+    case "SET_LOADING":
+      return { ...state, loading: action.payload };
     default:
       return state;
   }
