@@ -7,7 +7,12 @@ export default function Barra(props) {
   const [enviando, setEnviando] = React.useState(false);
 
   const handleClick = () => {
-    if (props.transfer.drogueria_id || props.transfer.bro_cuenta_drogueria) {
+    if (
+      props.transfer.drogueria_id &&
+      props.transfer.nro_cuenta_drogueria &&
+      props.transfer.nro_cuenta_drogueria.trim() !== "" &&
+      props.transfer.drogueria_id.trim() !== ""
+    ) {
       setConfirm(() => true);
       setTimeout(() => {
         setConfirm((state) => !state);
