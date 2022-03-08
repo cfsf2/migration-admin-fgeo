@@ -36,7 +36,7 @@ export function ListadoProductos(props) {
   const [sortType, setSortType] = React.useState("nombre");
 
   const [page, setPage] = React.useState(0);
-  const [prodPerPage, setProdsPerPage] = React.useState(10);
+  const [prodPerPage, setProdsPerPage] = React.useState(20);
   const [showProducts, setShowProducts] = React.useState([]);
 
   const handleSort = (e) => {
