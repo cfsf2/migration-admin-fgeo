@@ -1,0 +1,123 @@
+#admin_novedades_listado_textarea {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  z-index: 200;
+  color: #000000;
+  &:hover {
+    background-color: rgb(255, 255, 255);
+  }
+}
+
+.novedades {
+  &_error {
+    border: 1px red solid;
+    position: relative;
+    &::after {
+      content: "x";
+      display: flex;
+      justify-content: flex-end;
+
+      color: Red;
+      font-size: 1.5rem;
+      padding: 1rem;
+      position: absolute;
+      top: 0%;
+      right: 0%;
+    }
+  }
+  &_textarea {
+    &:focus-within {
+      color: #5c6873;
+      background-color: #fff;
+      border-color: #8ad4ee;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(32, 168, 216, 0.25);
+    }
+    border: 1px solid rgb(218, 213, 213);
+    & textarea:focus {
+      color: #5c6873;
+      outline: 0;
+    }
+  }
+  &_instituciones {
+    &_lista {
+      list-style: none;
+      height: 6vh;
+      overflow: auto;
+      width: 100%;
+      text-align: center;
+      padding-inline-start: 0;
+      li {
+        width: 100%;
+      }
+    }
+  }
+}
+.novedades_lista {
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    height: 2px;
+    color: blue;
+  }
+  .MuiIconButton-root {
+    &:hover {
+      background-color: rgba(32, 168, 216, 0);
+    }
+  }
+  .mostrarFilter {
+    margin-left: 1rem;
+    margin-top: 0.9rem;
+
+    @media screen and (min-width: 800px) {
+      margin-top: 0;
+    }
+    &_select {
+      min-width: 286px;
+      @media screen and (min-width: 800px) {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+  }
+  [class*="MTableToolbar-spacer"] {
+    display: none;
+  }
+  [class*="MTableToolbar-searchField"] {
+    align-self: flex-start;
+    margin: 0.7rem;
+  }
+  [class*="MTableToolbar-actions"] {
+    align-self: flex-start;
+    > div > div {
+      > span {
+        display: grid;
+        margin-top: 1rem;
+        @media screen and (min-width: 800px) {
+          grid-template-columns: 1fr 1fr 1fr;
+          width: 100%;
+          margin-top: 1rem;
+        }
+        @media screen and (min-width: 1100px) {
+          grid-template-columns: 1fr 1fr 1fr;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+  [class*="MTableToolbar-searchField"] {
+    padding-left: 0;
+    top: 3px;
+  }
+  .MuiToolbar-root {
+    @media screen and (max-width: 1100px) {
+      flex-direction: column;
+    }
+  }
+  .MuiToolbar-gutters {
+    padding: 0;
+    padding-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+}

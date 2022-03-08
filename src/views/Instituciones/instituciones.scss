@@ -1,0 +1,152 @@
+$table: 1fr 6fr 6fr 2fr 2fr;
+.modal-content {
+  margin-top: 15%;
+  width: 100%;
+}
+.modal-dialog {
+  max-width: 1200px;
+}
+.imodal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.4);
+  padding: 2rem;
+  display: block;
+  z-index: 1000;
+}
+.instituciones {
+  &_container {
+    border: 1px solid rgb(207, 207, 207);
+    padding: 1rem;
+    background-color: rgb(245, 245, 245);
+    border-radius: 15px;
+    margin: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    &_titulo {
+      font-size: 1.1rem;
+      font-variant: small-caps;
+    }
+  }
+  &_filtros {
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    &_buscar {
+      margin: 1rem 0;
+      width: 25%;
+    }
+    &_madre {
+      &.MuiAutocomplete-root {
+        width: 30% !important;
+        margin: 0 1rem;
+      }
+      &.MuiAutocomplete-input {
+        padding: 0;
+      }
+    }
+    &_habilitada {
+      width: 10%;
+    }
+  }
+
+  &_cardheader {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  &_btn {
+    &_crear {
+      background-color: hsl(120, 100%, 25%);
+      color: #ffff;
+      margin: 0 3rem;
+      &:hover {
+        background-color: hsl(120, 100%, 35%);
+        color: #ffff;
+      }
+      &.btn-secondary:not(:disabled):not(.disabled):active {
+        background-color: hsl(120, 50%, 35%);
+        transform: scale(0.9);
+        color: #ffff;
+      }
+    }
+    &_crear.cancelar {
+      background-color: hsl(0, 100%, 25%);
+      color: #ffff;
+      display: none;
+    }
+  }
+  &_tabla {
+    width: 100%;
+    &_head {
+      & > tr {
+        font-size: 0.8rem;
+        display: grid;
+        grid-template-columns: $table;
+        & :first-child {
+          @media screen and (max-width: 480px) {
+            display: none;
+          }
+        }
+      }
+    }
+    tbody {
+      & > tr {
+        display: grid;
+        grid-template-columns: $table;
+        & td:first-child {
+          @media screen and (max-width: 480px) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.altainstituciones {
+  .card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  &_close {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgb(148, 146, 146);
+    background-color: #c9c9c9;
+    cursor: pointer;
+    padding: 0px 7px;
+  }
+  margin: 2rem;
+  &_row :nth-child(n) {
+    margin-bottom: 0.3rem;
+  }
+  &_nombre {
+    width: 100%;
+  }
+  &_habilitada {
+    display: flex;
+    align-items: center;
+    &_label {
+      margin-right: 2rem;
+    }
+  }
+  &_submit {
+    background-color: hsl(120, 100%, 25%);
+    color: #ffff;
+    &:hover {
+      background-color: hsl(120, 100%, 35%);
+      color: #ffff;
+    }
+    &.btn-secondary:not(:disabled):not(.disabled):active {
+      background-color: hsl(120, 50%, 35%);
+      transform: scale(0.9);
+      color: #ffff;
+    }
+  }
+}

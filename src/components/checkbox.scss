@@ -1,0 +1,14 @@
+.checkbox_ {
+  display: flex;
+  position: relative;
+  &label {
+    font-size: 1rem;
+    position: absolute;
+    margin-left: 2rem;
+  }
+  &input {
+    font-size: 2rem;
+    position: absolute;
+    left: 1.3rem;
+  }
+}

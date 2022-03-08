@@ -1,0 +1,56 @@
+[
+    {
+        "imagen": "/assets/productos/nutribaby3.jpg",
+        "nombre": "nombre producto",
+        "sku": "3243ininicd",
+        "inventario": "Hay existencias",
+        "precio": "$210",
+        "favorito": false,
+        "fecha": "24/10/2019"
+    },
+    {
+        "imagen": "/assets/productos/minios-colgate.jpg",
+        "nombre": "Colgate Smiles Gel Dental Infantil Mi Villano Favorito 100g",
+        "sku": "KL22324",
+        "inventario": "Sin existencias",
+        "precio": "$85",
+        "favorito": true,
+        "fecha": "23/1/2020"
+    },
+    {
+        "imagen": "/assets/productos/alcohol34234.png",
+        "nombre": "Bialcohol X500 Alcohol Etilico",
+        "sku": "9582349",
+        "inventario": "Pocas existencias",
+        "precio": "$73",
+        "favorito": true,
+        "fecha": "12/1/2020"
+    },
+    {
+        "imagen": "/assets/productos/nutrilon400.jpg",
+        "nombre": "Nutrilón 400",
+        "sku": "BUJ43592",
+        "inventario": "Hay existencias",
+        "precio": "$250",
+        "favorito": false,
+        "fecha": "01/12/2019"
+    },
+    {
+        "imagen": "/assets/productos/doncella100.jpg",
+        "nombre": "Algodón Doncella x100",
+        "sku": "KO35453",
+        "inventario": "Hay existencias",
+        "precio": "$60",
+        "favorito": false,
+        "fecha": "21/11/2019"
+    },
+    {
+        "imagen": "/assets/productos/termometro.png",
+        "nombre": "Termometro Digital Citizen",
+        "sku": "ZI423524",
+        "inventario": "Hay existencias",
+        "precio": "$250",
+        "favorito": true,
+        "fecha": "12/1/2020"
+    }       
+]

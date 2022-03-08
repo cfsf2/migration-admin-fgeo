@@ -1,0 +1,15 @@
+.dashboard {
+  &_info {
+    overflow-y: auto;
+    max-height: 97vh;
+    &_descripcion {
+      white-space: pre-wrap;
+      display: inline-block;
+      flex-wrap: wrap;
+      overflow: hidden;
+    }
+  }
+}
+.colorDeFondo{
+  background-color: aquamarine;
+}

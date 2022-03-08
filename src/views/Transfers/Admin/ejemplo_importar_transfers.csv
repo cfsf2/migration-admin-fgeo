@@ -1,0 +1,13 @@
+codigo,nombre,presentacion,cantidad_minima,descuento_porcentaje,precio,habilitado
+sku1,Prueba 1,x20 COMP.,1,8,210,TRUE
+sku2,Prueba 2,x10 ml,1,8,230,FALSE
+sku3,Prueba 3,,1,8,450,TRUE
+sku4,Prueba 4,INYECTABLE ,1,8,250,TRUE
+sku5,Prueba 5,x10 ml,3,8,100,TRUE
+sku6,Prueba 6,x10 ml,1,8,120,TRUE
+sku7,Prueba 7,,1,8,300,TRUE
+sku8,Prueba 8,INYECTABLE ,1,8,400,TRUE
+sku9,Prueba 9,,1,8,500,TRUE
+sku10,Prueba 10,x20 COMP.,1,8,700,TRUE
+sku11,Prueba 11,,1,8,990,TRUE
+sku12,Prueba 12,,1,8,1200,TRUE

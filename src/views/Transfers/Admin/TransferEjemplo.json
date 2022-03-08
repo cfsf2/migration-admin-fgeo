@@ -1,0 +1,31 @@
+{
+  "tranfer": {
+    "fecha": "16/08/2020",
+    "farmacia_id": "15771",
+    "laboratorio_id": "",
+    "drogueria_id": "",
+    "nro_cuenta_drogueria": "",
+    "pedido": [
+      {
+        "codigo_producto": "00001",
+        "cantidad": "50",
+        "observacion": ""
+      },
+      {
+        "codigo_producto": "00002",
+        "cantidad": "26",
+        "observacion": ""
+      },
+      {
+        "codigo_producto": "00003",
+        "cantidad": "25",
+        "observacion": ""
+      },
+      {
+        "codigo_producto": "00004",
+        "cantidad": "20",
+        "observacion": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+.error {
+  border: 1px red solid;
+  &::after {
+    content: "x";
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    color: Red;
+    font-size: 1.5rem;
+    padding: 1rem;
+    position: relative;
+    top: -92%;
+  }
+}
+.altafarmacia_asignarinstituciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2rem;
+  column-gap: 0.5rem;
+  row-gap: 2rem;
+  height: 600px;
+  &_instituciones {
+    &_lista {
+      height: 400px;
+      max-height: 400px;
+      overflow: scroll;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    &_buscar {
+      width: 30%;
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+  }
+  .seleccionado {
+    background: rgba(19, 124, 19, 0.329);
+    &:hover {
+      background: hsla(120, 73%, 28%, 0.629);
+      &::after {
+        content: "eliminar";
+        color: rgb(163, 45, 45);
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+  }
+  .no-seleccionado {
+    &:hover {
+      &::after {
+        content: "añadir";
+        color: rgb(25, 110, 58);
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+  }
+  .no-habilitado {
+    &::after {
+      content: "no habilitada";
+      color: rgb(73, 156, 224);
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+  &_asignadas {
+    height: 400px;
+    max-height: 400px;
+    overflow: auto;
+    overflow-x: hidden;
+    .asignada_item {
+      background-color: rgba(95, 95, 86, 0.082);
+      border-radius: 15px;
+      margin: 1rem;
+      &:hover {
+        &::after {
+          content: "eliminar";
+          color: rgba(235, 31, 31, 0.803);
+          display: flex;
+          width: 100%;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}
+
+.altafarmacia_asignarinstituciones.compacto {
+  // height: 400px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .altafarmacia_asignarinstituciones {
+    &_instituciones {
+      &_lista {
+        // height: 200px;
+        // max-height: 200px;
+        height: 100%;
+        max-height: 100%;
+        overflow: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      &_buscar {
+        width: 100%;
+      }
+    }
+    &_asignadas_lol {
+      display: none;
+    }
+  }
+}
