@@ -20,6 +20,7 @@ const VideoCD = React.lazy(() => import("./views/Videos/VideoCD.js"));
 const DebitosPami = React.lazy(() => import("./views/DebitosPami/DebitosPami"));
 
 const Tableropami = React.lazy(() => import("./views/Tableropami/Tableropami"));
+const DisplayPDF = React.lazy(() => import("./components/DisplayPdf"));
 
 const PedidosAdmin = React.lazy(() => import("./views/Pedidos/pedidosAdmin"));
 const Novedades = React.lazy(() => import("./views/Publicidades/Novedades"));
@@ -168,6 +169,11 @@ const routes = [
   },
 
   { path: "/tableropami", name: "Tablero Pami", component: Tableropami },
+  {
+    path: "/pdf",
+    name: "DisplayPDF",
+    component: DisplayPDF,
+  },
 
   /*
   { path: '/pedidosadmin', exact: true, name: 'Pedidos Admin', component: PedidosAdmin },

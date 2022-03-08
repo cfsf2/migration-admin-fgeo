@@ -1,11 +1,6 @@
-import React, { Component } from 'react';
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-} from 'reactstrap';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Card, CardBody, CardHeader, Col, Row } from "reactstrap";
 
 class Soporte extends Component {
   render() {
@@ -21,9 +16,25 @@ class Soporte extends Component {
                 <Row>
                   <Col xs="12">
                     <Row>
-                        <Col>
-                            <a href="mailto:soporte@farmageo.com.ar">soporte@farmageo.com.ar</a>
-                        </Col>
+                      <Col>
+                        <a href="mailto:soporte@farmageo.com.ar">
+                          soporte@farmageo.com.ar
+                        </a>
+                      </Col>
+                    </Row>
+                    <Row> </Row>
+                    <Row>
+                      <Col>
+                        <Link
+                          to={{
+                            pathname: "/pdf",
+                            search:
+                              "?pdf=soporte/Manual+de+uso+de+FarmaGeo..pdf",
+                          }}
+                        >
+                          Manual de Usuario
+                        </Link>
+                      </Col>
                     </Row>
                   </Col>
                 </Row>
@@ -36,4 +47,4 @@ class Soporte extends Component {
   }
 }
 
-export default Soporte
+export default Soporte;
