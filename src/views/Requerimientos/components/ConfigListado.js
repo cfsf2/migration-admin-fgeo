@@ -23,6 +23,7 @@ const ConfigListado = (props) => {
                   <Select
                     nombre={data[cab.nombre]}
                     opciones={cab.opciones}
+                    value={data[cab.nombre]}
                     onChange={(e) => cab.onChange(data._id, e.target.value)}
                   />
                 );

@@ -18,9 +18,11 @@ import {
 import ConfigListado from "./components/ConfigListado";
 
 export const Requerimientos = (props) => {
-  const { loading_req, requerimientos_filtro: filter } = props.campanasReducer;
-
-  const [datos, setDatos] = useState([]);
+  const {
+    loading_req,
+    requerimientos_filtro: filter,
+    requerimientos: datos,
+  } = props.campanasReducer;
 
   const cabeceras = [
     { nombre: "campana_nombre", tipo: "div" },
@@ -31,7 +33,10 @@ export const Requerimientos = (props) => {
     {
       nombre: "finalizado",
       tipo: "select",
-      opciones: ["s", "n"],
+      opciones: [
+        { nombre: "SI", value: "s" },
+        { nombre: "NO", value: "n" },
+      ],
       onChange: props.UPDATE_REQUERIMIENTO,
     },
   ];
@@ -62,7 +67,7 @@ export const Requerimientos = (props) => {
   }, []);
 
   useEffect(() => {
-    props.GET_REQUERIMIENTOS(filter).then((res) => setDatos(res.data));
+    props.GET_REQUERIMIENTOS(filter);
   }, [filter.finalizado, filter.id_campana]);
 
   return (

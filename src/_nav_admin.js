@@ -147,7 +147,7 @@ export default {
     {
       name: "Campañas",
       //url: "/ecommerce/banners-home",
-      permiso: "inicio",
+      permiso: "campanas",
       children: [
         {
           name: "Requerimientos",
