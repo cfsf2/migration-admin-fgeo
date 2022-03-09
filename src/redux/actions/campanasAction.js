@@ -7,7 +7,7 @@ export const GET_REQUERIMIENTOS = ({ id_campana, id_usuario, finalizado }) => {
       type: "SET_LOADING_REQ",
       payload: true,
     });
-    axios
+    return axios
       .get(farmageo_api + "/campana/requerimientos", {
         params: {
           id_campana,
@@ -20,14 +20,14 @@ export const GET_REQUERIMIENTOS = ({ id_campana, id_usuario, finalizado }) => {
           type: "REQUERIMIENTOS",
           payload: response.data,
         });
+        return response;
       });
   };
 };
 
 export const UPDATE_REQUERIMIENTO = (id, finalizado) => {
-  console.log(id, finalizado);
-  return (dispatch) =>
-    axios
+  return (dispatch) => {
+    return axios
       .post(farmageo_api + "/campana/requerimiento", {
         id: id,
         finalizado: finalizado,
@@ -41,33 +41,33 @@ export const UPDATE_REQUERIMIENTO = (id, finalizado) => {
             finalizado: finalizado,
           },
         });
+        return res;
       })
       .catch((err) => {
         console.log(err);
       });
+  };
 };
 
 export const GET_CAMPANAS = (idCampana) => {
   return (dispatch) => {
-    axios
+    return axios
       .get(farmageo_api + "/campana/activas", {
         params: {
           idCampana: idCampana,
         },
       })
       .then((res) => {
-        console.log(res.data);
         dispatch({
           type: "CAMPANAS",
           payload: res.data,
         });
+        return res;
       });
   };
 };
 
 export const SET_REQUERIMIENTOS_FILTRO = (filtro) => {
-  console.log("SET_REQUERIMIENTOS_FILTRO");
-  console.log(filtro);
   return (dispatch) => {
     dispatch({ type: "SET_REQUERIMIENTOS_FILTRO", payload: filtro });
   };

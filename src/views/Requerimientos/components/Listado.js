@@ -32,8 +32,7 @@ export const Listado = (props) => {
         <MaterialTable
           isLoading={loading}
           title={<h2>{titulo}</h2>}
-          className="novedades_materialtable"
-          id="novedades_materialtable"
+          className="listado_materialtable"
           hideSortIcon={false}
           icons={tableIcons}
           options={{ filtering: false }}
@@ -73,29 +72,6 @@ export const Listado = (props) => {
               isFreeAction: true,
             };
           })}
-          // actions={[
-          //   {
-          //     icon: () => (
-          //       <MostrarFilter
-          //         label="Mostrar en Novedades"
-          //         campo="habilitado"
-          //         filter={filter}
-          //         setFilter={setFilter}
-          //         opciones={[
-          //           {
-          //             nombre: "Todas",
-          //             value: "todas",
-          //             default: true,
-          //           },
-          //           { nombre: "SI", value: true },
-          //           { nombre: "NO", value: false },
-          //         ]}
-          //       />
-          //     ),
-          //     tooltip: "Filter",
-          //     isFreeAction: true,
-          //   },
-          // ]}
           options={{
             actionsColumnIndex: -1,
             pageSize: 5,

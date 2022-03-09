@@ -1,4 +1,10 @@
-import React, { Component, useState, useEffect } from "react";
+import React, {
+  Component,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 
 import { connect } from "react-redux";
 
@@ -17,6 +23,8 @@ export const Requerimientos = (props) => {
     requerimientos,
     requerimientos_filtro: filter,
   } = props.campanasReducer;
+
+  const [datos, setDatos] = useState([]);
 
   const cabeceras = [
     { nombre: "campana_nombre", tipo: "div" },
@@ -57,20 +65,21 @@ export const Requerimientos = (props) => {
     props.GET_CAMPANAS();
   }, []);
 
+  console.log("de requerimiento", filter);
+
   useEffect(() => {
-    console.log(filter);
-    props.GET_REQUERIMIENTOS(filter);
+    props.GET_REQUERIMIENTOS(filter).then((res) => setDatos(res.data));
   }, [filter.finalizado, filter.id_campana]);
 
   return (
     <>
       <ConfigListado
-        datos={requerimientos}
+        datos={datos}
         loading={loading_req}
         titulo={"Requerimientos"}
         cabeceras={cabeceras}
         filter={filter}
-        setFilter={props.SET_REQUERIMIENTOS_FILTRO}
+        setFilter={useCallback(props.SET_REQUERIMIENTOS_FILTRO, [])}
         filtros={filtros}
       />
     </>

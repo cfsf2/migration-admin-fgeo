@@ -27,7 +27,6 @@ export const MostrarFilter = (props) => {
         }
         variant="standard"
         onChange={(e) => {
-          console.log(campo, e.target.value);
           setFilter({ ...filter, [campo]: e.target.value });
         }}
         labelId="mostrarFilter"
