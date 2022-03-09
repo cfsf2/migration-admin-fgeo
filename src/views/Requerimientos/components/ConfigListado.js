@@ -43,16 +43,18 @@ const ConfigListado = (props) => {
   //}
 
   //if (!loading && filtros) {
-  let actions = useMemo(() =>
-    filtros.map((f) => {
-      return {
-        label: f.nombre,
-        campo: f.campo,
-        filter: filter,
-        setFilter: setFilter,
-        opciones: f.opciones,
-      };
-    })
+  let actions = useMemo(
+    () =>
+      filtros.map((f) => {
+        return {
+          label: f.nombre,
+          campo: f.campo,
+          filter: filter,
+          setFilter: setFilter,
+          opciones: f.opciones,
+        };
+      }),
+    [filtros]
   );
   //}
 

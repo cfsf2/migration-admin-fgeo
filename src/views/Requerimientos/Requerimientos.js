@@ -18,11 +18,7 @@ import {
 import ConfigListado from "./components/ConfigListado";
 
 export const Requerimientos = (props) => {
-  const {
-    loading_req,
-    requerimientos,
-    requerimientos_filtro: filter,
-  } = props.campanasReducer;
+  const { loading_req, requerimientos_filtro: filter } = props.campanasReducer;
 
   const [datos, setDatos] = useState([]);
 
@@ -64,8 +60,6 @@ export const Requerimientos = (props) => {
   useEffect(() => {
     props.GET_CAMPANAS();
   }, []);
-
-  console.log("de requerimiento", filter);
 
   useEffect(() => {
     props.GET_REQUERIMIENTOS(filter).then((res) => setDatos(res.data));
