@@ -111,6 +111,10 @@ const ReporteOOSSAdmin = React.lazy(() =>
   import("./views/ReporteOOSSAdmin/ReporteOOSSAdmin")
 );
 
+const Requerimientos = React.lazy(() =>
+  import("./views/Requerimientos/Requerimientos")
+);
+
 const routes = [
   { path: "/", exact: true, name: "", component: Dashboard, permiso: "inicio" },
   {
@@ -339,6 +343,13 @@ const routes = [
     name: "PapeleraProductosPack",
     component: PapeleraProductosPack,
     permiso: "packsdeproductos",
+  },
+  {
+    path: "/campanas/requerimientos",
+    exact: true,
+    name: "Requerimientos",
+    component: Requerimientos,
+    permiso: "inicio",
   },
 
   {

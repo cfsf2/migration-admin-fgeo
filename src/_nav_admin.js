@@ -145,6 +145,17 @@ export default {
       ],
     },
     {
+      name: "Campañas",
+      //url: "/ecommerce/banners-home",
+      permiso: "inicio",
+      children: [
+        {
+          name: "Requerimientos",
+          url: "/campanas/requerimientos",
+        },
+      ],
+    },
+    {
       title: true,
       name: "Transfers Farmacias",
       permiso: "transfer",

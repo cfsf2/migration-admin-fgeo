@@ -12,6 +12,7 @@ import reportOSReducer from "./reportOSReducer";
 import debitospamiReducer from "./debitospamiReducer";
 import userReducer from "./userReducer";
 import institucionesReducer from "./institucionesReducer";
+import campanasReducer from "./campanasReducer";
 
 export default combineReducers({
   imageReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
   debitospamiReducer,
   userReducer,
   institucionesReducer,
+  campanasReducer,
 });
