@@ -154,7 +154,7 @@ const Novedades = (props) => {
             <CardBody>
               <CardTitle style={{ fontSize: "1.8rem" }}>Novedades</CardTitle>
               <ThemeProvider theme={theme}>
-                {loading ? (
+                {false ? (
                   <Spinner />
                 ) : (
                   <MaterialTable
