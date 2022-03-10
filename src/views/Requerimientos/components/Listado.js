@@ -50,7 +50,7 @@ export const Listado = (props) => {
             <CardBody>
               <CardTitle style={{ fontSize: "1.8rem" }}>{titulo}</CardTitle>
               <ThemeProvider theme={theme}>
-                {loading ? (
+                {false ? (
                   <Spinner />
                 ) : (
                   <MaterialTable
