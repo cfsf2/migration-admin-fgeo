@@ -12,7 +12,7 @@ export const MostrarFilter = (props) => {
   return (
     <div
       style={{ position: "relative" }}
-      className={"mostrarFilter" + className}
+      className={`mostrarFilter ${className}`}
     >
       <InputLabel
         style={{ position: "absolute", top: "-16px" }}

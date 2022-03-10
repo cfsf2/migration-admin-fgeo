@@ -25,7 +25,7 @@ export const Requerimientos = (props) => {
   } = props.campanasReducer;
 
   const cabeceras = [
-    { nombre: "campana_nombre", tipo: "div" },
+    { nombre: "campana_nombre", tipo: "div", style: { color: "red" } },
     { nombre: "usuario_nombre", tipo: "div" },
     { nombre: "celular", tipo: "div" },
     { nombre: "codigo_promo", tipo: "div" },
@@ -43,7 +43,7 @@ export const Requerimientos = (props) => {
 
   const filtros = [
     {
-      nombre: "FINALIZADO",
+      nombre: "Finalizado",
       campo: "finalizado",
       opciones: [
         { nombre: "SI", value: "s" },
@@ -51,7 +51,7 @@ export const Requerimientos = (props) => {
       ],
     },
     {
-      nombre: "CAMPAñA".toUpperCase(),
+      nombre: "Campaña",
       campo: "id_campana",
       opciones: props.campanasReducer.campanas.map((c) => {
         return {
