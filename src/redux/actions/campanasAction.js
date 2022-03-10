@@ -1,6 +1,8 @@
 import axios from "axios";
 import { wp_api, farmageo_api, wp_api_auth } from "../../config";
 
+import { ALERT } from "./alertActions";
+
 export const GET_REQUERIMIENTOS = ({ id_campana, id_usuario, finalizado }) => {
   return (dispatch) => {
     dispatch({
@@ -27,25 +29,40 @@ export const GET_REQUERIMIENTOS = ({ id_campana, id_usuario, finalizado }) => {
 
 export const UPDATE_REQUERIMIENTO = (id, finalizado) => {
   return (dispatch) => {
-    return axios
-      .post(farmageo_api + "/campana/requerimiento", {
-        id: id,
-        finalizado: finalizado,
-      })
-      .then((res) => {
-        alert(res.data);
-        dispatch({
-          type: "UPDATE_REQUERIMIENTO",
-          payload: {
-            id: id,
-            finalizado: finalizado,
-          },
-        });
-        return res;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(
+      ALERT("Esta seguro?", "", "warning", "Continuar", 50000, "Cancelar").then(
+        async ({ isConfirmed }) => {
+          if (isConfirmed) {
+            try {
+              const res = await axios.post(
+                farmageo_api + "/campana/requerimiento",
+                {
+                  id: id,
+                  finalizado: finalizado,
+                }
+              );
+              console.log(res.data);
+              dispatch(ALERT("Exito", res.data, "success", "OK"));
+              dispatch({
+                type: "UPDATE_REQUERIMIENTO",
+                payload: {
+                  id: id,
+                  finalizado: finalizado,
+                },
+              });
+              return res;
+            } catch (err) {
+              dispatch(
+                ALERT("Ha Ocurrido un error", err, "danger", "Oh... :(", 60000)
+              );
+              console.log(err);
+            }
+          } else {
+            return;
+          }
+        }
+      )
+    );
   };
 };
 
