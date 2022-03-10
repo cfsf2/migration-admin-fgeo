@@ -349,7 +349,7 @@ const routes = [
     exact: true,
     name: "Requerimientos",
     component: Requerimientos,
-    permiso: "inicio",
+    permiso: "campanas",
   },
 
   {
