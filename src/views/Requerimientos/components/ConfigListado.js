@@ -12,24 +12,33 @@ const ConfigListado = (props) => {
     () =>
       cabeceras.map((cab) => {
         return {
-          title: cab.nombre.replace("_", " ").toUpperCase(),
+          title:
+            cab.nombre.charAt(0).toUpperCase() +
+            cab.nombre.slice(1).replace("_", " "),
           field: cab.nombre,
+          cellStyle: cab.style,
           render: (data) => {
             switch (cab.tipo) {
               case "div":
-                return <div>{data[cab.nombre]}</div>;
+                return (
+                  <div className={cab.class} style={{ textAlign: "center" }}>
+                    {data[cab.nombre]}
+                  </div>
+                );
               case "select":
                 return (
-                  <Select
-                    nombre={data[cab.nombre]}
-                    opciones={cab.opciones}
-                    value={data[cab.nombre]}
-                    onChange={(e) => cab.onChange(data._id, e.target.value)}
-                  />
+                  <div style={{ textAlign: "center" }}>
+                    <Select
+                      nombre={data[cab.nombre]}
+                      opciones={cab.opciones}
+                      value={data[cab.nombre]}
+                      onChange={(e) => cab.onChange(data._id, e.target.value)}
+                    />
+                  </div>
                 );
               case "fecha":
                 return (
-                  <div>
+                  <div style={{ textAlign: "center" }}>
                     {data[cab.nombre].replace("T", " ").replace("Z", " ")}
                   </div>
                 );

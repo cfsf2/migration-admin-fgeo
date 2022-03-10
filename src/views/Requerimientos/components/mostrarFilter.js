@@ -1,6 +1,7 @@
 import React from "react";
 import { Select, MenuItem, InputLabel } from "@mui/material";
 import PropTypes from "prop-types";
+import "./listado.scss";
 
 export const MostrarFilter = (props) => {
   const { label, campo, filter, setFilter, opciones, className } = props;
@@ -12,7 +13,7 @@ export const MostrarFilter = (props) => {
   return (
     <div
       style={{ position: "relative" }}
-      className={"mostrarFilter" + className}
+      className={`mostrarFilter ${className}`}
     >
       <InputLabel
         style={{ position: "absolute", top: "-16px" }}
