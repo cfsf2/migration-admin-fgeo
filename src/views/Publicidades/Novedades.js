@@ -61,8 +61,8 @@ const theme = createMuiTheme({
     MuiTableRow: {
       root: {
         "&:hover": {
-          backgroundColor: "#378FC3",
-          opacity: 0.8,
+          backgroundColor: "#F0F8FF",
+          opacity: 0.9,
         },
       },
     },

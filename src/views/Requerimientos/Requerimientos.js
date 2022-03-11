@@ -36,7 +36,7 @@ export const Requerimientos = (props) => {
   } = props.campanasReducer;
 
   const cabeceras = [
-    { nombre: "campana_nombre", tipo: "div", style: { color: "red" } },
+    { nombre: "campana_nombre", tipo: "div" },
     { nombre: "usuario_nombre", tipo: "div" },
     { nombre: "celular", tipo: "div" },
     { nombre: "codigo_promo", tipo: "div" },
