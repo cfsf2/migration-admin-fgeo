@@ -98,7 +98,7 @@ export const Listado = (props) => {
                     })}
                     options={{
                       actionsColumnIndex: -1,
-                      pageSize: 5,
+                      pageSize: 20,
                       pageSizeOptions: [5, 10, 20, 30],
                       headerStyle: {
                         textAlign: "center",

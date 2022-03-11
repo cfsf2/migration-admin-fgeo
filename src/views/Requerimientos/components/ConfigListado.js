@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
 import Listado from "./Listado";
-
+import { Button } from "reactstrap";
 import Select from "../../../components/Select";
+import icono_ws from "../../../assets/images/icono_ws.svg";
 
 const ConfigListado = (props) => {
   const { cabeceras, datos, loading, titulo, filtros, filter, setFilter } =
@@ -40,6 +41,19 @@ const ConfigListado = (props) => {
                 return (
                   <div style={{ textAlign: "center" }}>
                     {data[cab.nombre].replace("T", " ").replace("Z", " ")}
+                  </div>
+                );
+              case "button":
+                return (
+                  <div style={{ textAlign: "center" }}>
+                    <img
+                      style={{ cursor: "pointer" }}
+                      height={"40px"}
+                      src={cab.imagen}
+                      onClick={(e) => {
+                        return cab.onClick(data, e);
+                      }}
+                    />
                   </div>
                 );
               default:

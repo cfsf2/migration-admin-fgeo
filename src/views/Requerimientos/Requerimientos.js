@@ -17,8 +17,19 @@ import {
 
 import ConfigListado from "./components/ConfigListado";
 
+const enviarWS = (data, e) => {
+  const texto = data.atributos.find((a) => a.codigo === "mensaje_texto").valor;
+  window.open(
+    "https://api.whatsapp.com/send?phone=+54" +
+      data.celular +
+      "&text=" +
+      eval(texto)
+  );
+};
+
 export const Requerimientos = (props) => {
   const {
+    campanas,
     loading_req,
     requerimientos_filtro: filter,
     requerimientos: datos,
@@ -38,6 +49,12 @@ export const Requerimientos = (props) => {
         { nombre: "NO", value: "n" },
       ],
       onChange: props.UPDATE_REQUERIMIENTO,
+    },
+    {
+      nombre: "Enviar WS",
+      tipo: "button",
+      imagen: "https://img.icons8.com/office/344/whatsapp--v1.png",
+      onClick: enviarWS,
     },
   ];
 
