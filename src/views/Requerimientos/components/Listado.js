@@ -23,8 +23,8 @@ const theme = createMuiTheme({
     MuiTableRow: {
       root: {
         "&:hover": {
-          backgroundColor: "#378FC3",
-          opacity: 0.8,
+          backgroundColor: "#F0F8FF",
+          opacity: 0.9,
         },
       },
     },
@@ -98,7 +98,7 @@ export const Listado = (props) => {
                     })}
                     options={{
                       actionsColumnIndex: -1,
-                      pageSize: 5,
+                      pageSize: 20,
                       pageSizeOptions: [5, 10, 20, 30],
                       headerStyle: {
                         textAlign: "center",
