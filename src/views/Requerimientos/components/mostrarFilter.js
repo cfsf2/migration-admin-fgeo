@@ -10,6 +10,14 @@ export const MostrarFilter = (props) => {
     return opcion.default === true;
   });
 
+  const [value, setValue] = React.useState(() =>
+    hasdefault ? opciones.find((opcion) => opcion.default).value : "todas"
+  );
+
+  React.useEffect(() => {
+    if (value !== filtroActivo[campo]) setValue(filtroActivo[campo]);
+  }, [filtroActivo[campo]]);
+
   return (
     <div
       style={{ position: "relative" }}
@@ -32,7 +40,7 @@ export const MostrarFilter = (props) => {
         }}
         labelId="mostrarFilter"
         className="mostrarFilter_select"
-        value={filtroActivo[campo]}
+        value={value}
       >
         {hasdefault ? null : (
           <MenuItem
