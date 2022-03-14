@@ -22,7 +22,7 @@ const ConfigListado = (props) => {
     loading,
     titulo,
     filtros,
-    filter,
+    filtroActivo,
     setFilter,
   } = props;
 
@@ -57,7 +57,7 @@ const ConfigListado = (props) => {
                           value: e.target.value,
                           campo: e.target.name,
                           setDatos: setDatos,
-                          filter: filter,
+                          filter: filtroActivo,
                         })
                       }
                     />
@@ -104,7 +104,7 @@ const ConfigListado = (props) => {
           id: f.nombre,
           label: f.nombre,
           campo: f.campo,
-          filter: filter,
+          filtroActivo: filtroActivo,
           setFilter: setFilter,
           opciones: f.opciones,
         };

@@ -18,7 +18,7 @@ export const Requerimientos = (props) => {
   const location = useLocation();
   const history = useHistory();
   const [datos, setDatos] = useState([]);
-  const [filter, setFilter] = useState([]);
+  const [filtroActivo, setFiltroActivo] = useState([]);
 
   const cabeceras = [
     { nombre: "campana_nombre", tipo: "div" },
@@ -76,7 +76,7 @@ export const Requerimientos = (props) => {
     props.GET_CAMPANAS();
   }, []);
 
-  const deps = filtros.map((f) => filter[f.campo]);
+  const deps = filtros.map((f) => filtroActivo[f.campo]);
 
   const firstRender = useRef(true);
   useEffect(() => {
@@ -94,7 +94,7 @@ export const Requerimientos = (props) => {
       return;
     }
 
-    props.GET_REQUERIMIENTOS(filter).then((res) => setDatos(res.data));
+    props.GET_REQUERIMIENTOS(filtroActivo).then((res) => setDatos(res.data));
   }, deps);
 
   useEffect(() => {
@@ -108,7 +108,7 @@ export const Requerimientos = (props) => {
           : "todas")
     );
 
-    setFilter(queryfiltros);
+    setFiltroActivo(queryfiltros);
   }, [location.search]);
 
   const setQueryFilter = (data) => {
@@ -128,7 +128,7 @@ export const Requerimientos = (props) => {
         loading={loading_req}
         titulo={"Requerimientos"}
         cabeceras={cabeceras}
-        filter={filter}
+        filtroActivo={filtroActivo}
         setFilter={setQueryFilter} //props.SET_REQUERIMIENTOS_FILTRO}
         filtros={filtros}
       />
