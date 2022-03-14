@@ -101,6 +101,7 @@ const ConfigListado = (props) => {
     () =>
       filtros.map((f) => {
         return {
+          id: f.nombre,
           label: f.nombre,
           campo: f.campo,
           filter: filter,

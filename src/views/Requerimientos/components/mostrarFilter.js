@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 import "./listado.scss";
 
 export const MostrarFilter = (props) => {
-  const { label, campo, filter, setFilter, opciones, className } = props;
+  const { id, label, campo, filter, setFilter, opciones, className } = props;
   const hasdefault = opciones.find((opcion) => {
     return opcion.default === true;
   });
 
   return (
     <div
+      id={id}
       style={{ position: "relative" }}
       className={`mostrarFilter ${className}`}
     >
