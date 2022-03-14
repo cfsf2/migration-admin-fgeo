@@ -4,6 +4,16 @@ import { Button } from "reactstrap";
 import Select from "../../../components/Select";
 import icono_ws from "../../../assets/images/icono_ws.svg";
 
+const enviarWS = (data, e) => {
+  const texto = data.atributos.find((a) => a.codigo === "mensaje_texto").valor;
+  window.open(
+    "https://api.whatsapp.com/send?phone=+54" +
+      data.celular +
+      "&text=" +
+      eval(texto)
+  );
+};
+
 const ConfigListado = (props) => {
   const { cabeceras, datos, loading, titulo, filtros, filter, setFilter } =
     props;
@@ -51,7 +61,7 @@ const ConfigListado = (props) => {
                       height={"40px"}
                       src={cab.imagen}
                       onClick={(e) => {
-                        return cab.onClick(data, e);
+                        return eval(cab.onClick)(data, e);
                       }}
                     />
                   </div>

@@ -7,6 +7,7 @@ import React, {
 } from "react";
 
 import { connect } from "react-redux";
+import { useLocation, useHistory } from "react-router-dom";
 
 import {
   GET_REQUERIMIENTOS,
@@ -17,23 +18,15 @@ import {
 
 import ConfigListado from "./components/ConfigListado";
 
-const enviarWS = (data, e) => {
-  const texto = data.atributos.find((a) => a.codigo === "mensaje_texto").valor;
-  window.open(
-    "https://api.whatsapp.com/send?phone=+54" +
-      data.celular +
-      "&text=" +
-      eval(texto)
-  );
-};
-
 export const Requerimientos = (props) => {
   const {
-    campanas,
     loading_req,
     requerimientos_filtro: filter,
     requerimientos: datos,
   } = props.campanasReducer;
+
+  const location = useLocation();
+  const history = useHistory();
 
   const cabeceras = [
     { nombre: "campana_nombre", tipo: "div" },
@@ -54,7 +47,7 @@ export const Requerimientos = (props) => {
       nombre: "Enviar WS",
       tipo: "button",
       imagen: "https://img.icons8.com/office/344/whatsapp--v1.png",
-      onClick: enviarWS,
+      onClick: "enviarWS",
     },
   ];
 
@@ -77,15 +70,35 @@ export const Requerimientos = (props) => {
         };
       }),
     },
+    // {
+    //   nombre: "usuario",
+    //   campo: "id_usuario",
+    //   opciones: props.campanasReducer.requerimientos.map((r) => {
+    //     return { nombre: r.usuario_nombre, value: r.usuario_id };
+    //   }),
+    // },
   ];
 
   useEffect(() => {
     props.GET_CAMPANAS();
   }, []);
 
+  const deps = filtros.map((f) => filter[f.campo]);
+
   useEffect(() => {
     props.GET_REQUERIMIENTOS(filter);
-  }, [filter.finalizado, filter.id_campana]);
+  }, deps);
+
+  /*
+  useEffect(() => {
+    const params = new URLSearchParams(location.path);
+
+    let queryfiltros = {};
+    filtros.forEach((f) => (queryfiltros[f.campo] = params.get(f.campo)));
+
+    // props.SET_REQUERIMIENTOS_FILTRO(queryfiltros);
+  }, [location.path]);
+*/
 
   return (
     <>
@@ -95,7 +108,7 @@ export const Requerimientos = (props) => {
         titulo={"Requerimientos"}
         cabeceras={cabeceras}
         filter={filter}
-        setFilter={useCallback(props.SET_REQUERIMIENTOS_FILTRO, [])}
+        setFilter={props.SET_REQUERIMIENTOS_FILTRO}
         filtros={filtros}
       />
     </>
