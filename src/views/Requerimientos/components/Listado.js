@@ -32,16 +32,7 @@ const theme = createMuiTheme({
 });
 
 export const Listado = (props) => {
-  const {
-    data,
-    loading,
-    filter,
-    setFilter,
-    filtrando,
-    columnas,
-    titulo,
-    filtros,
-  } = props;
+  const { data, loading, columnas, titulo, filtros } = props;
   return (
     <div className="animated fadeIn novedades_lista">
       <Row>
