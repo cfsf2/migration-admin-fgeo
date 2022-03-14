@@ -64,3 +64,19 @@
     margin-bottom: 0.5rem;
   }
 }
+
+.listado-desaparecer {
+  animation-name: desaparecer;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+}
+
+@keyframes desaparecer {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

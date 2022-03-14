@@ -7,11 +7,11 @@ import React, {
 } from "react";
 
 import { connect } from "react-redux";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router";
 
 import {
   GET_REQUERIMIENTOS,
-  UPDATE_REQUERIMIENTO,
+  FINALIZAR_REQUERIMIENTO,
   GET_CAMPANAS,
   SET_REQUERIMIENTOS_FILTRO,
 } from "../../redux/actions/campanasAction";
@@ -19,14 +19,12 @@ import {
 import ConfigListado from "./components/ConfigListado";
 
 export const Requerimientos = (props) => {
-  const {
-    loading_req,
-    requerimientos_filtro: filter,
-    requerimientos: datos,
-  } = props.campanasReducer;
+  const { loading_req } = props.campanasReducer;
 
   const location = useLocation();
   const history = useHistory();
+  const [datos, setDatos] = useState([]);
+  const [filter, setFilter] = useState([]);
 
   const cabeceras = [
     { nombre: "campana_nombre", tipo: "div" },
@@ -41,7 +39,7 @@ export const Requerimientos = (props) => {
         { nombre: "SI", value: "s" },
         { nombre: "NO", value: "n" },
       ],
-      onChange: props.UPDATE_REQUERIMIENTO,
+      onChange: props.FINALIZAR_REQUERIMIENTO,
     },
     {
       nombre: "Enviar WS",
@@ -86,29 +84,42 @@ export const Requerimientos = (props) => {
   const deps = filtros.map((f) => filter[f.campo]);
 
   useEffect(() => {
-    props.GET_REQUERIMIENTOS(filter);
+    props.GET_REQUERIMIENTOS(filter).then((res) => setDatos(res.data));
   }, deps);
 
-  /*
   useEffect(() => {
-    const params = new URLSearchParams(location.path);
+    const params = new URLSearchParams(window.location.href);
 
     let queryfiltros = {};
-    filtros.forEach((f) => (queryfiltros[f.campo] = params.get(f.campo)));
+    filtros.forEach(
+      (f) =>
+        (queryfiltros[f.campo] = params.get(f.campo)
+          ? params.get(f.campo)
+          : "todas")
+    );
 
-    // props.SET_REQUERIMIENTOS_FILTRO(queryfiltros);
-  }, [location.path]);
-*/
+    setFilter(queryfiltros);
+  }, [location.search]);
+
+  const setQueryFilter = (data) => {
+    const keys = Object.keys(data);
+    let query = "?";
+    keys.forEach((k) => {
+      query = query.concat(`&${k}=${data[k]}`);
+    });
+    history.push({ pathname: location.pathname, search: query });
+  };
 
   return (
     <>
       <ConfigListado
         datos={datos}
+        setDatos={setDatos}
         loading={loading_req}
         titulo={"Requerimientos"}
         cabeceras={cabeceras}
         filter={filter}
-        setFilter={props.SET_REQUERIMIENTOS_FILTRO}
+        setFilter={setQueryFilter} //props.SET_REQUERIMIENTOS_FILTRO}
         filtros={filtros}
       />
     </>
@@ -122,7 +133,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   GET_REQUERIMIENTOS,
-  UPDATE_REQUERIMIENTO,
+  FINALIZAR_REQUERIMIENTO,
   GET_CAMPANAS,
   SET_REQUERIMIENTOS_FILTRO,
 };
