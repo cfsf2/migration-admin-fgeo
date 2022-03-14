@@ -1,10 +1,4 @@
-import React, {
-  Component,
-  useState,
-  useEffect,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { connect } from "react-redux";
 import { useLocation, useHistory } from "react-router";
@@ -54,8 +48,9 @@ export const Requerimientos = (props) => {
       nombre: "Finalizado",
       campo: "finalizado",
       opciones: [
+        { nombre: "Todas", value: "todas" },
         { nombre: "SI", value: "s" },
-        { nombre: "NO", value: "n" },
+        { nombre: "NO", value: "n", default: true },
       ],
     },
     {
@@ -83,7 +78,22 @@ export const Requerimientos = (props) => {
 
   const deps = filtros.map((f) => filter[f.campo]);
 
+  const firstRender = useRef(true);
   useEffect(() => {
+    if (firstRender.current) {
+      let queryfiltros = {};
+      filtros.forEach(
+        (f) =>
+          (queryfiltros[f.campo] = f.opciones.find((o) => o.default)
+            ? f.opciones.find((o) => o.default).value
+            : "todas")
+      );
+      setQueryFilter(queryfiltros);
+      props.GET_REQUERIMIENTOS(queryfiltros).then((res) => setDatos(res.data));
+      firstRender.current = false;
+      return;
+    }
+
     props.GET_REQUERIMIENTOS(filter).then((res) => setDatos(res.data));
   }, deps);
 
