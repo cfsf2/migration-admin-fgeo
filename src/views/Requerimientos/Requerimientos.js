@@ -7,7 +7,7 @@ import React, {
 } from "react";
 
 import { connect } from "react-redux";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router";
 
 import {
   GET_REQUERIMIENTOS,
@@ -19,14 +19,12 @@ import {
 import ConfigListado from "./components/ConfigListado";
 
 export const Requerimientos = (props) => {
-  const {
-    loading_req,
-    requerimientos_filtro: filter,
-    requerimientos: datos,
-  } = props.campanasReducer;
+  const { loading_req, requerimientos: datos } = props.campanasReducer;
 
   const location = useLocation();
   const history = useHistory();
+  const [requerimientos, setRequerimientos] = useState([]);
+  const [filter, setFilter] = useState([]);
 
   const cabeceras = [
     { nombre: "campana_nombre", tipo: "div" },
@@ -89,16 +87,28 @@ export const Requerimientos = (props) => {
     props.GET_REQUERIMIENTOS(filter);
   }, deps);
 
-  /*
   useEffect(() => {
-    const params = new URLSearchParams(location.path);
+    const params = new URLSearchParams(window.location.href);
 
     let queryfiltros = {};
-    filtros.forEach((f) => (queryfiltros[f.campo] = params.get(f.campo)));
+    filtros.forEach(
+      (f) =>
+        (queryfiltros[f.campo] = params.get(f.campo)
+          ? params.get(f.campo)
+          : "todas")
+    );
 
-    // props.SET_REQUERIMIENTOS_FILTRO(queryfiltros);
-  }, [location.path]);
-*/
+    setFilter(queryfiltros);
+  }, [location.search]);
+
+  const setQueryFilter = (data) => {
+    const keys = Object.keys(data);
+    let query = "?";
+    keys.forEach((k) => {
+      query = query.concat(`&${k}=${data[k]}`);
+    });
+    history.push({ pathname: location.pathname, search: query });
+  };
 
   return (
     <>
@@ -108,7 +118,7 @@ export const Requerimientos = (props) => {
         titulo={"Requerimientos"}
         cabeceras={cabeceras}
         filter={filter}
-        setFilter={props.SET_REQUERIMIENTOS_FILTRO}
+        setFilter={setQueryFilter} //props.SET_REQUERIMIENTOS_FILTRO}
         filtros={filtros}
       />
     </>

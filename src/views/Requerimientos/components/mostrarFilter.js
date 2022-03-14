@@ -6,6 +6,10 @@ import "./listado.scss";
 export const MostrarFilter = (props) => {
   const { label, campo, filter, setFilter, opciones, className } = props;
 
+  const [value, setValue] = React.useState(() =>
+    hasdefault ? opciones.find((opcion) => opcion.default).value : "todas"
+  );
+
   const hasdefault = opciones.find((opcion) => {
     return opcion.default === true;
   });
@@ -32,6 +36,7 @@ export const MostrarFilter = (props) => {
         }}
         labelId="mostrarFilter"
         className="mostrarFilter_select"
+        name={campo}
         value={filter[campo]}
       >
         {hasdefault ? null : (
