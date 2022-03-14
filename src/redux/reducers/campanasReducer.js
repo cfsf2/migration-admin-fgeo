@@ -33,7 +33,7 @@ export default (state = defaultState, action) => {
         ...state,
         loading_req: action.payload,
       };
-    case "UPDATE_REQUERIMIENTO":
+    case "FINALIZAR_REQUERIMIENTO":
       return {
         ...state,
         requerimientos: state.requerimientos.map((r) =>

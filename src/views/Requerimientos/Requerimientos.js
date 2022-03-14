@@ -11,7 +11,7 @@ import { useLocation, useHistory } from "react-router";
 
 import {
   GET_REQUERIMIENTOS,
-  UPDATE_REQUERIMIENTO,
+  FINALIZAR_REQUERIMIENTO,
   GET_CAMPANAS,
   SET_REQUERIMIENTOS_FILTRO,
 } from "../../redux/actions/campanasAction";
@@ -19,11 +19,11 @@ import {
 import ConfigListado from "./components/ConfigListado";
 
 export const Requerimientos = (props) => {
-  const { loading_req, requerimientos: datos } = props.campanasReducer;
+  const { loading_req } = props.campanasReducer;
 
   const location = useLocation();
   const history = useHistory();
-  const [requerimientos, setRequerimientos] = useState([]);
+  const [datos, setDatos] = useState([]);
   const [filter, setFilter] = useState([]);
 
   const cabeceras = [
@@ -39,7 +39,7 @@ export const Requerimientos = (props) => {
         { nombre: "SI", value: "s" },
         { nombre: "NO", value: "n" },
       ],
-      onChange: props.UPDATE_REQUERIMIENTO,
+      onChange: props.FINALIZAR_REQUERIMIENTO,
     },
     {
       nombre: "Enviar WS",
@@ -84,7 +84,7 @@ export const Requerimientos = (props) => {
   const deps = filtros.map((f) => filter[f.campo]);
 
   useEffect(() => {
-    props.GET_REQUERIMIENTOS(filter);
+    props.GET_REQUERIMIENTOS(filter).then((res) => setDatos(res.data));
   }, deps);
 
   useEffect(() => {
@@ -114,6 +114,7 @@ export const Requerimientos = (props) => {
     <>
       <ConfigListado
         datos={datos}
+        setDatos={setDatos}
         loading={loading_req}
         titulo={"Requerimientos"}
         cabeceras={cabeceras}
@@ -132,7 +133,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   GET_REQUERIMIENTOS,
-  UPDATE_REQUERIMIENTO,
+  FINALIZAR_REQUERIMIENTO,
   GET_CAMPANAS,
   SET_REQUERIMIENTOS_FILTRO,
 };

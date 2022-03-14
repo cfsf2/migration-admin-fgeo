@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect, forwardRef } from "react";
-import MaterialTable from "material-table";
+import MaterialTable, { MTableBodyRow } from "material-table";
 import { Link } from "react-router-dom";
 import { MostrarFilter } from "./mostrarFilter";
 import {
@@ -98,6 +98,11 @@ export const Listado = (props) => {
                       tableLayout: "auto",
                       search: true,
                       searchFieldStyle: { top: "3px" },
+                    }}
+                    components={{
+                      Row: (props) => (
+                        <MTableBodyRow id={props.data._id} {...props} />
+                      ),
                     }}
                     // style={{ minWidth: "1300px", overflowX: "auto" }}
                   />

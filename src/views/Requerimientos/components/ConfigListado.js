@@ -15,8 +15,16 @@ const enviarWS = (data, e) => {
 };
 
 const ConfigListado = (props) => {
-  const { cabeceras, datos, loading, titulo, filtros, filter, setFilter } =
-    props;
+  const {
+    cabeceras,
+    datos,
+    setDatos,
+    loading,
+    titulo,
+    filtros,
+    filter,
+    setFilter,
+  } = props;
 
   //  if (!loading && cabeceras) {
   let columnas = useMemo(
@@ -40,10 +48,18 @@ const ConfigListado = (props) => {
                 return (
                   <div style={{ textAlign: "center" }}>
                     <Select
-                      nombre={data[cab.nombre]}
+                      nombre={cab.nombre}
                       opciones={cab.opciones}
                       value={data[cab.nombre]}
-                      onChange={(e) => cab.onChange(data._id, e.target.value)}
+                      onChange={(e) =>
+                        cab.onChange({
+                          id: data._id,
+                          value: e.target.value,
+                          campo: e.target.name,
+                          setDatos: setDatos,
+                          filter: filter,
+                        })
+                      }
                     />
                   </div>
                 );
@@ -56,14 +72,18 @@ const ConfigListado = (props) => {
               case "button":
                 return (
                   <div style={{ textAlign: "center" }}>
-                    <img
-                      style={{ cursor: "pointer" }}
-                      height={"40px"}
-                      src={cab.imagen}
-                      onClick={(e) => {
-                        return eval(cab.onClick)(data, e);
-                      }}
-                    />
+                    {cab.imagen ? (
+                      <img
+                        style={{ cursor: "pointer" }}
+                        height={"40px"}
+                        src={cab.imagen}
+                        onClick={(e) => {
+                          return eval(cab.onClick)(data, e);
+                        }}
+                      />
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 );
               default:

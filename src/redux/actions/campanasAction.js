@@ -27,27 +27,70 @@ export const GET_REQUERIMIENTOS = ({ id_campana, id_usuario, finalizado }) => {
   };
 };
 
-export const UPDATE_REQUERIMIENTO = (id, finalizado) => {
+export const FINALIZAR_REQUERIMIENTO = ({
+  id,
+  value,
+  campo,
+  setDatos,
+  filter,
+}) => {
   return (dispatch) => {
     dispatch(
       ALERT("Esta seguro?", "", "warning", "Continuar", 50000, "Cancelar").then(
         async ({ isConfirmed }) => {
           if (isConfirmed) {
             try {
-              const res = await axios.post(
-                farmageo_api + "/campana/requerimiento",
+              const res = await axios.put(
+                farmageo_api + "/campana/finalizarrequerimiento",
                 {
                   id: id,
-                  finalizado: finalizado,
+                  [campo]: value,
                 }
               );
-              console.log(res.data);
               dispatch(ALERT("Exito", res.data, "success", "OK"));
+
+              setDatos((state) => {
+                let newState = state.map((r) =>
+                  r._id === id ? { ...r, [campo]: value } : r
+                );
+                const filtrosArray = Object.entries(filter).filter(
+                  (e) => !(e[1] === "" || e[1] === "todas")
+                );
+
+                const filtrado = newState.filter((s) => {
+                  if (filtrosArray.length === 0) {
+                    return true;
+                  }
+                  return filtrosArray.some((f) => {
+                    return s[f[0]] === f[1];
+                  });
+                });
+
+                const aLaBasuraSiSeFiltra = newState
+                  .filter((s) => {
+                    if (filtrosArray.length === 0) {
+                      return true;
+                    }
+                    return filtrosArray.some((f) => {
+                      return s[f[0]] !== f[1];
+                    });
+                  })
+                  .map((s) => s._id);
+
+                aLaBasuraSiSeFiltra.forEach((b) => {
+                  document
+                    .getElementById(b)
+                    .classList.add("listado-desaparecer");
+                });
+
+                return filtrado;
+              });
+
               dispatch({
-                type: "UPDATE_REQUERIMIENTO",
+                type: "FINALIZAR_REQUERIMIENTO",
                 payload: {
                   id: id,
-                  finalizado: finalizado,
+                  finalizado: value,
                 },
               });
               return res;
