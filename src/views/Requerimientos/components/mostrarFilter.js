@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import "./listado.scss";
 
 export const MostrarFilter = (props) => {
-  const { id, label, campo, filter, setFilter, opciones, className } = props;
+  const { label, campo, filtroActivo, setFilter, opciones, className } = props;
+
   const hasdefault = opciones.find((opcion) => {
     return opcion.default === true;
   });
 
   return (
     <div
-      id={id}
       style={{ position: "relative" }}
       className={`mostrarFilter ${className}`}
     >
@@ -28,12 +28,11 @@ export const MostrarFilter = (props) => {
         }
         variant="standard"
         onChange={(e) => {
-          setFilter({ ...filter, [campo]: e.target.value });
+          setFilter({ ...filtroActivo, [campo]: e.target.value });
         }}
         labelId="mostrarFilter"
         className="mostrarFilter_select"
-        name={campo}
-        value={filter[campo]}
+        value={filtroActivo[campo]}
       >
         {hasdefault ? null : (
           <MenuItem
