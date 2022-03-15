@@ -81,7 +81,7 @@ class FinalizarTransfer extends Component {
       submitting: false,
       lab_selected: null,
     };
-    // this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     // this.handleFiltroFinalizar = this.handleFiltroFinalizar.bind(this);
     //this.handleVistaPrevia = this.handleVistaPrevia.bind(this);
     //this.handleLineaChange = this.handleLineaChange.bind(this);
@@ -132,14 +132,14 @@ class FinalizarTransfer extends Component {
   //   });
   // }
 
-  // async handleInputChange(event) {
-  //   const target = event.nativeEvent.target;
-  //   const value = target.type === "checkbox" ? target.checked : target.value;
-  //   const name = target.name;
-  //   await this.setState({
-  //     transfer: { ...this.state.transfer, [name]: value },
-  //   });
-  // }
+  async handleInputChange(event) {
+    const target = event.nativeEvent.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    await this.setState({
+      transfer: { ...this.state.transfer, [name]: value },
+    });
+  }
 
   // async handleLineaChange(linea, minimo) {
   //   let _productos = await this.state.productos.filter((p) => {
