@@ -6,7 +6,7 @@ class ConfirmacionPedido extends Component {
   render() {
     return (
       <div
-        className="animated fadeIn transfer_confirmacion"
+        className="animated fadeIn transfer_confirmacion transfer_lista_confirmacion"
         style={{ margin: 30, padding: 30 }}
       >
         <div
