@@ -90,6 +90,24 @@ class Servicios extends Component {
                       <Col className="my-3" xs="6" md="3">
                         <div align="center">
                           <img
+                            src={require("../../assets/images/vacuna.jpg")}
+                            style={{ width: 50 }}
+                          />
+                          <p style={{ marginTop: 10 }}>
+                            Campaña Anti Gripal 2022
+                          </p>
+                          <input
+                            type="checkbox"
+                            id="campanaantigripal"
+                            name="campanaantigripal"
+                            onChange={this.handleInputChange}
+                            checked={this.checkServicios("campanaantigripal")}
+                          />
+                        </div>
+                      </Col>
+                      <Col className="my-3" xs="6" md="3">
+                        <div align="center">
+                          <img
                             src={require("../../assets/images/icons/de_turno.png")}
                             style={{ width: 50 }}
                           />
