@@ -94,7 +94,7 @@ class Servicios extends Component {
                             style={{ width: 50 }}
                           />
                           <p style={{ marginTop: 10 }}>
-                            Campaña Anti Gripal 2022
+                            Campaña AntiGripal 2022
                           </p>
                           <input
                             type="checkbox"
