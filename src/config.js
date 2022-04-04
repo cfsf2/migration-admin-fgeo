@@ -1,5 +1,5 @@
 const wp_api = "wp_api_auth_tkon/wp-json/wp/v2";
-const wp_api_auth = "https://api.testingdev.ml";
+const wp_api_auth = "https://api.testingdev.ga";
 const farmageo_api = "https://api.testingdev.ga";
 //const farmageo_api = "http://localhost:3110";
 //const image_path_server = "https://sync-farmageo2.s3.amazonaws.com/";
