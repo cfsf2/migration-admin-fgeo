@@ -5,6 +5,7 @@ import { GET_ALL_PEDIDOS_ADMIN, GET_PEDIDOS } from "./pedidosActions";
 import { ALERT } from "./alertActions";
 import store from "../store/index";
 import { GET_NOVEDADES_FARMACIA } from "./publicidadesActions";
+import { GET_USUARIO } from "./userActions";
 
 export const RESET_ERROR = () => {
   return (dispatch) => {
@@ -78,6 +79,9 @@ export const LOADPROFILE = (username, token) => {
         },
       })
       .then(function (response) {
+        if (response.data.usuario) {
+          dispatch(GET_USUARIO(response.data.usuario));
+        }
         dispatch({ type: "LOADPROFILE_OK", payload: response.data });
         if (response.data.farmaciaid) {
           dispatch(GET_PEDIDOS(response.data.farmaciaid));

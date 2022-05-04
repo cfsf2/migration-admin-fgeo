@@ -132,3 +132,49 @@ export const SET_REQUERIMIENTOS_FILTRO = (filtro) => {
     dispatch({ type: "SET_REQUERIMIENTOS_FILTRO", payload: filtro });
   };
 };
+
+//campaña para farmacias
+export const GET_CAMPANA = (idUsuario) => {
+  return (dispatch) => {
+    dispatch({
+      type: "SET_LOADING",
+      payload: true,
+    });
+
+    return axios
+      .get(farmageo_api + "/campana/activas", {
+        params: {
+          idUsuario: idUsuario,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: "CAMPANAS_ACTIVAS",
+          payload: response.data,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        return;
+      });
+  };
+};
+
+export const NUEVO_REQUERIMIENTO = ({
+  id_campana,
+  id_usuario,
+  id_farmacia,
+  celular,
+}) => {
+  return (dispatch) => {
+    return axios
+      .post(farmageo_api + "/campana/nuevoRequerimiento", {
+        id_campana,
+        id_usuario,
+        id_farmacia,
+        celular,
+      })
+      .then((res) => null)
+      .catch((err) => console.log(err));
+  };
+};

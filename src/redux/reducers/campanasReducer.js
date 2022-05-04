@@ -1,5 +1,7 @@
 const defaultState = {
   campanas: [],
+  campanas_activas: [],
+  loading: false,
   loading_camp: false,
   requerimientos: [],
   loading_req: false,
@@ -11,6 +13,17 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+    case "CAMPANAS_ACTIVAS": 
+      return {
+        ...state,
+        campanas_activas: action.payload,
+        loading: false,
+      };
+      case 'SET_LOADING':
+        return {
+          ...state,
+          loading: action.payload,
+        };
     case "REQUERIMIENTOS":
       return {
         ...state,
@@ -22,6 +35,7 @@ export default (state = defaultState, action) => {
         ...state,
         campanas: action.payload,
         loading_camp: false,
+        loading: false,
       };
     case "SET_REQUERIMIENTOS_FILTRO":
       return {
