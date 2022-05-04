@@ -10,7 +10,7 @@ input[type='number'] {
 
 .modal-dialog {
   max-width: 550px;
-  margin: 0 auto;
+  margin: -400px auto;
 }
 
 .modal-content {
@@ -33,10 +33,15 @@ input[type='number'] {
   border: 1px solid rgba(180, 180, 180, 1);
   padding: 4px;
   border-radius: 20px;
-  line-height: 1.5rem;
+  line-height: 1.6rem;
   width: 50%;
   text-align: center;
   margin: 2px auto;
+}
+
+.div-text{
+  font-size: 16.5px;
+  line-height: 1.6;
 }
 
 .registro-alert {
@@ -57,3 +62,12 @@ input[type='number'] {
 .input-position {
   margin: 0 auto;
 }
+
+/* 
+@media (max-width: 1300px) {
+  .inputs-flex {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+} */

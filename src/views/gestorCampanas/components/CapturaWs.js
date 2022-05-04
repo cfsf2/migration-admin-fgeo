@@ -129,6 +129,7 @@ const CapturaWs = (props) => {
     }
   }, [props.UsuarioReducer, props.UsuarioReducer.usuario]);
 
+
   return (
     <Modal
       open={mostrar}
@@ -155,7 +156,7 @@ const CapturaWs = (props) => {
                   )}
                 </div>
                 <div className="form-row mt-1 pr-3 pl-3 form-position">
-                  <div className="col-md-12 mb-1 pr-3">
+                  <div className="col-md-12 mb-1 pr-3 div-text">
                     <p style={{ textAlign: "center" }}>{campana.descripcion}</p>
                   </div>
                   <form onSubmit={handleSubmit}>
