@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
 import "./App.scss";
+import GestorCampanas from "./views/gestorCampanas/GestorCampanas";
 
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Cargando...</div>
@@ -38,6 +39,7 @@ class App extends Component {
           </div>
         ) : null}
         <React.Suspense fallback={loading()}>
+          <GestorCampanas />
           <Switch>
             <Route
               exact

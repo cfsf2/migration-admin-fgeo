@@ -1,5 +1,5 @@
 const defaultState = {
-  usuario: null,
+  usuario: {},
   load: false,
   fin: false,
   usuarios: null,
@@ -31,7 +31,7 @@ export default (state = defaultState, action) => {
       };
     case "LOGOUT":
       return {
-        usuario: null,
+        usuario: {},
         load: false,
         fin: false,
         usuarios: [],

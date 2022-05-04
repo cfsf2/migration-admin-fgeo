@@ -1,13 +1,13 @@
 import axios from "axios";
 import { wp_api, farmageo_api, wp_api_auth } from "../../config";
 
-export const GET_USUARIO = (userid) => {
+export const GET_USUARIO = (nombreusuario) => {
   return (dispatch) => {
     axios
-      .get(farmageo_api + "/users/" + userid, {})
+      .get(farmageo_api + "/users/" + nombreusuario, {})
       .then(function (response) {
         dispatch({
-          type: "GET_PRODUCTO",
+          type: "GET_USUARIO",
           payload: response.data,
         });
       })
@@ -134,6 +134,20 @@ export const UPDATE_USER = (data, userId) => {
       }
     })
     .catch((err) => console.log(err));
+};
+
+export const UPDATE_USER_LOGUEADO = (data) => {
+  
+  return (dispatch, getState) => {
+    return axios
+      .put(farmageo_api + "/users/updateWebUser", {
+        data: data
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
 };
 
 export const UPDATE_PASSWORD = (data, userId) => {
