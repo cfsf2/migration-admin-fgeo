@@ -1,16 +1,16 @@
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
 .modal-dialog {
   max-width: 550px;
-  margin: -400px auto;
+  margin: -470px auto;
 }
 
 .modal-content {
@@ -39,7 +39,7 @@ input[type='number'] {
   margin: 2px auto;
 }
 
-.div-text{
+.div-text {
   font-size: 16.5px;
   line-height: 1.6;
 }
