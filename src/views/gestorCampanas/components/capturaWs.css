@@ -1,16 +1,16 @@
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
 .modal-dialog {
   max-width: 550px;
-  margin: 0 auto;
+  margin: -470px auto;
 }
 
 .modal-content {
@@ -33,7 +33,7 @@ input[type='number'] {
   border: 1px solid rgba(180, 180, 180, 1);
   padding: 4px;
   border-radius: 20px;
-  line-height: 1.5rem;
+  line-height: 1.6rem;
   width: 50%;
   text-align: center;
   margin: 2px auto;
@@ -57,3 +57,16 @@ input[type='number'] {
 .input-position {
   margin: 0 auto;
 }
+
+.div-text{
+  margin-bottom: 0;
+}
+
+/* 
+@media (max-width: 1300px) {
+  .inputs-flex {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+} */
