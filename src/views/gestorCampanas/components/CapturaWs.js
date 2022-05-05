@@ -93,7 +93,7 @@ const CapturaWs = (props) => {
           }
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           alert("Ha ocurrido un error");
         });
     }
@@ -129,6 +129,10 @@ const CapturaWs = (props) => {
     }
   }, [props.UsuarioReducer, props.UsuarioReducer.usuario]);
 
+  const desc = campana.descripcion;
+  const comas = desc.replace(/\./g, ",");
+  const arr = comas.split(",");
+
   return (
     <Modal
       open={mostrar}
@@ -156,7 +160,17 @@ const CapturaWs = (props) => {
                 </div>
                 <div className="form-row mt-1 pr-3 pl-3 form-position">
                   <div className="col-md-12 mb-1 pr-3">
-                    <p style={{ textAlign: "center" }}>{campana.descripcion}</p>
+                    <p
+                      style={{
+                        textAlign: "center",
+                        paddingLeft: "15px",
+                        paddingRight: "15px",
+                      }}
+                    >
+                      {arr.map((item) => (
+                        <p style={{ margin: 0, maxWidth: "56ch" }}>{item}</p>
+                      ))}
+                    </p>{" "}
                   </div>
                   <form onSubmit={handleSubmit}>
                     <div className="form-row col-md-12 mb-1 pr-3 input-position">
