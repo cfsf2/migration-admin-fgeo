@@ -1,35 +1,17 @@
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-.modal-dialog {
-  max-width: 550px;
-  margin: -470px auto;
-}
-
-.modal-content {
-  padding: 10px;
-}
 
 .div-imagen {
   padding: 1rem;
   display: flex;
   justify-content: center;
-}
-
-.style-imagen {
+  }
+  
+  .style-imagen {
   width: 100%;
   height: 100%;
   max-width: 300px;
-}
-
-.registro {
+  }
+  
+  .registro {
   border: 1px solid rgba(180, 180, 180, 1);
   padding: 4px;
   border-radius: 20px;
@@ -37,9 +19,9 @@ input[type="number"] {
   width: 50%;
   text-align: center;
   margin: 2px auto;
-}
-
-.registro-alert {
+  }
+  
+  .registro-alert {
   background-color: rgba(240, 240, 240, 1);
   border: 1px solid rgba(180, 180, 180, 1);
   padding: 4px;
@@ -48,25 +30,12 @@ input[type="number"] {
   text-align: center;
   line-height: 2rem;
   width: 75%;
-}
-
-.form-position {
-  justify-content: center;
-}
-
-.input-position {
-  margin: 0 auto;
-}
-
-.div-text{
-  margin-bottom: 0;
-}
-
-/* 
-@media (max-width: 1300px) {
-  .inputs-flex {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
   }
-} */
+  
+  .form-position {
+  justify-content: center;
+  }
+  
+  .input-position {
+  margin: 0 auto;
+  }
