@@ -107,7 +107,6 @@ export const Requerimientos = (props) => {
           ? params.get(f.campo)
           : "todas")
     );
-
     setFiltroActivo(queryfiltros);
   }, [location.search]);
 

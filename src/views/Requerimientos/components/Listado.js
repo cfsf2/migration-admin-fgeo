@@ -50,7 +50,6 @@ export const Listado = (props) => {
                     className="listado_materialtable"
                     hideSortIcon={false}
                     icons={tableIcons}
-                    options={{ filtering: false }}
                     localization={{
                       header: {
                         //actions: "Acciones",
@@ -88,6 +87,7 @@ export const Listado = (props) => {
                       };
                     })}
                     options={{
+                      filtering: false,
                       actionsColumnIndex: -1,
                       pageSize: 20,
                       pageSizeOptions: [5, 10, 20, 30],

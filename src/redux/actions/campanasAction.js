@@ -78,11 +78,9 @@ export const FINALIZAR_REQUERIMIENTO = ({
                   .map((s) => s._id);
 
                 aLaBasuraSiSeFiltra.forEach((b) => {
-                  document
-                    .getElementById(b)
-                    .classList.add("listado-desaparecer");
+                  const basura = document.getElementById(b);
+                  if (basura) basura.classList.add("listado-desaparecer");
                 });
-
                 return filtrado;
               });
 
