@@ -125,6 +125,18 @@ export const GET_CAMPANAS = (idCampana) => {
   };
 };
 
+export const GET_CAMPANAS_TODAS = (idCampana) => {
+  return (dispatch) => {
+    return axios.get(farmageo_api + "/campana/").then((res) => {
+      dispatch({
+        type: "CAMPANAS_TODAS",
+        payload: res.data,
+      });
+      return res;
+    });
+  };
+};
+
 export const SET_REQUERIMIENTOS_FILTRO = (filtro) => {
   return (dispatch) => {
     dispatch({ type: "SET_REQUERIMIENTOS_FILTRO", payload: filtro });
