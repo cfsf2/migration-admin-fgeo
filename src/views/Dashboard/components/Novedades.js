@@ -95,6 +95,11 @@ export const Novedades = (props) => {
                         <div
                           dangerouslySetInnerHTML={{ __html: p.descripcion }}
                           className="dashboard_info_descripcion"
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            padding: "15px",
+                          }}
                         ></div>
                       </Col>
                     </Row>
