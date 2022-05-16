@@ -22,19 +22,19 @@ class App extends Component {
     const testing = window.location.origin;
     return (
       <HashRouter>
-        {testing === "https://admin-farmageo.testingdev.ml" ? (
+        {testing !== "https://admin.farmageo.com.ar/" ? (
           <div className="leyendatesting">
             <h1
               style={{
-                fontSize: "2rem",
+                fontSize: "1rem",
                 textAlign: "center",
-                color: "yellow",
-                backgroundColor: "blue",
+                color: "black",
+                backgroundColor: "lightgray",
                 fontWeight: "bold",
                 letterSpacing: "10px",
               }}
             >
-              ENTORNO DE TESTING
+              ENTORNO MySQL
             </h1>
           </div>
         ) : null}
