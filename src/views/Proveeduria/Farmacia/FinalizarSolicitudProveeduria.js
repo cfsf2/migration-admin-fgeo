@@ -165,12 +165,8 @@ class FinalizarSolicitudProveeduria extends Component {
   };
 
   async handleSubmit() {
-    const {
-      farmaciaid,
-      email,
-      nombre,
-      direccioncompleta,
-    } = this.props.authReducer.userprofile;
+    const { farmaciaid, email, nombre, direccioncompleta } =
+      this.props.authReducer.userprofile;
 
     const { entidad_selected } = this.props.packsproductosReducer;
 
@@ -203,19 +199,15 @@ class FinalizarSolicitudProveeduria extends Component {
 
   render() {
     const { entidad_selected, productos } = this.props.packsproductosReducer;
-    const {
-      farmaciaid,
-      email,
-      nombre,
-      direccioncompleta,
-    } = this.props.authReducer.userprofile;
+    const { farmaciaid, email, nombre, direccioncompleta } =
+      this.props.authReducer.userprofile;
 
     return (
       <div className="animated fadeIn">
         <Row>
           <Col md="3" xs="12">
             <Button
-              href={process.env.PUBLIC_URL+"/#/NuevaSolicitudProveeduria"}
+              href={process.env.PUBLIC_URL + "/#/NuevaSolicitudProveeduria"}
               className="btn"
               style={{
                 color: "black",
@@ -455,6 +447,10 @@ class FinalizarSolicitudProveeduria extends Component {
                         className="btn btn-success"
                         disabled={
                           this.state.solicitudProveeduria == null ||
+                          (this.state.solicitudProveeduria
+                            .nro_cuenta_drogueria === "" ||
+                            !this.state.solicitudProveeduria
+                              .nro_cuenta_drogueria) ||
                           this.state.submitting
                         }
                         style={{ marginLeft: 5 }}
