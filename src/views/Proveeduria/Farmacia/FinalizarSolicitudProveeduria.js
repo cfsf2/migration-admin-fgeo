@@ -118,6 +118,9 @@ class FinalizarSolicitudProveeduria extends Component {
                           <p><b>Nº Farmacia: </b>${
                             solicitudProveeduria.farmacia_id
                           }</p>
+                          <p><b>Nº Cuit: </b>${
+                            solicitudProveeduria.cuit
+                          }</p>
                           <p><b>Dirección: </b>${direccioncompleta}</p>
                           <p><b>Entidad: </b>${
                             solicitudProveeduria.entidad_id
@@ -165,7 +168,7 @@ class FinalizarSolicitudProveeduria extends Component {
   };
 
   async handleSubmit() {
-    const { farmaciaid, email, nombre, direccioncompleta } =
+    const { farmaciaid, email, nombre, direccioncompleta, cuit } =
       this.props.authReducer.userprofile;
 
     const { entidad_selected } = this.props.packsproductosReducer;
@@ -178,6 +181,7 @@ class FinalizarSolicitudProveeduria extends Component {
       ...this.state.solicitudProveeduria,
       productos_solicitados: this.state.productos,
       farmacia_id: farmaciaid,
+      cuit: cuit,
       farmacia_nombre: nombre,
       estado: "nuevo",
       entidad_id: entidad_selected.entidadnombre,
@@ -199,7 +203,7 @@ class FinalizarSolicitudProveeduria extends Component {
 
   render() {
     const { entidad_selected, productos } = this.props.packsproductosReducer;
-    const { farmaciaid, email, nombre, direccioncompleta } =
+    const { farmaciaid, cuit, email, nombre, direccioncompleta } =
       this.props.authReducer.userprofile;
 
     return (
@@ -447,10 +451,10 @@ class FinalizarSolicitudProveeduria extends Component {
                         className="btn btn-success"
                         disabled={
                           this.state.solicitudProveeduria == null ||
-                          (this.state.solicitudProveeduria
+                          this.state.solicitudProveeduria
                             .nro_cuenta_drogueria === "" ||
-                            !this.state.solicitudProveeduria
-                              .nro_cuenta_drogueria) ||
+                          !this.state.solicitudProveeduria
+                            .nro_cuenta_drogueria ||
                           this.state.submitting
                         }
                         style={{ marginLeft: 5 }}
