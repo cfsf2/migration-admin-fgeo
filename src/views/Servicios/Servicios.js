@@ -108,8 +108,8 @@ class Servicios extends Component {
                       <Col className="my-3" xs="6" md="3">
                         <div align="center">
                           <img
-                            src={require("../../assets/images/panales_pami.jpeg")}
-                            style={{ width: 50 }}
+                            src={require("../../assets/images/panales_pami.png")}
+                            style={{ width: "70px", height: "45px" }}
                           />
                           <p style={{ marginTop: 10 }}>Pañales PAMI</p>
                           <input
