@@ -234,7 +234,7 @@ export const ADD_SOLICITUD_PROVEEDURIA = (
       .post(farmageo_api + "/solicitudesproveeduria", {
         ...solicitudproveeduria,
         destinatario: destinatario + ";comercial@farmageo.com.ar;",
-        asunto: "Confirmación de pedido a Proveeduria",
+        asunto: "Confirmación de pedido a Proveeduria Nro ",
         html,
         version: "2",
       })
