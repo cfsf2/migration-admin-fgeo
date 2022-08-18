@@ -145,6 +145,22 @@ export default {
       ],
     },
     {
+      name: "Listados",
+      //url: "/ecommerce/banners-home",
+      permiso: "campanas",
+      children: [
+        {
+          name: "Recuperos",
+          url: "/Configuracion/PANTALLA_RECUPERO",
+        },
+        {
+          name: "Configuracion",
+          url: "/Configuracion/PANTALLA_LISTADO_CONFIGURACION",
+        },
+      ],
+    },
+
+    {
       name: "Campañas",
       //url: "/ecommerce/banners-home",
       permiso: "campanas",
