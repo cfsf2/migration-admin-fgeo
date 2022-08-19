@@ -228,6 +228,41 @@ export const FuncionesProvider = (props) => {
     });
   };
 
+  const guardarEP = async ({ data, cab, indiceData, handleCancelar }) => {
+    const { id_a, update_id_alias } = cab;
+    const update_id = data[update_id_alias];
+
+    if (!update_id || !id_a) {
+      throw { message: "No hay update_id o id_a", id_a, update_id };
+    }
+
+    try {
+      axios
+        .post(farmageo_api + "/guardar", {
+          update_id,
+          id_a,
+        })
+        .then((res) => {
+          if (res.status >= 400) {
+            throw res;
+          }
+          if (cab.alerta_exito === "s") {
+            alertarExito(res);
+          }
+          if (
+            cab.refrescarConfiguracion &&
+            cab.refrescarConfiguracion.trim() !== ""
+          ) {
+            refrescarConfiguracion({ cab });
+          }
+          return res;
+        });
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  };
+
   const insertar = async ({ valor, id_a, insert_ids }) => {
     return await axios.post(farmageo_api + "/insertar", {
       valor,
@@ -341,11 +376,14 @@ export const FuncionesProvider = (props) => {
 
   const redireccionar = async ({ cab, data, res }) => {
     const enlace_siguiente_pasar_id = cab.enlace_siguiente_pasar_id === "s";
+    const id_nombre = cab.update_id_nombre ? cab.update_id_nombre : "id";
 
     if (checkID_A(cab.enlace_siguiente)) {
       const location = {
         pathname: `/Configuracion/${cab.enlace_siguiente}`,
-        search: enlace_siguiente_pasar_id ? `?&id=${res.data.id}` : undefined,
+        search: enlace_siguiente_pasar_id
+          ? `?&id=${res.data[id_nombre]}`
+          : undefined,
       };
 
       return history.push(location);
@@ -410,6 +448,7 @@ export const FuncionesProvider = (props) => {
         insertar,
         insertarConConfirmacion,
         insertarSinConfirmar,
+        guardarEP,
         guardar,
         guardarSinConfirmar,
         guardarConConfirmacion,

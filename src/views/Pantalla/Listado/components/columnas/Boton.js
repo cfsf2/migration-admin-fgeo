@@ -14,6 +14,7 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
     boton_image_height = "40px",
     boton_image_alt = "imagen",
     boton_texto = "Click Aqui",
+    boton_texto_alias,
     boton_color = "black",
   } = cab;
 
@@ -53,7 +54,9 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
           alt={boton_image_alt}
         />
       ) : (
-        <div style={{ textAlign: "center" }}>{boton_texto}</div>
+        <div style={{ textAlign: "center" }}>
+          {boton_texto_alias ? data[boton_texto_alias] : boton_texto}
+        </div>
       )}
       {hijos}
     </div>

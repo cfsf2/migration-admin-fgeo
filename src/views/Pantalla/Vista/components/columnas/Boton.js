@@ -15,6 +15,7 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
     boton_image_alt = "imagen",
     boton_texto = "Click Aqui",
     boton_color = "black",
+    boton_texto_alias,
   } = cab;
 
   const botonStyle = {
@@ -26,6 +27,7 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
     borderRadius: boton_borderRadius,
     color: boton_color,
   };
+  console.log("BOTON", cab.id_a, boton_texto_alias, boton_texto);
 
   const handleCancelar = () => console.log("Cancelado");
 
@@ -53,7 +55,9 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
           alt={boton_image_alt}
         />
       ) : (
-        <div style={{ textAlign: "center" }}>{boton_texto}</div>
+        <div style={{ textAlign: "center" }}>
+          {boton_texto_alias ? data[boton_texto_alias] : boton_texto}
+        </div>
       )}
       {hijos}
     </div>
