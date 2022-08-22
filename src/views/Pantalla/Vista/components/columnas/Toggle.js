@@ -66,7 +66,7 @@ const Toggle = ({ data, cab, campokey, key, indiceData }) => {
         return result;
       })
       .catch((err) => {
-        console.log("Cancelado ", err);
+        //console.log("Cancelado ", err);
       });
   };
 

@@ -244,7 +244,8 @@ export const FuncionesProvider = (props) => {
         })
         .then((res) => {
           if (res.status >= 400) {
-            throw res;
+            requestErrorHandler(res);
+            throw res.data;
           }
           if (cab.alerta_exito === "s") {
             alertarExito(res);
@@ -258,8 +259,9 @@ export const FuncionesProvider = (props) => {
           return res;
         });
     } catch (err) {
-      console.log(err);
-      return err;
+      handleCancelar();
+      requestErrorHandler(err);
+      throw err;
     }
   };
 
