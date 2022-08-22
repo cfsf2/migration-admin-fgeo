@@ -25,13 +25,17 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData }) => {
   };
 
   const handleChange = async (e) => {
-    const valor = e.target.value;
+    let valor = e.target.value;
     const update_id = data[cab.update_id_alias];
 
     if (valor === null || lastValue?.toString() === valor.toString().trim())
       return;
 
     const { id_a } = cab;
+
+    if (typeof cab.opciones[0].value === "number") {
+      valor = parseInt(valor, 10);
+    }
 
     setValue(valor);
     superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })

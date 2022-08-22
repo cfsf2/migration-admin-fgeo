@@ -27,7 +27,6 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
     borderRadius: boton_borderRadius,
     color: boton_color,
   };
-  console.log("BOTON", cab.id_a, boton_texto_alias, boton_texto);
 
   const handleCancelar = () => console.log("Cancelado");
 
