@@ -370,7 +370,14 @@ const routes = [
     component: Pantalla,
     permiso: "campanas",
   },
-
+  
+  {
+    path: "/campanas/requerimientos",
+    exact: true,
+    name: "Requerimientos",
+    component: Requerimientos,
+    permiso: "campanas",
+  },
   {
     path: "/comunicadotransfers",
     exact: true,
