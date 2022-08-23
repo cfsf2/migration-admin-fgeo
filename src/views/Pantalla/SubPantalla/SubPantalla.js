@@ -58,10 +58,19 @@ const SubPantalla = ({ configuracion, id, nollamar }) => {
   return (
     <Card>
       {loadingPantalla ? (
-        <div style={{ width: "100%", textAlign: "center" }}>Cargando...</div>
+        <div
+          style={{
+            height: "100vh",
+            width: "100vw",
+            backgroundColor: "rgba(200, 100, 200, 0.3)",
+            zIndex: 30000,
+            cursor: "wait",
+          }}
+        ></div>
       ) : (
-        ConfiguracionesComponentes
+        <></>
       )}
+      {ConfiguracionesComponentes}
     </Card>
   );
 };
