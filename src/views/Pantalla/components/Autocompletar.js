@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import FuncionesContext from "../context/FuncionesContext";
 
-const Autocompletar = ({ cab, data, context }) => {
+const Autocompletar = ({ cab, data, context, indiceData }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
   const { Dispatch } = useContext(context);
@@ -11,8 +11,28 @@ const Autocompletar = ({ cab, data, context }) => {
   const [value, setValue] = React.useState();
   const [inputValue, setInputValue] = React.useState("");
 
-  const handleChangeValue = (newValue) => {
-    setValue(newValue);
+  const handleCancelar = () => {};
+
+  const handleChangeValue = async (newValue) => {
+    const valor = newValue.value; //newValue { value, label }
+    setValue(valor);
+    const update_id = data[cab.update_id_alias];
+    const { id_a } = cab;
+
+    superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })
+      .then((result) => {
+        Dispatch({
+          type: "SET_DATO_ESPECIFICO",
+          payload: {
+            key: cab.update_id_alias,
+            indiceData: indiceData,
+            value: result.data.id,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log("Cancelado ", err);
+      });
   };
 
   return (
