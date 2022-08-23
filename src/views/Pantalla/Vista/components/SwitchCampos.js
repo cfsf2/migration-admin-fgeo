@@ -22,6 +22,8 @@ import InputText from "../../components/InputText";
 import InputFile from "../../components/InputFile";
 import Autocompletar from "../../components/Autocompletar";
 
+import VistaContext from "../context/VistaContext";
+
 const SwitchCampos = ({ data, cab, padre, indiceData }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
@@ -232,6 +234,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            context={VistaContext}
           />
         );
       case "botonera":

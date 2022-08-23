@@ -230,6 +230,7 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
             id_global: state.id_global,
             setFilter: callMF, //pasar setQueryFilter para reaccionar a url}
             ListadoDispatch: dispatch,
+            Dispatch: dispatch,
           };
         }, [
           state.datos,

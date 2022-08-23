@@ -14,6 +14,9 @@ import EnlaceOpcional from "./columnas/EnlaceOpcional";
 import InputEditable from "./columnas/InputEditableL";
 import SiNoEditable from "./columnas/SiNoEditable";
 import Toggle from "./columnas/Toggle";
+import Autocompletar from "../../components/Autocompletar";
+
+import ListadoContext from "../context/ListadoContext";
 
 const SwitchColumnas = ({ data, cab, padre, indiceData }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
@@ -184,6 +187,18 @@ const SwitchColumnas = ({ data, cab, padre, indiceData }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+          />
+        );
+      case "autocompletar":
+        return (
+          <Autocompletar
+            key={cab.id_a}
+            data={data}
+            cab={cab}
+            hijos={hijos}
+            campokey={campokey}
+            indiceData={indiceData}
+            context={ListadoContext}
           />
         );
       case "div":

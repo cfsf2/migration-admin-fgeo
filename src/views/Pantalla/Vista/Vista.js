@@ -68,6 +68,7 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
         opciones: state.opciones,
         id: id,
         VistaDispatch: dispatch,
+        Dispatch: dispatch,
       }}
     >
       {loading || loadingPantalla ? (
