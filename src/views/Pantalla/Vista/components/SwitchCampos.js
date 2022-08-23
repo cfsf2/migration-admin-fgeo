@@ -20,6 +20,7 @@ import InputPassword from "./columnas/InputPassword";
 import Toggle from "./columnas/Toggle";
 import InputText from "../../components/InputText";
 import InputFile from "../../components/InputFile";
+import Autocompletar from "../../components/Autocompletar";
 
 const SwitchCampos = ({ data, cab, padre, indiceData }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
@@ -214,6 +215,17 @@ const SwitchCampos = ({ data, cab, padre, indiceData }) => {
       case "input_file":
         return (
           <InputFile
+            key={cab.id_a}
+            data={data}
+            cab={cab}
+            hijos={hijos}
+            campokey={campokey}
+            indiceData={indiceData}
+          />
+        );
+      case "autocompletar":
+        return (
+          <Autocompletar
             key={cab.id_a}
             data={data}
             cab={cab}
