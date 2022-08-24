@@ -201,10 +201,14 @@ export default function Virtualize({ cab }) {
       disableListWrap
       PopperComponent={StyledPopper}
       ListboxComponent={ListboxComponent}
-      options={cab.options}
-      groupBy={(option) => option[0].toUpperCase()}
-      renderInput={(params) => <TextField {...params} label="10,000 options" />}
-      renderOption={(props, option) => [props, option]}
+      options={cab.opciones.sort((a, b) =>
+        a.label.toUpperCase().localeCompare(b.label.toUpperCase())
+      )}
+      groupBy={(option) => {
+        return option.label[0].toUpperCase();
+      }}
+      renderInput={(params) => <TextField {...params} label={cab.nombre} />}
+      renderOption={(props, option) => [props, option.label]}
       // TODO: Post React 18 update - validate this conversion, look like a hidden bug
       renderGroup={(params) => params}
     />
