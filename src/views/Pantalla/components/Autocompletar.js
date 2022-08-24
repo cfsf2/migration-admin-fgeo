@@ -12,57 +12,6 @@ import { useTheme, styled } from "@mui/material/styles";
 import { VariableSizeList } from "react-window";
 import Typography from "@mui/material/Typography";
 
-const Autocompletar = ({ cab, data, context, indiceData }) => {
-  const { superSubmit } = useContext(FuncionesContext);
-
-  const { Dispatch } = useContext(context);
-
-  const [value, setValue] = React.useState();
-  const [inputValue, setInputValue] = React.useState("");
-
-  const handleCancelar = () => {};
-
-  const handleChangeValue = async (newValue) => {
-    const valor = newValue.value; //newValue { value, label }
-    setValue(valor);
-    const update_id = data[cab.update_id_alias];
-    const { id_a } = cab;
-
-    superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })
-      .then((result) => {
-        Dispatch({
-          type: "SET_DATO_ESPECIFICO",
-          payload: {
-            key: cab.update_id_alias,
-            indiceData: indiceData,
-            value: result.data.id,
-          },
-        });
-      })
-      .catch((err) => {
-        console.log("Cancelado ", err);
-      });
-  };
-
-  return (
-    <>
-      <Autocomplete
-        value={value}
-        onChange={(event, newValue) => handleChangeValue(newValue)}
-        inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue);
-        }}
-        sx={{ width: 400 }}
-        options={cab.opciones}
-        renderInput={(params) => (
-          <TextField {...params} label={cab.select_label_null} />
-        )}
-      />
-    </>
-  );
-};
-
 const LISTBOX_PADDING = 8; // px
 
 function renderRow(props) {
@@ -167,18 +116,6 @@ ListboxComponent.propTypes = {
   children: PropTypes.node,
 };
 
-function random(length) {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
-
-  for (let i = 0; i < length; i += 1) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-
-  return result;
-}
-
 const StyledPopper = styled(Popper)({
   [`& .${autocompleteClasses.listbox}`]: {
     boxSizing: "border-box",
@@ -189,28 +126,111 @@ const StyledPopper = styled(Popper)({
   },
 });
 
-const OPTIONS = Array.from(new Array(10000))
-  .map(() => random(10 + Math.ceil(Math.random() * 20)))
-  .sort((a, b) => a.toUpperCase().localeCompare(b.toUpperCase()));
+export default function Virtualize({ cab, data, context, indiceData }) {
+  const { superSubmit } = useContext(FuncionesContext);
 
-export default function Virtualize({ cab }) {
+  const { Dispatch } = useContext(context);
+
+  const [value, setValue] = React.useState();
+  const [inputValue, setInputValue] = React.useState("");
+
+  const handleCancelar = () => {};
+
+  const handleChangeValue = async (newValue) => {
+    const valor = newValue.value; //newValue { value, label }
+    setValue(valor);
+    const update_id = data[cab.update_id_alias];
+    const { id_a } = cab;
+
+    superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })
+      .then((result) => {
+        Dispatch({
+          type: "SET_DATO_ESPECIFICO",
+          payload: {
+            key: cab.update_id_alias,
+            indiceData: indiceData,
+            value: result.data.id,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log("Cancelado ", err);
+      });
+  };
   return (
-    <Autocomplete
-      id="virtualize-demo"
-      sx={{ width: 300 }}
-      disableListWrap
-      PopperComponent={StyledPopper}
-      ListboxComponent={ListboxComponent}
-      options={cab.opciones.sort((a, b) =>
-        a.label.toUpperCase().localeCompare(b.label.toUpperCase())
-      )}
-      groupBy={(option) => {
-        return option.label[0].toUpperCase();
-      }}
-      renderInput={(params) => <TextField {...params} label={cab.nombre} />}
-      renderOption={(props, option) => [props, option.label]}
-      // TODO: Post React 18 update - validate this conversion, look like a hidden bug
-      renderGroup={(params) => params}
-    />
+    <>
+      {cab.nombre}:
+      <Autocomplete
+        id="virtualize-demo"
+        sx={{ width: 300 }}
+        disableListWrap
+        PopperComponent={StyledPopper}
+        ListboxComponent={ListboxComponent}
+        options={cab.opciones.sort((a, b) =>
+          a.label.toUpperCase().localeCompare(b.label.toUpperCase())
+        )}
+        groupBy={(option) => {
+          return option.label[0].toUpperCase();
+        }}
+        renderInput={(params) => (
+          <TextField {...params} label={cab.placeholder} />
+        )}
+        renderOption={(props, option) => [props, option.label]}
+        // TODO: Post React 18 update - validate this conversion, look like a hidden bug
+        renderGroup={(params) => params}
+        onChange={(event, newValue) => handleChangeValue(newValue)}
+      />
+    </>
   );
 }
+
+const Autocompletar = ({ cab, data, context, indiceData }) => {
+  const { superSubmit } = useContext(FuncionesContext);
+
+  const { Dispatch } = useContext(context);
+
+  const [value, setValue] = React.useState();
+  const [inputValue, setInputValue] = React.useState("");
+
+  const handleCancelar = () => {};
+
+  const handleChangeValue = async (newValue) => {
+    const valor = newValue.value; //newValue { value, label }
+    setValue(valor);
+    const update_id = data[cab.update_id_alias];
+    const { id_a } = cab;
+
+    superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })
+      .then((result) => {
+        Dispatch({
+          type: "SET_DATO_ESPECIFICO",
+          payload: {
+            key: cab.update_id_alias,
+            indiceData: indiceData,
+            value: result.data.id,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log("Cancelado ", err);
+      });
+  };
+
+  return (
+    <>
+      <Autocomplete
+        value={value}
+        onChange={(event, newValue) => handleChangeValue(newValue)}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
+        sx={{ width: 400 }}
+        options={cab.opciones}
+        renderInput={(params) => (
+          <TextField {...params} label={cab.select_label_null} />
+        )}
+      />
+    </>
+  );
+};
