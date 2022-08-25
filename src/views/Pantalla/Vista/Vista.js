@@ -32,7 +32,6 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
   useEffect(() => {
     //useEffect para actualizar datos a control
 
-    console.log("nollamar?: ", nollamar, id_a);
     if (configuraciones_ref[id_a] === 1) return;
 
     if (nollamar) return;

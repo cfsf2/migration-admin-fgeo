@@ -14,14 +14,30 @@ const Tarjeta = () => {
     gridColumn: opciones.grid_span,
   };
 
+  const gridTemplatecolumns = () => {
+    if (datos.length === 1) return "repeat(12, 1fr)";
+
+    return "repeat(auto-fill, minmax(340px, 1fr)";
+  };
+
+  const gridcolumns = () => {
+    if (datos.length === 1) return "span 12";
+    return undefined;
+  };
+
   return (
-    <Card id={opciones.id_a} className="animated fadeIn">
+    <Card style={styles} id={opciones.id_a} className="animated fadeIn">
       <HeaderConf
         opciones={opciones}
         className="configuracion_pantalla_titulo_secundario"
       />
       <CardBody>
-        <div className="tarjeta">
+        <div
+          className="tarjeta"
+          style={{
+            gridTemplateColumns: gridTemplatecolumns(),
+          }}
+        >
           {datos.length === 0
             ? `(No se recuperaron Datos del id especificado) id: ${id}`
             : null}
@@ -29,19 +45,28 @@ const Tarjeta = () => {
             ? cabeceras.map((cab) => <SwitchCampos data={{}} cab={cab} />)
             : datos.map((dato, indiceData) => (
                 <div
+                  style={{
+                    gridColumn: gridcolumns(),
+                  }}
                   key={JSON.stringify(dato)}
-                  style={styles}
                   className="tarjeta_grid_item"
                 >
                   {cabeceras
                     .sort((a, b) => a.orden - b.orden)
                     .map((cab, i) => (
-                      <SwitchCampos
-                        key={cab.id_a + i}
-                        indiceData={indiceData}
-                        data={dato}
-                        cab={cab}
-                      />
+                      <div
+                        className="divCampo"
+                        style={{
+                          gridColumn: cab.grid_span ? cab.grid_span : "1 / -1",
+                        }}
+                      >
+                        <SwitchCampos
+                          key={cab.id_a + i}
+                          indiceData={indiceData}
+                          data={dato}
+                          cab={cab}
+                        />
+                      </div>
                     ))}
                 </div>
               ))}
