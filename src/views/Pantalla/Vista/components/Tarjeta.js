@@ -11,7 +11,7 @@ const Tarjeta = () => {
   const { datos, cabeceras, opciones, id } = useContext(VistaContext);
 
   const styles = {
-    gridColumn: opciones.grid_span,
+    gridColumn: opciones.grid_span ? opciones.grid_span : "1 / -1",
   };
 
   const gridTemplatecolumns = () => {

@@ -56,7 +56,10 @@ const SubPantalla = ({ configuracion, id, nollamar }) => {
     ));
 
   return (
-    <Card>
+    <Card
+      className={id_a + "_CONTENEDOR"}
+      style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)" }}
+    >
       {loadingPantalla ? (
         <div
           style={{

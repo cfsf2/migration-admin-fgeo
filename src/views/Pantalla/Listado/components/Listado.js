@@ -50,8 +50,14 @@ export const Listado = (props) => {
     tableRef.current.dataManager.changePageSize(calcPagesize());
   }, [calcPagesize, data]);
 
+  const styles = {
+    gridColumn: opcionesListado.grid_span
+      ? opcionesListado.grid_span
+      : "1 / -1",
+  };
+
   return (
-    <div className="animated fadeIn novedades_lista">
+    <div style={styles} className="animated fadeIn novedades_lista">
       <Row>
         <Col xs="12" sm="12">
           <Card id={opcionesListado.id_a}>
