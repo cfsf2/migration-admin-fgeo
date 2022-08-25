@@ -57,7 +57,7 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData }) => {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ textAlign: "center", flexGrow: 1 }}>
       <div
         className="vista_label"
         style={{ fontWeight: "bold", wordBreak: "break-all" }}

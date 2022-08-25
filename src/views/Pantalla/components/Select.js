@@ -10,6 +10,7 @@ const Select = (props) => {
       onChange={onChange}
       defaultValue={def}
       className="tarjeta_grid_item_select"
+      style={{ width: "100%" }}
     >
       {opciones.map((op) => {
         return (
