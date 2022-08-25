@@ -5,13 +5,7 @@ import VistaContext from "../../context/VistaContext";
 import { Switch } from "@material-ui/core";
 
 const Toggle = ({ data, cab, campokey, key, indiceData }) => {
-  const {
-    guardarSinConfirmar,
-    guardarConConfirmacion,
-    insertarConConfirmacion,
-    insertarSinConfirmar,
-    superSubmit,
-  } = useContext(FuncionesContext);
+  const { superSubmit } = useContext(FuncionesContext);
 
   const { configuraciones_ref } = useContext(PantallaContext);
   const { VistaDispatch } = useContext(VistaContext);
