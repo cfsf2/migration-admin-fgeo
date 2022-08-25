@@ -162,7 +162,7 @@ export default function Virtualize({ cab, data, context, indiceData }) {
       {cab.nombre}:
       <Autocomplete
         id="virtualize-demo"
-        sx={{ width: 300 }}
+        sx={{ width: "100%" }}
         disableListWrap
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
