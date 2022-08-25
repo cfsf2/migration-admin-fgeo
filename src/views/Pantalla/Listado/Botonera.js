@@ -12,7 +12,7 @@ const Botonera = ({
   cancelar,
   acciones,
 }) => {
-  if (!buscar && !cancelar && !acciones) return <></>;
+  if (!buscar && !cancelar && acciones?.length === 0) return <></>;
   return (
     <div className="container_buttons">
       {buscar ? (
