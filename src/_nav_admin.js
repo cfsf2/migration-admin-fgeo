@@ -145,7 +145,7 @@ export default {
       ],
     },
     {
-      name: "Listados",
+      name: "PANTALLAS",
       //url: "/ecommerce/banners-home",
       permiso: "campanas",
       children: [
