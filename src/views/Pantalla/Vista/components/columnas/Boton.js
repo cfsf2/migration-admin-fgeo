@@ -9,7 +9,7 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
     boton_backgroundColor = "rgba(212, 215, 217, 1)",
     boton_textAlign = "center",
     boton_cursor = "pointer",
-    boton_width = "100px",
+    boton_width = "100%",
     boton_borderRadius = "15px",
     boton_image_height = "40px",
     boton_image_alt = "imagen",
