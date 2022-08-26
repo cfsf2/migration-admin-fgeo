@@ -9,7 +9,7 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
     boton_backgroundColor = "rgba(212, 215, 217, 1)",
     boton_textAlign = "center",
     boton_cursor = "pointer",
-    boton_width = "100%",
+    boton_width = "100px",
     boton_borderRadius = "15px",
     boton_image_height = "40px",
     boton_image_alt = "imagen",
@@ -45,20 +45,22 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
   };
 
   return (
-    <div style={botonStyle} onClick={handleClick}>
-      {cab.imagen_url ? (
-        <img
-          style={{ cursor: "pointer" }}
-          height={boton_image_height}
-          src={cab.imagen_url}
-          alt={boton_image_alt}
-        />
-      ) : (
-        <div style={{ textAlign: "center" }}>
-          {boton_texto_alias ? data[boton_texto_alias] : boton_texto}
-        </div>
-      )}
-      {hijos}
+    <div style={{ width: "100%" }}>
+      <div style={botonStyle} onClick={handleClick}>
+        {cab.imagen_url ? (
+          <img
+            style={{ cursor: "pointer" }}
+            height={boton_image_height}
+            src={cab.imagen_url}
+            alt={boton_image_alt}
+          />
+        ) : (
+          <div style={{ textAlign: "center" }}>
+            {boton_texto_alias ? data[boton_texto_alias] : boton_texto}
+          </div>
+        )}
+        {hijos}
+      </div>
     </div>
   );
 };
