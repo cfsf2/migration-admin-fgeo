@@ -1,19 +1,18 @@
-.abm{
-    &_botonera{
-        padding:0 0 1rem 3rem;
+.abm {
+  &_botonera {
+    padding: 0 0 1rem 3rem;
+  }
+  &_campos {
+    display: grid;
+    grid-template-columns: 4fr;
+    gap: 5px;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    &_inputs_grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.5rem;
+      row-gap: 20px;
     }
-    &_campos{
-        display: grid;
-        grid-template-columns: 4fr;
-        gap: 5px;
-        align-items: center;
-        padding: 1.5rem 3rem;
-        &_inputs_grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
-            gap: 1.5rem;
-            row-gap: 20px;
-        }
-    }
+  }
 }

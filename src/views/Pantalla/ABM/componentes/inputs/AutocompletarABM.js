@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import FuncionesContext from "../context/FuncionesContext";
+import Label from "./LabelF";
 
 import PropTypes from "prop-types";
 import { autocompleteClasses } from "@mui/material/Autocomplete";
@@ -132,44 +132,23 @@ export default function Virtualize({
   context,
   indiceData,
   campokey,
+  valor,
+  setValor,
 }) {
-  const { superSubmit } = useContext(FuncionesContext);
-
-  const { Dispatch } = useContext(context);
-
-  const [value, setValue] = useState(data[campokey]);
-  const [inputValue, setInputValue] = React.useState("");
-
-  const handleCancelar = () => {};
-
   const handleChangeValue = async (newValue) => {
     const valor = newValue.value; //newValue { value, label }
-    setValue(valor);
-    const update_id = data[cab.update_id_alias];
-    const { id_a } = cab;
-
-    superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })
-      .then((result) => {
-        Dispatch({
-          type: "SET_DATO_ESPECIFICO",
-          payload: {
-            key: cab.update_id_alias,
-            indiceData: indiceData,
-            value: result.data.id,
-          },
-        });
-      })
-      .catch((err) => {
-        console.log("Cancelado ", err);
-      });
-    console.trace("de dónde viene el coso");
-    setValue(newValue.label);
+    setValor(valor);
   };
+
   return (
     <>
-      <strong>{cab.nombre}:</strong>
+      <Label
+        label={cab.label}
+        opcionales_null={cab.opcionales_null}
+        permite_null={cab.permite_null}
+      />
       <Autocomplete
-        value={value}
+        value={valor}
         id="virtualize-demo"
         sx={{ width: "100%" }}
         disableListWrap
