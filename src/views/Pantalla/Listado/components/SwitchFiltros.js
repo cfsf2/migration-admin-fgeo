@@ -5,6 +5,7 @@ import Fecha from "./filtros/Fecha";
 import SelectF from "./filtros/Select";
 import CheckboxF from "./filtros/Checkbox";
 import RadioF from "./filtros/RadioButton";
+import AutocompletarF from "./filtros/AutocompletarF";
 
 const SwitchFiltros = (props) => {
   useEffect(() => {
@@ -40,6 +41,8 @@ const SwitchFiltros = (props) => {
         return <CheckboxF {...props} />;
       case "radio":
         return <RadioF {...props} />;
+      case "autocompletar":
+        return <AutocompletarF {...props} />;
       default:
         return <></>;
     }

@@ -45,7 +45,11 @@ export const SelectF = (props) => {
               return { ...prevState, [id_a]: e.target.value };
             });
           }}
-          value={Number(filtrosAAplicar[id_a])}
+          value={
+            isNaN(Number(filtrosAAplicar[id_a]))
+              ? filtrosAAplicar[id_a]
+              : Number(filtrosAAplicar[id_a])
+          }
         >
           {/* {hasdefault ? null : (
             <MenuItem
