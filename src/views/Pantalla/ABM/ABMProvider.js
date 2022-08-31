@@ -116,6 +116,7 @@ const ABMProvider = ({ configuracion, id, children, nollamar }) => {
         id,
         loading,
         ABMDispatch: dispatch,
+        Dispatch: dispatch,
         callAPI,
         guardarAPI,
       }}

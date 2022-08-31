@@ -6,10 +6,11 @@ import InputSelect from "./inputs/InputSelect";
 import InputCheckbox from "./inputs/InputCheckbox";
 import InputRadio from "./inputs/RadioButton";
 import InputFile from "../../components/InputFile";
+import AutocompletarABM from "./inputs/AutocompletarABM";
 
 const SwitchABM = (props) => {
   const { ABMDispatch, valorFormulario } = useContext(ABMContext);
-
+  console.log(props);
   const { cab } = props;
 
   const id_a = cab.id_a;
@@ -82,12 +83,20 @@ const SwitchABM = (props) => {
             valor={valorFormulario[id_a]}
           />
         );
+      case "autocompletar":
+        return (
+          <AutocompletarABM
+            {...props}
+            setValor={setFormularioValor}
+            valor={valorFormulario[id_a]}
+          />
+        );
       default:
         return <></>;
     }
   })();
 
-  return Componente;
+  return <div style={{ gridColumn: cab.grid_span }}>{Componente}</div>;
 };
 
 export default SwitchABM;

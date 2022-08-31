@@ -12,7 +12,7 @@ const InputText = ({
   number,
   textarea,
 }) => {
-  const { id, id_a, label, grid_span, margin_bottom_abm, width } = cab;
+  const { id, id_a, label, margin_bottom_abm, width } = cab;
 
   const handleInput = (e) => {
     let { value } = e.target;
@@ -26,17 +26,13 @@ const InputText = ({
     });
   };
 
-  const styles = {
-    gridColumn: grid_span,
-  };
-
   const style_input_abm = {
-    width: width,
+    width: "100%",
     marginBottom: margin_bottom_abm,
   };
 
   return (
-    <div style={styles}>
+    <>
       <Label
         label={cab.label}
         opcionales_null={cab.opcionales_null}
@@ -60,8 +56,9 @@ const InputText = ({
           },
         }}
         style={style_input_abm}
+        className="ACAMOSTRO"
       />
-    </div>
+    </>
   );
 };
 export default InputText;
