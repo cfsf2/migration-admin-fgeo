@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import FuncionesContext from "../context/FuncionesContext";
@@ -126,12 +126,18 @@ const StyledPopper = styled(Popper)({
   },
 });
 
-export default function Virtualize({ cab, data, context, indiceData }) {
+export default function Virtualize({
+  cab,
+  data,
+  context,
+  indiceData,
+  campokey,
+}) {
   const { superSubmit } = useContext(FuncionesContext);
 
   const { Dispatch } = useContext(context);
 
-  const [value, setValue] = React.useState();
+  const [value, setValue] = useState(data[campokey]);
   const [inputValue, setInputValue] = React.useState("");
 
   const handleCancelar = () => {};
@@ -156,14 +162,17 @@ export default function Virtualize({ cab, data, context, indiceData }) {
       .catch((err) => {
         console.log("Cancelado ", err);
       });
+    setValue(newValue.label);
   };
   return (
     <>
-      {cab.nombre}:
+      <strong>{cab.nombre}:</strong>
       <Autocomplete
+        value={value}
         id="virtualize-demo"
         sx={{ width: "100%" }}
         disableListWrap
+        disableClearable
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
         options={cab.opciones.sort((a, b) =>
