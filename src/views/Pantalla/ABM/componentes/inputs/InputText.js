@@ -56,7 +56,6 @@ const InputText = ({
           },
         }}
         style={style_input_abm}
-        className="ACAMOSTRO"
       />
     </>
   );

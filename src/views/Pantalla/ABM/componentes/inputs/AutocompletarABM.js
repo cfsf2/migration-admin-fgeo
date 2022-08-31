@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import FuncionesContext from "../../../context/FuncionesContext";
+import Label from "./LabelF";
 
 import PropTypes from "prop-types";
 import { autocompleteClasses } from "@mui/material/Autocomplete";
@@ -141,7 +141,12 @@ export default function Virtualize({
   };
 
   return (
-    <div>
+    <>
+      <Label
+        label={cab.label}
+        opcionales_null={cab.opcionales_null}
+        permite_null={cab.permite_null}
+      />
       <Autocomplete
         value={valor}
         id="virtualize-demo"
@@ -164,6 +169,6 @@ export default function Virtualize({
         renderGroup={(params) => params}
         onChange={(event, newValue) => handleChangeValue(newValue)}
       />
-    </div>
+    </>
   );
 }
