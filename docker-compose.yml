@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  webadmin:
+  webadminsql:
     container_name: farmageosql-webadmin
     restart: always
     build:
