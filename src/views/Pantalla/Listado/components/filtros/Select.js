@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Select, MenuItem, FormControl } from "@material-ui/core";
 import PropTypes from "prop-types";
 import Label from "./LabelF";
+import { height } from "@mui/system";
 
 export const SelectF = (props) => {
   const { id_a, filtrosAAplicar, setFiltrosAAplicar, opciones: op } = props;
@@ -24,7 +25,7 @@ export const SelectF = (props) => {
           permite_null={props.permite_null}
         />
         <Select
-          style={{ width: "100%" }}
+          style={{ width: "100%", marginTop: "24px" }}
           defaultValue={props.default}
           variant="standard"
           onChange={(e) => {
