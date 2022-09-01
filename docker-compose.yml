@@ -3,7 +3,8 @@ services:
   webadmin:
     container_name: farmageosql-webadmin
     restart: always
-    build: .
+    build:
+      dockerfile: ./Dockerfile.prod
     image: farmageoadminsql:latest
     ports:
       - "3150:80"
