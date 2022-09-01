@@ -26,12 +26,8 @@ const Number = (props) => {
     });
   };
 
-  const styles = {
-    gridColumn: grid_span,
-  };
-
   return (
-    <div style={styles}>
+    <div>
       <Label
         label={props.label}
         opcionales_null={props.opcionales_null}
@@ -41,6 +37,7 @@ const Number = (props) => {
         id={id}
         type="number"
         placeholder={props.placeholder ? props.placeholder : "number"}
+        style={{ width: "100%" }}
         onChange={handleInput}
         defaultValue={props.default}
         inputProps={{ style: { textAlign: "right" } }}

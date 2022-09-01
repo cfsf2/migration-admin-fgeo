@@ -48,7 +48,11 @@ const SwitchFiltros = (props) => {
     }
   })();
 
-  return Componente;
+  return (
+    <div style={{ gridColumn: props.grid_span ? props.grid_span : "1 / -1" }}>
+      {Componente}
+    </div>
+  );
 };
 
 export default SwitchFiltros;

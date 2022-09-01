@@ -25,12 +25,8 @@ const Like = (props) => {
     });
   };
 
-  const styles = {
-    gridColumn: grid_span,
-  };
-
   return (
-    <div style={styles}>
+    <div>
       <Label
         label={props.label}
         opcionales_null={props.opcionales_null}
@@ -40,6 +36,7 @@ const Like = (props) => {
         id={id}
         type="text"
         placeholder={props.placeholder}
+        style={{ width: "100%" }}
         onChange={handleInput}
         defaultValue={props.default}
         label={label}
