@@ -1,8 +1,9 @@
-version: '3.7'
+version: "3.7"
 services:
   webadmin:
-    container_name: farmageo-webadmin
+    container_name: farmageoSQL-webadmin
     restart: always
-    image: farmageoadminweb:latest
+    build: .
+    image: farmageoadminwebSQL:latest
     ports:
-      - '3000:80'
+      - "3150:80"
