@@ -4,7 +4,6 @@ import AccionesVista from "./Menu/AccionesVista";
 import { CardTitle } from "reactstrap";
 
 const HeaderConf = ({ opciones, className }) => {
-  console.log("??: ", opciones.titulo);
   return (
     <CardTitle className="tarjeta_titulo" style={{ position: "relative" }}>
       {opciones.titulo ? (

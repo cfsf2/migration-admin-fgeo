@@ -147,7 +147,7 @@ export default function Virtualize(props) {
         id="virtualize-demo"
         sx={{ width: "100%" }}
         disableListWrap
-        disableClearable
+        //disableClearable
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
         options={cab.opciones.sort((a, b) =>
@@ -163,7 +163,9 @@ export default function Virtualize(props) {
         // TODO: Post React 18 update - validate this conversion, look like a hidden bug
         renderGroup={(params) => params}
         onChange={(e, nv) => {
+          console.log(nv);
           setFiltrosAAplicar((prevState) => {
+            if (nv === null) return {};
             return { ...prevState, [id_a]: nv.value };
           });
         }}
