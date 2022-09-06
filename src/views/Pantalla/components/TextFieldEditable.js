@@ -34,6 +34,7 @@ const TextFieldEditable = ({ value, setValue, onEnter }) => {
       onKeyUp={handleEnter}
       onBlur={handleOnBlur}
       value={value}
+      inputProps={{ maxLength: 60 }}
     />
   );
 };
