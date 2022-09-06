@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
-import FuncionesContext from "../context/FuncionesContext";
-import TextArea from "./TextArea";
-import VistaContext from "../Vista/context/VistaContext";
+import React, { useContext, useState } from "react";
+import FuncionesContext from "../../../context/FuncionesContext";
+import VistaContext from "../../context/VistaContext";
+import { TextField } from "@mui/material";
 
-const InputEditable = ({ data, cab, hijos, campokey, indiceData }) => {
+const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
   const { datos, VistaDispatch } = useContext(VistaContext);
@@ -79,15 +79,17 @@ const InputEditable = ({ data, cab, hijos, campokey, indiceData }) => {
       <div className="vista_label" style={{ fontWeight: "bold" }}>
         {nombre}:
       </div>
-
-      <TextArea
+      <TextField
+        type="text"
+        placeholder="avhe esto"
         value={value}
         setValue={setValue}
+        onChange={(e) => setValue(e.target.value)}
         onEnter={handleGuardar}
-        style={style}
+        size="small"
       />
     </div>
   );
 };
 
-export default InputEditable;
+export default InputTextEditable;

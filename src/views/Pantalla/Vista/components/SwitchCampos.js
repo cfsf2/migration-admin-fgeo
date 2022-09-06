@@ -11,7 +11,7 @@ import Imagen from "./columnas/Imagen";
 import Boton from "./columnas/Boton";
 import SelectC from "./columnas/SelectC";
 import EnlaceOpcional from "./columnas/EnlaceOpcional";
-import InputEditable from "../../components/InputEditable";
+import InputAreaEditable from "../../components/InputAreaEditable";
 import SiNoEditable from "./columnas/SiNoEditable";
 import RadioButtonC from "./columnas/RadioButtonC";
 import CheckboxC from "./columnas/CheckboxC";
@@ -21,6 +21,7 @@ import Toggle from "./columnas/Toggle";
 import InputText from "../../components/InputText";
 import InputFile from "../../components/InputFile";
 import Autocompletar from "../../components/Autocompletar";
+import InputTextEditable from "./columnas/InputTextEditable";
 
 import VistaContext from "../context/VistaContext";
 
@@ -150,7 +151,18 @@ const SwitchCampos = ({ data, cab, padre, indiceData }) => {
         );
       case "input_editable":
         return (
-          <InputEditable
+          <InputAreaEditable
+            key={cab.id_a}
+            data={data}
+            cab={cab}
+            hijos={hijos}
+            campokey={campokey}
+            indiceData={indiceData}
+          />
+        );
+      case "input_text_editable":
+        return (
+          <InputTextEditable
             key={cab.id_a}
             data={data}
             cab={cab}

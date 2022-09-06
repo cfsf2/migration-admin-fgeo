@@ -1,20 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import FuncionesContext from "../../../context/FuncionesContext";
-import TextArea from "../../../components/TextArea";
-import ListadoContext from "../../context/ListadoContext";
-import { TextField } from "@material-ui/core";
+import FuncionesContext from "../context/FuncionesContext";
+import TextArea from "./TextArea";
+import VistaContext from "../Vista/context/VistaContext";
 
-const InputAreaEditable = ({
-  data,
-  cab,
-  hijos,
-  campokey,
-  indiceData,
-  type,
-}) => {
+const InputAreaEditable = ({ data, cab, hijos, campokey, indiceData }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
-  const { ListadoDispatch } = useContext(ListadoContext);
+  const { datos, VistaDispatch } = useContext(VistaContext);
 
   const [value, setValue] = useState(data[campokey]);
   const [lastValue, setLastvalue] = useState(data[campokey]);
@@ -29,6 +21,7 @@ const InputAreaEditable = ({
   const handleCancelar = () => {
     setValue(data[campokey]);
     setLastvalue(data[campokey]);
+    console.log(data[campokey]);
   };
 
   const handleGuardar = async (e) => {
@@ -44,7 +37,7 @@ const InputAreaEditable = ({
       .then((result) => {
         setLastvalue(() => valor);
 
-        ListadoDispatch({
+        VistaDispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {
             value: result.data.id,
@@ -53,7 +46,7 @@ const InputAreaEditable = ({
           },
         });
 
-        ListadoDispatch({
+        VistaDispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {
             value: valor,
@@ -81,28 +74,20 @@ const InputAreaEditable = ({
     };
   })();
 
-  let Componente = (
-    <TextArea
-      value={value}
-      setValue={setValue}
-      onEnter={handleGuardar}
-      style={style}
-    />
-  );
+  return (
+    <div className="tarjeta_grid_item_label_item">
+      <div className="vista_label" style={{ fontWeight: "bold" }}>
+        {nombre}:
+      </div>
 
-  if (type === "number") {
-    return (Componente = (
-      <TextField
-        id={cab.id_a}
-        type="number"
-        onBlur={handleGuardar}
-        defaultValue={value}
-        inputProps={{ style: { textAlign: "right" } }}
+      <TextArea
+        value={value}
+        setValue={setValue}
+        onEnter={handleGuardar}
+        style={style}
       />
-    ));
-  }
-
-  return <div className="tarjeta_grid_item_label_item">{Componente}</div>;
+    </div>
+  );
 };
 
 export default InputAreaEditable;
