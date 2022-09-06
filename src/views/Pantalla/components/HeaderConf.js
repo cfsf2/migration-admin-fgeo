@@ -4,14 +4,19 @@ import AccionesVista from "./Menu/AccionesVista";
 import { CardTitle } from "reactstrap";
 
 const HeaderConf = ({ opciones, className }) => {
+  console.log("??: ", opciones.titulo);
   return (
     <CardTitle className="tarjeta_titulo" style={{ position: "relative" }}>
-      <Titulo
-        tag={opciones.titulo_tag}
-        titulo={opciones.titulo}
-        className={className}
-      />
-      <AccionesVista opciones={opciones} />
+      {opciones.titulo ? (
+        <>
+          <Titulo
+            tag={opciones.titulo_tag}
+            titulo={opciones.titulo}
+            className={className}
+          />
+          <AccionesVista opciones={opciones} />
+        </>
+      ) : null}
     </CardTitle>
   );
 };

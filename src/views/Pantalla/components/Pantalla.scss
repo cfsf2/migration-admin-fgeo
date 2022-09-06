@@ -3,16 +3,14 @@
   text-align: center;
   background-color: #0096b3;
   color: rgb(247, 247, 247);
-  min-height: 2rem;
-  max-height: 2rem;
+  min-height: 1.75rem;
+  //max-height: 1.5rem;
 
   &_principal {
-    font-size: 1.5rem;
-    padding: 0.1rem;
+    font-size: 1.3rem;
   }
   &_secundario {
-    font-size: 1.3rem;
-    padding: 0.1rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -52,7 +50,6 @@ div[id$="menu_vista"] {
   color: white;
 }
 
-
 .pantalla-fondo-modal {
   position: fixed;
   top: 0;
@@ -61,8 +58,8 @@ div[id$="menu_vista"] {
   bottom: 0;
   background-color: rgba(128, 128, 128, 0.4);
   z-index: 1000;
-  }
-  
+}
+
 .pantalla-modal-container {
   position: absolute;
   top: 50%;
