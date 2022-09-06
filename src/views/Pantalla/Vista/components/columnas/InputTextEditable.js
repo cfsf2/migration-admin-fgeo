@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import FuncionesContext from "../../../context/FuncionesContext";
 import VistaContext from "../../context/VistaContext";
-import { TextField } from "@mui/material";
+import TextFieldEditable from "../../../components/TextFieldEditable";
 
 const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
   const { superSubmit } = useContext(FuncionesContext);
@@ -79,14 +79,10 @@ const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
       <div className="vista_label" style={{ fontWeight: "bold" }}>
         {nombre}:
       </div>
-      <TextField
-        type="text"
-        placeholder="avhe esto"
+      <TextFieldEditable
         value={value}
         setValue={setValue}
-        onChange={(e) => setValue(e.target.value)}
         onEnter={handleGuardar}
-        size="small"
       />
     </div>
   );
