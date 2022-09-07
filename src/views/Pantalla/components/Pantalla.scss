@@ -31,7 +31,8 @@ div[id$="menu_vista"] {
 
 .flex_acciones_vista {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  margin-right: 1.2em;
   &_imprimir,
   &_email,
   &_historial,
@@ -40,6 +41,15 @@ div[id$="menu_vista"] {
     font-size: 1.4em;
     color: whitesmoke;
   }
+  &_alt_imprimir,
+  &_alt_email,
+  &_alt_historial,
+  &_alt_excel,
+  &_alt_configuracion {
+    font-size: 1.4em;
+    color: #0096b3;
+  }
+
 }
 
 .link_historial,

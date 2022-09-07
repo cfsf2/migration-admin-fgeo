@@ -14,11 +14,15 @@ const AccionesVista = ({ opciones }) => {
         ) : (
           <></>
         )}
-        {opciones.email_activo === "s" ? <Email /> : <></>}
-        {opciones.historial_activo === "s" ? <Historial /> : <></>}
-        {opciones.excel_activo === "s" ? <Excel /> : <></>}
+        {opciones.email_activo === "s" ? <Email opciones={opciones} /> : <></>}
+        {opciones.historial_activo === "s" ? (
+          <Historial opciones={opciones} />
+        ) : (
+          <></>
+        )}
+        {opciones.excel_activo === "s" ? <Excel opciones={opciones} /> : <></>}
         {opciones.configuracion_usuario_activo === "s" ? (
-          <Configuracion />
+          <Configuracion opciones={opciones} />
         ) : (
           <></>
         )}

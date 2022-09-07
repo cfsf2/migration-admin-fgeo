@@ -13,9 +13,9 @@ const HeaderConf = ({ opciones, className }) => {
             titulo={opciones.titulo}
             className={className}
           />
-          <AccionesVista opciones={opciones} />
         </>
       ) : null}
+      <AccionesVista opciones={opciones} />
     </CardTitle>
   );
 };
