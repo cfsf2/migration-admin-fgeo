@@ -55,7 +55,6 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData }) => {
         console.log("Cancelado ", err);
       });
   };
-
   return (
     //<div style={{ textAlign: "center"}}>
     <div style={{ flex: "1 0 100%" }}>
