@@ -9,3 +9,7 @@ services:
     image: farmageoadminsql:latest
     ports:
       - "3150:80"
+networks:
+  default:
+    name: fsqlnet
+    external: true
