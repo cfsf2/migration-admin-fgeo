@@ -62,18 +62,6 @@ const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
       });
   };
 
-  const style = (() => {
-    if (data[cab.update_id_alias]) {
-      return {
-        borderColor: "darkgreen",
-        borderWidth: "3px",
-      };
-    }
-    return {
-      borderColor: "grey",
-    };
-  })();
-
   return (
     <div className="tarjeta_grid_item_label_item">
       <div className="vista_label" style={{ fontWeight: "bold" }}>

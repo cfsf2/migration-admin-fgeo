@@ -28,13 +28,29 @@ const TextFieldEditable = ({ value, setValue, onEnter }) => {
     const valor = e.target.value;
     setValue(valor);
   };
+
+  const handleAlt = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+    if (e.key === "Enter" && e.altKey) {
+      altEnter.current = 1;
+
+      setValue(value + "\n");
+    }
+    return;
+  };
+
   return (
     <TextField
       onChange={handleInput}
       onKeyUp={handleEnter}
       onBlur={handleOnBlur}
+      onKeyDown={handleAlt}
       value={value}
+      style={{ width: "100%" }}
       inputProps={{ maxLength: 60 }}
+      multiline
     />
   );
 };
