@@ -12,6 +12,8 @@ import { useTheme, styled } from "@mui/material/styles";
 import { VariableSizeList } from "react-window";
 import Typography from "@mui/material/Typography";
 
+import { matchSorter } from "match-sorter";
+
 const LISTBOX_PADDING = 8; // px
 
 function renderRow(props) {
@@ -138,6 +140,7 @@ export default function Virtualize({
   const { Dispatch } = useContext(context);
 
   const [value, setValue] = useState(data[campokey]);
+  const [inputValue, setInputValue] = React.useState("");
 
   const handleCancelar = () => {};
 
@@ -164,11 +167,14 @@ export default function Virtualize({
     setValue(newValue.label);
   };
 
-  const filterOptions = createFilterOptions({
-    matchFrom: "any",
-    stringify: (opcion) => opcion.label + opcion.codref,
-  });
+  // const filterOptions = createFilterOptions({
+  //   matchFrom: "any",
+  //   stringify: (opcion) => opcion.label + opcion.codref,
+  // });
 
+  const filterMatch = (option, { inputValue }) =>
+    matchSorter(option, inputValue, { keys: ["label"] });
+  //fijate que no vaya recupero_id en el objeto option
   return (
     <>
       <strong>{cab.nombre}:</strong>
@@ -178,7 +184,7 @@ export default function Virtualize({
         sx={{ width: "100%" }}
         disableListWrap
         disableClearable
-        filterOptions={filterOptions}
+        filterOptions={filterMatch}
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
         options={cab.opciones.sort((a, b) =>
@@ -194,6 +200,10 @@ export default function Virtualize({
         // TODO: Post React 18 update - validate this conversion, look like a hidden bug
         renderGroup={(params) => params}
         onChange={(event, newValue) => handleChangeValue(newValue)}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
       />
     </>
   );
