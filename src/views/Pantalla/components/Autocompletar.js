@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
+import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import FuncionesContext from "../context/FuncionesContext";
 
 import PropTypes from "prop-types";
@@ -138,7 +138,6 @@ export default function Virtualize({
   const { Dispatch } = useContext(context);
 
   const [value, setValue] = useState(data[campokey]);
-  const [inputValue, setInputValue] = React.useState("");
 
   const handleCancelar = () => {};
 
@@ -164,6 +163,12 @@ export default function Virtualize({
       });
     setValue(newValue.label);
   };
+
+  const filterOptions = createFilterOptions({
+    matchFrom: "any",
+    stringify: (opcion) => opcion.label + opcion.codref,
+  });
+
   return (
     <>
       <strong>{cab.nombre}:</strong>
@@ -173,6 +178,7 @@ export default function Virtualize({
         sx={{ width: "100%" }}
         disableListWrap
         disableClearable
+        filterOptions={filterOptions}
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
         options={cab.opciones.sort((a, b) =>
