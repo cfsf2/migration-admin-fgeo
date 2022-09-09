@@ -5,7 +5,7 @@ import { MemoizedModal } from "../Modal";
 import MenuConfDeUsuario from "../../Listado/components/MenuConfDeUsuario";
 import ListadoContext from "../../Listado/context/ListadoContext";
 
-const Configuracion = () => {
+const Configuracion = ({ opciones }) => {
   const [mostrarConfiguracion, setMostrarConfiguracion] = useState(false);
   const { opcionesListado } = useContext(ListadoContext);
 
@@ -22,7 +22,13 @@ const Configuracion = () => {
     setMostrarConfiguracion(true);
   };
   return (
-    <div className="flex_acciones_vista_configuracion">
+    <div
+      className={
+        opciones.titulo
+          ? "flex_acciones_vista_configuracion"
+          : "flex_acciones_vista_alt_configuracion"
+      }
+    >
       <div
         onClick={(e) => handleClick(e)}
         style={{ cursor: "pointer" }}

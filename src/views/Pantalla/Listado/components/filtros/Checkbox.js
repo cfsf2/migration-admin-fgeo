@@ -53,7 +53,7 @@ const CheckboxF = (props) => {
           />
         }
         label={label}
-        style={{ marginLeft: "0px" }}
+        //style={{ marginLeft: "0px" }}
       />
     </div>
   );

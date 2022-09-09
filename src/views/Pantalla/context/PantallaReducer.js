@@ -85,7 +85,6 @@ export default function PantallaReducer(state, action) {
         filtrosAplicados: nuevosFiltros,
       };
     case "SET_DATOS_CONF":
-      console.log(state);
       return state;
 
     default:

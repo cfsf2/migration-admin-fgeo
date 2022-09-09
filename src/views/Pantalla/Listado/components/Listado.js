@@ -56,6 +56,14 @@ export const Listado = (props) => {
       : "1 / -1",
   };
 
+  const mensajeSinDatos = (
+    <p style={{ paddingTop: "15px" }}>
+      {opcionesListado.iniciar_activo === "n"
+        ? "No se encontraron datos o debe activar los filtros"
+        : "No se encontraron datos"}
+    </p>
+  );
+
   return (
     <div style={styles} className="animated fadeIn novedades_lista">
       <Row>
@@ -80,10 +88,7 @@ export const Listado = (props) => {
                       //actions: "Acciones",
                     },
                     body: {
-                      emptyDataSourceMessage:
-                        opcionesListado.iniciar_activo === "n"
-                          ? "No se encontraron datos o debe activar los filtros"
-                          : "No se encontraron datos",
+                      emptyDataSourceMessage: mensajeSinDatos,
                     },
                     pagination: {
                       labelDisplayedRows: "{from}-{to} de {count}",
@@ -123,6 +128,7 @@ export const Listado = (props) => {
                     headerStyle: {
                       textAlign: "center",
                       fontWeight: "bold",
+                      height: "57px",
                     },
                     search: opcionesListado.search === "s",
                     searchFieldStyle: { top: "3px" },

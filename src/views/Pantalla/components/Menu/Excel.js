@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
 
-const Excel = () => {
+const Excel = ({ opciones }) => {
   const [motrarExcel, setMotrarExcel] = useState(false);
 
   const handleClick = () => {
@@ -10,7 +10,13 @@ const Excel = () => {
     window.alert("tremendo excel...");
   };
   return (
-    <div className="flex_acciones_vista_excel">
+    <div
+      className={
+        opciones.titulo
+          ? "flex_acciones_vista_excel"
+          : "flex_acciones_vista_alt_excel"
+      }
+    >
       <a
         onClick={handleClick}
         style={{ cursor: "pointer" }}

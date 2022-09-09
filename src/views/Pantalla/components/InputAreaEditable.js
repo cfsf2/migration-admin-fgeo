@@ -3,7 +3,7 @@ import FuncionesContext from "../context/FuncionesContext";
 import TextArea from "./TextArea";
 import VistaContext from "../Vista/context/VistaContext";
 
-const InputEditable = ({ data, cab, hijos, campokey, indiceData }) => {
+const InputAreaEditable = ({ data, cab, hijos, campokey, indiceData }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
   const { datos, VistaDispatch } = useContext(VistaContext);
@@ -90,4 +90,4 @@ const InputEditable = ({ data, cab, hijos, campokey, indiceData }) => {
   );
 };
 
-export default InputEditable;
+export default InputAreaEditable;

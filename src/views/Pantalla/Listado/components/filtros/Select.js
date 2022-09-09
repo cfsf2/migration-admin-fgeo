@@ -2,18 +2,10 @@ import React, { useMemo } from "react";
 import { Select, MenuItem, FormControl } from "@material-ui/core";
 import PropTypes from "prop-types";
 import Label from "./LabelF";
+import { height } from "@mui/system";
 
 export const SelectF = (props) => {
-  const {
-    label,
-    id_a,
-    filtrosAAplicar,
-    setFiltrosAAplicar,
-    opciones: op,
-    className,
-    width, //80%
-    grid_span,
-  } = props;
+  const { id_a, filtrosAAplicar, setFiltrosAAplicar, opciones: op } = props;
 
   // const hasdefault = useMemo(
   //   () =>
@@ -24,12 +16,8 @@ export const SelectF = (props) => {
   // );
   const opciones = [{ value: " ", label: "Todas", default: true }].concat(op);
 
-  const styles = {
-    gridColumn: grid_span,
-  };
-
   return (
-    <div style={styles}>
+    <div>
       <FormControl fullWidth>
         <Label
           label={props.label}
@@ -37,7 +25,7 @@ export const SelectF = (props) => {
           permite_null={props.permite_null}
         />
         <Select
-          style={{ width }}
+          style={{ width: "100%", marginTop: "24px" }}
           defaultValue={props.default}
           variant="standard"
           onChange={(e) => {

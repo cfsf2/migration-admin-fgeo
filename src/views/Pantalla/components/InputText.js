@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
-import { ca } from "date-fns/locale";
 
 const InputText = ({ data, cab, campokey }) => {
   const [valor, setValor] = useState("");

@@ -45,20 +45,22 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
   };
 
   return (
-    <div style={botonStyle} onClick={handleClick}>
-      {cab.imagen_url ? (
-        <img
-          style={{ cursor: "pointer" }}
-          height={boton_image_height}
-          src={cab.imagen_url}
-          alt={boton_image_alt}
-        />
-      ) : (
-        <div style={{ textAlign: "center" }}>
-          {boton_texto_alias ? data[boton_texto_alias] : boton_texto}
-        </div>
-      )}
-      {hijos}
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={botonStyle} onClick={handleClick}>
+        {cab.imagen_url ? (
+          <img
+            style={{ cursor: "pointer" }}
+            height={boton_image_height}
+            src={cab.imagen_url}
+            alt={boton_image_alt}
+          />
+        ) : (
+          <div style={{ textAlign: "center" }}>
+            {boton_texto_alias ? data[boton_texto_alias] : boton_texto}
+          </div>
+        )}
+        {hijos}
+      </div>
     </div>
   );
 };

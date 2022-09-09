@@ -162,7 +162,6 @@ export default function Virtualize({
       .catch((err) => {
         console.log("Cancelado ", err);
       });
-    console.trace("de dónde viene el coso");
     setValue(newValue.label);
   };
   return (

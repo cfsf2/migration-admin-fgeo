@@ -9,7 +9,13 @@ const Historial = () => {
   const tabla = opciones.tabla;
 
   return (
-    <div className="flex_acciones_vista_email">
+    <div
+      className={
+        opciones.titulo
+          ? "flex_acciones_vista_historial"
+          : "flex_acciones_vista_alt_historial"
+      }
+    >
       <Link
         to={{
           pathname: process.env.PUBLIC_URL + "/Vista/PANTALLA_HISTORIAL",

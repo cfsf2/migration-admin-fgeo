@@ -6,11 +6,15 @@ import { CardTitle } from "reactstrap";
 const HeaderConf = ({ opciones, className }) => {
   return (
     <CardTitle className="tarjeta_titulo" style={{ position: "relative" }}>
-      <Titulo
-        tag={opciones.titulo_tag}
-        titulo={opciones.titulo}
-        className={className}
-      />
+      {opciones.titulo ? (
+        <>
+          <Titulo
+            tag={opciones.titulo_tag}
+            titulo={opciones.titulo}
+            className={className}
+          />
+        </>
+      ) : null}
       <AccionesVista opciones={opciones} />
     </CardTitle>
   );

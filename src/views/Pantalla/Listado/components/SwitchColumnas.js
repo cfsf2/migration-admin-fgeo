@@ -11,7 +11,7 @@ import Imagen from "./columnas/Imagen";
 import Boton from "./columnas/Boton";
 import SelectC from "./columnas/SelectC";
 import EnlaceOpcional from "./columnas/EnlaceOpcional";
-import InputEditable from "./columnas/InputEditableL";
+import InputAreaEditable from "./columnas/InputEditableL";
 import SiNoEditable from "./columnas/SiNoEditable";
 import Toggle from "./columnas/Toggle";
 import Autocompletar from "../../components/Autocompletar";
@@ -157,7 +157,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData }) => {
         );
       case "input_editable":
         return (
-          <InputEditable
+          <InputAreaEditable
             key={cab.id_a}
             data={data}
             cab={cab}
@@ -168,7 +168,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData }) => {
         );
       case "input_number_editable":
         return (
-          <InputEditable
+          <InputAreaEditable
             key={cab.id_a}
             data={data}
             cab={cab}
