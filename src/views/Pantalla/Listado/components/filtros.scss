@@ -3,7 +3,7 @@
   grid-template-columns: 4fr;
   gap: 5px;
   align-items: center;
-  padding: 0px 1.5rem;
+  padding: 0px 1.5rem 1.5rem 1.5rem;
   &_inputs_grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
