@@ -173,8 +173,9 @@ export default function Virtualize({
   // });
 
   const filterMatch = (option, { inputValue }) =>
-    matchSorter(option, inputValue, { keys: ["label"] });
+    matchSorter(option, inputValue, { keys: ["label", "codref"] });
   //fijate que no vaya recupero_id en el objeto option
+
   return (
     <>
       <strong>{cab.nombre}:</strong>
