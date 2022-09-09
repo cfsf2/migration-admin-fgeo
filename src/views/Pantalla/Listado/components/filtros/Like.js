@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { TextField } from "@mui/material";
 import Label from "./LabelF";
+import { makeStyles } from "@material-ui/core";
+
+const useStyle = makeStyles({
+  likeComponent: {
+    "& .MuiInputBase-input": {
+      height: "1.4375em",
+      padding: "16.5px 14px",
+    },
+  },
+});
 
 const Like = (props) => {
   const {
     id,
     id_a,
-    orden,
     label,
     filtrosAAplicar,
     setFiltrosAAplicar,
-    grid_span,
     error,
     setError,
   } = props;
@@ -24,6 +32,8 @@ const Like = (props) => {
       return { ...e, [id_a]: false };
     });
   };
+
+  const classes = useStyle();
 
   return (
     <div>
@@ -42,6 +52,7 @@ const Like = (props) => {
         label={label}
         value={filtrosAAplicar[id_a] ? filtrosAAplicar[id_a] : ""}
         error={error[id_a]}
+        className={classes.likeComponent}
       />
     </div>
   );
