@@ -15,6 +15,17 @@ import Typography from "@mui/material/Typography";
 
 import { matchSorter } from "match-sorter";
 
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  myComponent: {
+    "& .MuiIconButton-root": {
+      padding: "2px",
+      marginRight: "7px",
+    },
+  },
+});
+
 const LISTBOX_PADDING = 8; // px
 
 function renderRow(props) {
@@ -171,10 +182,7 @@ export default function Virtualize({
   const filterMatch = (option, { inputValue }) =>
     matchSorter(option, inputValue, { keys: ["label", "codref"] });
 
-  const CssTextField = styled(TextField)({
-    //"& .MuiOutlinedInput-notchedOutline legend": { display: "none" },
-    //"& .MuiIconButton-root": { padding: "2px" },
-  });
+  const classes = useStyles();
 
   return (
     <>
@@ -185,8 +193,8 @@ export default function Virtualize({
         sx={{ width: "100%" }}
         disableListWrap
         disableClearable
-        hiddenLabel="true"
         size="small"
+        className={classes.myComponent}
         filterOptions={filterMatch}
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
