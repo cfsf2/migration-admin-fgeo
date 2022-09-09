@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { TextField } from "@mui/material";
+import "../components/Pantalla.scss";
 
 const TextFieldEditable = ({ value, setValue, onEnter }) => {
   const keyUp = useRef(0); // Evita que el evento onBlur se dispare luego de onKeyUp
@@ -43,14 +44,15 @@ const TextFieldEditable = ({ value, setValue, onEnter }) => {
 
   return (
     <TextField
+      value={value}
       onChange={handleInput}
       onKeyUp={handleEnter}
       onBlur={handleOnBlur}
       onKeyDown={handleAlt}
-      value={value}
       style={{ width: "100%" }}
       inputProps={{ maxLength: 60 }}
       multiline
+      className="css-nnbavb"
     />
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import TextField from "@mui/material/TextField";
-import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
+import "../components/Pantalla.scss";
+import Autocomplete from "@mui/material/Autocomplete";
 import FuncionesContext from "../context/FuncionesContext";
 
 import PropTypes from "prop-types";
@@ -167,14 +168,13 @@ export default function Virtualize({
     setValue(newValue.label);
   };
 
-  // const filterOptions = createFilterOptions({
-  //   matchFrom: "any",
-  //   stringify: (opcion) => opcion.label + opcion.codref,
-  // });
-
   const filterMatch = (option, { inputValue }) =>
     matchSorter(option, inputValue, { keys: ["label", "codref"] });
-  //fijate que no vaya recupero_id en el objeto option
+
+  const CssTextField = styled(TextField)({
+    //"& .MuiOutlinedInput-notchedOutline legend": { display: "none" },
+    //"& .MuiIconButton-root": { padding: "2px" },
+  });
 
   return (
     <>
@@ -185,6 +185,8 @@ export default function Virtualize({
         sx={{ width: "100%" }}
         disableListWrap
         disableClearable
+        hiddenLabel="true"
+        size="small"
         filterOptions={filterMatch}
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
