@@ -1,5 +1,18 @@
 import React, { useRef } from "react";
 import { TextField } from "@mui/material";
+import "../components/Pantalla.scss";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  miTextField: {
+    "& .css-nnbavb": {
+      display: "none",
+    },
+    "& .MuiInputBase-inputMultiline": {
+      marginLeft: "10px",
+    },
+  },
+});
 
 const TextFieldEditable = ({ value, setValue, onEnter }) => {
   const keyUp = useRef(0); // Evita que el evento onBlur se dispare luego de onKeyUp
@@ -41,16 +54,19 @@ const TextFieldEditable = ({ value, setValue, onEnter }) => {
     return;
   };
 
+  const classes = useStyles();
+
   return (
     <TextField
+      value={value}
       onChange={handleInput}
       onKeyUp={handleEnter}
       onBlur={handleOnBlur}
       onKeyDown={handleAlt}
-      value={value}
       style={{ width: "100%" }}
       inputProps={{ maxLength: 60 }}
       multiline
+      className={classes.miTextField}
     />
   );
 };

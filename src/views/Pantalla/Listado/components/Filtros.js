@@ -1,14 +1,26 @@
-import React, { useState, useContext, useEffect, useMemo } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Paper, Typography } from "@material-ui/core";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { makeStyles } from "@material-ui/styles";
 
 import Botonera from "../Botonera";
 import SwitchFiltros from "./SwitchFiltros";
 import ListadoContext from "../context/ListadoContext";
 import "./filtros.scss";
 import FuncionesContext from "../../context/FuncionesContext";
+
+const useStyle = makeStyles({
+  bloqueAccordion: {
+    "& .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root": {
+      width: "100%",
+    },
+    "& .MuiAccordionSummary-root ": {
+      padding: "0 16px",
+    },
+  },
+});
 
 const Filtros = () => {
   const {
@@ -153,6 +165,8 @@ const Filtros = () => {
     (f) => f.componente !== "hidden"
   ).length;
 
+  const classes = useStyle();
+
   return (
     <>
       {filtrosVisibles > 0 ? (
@@ -162,6 +176,7 @@ const Filtros = () => {
             defaultExpanded={false}
             expanded={expanded}
             onChange={() => setExpanded((s) => !s)}
+            className={classes.bloqueAccordion}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}

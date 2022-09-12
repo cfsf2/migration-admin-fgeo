@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import TextField from "@mui/material/TextField";
+import "../components/Pantalla.scss";
 import Autocomplete from "@mui/material/Autocomplete";
 import FuncionesContext from "../context/FuncionesContext";
 
@@ -11,6 +12,22 @@ import Popper from "@mui/material/Popper";
 import { useTheme, styled } from "@mui/material/styles";
 import { VariableSizeList } from "react-window";
 import Typography from "@mui/material/Typography";
+
+import { matchSorter } from "match-sorter";
+
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  myComponent: {
+    "& .MuiIconButton-root": {
+      padding: "2px",
+      marginRight: "7px",
+    },
+    "& .css-nnbavb": {
+      display: "none",
+    },
+  },
+});
 
 const LISTBOX_PADDING = 8; // px
 
@@ -164,6 +181,12 @@ export default function Virtualize({
       });
     setValue(newValue.label);
   };
+
+  const filterMatch = (option, { inputValue }) =>
+    matchSorter(option, inputValue, { keys: ["label", "codref"] });
+
+  const classes = useStyles();
+
   return (
     <>
       <strong>{cab.nombre}:</strong>
@@ -173,6 +196,9 @@ export default function Virtualize({
         sx={{ width: "100%" }}
         disableListWrap
         disableClearable
+        size="small"
+        className={classes.myComponent}
+        filterOptions={filterMatch}
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
         options={cab.opciones.sort((a, b) =>
@@ -188,6 +214,10 @@ export default function Virtualize({
         // TODO: Post React 18 update - validate this conversion, look like a hidden bug
         renderGroup={(params) => params}
         onChange={(event, newValue) => handleChangeValue(newValue)}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
       />
     </>
   );

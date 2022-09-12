@@ -29,6 +29,13 @@ import routesfarmacias from "../../routes";
 import routesadmin from "../../routesadmin";
 import routesdefault from "../../routesdefault";
 
+import {
+  LOGIN,
+  LOADPROFILE,
+  RESET_ERROR,
+  TRYREGISTER,
+} from "../../redux/actions/authActions";
+
 import { Filtrar_Sin_Venta_Online } from "../../helpers/NavHelper";
 import { ValidarPerfil } from "../../helpers/Validaciones";
 
@@ -110,13 +117,7 @@ class DefaultLayout extends Component {
         path={route.path}
         exact={route.exact}
         name={route.name}
-        render={(props) =>
-          this.props.islogin ? (
-            <route.component {...props} />
-          ) : (
-            <Redirect to={{ pathname: "/login" }} />
-          )
-        }
+        render={(props) => <route.component {...props} />}
       />
     ) : null;
   }
@@ -186,6 +187,9 @@ class DefaultLayout extends Component {
     // const navigation = this.props.user.IS_ADMIN ? nav_admin : nav_farmacia;
     // const routes = this.props.user.IS_ADMIN ? routesadmin : routesfarmacias
     const { userprofile } = this.props.authReducer;
+    if (!this.props.islogin) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="app">
         <AppHeader fixed>
