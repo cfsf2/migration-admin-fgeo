@@ -23,6 +23,9 @@ const useStyles = makeStyles({
       padding: "2px",
       marginRight: "7px",
     },
+    "& .css-nnbavb": {
+      display: "none",
+    },
   },
 });
 
