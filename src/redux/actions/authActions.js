@@ -71,8 +71,9 @@ export const LOGIN = (user, password) => {
 };
 
 export const LOADPROFILE = (username, token) => {
+  console.log("LOADPROFILE");
   return (dispatch) => {
-    axios
+    return axios
       .get(farmageo_api + "/farmacias/login/" + username?.toUpperCase(), {
         headers: {
           authorization: `Bearer ${token}`,

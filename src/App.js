@@ -3,8 +3,6 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
 import "./App.scss";
 import GestorCampanas from "./views/gestorCampanas/GestorCampanas";
-import { useDispatch, useSelector } from "react-redux";
-import { LOADPROFILE } from "./redux/actions/authActions";
 
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Cargando...</div>

@@ -1,6 +1,6 @@
-import React, { Component, Suspense } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import * as router from "react-router-dom";
 import { Container, Col, Row } from "reactstrap";
 
@@ -29,12 +29,8 @@ import routesfarmacias from "../../routes";
 import routesadmin from "../../routesadmin";
 import routesdefault from "../../routesdefault";
 
-import {
-  LOGIN,
-  LOADPROFILE,
-  RESET_ERROR,
-  TRYREGISTER,
-} from "../../redux/actions/authActions";
+import { useDispatch } from "react-redux";
+import { LOADPROFILE } from "../../redux/actions/authActions";
 
 import { Filtrar_Sin_Venta_Online } from "../../helpers/NavHelper";
 import { ValidarPerfil } from "../../helpers/Validaciones";
@@ -82,7 +78,7 @@ axios.interceptors.response.use(
             store.dispatch(LOGOUT());
           })
         );
-
+        break;
       default:
         break;
     }
@@ -91,26 +87,23 @@ axios.interceptors.response.use(
   }
 );
 
-class DefaultLayout extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      navigation: nav_default,
-      routes: routesdefault,
-    };
+function DefaultLayout(props) {
+  const [navigation, setNavigation] = useState(nav_default);
+  const [routes, setRoutes] = useState(routesdefault);
+  const [userprofile, setUserProfile] = useState(props.authReducer);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  function loading() {
+    return <div className="animated fadeIn pt-1 text-center">Cargando...</div>;
   }
 
-  loading = () => (
-    <div className="animated fadeIn pt-1 text-center">Cargando...</div>
-  );
-
-  signOut(e) {
+  function signOut(e) {
     e.preventDefault();
-    this.props.LOGOUT();
-    this.props.history.push("/login");
+    props.LOGOUT();
+    props.history.push("/login");
   }
 
-  getComponent(route, idx) {
+  function getComponent(route, idx) {
     return route.component ? (
       <Route
         key={idx}
@@ -122,163 +115,137 @@ class DefaultLayout extends Component {
     ) : null;
   }
 
-  async componentDidMount() {
-    const { IS_ADMIN, IS_FARMACIA } = this.props.user;
-    const { userprofile } = this.props.authReducer;
-    if (IS_ADMIN) {
-      let allowedNav = { items: [] };
-      let allowedRoutes;
-      allowedNav.items = nav_admin.items.filter((route) => {
-        return this.props.user.permisos.some((per) => route.permiso === per);
-      });
-      allowedRoutes = routesadmin.filter((route) => {
-        return this.props.user.permisos.some((per) => {
-          return route.permiso === per;
-        });
-      });
-
-      this.setState({ navigation: allowedNav, routes: allowedRoutes });
-    } else if (IS_FARMACIA) {
-      var _nav_farmacia = await Filtrar_Sin_Venta_Online(
-        nav_farmacia,
-        userprofile
-      );
-      this.setState({ navigation: _nav_farmacia, routes: routesfarmacias });
-    } else {
-      this.setState({ navigation: nav_default, routes: routesdefault });
+  useEffect(() => {
+    if (!localStorage.authenticated === "true") {
+      history.push("/login");
     }
-  }
+    if (localStorage.authenticated === "true") {
+      props.LOADPROFILE(
+        window.localStorage.getItem("user"),
+        window.localStorage.getItem("token")
+      );
 
-  async componentDidUpdate(prevProps, prevState) {
-    const { IS_ADMIN, IS_FARMACIA } = this.props.user;
-    const { userprofile } = this.props.authReducer;
+      dispatch({
+        type: "LOGIN_OK",
+        payload: JSON.parse(localStorage.getItem("login")),
+      });
 
-    if (
-      prevProps.user.IS_ADMIN !== this.props.user.IS_ADMIN ||
-      prevProps.user.IS_FARMACIA !== this.props.user.IS_FARMACIA ||
-      prevProps.authReducer.userprofile !== userprofile
-    ) {
+      componentDidMount();
+    }
+    async function componentDidMount() {
+      const { IS_ADMIN, IS_FARMACIA } = props.user;
+
       if (IS_ADMIN) {
         let allowedNav = { items: [] };
         let allowedRoutes;
         allowedNav.items = nav_admin.items.filter((route) => {
-          return this.props.user.permisos.some((per) => route.permiso === per);
+          return props.user.permisos.some((per) => route.permiso === per);
         });
         allowedRoutes = routesadmin.filter((route) => {
-          return this.props.user.permisos.some((per) => {
+          return props.user.permisos.some((per) => {
             return route.permiso === per;
           });
         });
 
-        this.setState({ navigation: allowedNav, routes: allowedRoutes });
+        setNavigation(allowedNav);
+        setRoutes(allowedRoutes);
       } else if (IS_FARMACIA) {
-        var _nav_farmacia = await Filtrar_Sin_Venta_Online(
-          nav_farmacia,
-          userprofile
-        );
-        this.setState({ navigation: _nav_farmacia, routes: routesfarmacias });
+        var _nav_farmacia = Filtrar_Sin_Venta_Online(nav_farmacia, userprofile);
+
+        setNavigation(_nav_farmacia);
+        setRoutes(routesfarmacias);
       } else {
-        this.setState({ navigation: nav_default, routes: routesdefault });
+        setNavigation({ navigation: nav_default, routes: routesdefault });
+        setNavigation(nav_default);
+        setRoutes(routesdefault);
       }
     }
-  }
+  }, [props.user.IS_ADMIN, props.user.IS_FARMACIA]);
 
-  render() {
-    // const navigation = this.props.user.IS_ADMIN ? nav_admin : nav_farmacia;
-    // const routes = this.props.user.IS_ADMIN ? routesadmin : routesfarmacias
-    const { userprofile } = this.props.authReducer;
-    if (!this.props.islogin) {
-      return <Redirect to="/login" />;
-    }
-    return (
-      <div className="app">
-        <AppHeader fixed>
-          <Suspense fallback={this.loading()}>
-            <DefaultHeader onLogout={(e) => this.signOut(e)} />
+  return (
+    <div className="app">
+      <AppHeader fixed>
+        <Suspense fallback={loading()}>
+          <DefaultHeader onLogout={(e) => signOut(e)} />
+        </Suspense>
+      </AppHeader>
+      <div className="app-body">
+        <AppSidebar fixed display="lg">
+          <AppSidebarHeader />
+          <AppSidebarForm />
+          <Suspense>
+            <AppSidebarNav navConfig={navigation} {...props} router={router} />
           </Suspense>
-        </AppHeader>
-        <div className="app-body">
-          <AppSidebar fixed display="lg">
-            <AppSidebarHeader />
-            <AppSidebarForm />
-            <Suspense>
-              <AppSidebarNav
-                navConfig={this.state.navigation}
-                {...this.props}
-                router={router}
-              />
-            </Suspense>
-            <AppSidebarFooter />
-            <AppSidebarMinimizer />
-          </AppSidebar>
-          <main className="main">
-            {/*<AppBreadcrumb appRoutes={this.state.routes} router={router}/>*/}
-            <Container fluid className="mx-0 px-0">
-              <Row
-                className="py-2 mb-2 px-3"
-                style={{ backgroundColor: "#00788f" }}
-              >
-                {userprofile && userprofile.esfarmacia ? (
-                  userprofile.perfil_farmageo !== "solo_visible" ||
-                  userprofile.perfil_farmageo === "no_visible" ? (
-                    <Col md="8">
-                      <a
-                        href={process.env.PUBLIC_URL + "/#/perfilfarmageo"}
-                        className="text-warning"
-                      >
-                        <b style={{ float: "left", fontSize: 10 }}>
-                          SU FARMACIA SE ENCUENTRA DESHABILITADA EN NUESTRA
-                          APLICACIÓN Y SISTEMA DE VENTA ONLINE. SÓLO PUEDE
-                          GESTIONAR TRANSFERS Y OTROS SERVICIOS INTERNOS.
-                        </b>
-                      </a>
-                    </Col>
-                  ) : ValidarPerfil(userprofile) ? null : (
-                    <Col md="8">
-                      <a
-                        href={process.env.PUBLIC_URL + "/#/perfil"}
-                        className="text-warning"
-                      >
-                        <b style={{ float: "left", fontSize: 10 }}>
-                          ATENCIÓN: hay campos sin completar en la información
-                          de su perfil
-                        </b>
-                      </a>
-                    </Col>
-                  )
-                ) : null}
+          <AppSidebarFooter />
+          <AppSidebarMinimizer />
+        </AppSidebar>
+        <main className="main">
+          {/*<AppBreadcrumb appRoutes={routes} router={router}/>*/}
+          <Container fluid className="mx-0 px-0">
+            <Row
+              className="py-2 mb-2 px-3"
+              style={{ backgroundColor: "#00788f" }}
+            >
+              {userprofile && userprofile.esfarmacia ? (
+                userprofile.perfil_farmageo !== "solo_visible" ||
+                userprofile.perfil_farmageo === "no_visible" ? (
+                  <Col md="8">
+                    <a
+                      href={process.env.PUBLIC_URL + "/#/perfilfarmageo"}
+                      className="text-warning"
+                    >
+                      <b style={{ float: "left", fontSize: 10 }}>
+                        SU FARMACIA SE ENCUENTRA DESHABILITADA EN NUESTRA
+                        APLICACIÓN Y SISTEMA DE VENTA ONLINE. SÓLO PUEDE
+                        GESTIONAR TRANSFERS Y OTROS SERVICIOS INTERNOS.
+                      </b>
+                    </a>
+                  </Col>
+                ) : ValidarPerfil(userprofile) ? null : (
+                  <Col md="8">
+                    <a
+                      href={process.env.PUBLIC_URL + "/#/perfil"}
+                      className="text-warning"
+                    >
+                      <b style={{ float: "left", fontSize: 10 }}>
+                        ATENCIÓN: hay campos sin completar en la información de
+                        su perfil
+                      </b>
+                    </a>
+                  </Col>
+                )
+              ) : null}
 
-                <Col className="align-content-center">
-                  <b style={{ float: "right", color: "white" }}>
-                    {this.props.user.user_display_name}
-                  </b>
-                </Col>
-              </Row>
-            </Container>
-            <Container fluid className="mx-1 px-1">
-              <Suspense fallback={this.loading()}>
-                <Switch>
-                  {this.state.routes.map((route, idx) => {
-                    return this.getComponent(route, idx);
-                  })}
-                </Switch>
-              </Suspense>
-            </Container>
-          </main>
-          <AppAside fixed>
-            <Suspense fallback={this.loading()}>
-              <DefaultAside />
+              <Col className="align-content-center">
+                <b style={{ float: "right", color: "white" }}>
+                  {props.user.user_display_name}
+                </b>
+              </Col>
+            </Row>
+          </Container>
+          <Container fluid className="mx-1 px-1">
+            <Suspense fallback={loading()}>
+              <Switch>
+                {routes.map((route, idx) => {
+                  return getComponent(route, idx);
+                })}
+              </Switch>
             </Suspense>
-          </AppAside>
-        </div>
-        <AppFooter>
-          <Suspense fallback={this.loading()}>
-            <DefaultFooter />
+          </Container>
+        </main>
+        <AppAside fixed>
+          <Suspense fallback={loading()}>
+            <DefaultAside />
           </Suspense>
-        </AppFooter>
+        </AppAside>
       </div>
-    );
-  }
+      <AppFooter>
+        <Suspense fallback={loading()}>
+          <DefaultFooter />
+        </Suspense>
+      </AppFooter>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {
@@ -290,6 +257,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   LOGOUT,
+  LOADPROFILE,
   ALERT,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout);
