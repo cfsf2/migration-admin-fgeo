@@ -16,7 +16,6 @@ import {
   TRYREGISTER,
 } from "../../../redux/actions/authActions";
 import { Redirect } from "react-router-dom";
-import Alertmessage from "../../../components/Alertmessage";
 import { GET_SESSION } from "../../../redux/actions/authActions";
 import "./login.scss";
 
@@ -55,9 +54,6 @@ const Login = (props) => {
 
   const islogin = useSelector((state) => state.authReducer.user.islogin);
   const username = useSelector((state) => state.authReducer.user.username);
-  const errorCode = useSelector((state) => state.authReducer.error.code);
-  const errorTitle = useSelector((state) => state.authReducer.error.title);
-  const errorMessage = useSelector((state) => state.authReducer.error.message);
 
   const validateForm = () => {
     return userName.length > 0 && password.length > 0;
