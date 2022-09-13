@@ -76,8 +76,8 @@ const InputAreaEditable = ({ data, cab, hijos, campokey, indiceData }) => {
 
   return (
     <div className="tarjeta_grid_item_label_item">
-      <div className="vista_label" style={{ fontWeight: "bold" }}>
-        {nombre}:
+      <div className="vista_label" style={{ wordBreak: "break-all" }}>
+        {nombre}
       </div>
 
       <TextArea

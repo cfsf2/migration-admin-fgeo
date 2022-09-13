@@ -2,6 +2,20 @@
   font-weight: bold;
   margin-right: 4.5px;
   width: 100px;
+  max-width: 85px;
+  &_fuente {
+    //font-weight: bold;
+    max-width: 85px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-all;
+    overflow: hidden;
+  }
+  &_select{
+    font-weight: bold;
+    display: flex;
+    width: 100%;
+  }
 }
 
 // .vista_dato {
@@ -9,7 +23,7 @@
 // }
 .vista_dato {
   position: relative;
-  left: -12px;
+  left: 1px;
 }
 
 #Vista_Switch_Enlace {

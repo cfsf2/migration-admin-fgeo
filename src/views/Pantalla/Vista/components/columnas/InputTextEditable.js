@@ -67,13 +67,13 @@ const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
       <div className="vista_label">
         <p
           style={{
-            fontWeight: "bold",
             maxHeight: "25px",
             position: "relative",
             top: "3px",
+            wordBreak: "break-all",
           }}
         >
-          {nombre}:
+          {nombre}
         </p>
       </div>
       <TextFieldEditable

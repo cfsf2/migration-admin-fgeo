@@ -59,10 +59,10 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData }) => {
     //<div style={{ textAlign: "center"}}>
     <div style={{ flex: "1 0 100%" }}>
       <div
-        className="vista_label"
-        style={{ fontWeight: "bold", display: "flex" }}
+        className="vista_label_select"
+        //style={{ fontWeight: "bold", display: "flex", width: "100%" }}
       >
-        {cab.nombre}:
+        {cab.nombre}
         <Select
           nombre={nombre}
           opciones={cab.opciones ? cab.opciones : []}
