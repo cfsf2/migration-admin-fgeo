@@ -39,7 +39,10 @@ const ConfigListado = () => {
           return {
             title: cab.nombre,
             field: cab.campo_alias ? cab.campo_alias : cab.id_a,
-            cellStyle: { width: cab.width ? cab.width : "10%" },
+            cellStyle: {
+              width: cab.width ? cab.width : "10%",
+              textAlign: "center",
+            },
 
             render: (data) => (
               <SwitchColumnas
