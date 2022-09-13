@@ -64,8 +64,17 @@ const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
 
   return (
     <div className="tarjeta_grid_item_label_item">
-      <div className="vista_label" style={{ fontWeight: "bold" }}>
-        {nombre}:
+      <div className="vista_label">
+        <p
+          style={{
+            fontWeight: "bold",
+            maxHeight: "25px",
+            position: "relative",
+            top: "3px",
+          }}
+        >
+          {nombre}:
+        </p>
       </div>
       <TextFieldEditable
         value={value}

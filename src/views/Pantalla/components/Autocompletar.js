@@ -189,7 +189,9 @@ export default function Virtualize({
 
   return (
     <>
-      <strong>{cab.nombre}:</strong>
+      <div className="vista_label">
+        <p style={{ position: "relative", top: "5px" }}>{cab.nombre}:</p>
+      </div>
       <Autocomplete
         value={value}
         id="virtualize-demo"

@@ -24,7 +24,7 @@ const Default = ({ data, cab, hijos, campokey }) => {
       <div className="tarjeta_grid_item_label_item">
           <div
             className="vista_label"
-            style={{ fontWeight: "bold", wordBreak: "break-all" }}
+            style={{ fontWeight: "bold"}}
           >
             {nombre}:
           </div>
