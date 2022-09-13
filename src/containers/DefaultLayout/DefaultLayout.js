@@ -116,9 +116,6 @@ function DefaultLayout(props) {
   }
 
   useEffect(() => {
-    if (!localStorage.authenticated === "true") {
-      history.push("/login");
-    }
     if (localStorage.authenticated === "true") {
       props.LOADPROFILE(
         window.localStorage.getItem("user"),
