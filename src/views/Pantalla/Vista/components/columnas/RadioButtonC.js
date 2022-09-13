@@ -50,13 +50,11 @@ const RadioButtonC = ({ data, cab, campokey }) => {
     <FormControl>
       <div
         style={{
-          marginBottom: "0",
-          fontWeight: "bold",
-          wordBreak: "break-all",
+          display: "flex",
         }}
       >
-        {nombre}
-        <div style={{ marginLeft: "14px" }}>
+        <div className="vista_label vista_label_fuente">{nombre}</div>
+        <div style={{ marginLeft: "10px" }}>
           <RadioGroup value={value} onChange={handleChange} row>
             {cab.radio_opciones.map((opcion) => {
               return (
