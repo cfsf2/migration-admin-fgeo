@@ -15,7 +15,7 @@ const SiNo = ({ data, cab, campokey }) => {
       </div>
       <div
         className={`${cab.class} vista_dato`}
-        style={{ textAlign: "center" }}
+        //style={{ textAlign: "center" }}
       >
         {data[campokey] === null ? "" : data[campokey] === "s" ? "SI" : "NO"}
       </div>
