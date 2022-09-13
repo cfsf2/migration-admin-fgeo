@@ -157,7 +157,7 @@ function DefaultLayout(props) {
         setRoutes(routesdefault);
       }
     }
-  }, [props.user.IS_ADMIN, props.user.IS_FARMACIA]);
+  }, [props.user.IS_ADMIN, props.user.IS_FARMACIA, localStorage.authenticated]);
 
   return (
     <div className="app">
