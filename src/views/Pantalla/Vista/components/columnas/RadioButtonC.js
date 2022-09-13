@@ -53,7 +53,7 @@ const RadioButtonC = ({ data, cab, campokey }) => {
           display: "flex",
         }}
       >
-        <div className="vista_label vista_label_fuente">{nombre}</div>
+        <div className="vista_label vista_label_fuente">{nombre}:</div>
         <div style={{ marginLeft: "10px" }}>
           <RadioGroup value={value} onChange={handleChange} row>
             {cab.radio_opciones.map((opcion) => {

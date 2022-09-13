@@ -1,29 +1,33 @@
 .vista_label {
   font-weight: bold;
+  font-size: 1.025rem;
   margin-right: 4.5px;
-  width: 100px;
-  max-width: 85px;
-  &_fuente {
-    //font-weight: bold;
-    max-width: 85px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-break: break-all;
-    overflow: hidden;
-  }
-  &_select{
+  // &_fuente {
+  //   //font-weight: bold;
+  //   max-width: 85px;
+  //   text-overflow: ellipsis;
+  //   white-space: nowrap;
+  //   word-break: break-all;
+  //   overflow: hidden;
+  // }
+  &_select {
     font-weight: bold;
     display: flex;
     width: 100%;
   }
 }
 
+.suW {
+  width: max-content;
+}
 // .vista_dato {
 //   margin-bottom: 0.3rem;
 // }
+
 .vista_dato {
   position: relative;
   left: 1px;
+  top: 2px;
 }
 
 #Vista_Switch_Enlace {

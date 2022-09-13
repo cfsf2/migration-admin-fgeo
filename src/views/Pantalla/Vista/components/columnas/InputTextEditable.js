@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import FuncionesContext from "../../../context/FuncionesContext";
 import VistaContext from "../../context/VistaContext";
 import TextFieldEditable from "../../../components/TextFieldEditable";
+import "../Vista.scss";
 
 const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
   const { superSubmit } = useContext(FuncionesContext);
@@ -69,11 +70,12 @@ const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
           style={{
             maxHeight: "25px",
             position: "relative",
-            top: "3px",
+            top: "2px",
             wordBreak: "break-all",
           }}
+          className="suW"
         >
-          {nombre}
+          {nombre}:
         </p>
       </div>
       <TextFieldEditable

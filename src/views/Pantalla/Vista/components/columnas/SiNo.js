@@ -10,7 +10,7 @@ const SiNo = ({ data, cab, campokey }) => {
 
   return (
     <div className="tarjeta_grid_item_label_item">
-      <div className="vista_label vista_label_fuente">{nombre}</div>
+      <div className="vista_label vista_label_fuente">{nombre}:</div>
       <div
         className={`${cab.class} vista_dato`}
         //style={{ textAlign: "center" }}
