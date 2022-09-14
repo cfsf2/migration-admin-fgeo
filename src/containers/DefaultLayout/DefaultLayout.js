@@ -211,7 +211,7 @@ class DefaultLayout extends Component {
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar>
-          <main className="main">
+          <main className="main" style={{ backgroundColor: "white" }}>
             {/*<AppBreadcrumb appRoutes={this.state.routes} router={router}/>*/}
             <Container fluid className="mx-0 px-0">
               <Row
