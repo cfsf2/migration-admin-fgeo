@@ -26,6 +26,9 @@ const useStyles = makeStyles({
     "& .css-nnbavb": {
       display: "none",
     },
+    "& .MuiAutocomplete-input": {
+      fontSize: "0.875rem",
+    },
   },
 });
 

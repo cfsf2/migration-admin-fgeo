@@ -12,6 +12,7 @@ const Tarjeta = () => {
 
   const styles = {
     gridColumn: opciones.grid_span ? opciones.grid_span : "1 / -1",
+    border: "none",
   };
 
   const gridTemplatecolumns = () => {

@@ -68,7 +68,7 @@ export const Listado = (props) => {
     <div style={styles} className="animated fadeIn novedades_lista">
       <Row>
         <Col xs="12" sm="12">
-          <Card id={opcionesListado.id_a}>
+          <Card id={opcionesListado.id_a} style={{ border: "none" }}>
             <HeaderConf
               opciones={opcionesListado}
               className={"configuracion_pantalla_titulo_secundario"}
