@@ -13,6 +13,7 @@ const Tarjeta = () => {
   const styles = {
     gridColumn: opciones.grid_span ? opciones.grid_span : "1 / -1",
     border: "none",
+    marginBottom: 0,
   };
 
   const gridTemplatecolumns = () => {
@@ -32,7 +33,7 @@ const Tarjeta = () => {
         opciones={opciones}
         className="configuracion_pantalla_titulo_secundario"
       />
-      <CardBody>
+      <CardBody style={{ padding: 0 }}>
         <div
           className="tarjeta"
           style={{

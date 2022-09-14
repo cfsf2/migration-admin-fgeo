@@ -168,7 +168,7 @@ const Filtros = () => {
   const classes = useStyle();
 
   return (
-    <>
+    <div className="container_filtros">
       {filtrosVisibles > 0 ? (
         <Paper elevation="4" style={{ marginBottom: "1em" }}>
           {/* expanded true */}
@@ -225,7 +225,7 @@ const Filtros = () => {
         cancelar={filtrosVisibles > 0}
         acciones={listadoBotones}
       />
-    </>
+    </div>
   );
 };
 

@@ -220,7 +220,7 @@ function DefaultLayout(props) {
               </Col>
             </Row>
           </Container>
-          <Container fluid className="mx-1 px-1">
+          <Container fluid className="mx-1 px-0">
             <Suspense fallback={loading()}>
               <Switch>
                 {routes.map((route, idx) => {
