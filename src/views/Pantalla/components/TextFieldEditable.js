@@ -13,7 +13,7 @@ const useStyles = makeStyles({
       fontSize: "0.875rem",
     },
     "& .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root": {
-      padding: "none",
+      padding: "4px",
     },
   },
 });
