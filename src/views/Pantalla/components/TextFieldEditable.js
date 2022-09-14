@@ -10,6 +10,7 @@ const useStyles = makeStyles({
     },
     "& .MuiInputBase-inputMultiline": {
       marginLeft: "10px",
+      fontSize: "0.875rem",
     },
   },
 });
