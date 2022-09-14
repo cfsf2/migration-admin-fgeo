@@ -1,0 +1,81 @@
+.configuracion_pantalla_titulo {
+  width: 100%;
+  text-align: center;
+  background-color: #0096b3;
+  color: rgb(247, 247, 247);
+  min-height: 1.75rem;
+  //max-height: 1.5rem;
+
+  &_principal {
+    font-size: 1.3rem;
+  }
+  &_secundario {
+    font-size: 1.2rem;
+  }
+}
+
+div[id$="menu_vista"] {
+  position: absolute;
+  height: 100%;
+  top: 50%;
+  right: 0;
+  //border: solid 3px red;
+  transform: translate(0%, -50%);
+  max-height: 1.65rem;
+  width: 200px;
+  margin: 0 15px;
+  @media print {
+    display: none;
+  }
+}
+
+.flex_acciones_vista {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1.2em;
+  &_imprimir,
+  &_email,
+  &_historial,
+  &_excel,
+  &_configuracion {
+    font-size: 1.4em;
+    color: whitesmoke;
+  }
+  &_alt_imprimir,
+  &_alt_email,
+  &_alt_historial,
+  &_alt_excel,
+  &_alt_configuracion {
+    font-size: 1.4em;
+    color: #0096b3;
+  }
+}
+
+.link_historial,
+.link_historial:link,
+.link_historial:visited,
+.link_historial:hover,
+.link_historial:active {
+  color: white;
+}
+
+.pantalla-fondo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(128, 128, 128, 0.4);
+  z-index: 1000;
+}
+
+.pantalla-modal-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 650px;
+  max-width: 100%;
+  padding: 10px;
+}

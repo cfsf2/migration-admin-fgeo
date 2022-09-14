@@ -6,7 +6,6 @@ import { ALERT } from "./alertActions";
 import store from "../store/index";
 import { GET_NOVEDADES_FARMACIA } from "./publicidadesActions";
 import { GET_USUARIO } from "./userActions";
-
 export const RESET_ERROR = () => {
   return (dispatch) => {
     dispatch({ type: "RESET_ERROR" });
@@ -65,14 +64,16 @@ export const LOGIN = (user, password) => {
         }
       })
       .catch(function (error) {
+        dispatch(LOGOUT());
         dispatch({ type: "LOGIN_ERROR", error: errorParser(error) });
       });
   };
 };
 
 export const LOADPROFILE = (username, token) => {
+  console.log("LOADPROFILE");
   return (dispatch) => {
-    axios
+    return axios
       .get(farmageo_api + "/farmacias/login/" + username?.toUpperCase(), {
         headers: {
           authorization: `Bearer ${token}`,
@@ -98,6 +99,7 @@ export const LOADPROFILE = (username, token) => {
           type: "LOADPROFILE_ERROR",
           error: errorParser(error),
         });
+        console.log("No hay Login");
       });
   };
 };

@@ -7,6 +7,7 @@ import {
   GET_REQUERIMIENTOS,
   FINALIZAR_REQUERIMIENTO,
   GET_CAMPANAS,
+  GET_CAMPANAS_TODAS,
   SET_REQUERIMIENTOS_FILTRO,
 } from "../../redux/actions/campanasAction";
 
@@ -56,7 +57,7 @@ export const Requerimientos = (props) => {
     {
       nombre: "Campaña",
       campo: "id_campana",
-      opciones: props.campanasReducer.campanas.map((c) => {
+      opciones: props.campanasReducer.campanas_todas.map((c) => {
         return {
           nombre: c.nombre,
           value: c._id,
@@ -74,6 +75,7 @@ export const Requerimientos = (props) => {
 
   useEffect(() => {
     props.GET_CAMPANAS();
+    props.GET_CAMPANAS_TODAS();
   }, []);
 
   const deps = filtros.map((f) => filtroActivo[f.campo]);
@@ -107,7 +109,6 @@ export const Requerimientos = (props) => {
           ? params.get(f.campo)
           : "todas")
     );
-
     setFiltroActivo(queryfiltros);
   }, [location.search]);
 
@@ -145,6 +146,7 @@ const mapDispatchToProps = {
   GET_REQUERIMIENTOS,
   FINALIZAR_REQUERIMIENTO,
   GET_CAMPANAS,
+  GET_CAMPANAS_TODAS,
   SET_REQUERIMIENTOS_FILTRO,
 };
 

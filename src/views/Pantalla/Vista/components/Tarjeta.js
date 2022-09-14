@@ -1,0 +1,79 @@
+import React, { useContext } from "react";
+import VistaContext from "../context/VistaContext";
+import SwitchCampos from "./SwitchCampos";
+import { Card, CardBody } from "reactstrap";
+
+import "./Tarjeta.scss";
+import "./Vista.scss";
+import HeaderConf from "../../components/HeaderConf";
+
+const Tarjeta = () => {
+  const { datos, cabeceras, opciones, id } = useContext(VistaContext);
+
+  const styles = {
+    gridColumn: opciones.grid_span ? opciones.grid_span : "1 / -1",
+  };
+
+  const gridTemplatecolumns = () => {
+    if (datos.length === 1) return "repeat(12, 1fr)";
+
+    return "repeat(auto-fill, minmax(340px, 1fr)";
+  };
+
+  const gridcolumns = () => {
+    if (datos.length === 1) return "span 12";
+    return undefined;
+  };
+
+  return (
+    <Card style={styles} id={opciones.id_a} className="animated fadeIn">
+      <HeaderConf
+        opciones={opciones}
+        className="configuracion_pantalla_titulo_secundario"
+      />
+      <CardBody>
+        <div
+          className="tarjeta"
+          style={{
+            gridTemplateColumns: gridTemplatecolumns(),
+          }}
+        >
+          {datos.length === 0
+            ? `(No se recuperaron Datos del id especificado) id: ${id}`
+            : null}
+          {datos.length === 0
+            ? cabeceras.map((cab) => <SwitchCampos data={{}} cab={cab} />)
+            : datos.map((dato, indiceData) => (
+                <div
+                  style={{
+                    gridColumn: gridcolumns(),
+                  }}
+                  key={JSON.stringify(dato)}
+                  className="tarjeta_grid_item"
+                >
+                  {cabeceras
+                    .sort((a, b) => a.orden - b.orden)
+                    .map((cab, i) => (
+                      <div
+                        className="divCampo"
+                        style={{
+                          gridColumn: cab.grid_span ? cab.grid_span : "1 / -1",
+                        }}
+                      >
+                        <SwitchCampos
+                          key={cab.id_a + i}
+                          indiceData={indiceData}
+                          data={dato}
+                          cab={cab}
+                        />
+                      </div>
+                    ))}
+                </div>
+              ))}
+        </div>
+      </CardBody>
+    </Card>
+  );
+};
+
+export default Tarjeta;

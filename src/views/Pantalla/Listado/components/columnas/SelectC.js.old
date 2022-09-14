@@ -1,0 +1,28 @@
+import React, { useContext } from "react";
+import Select from "../../../../../components/Select";
+import ListadoContext from "../../context/ListadoContext";
+
+const SelectC = ({ data, cab, hijos, campokey }) => {
+  const { filtroActivo, setDatos } = useContext(ListadoContext);
+  return (
+    <div style={{ textAlign: "center" }}>
+      <Select
+        nombre={cab.nombre}
+        opciones={cab.opciones}
+        value={data[cab.nombre]}
+        onChange={(e) =>
+          cab.onChange({
+            id: data._id,
+            value: e.target.value,
+            campo: e.target.name,
+            setDatos: setDatos,
+            filter: filtroActivo,
+          })
+        }
+      />
+      {hijos}
+    </div>
+  );
+};
+
+export default SelectC;

@@ -92,9 +92,10 @@ export const Novedades = (props) => {
                     <Row>
                       <Col className="col-1"></Col>
                       <Col className="col-11">
-                        <div className="dashboard_info_descripcion">
-                          {p.descripcion}
-                        </div>
+                        <div
+                          dangerouslySetInnerHTML={{ __html: p.descripcion }}
+                          className="dashboard_info_descripcion"
+                        ></div>
                       </Col>
                     </Row>
                   </Col>

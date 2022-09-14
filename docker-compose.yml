@@ -1,8 +1,15 @@
-version: '3.7'
+version: "3.7"
 services:
-  webadmin:
-    container_name: farmageo-webadmin
+  webadminsql:
+    container_name: farmageosql-webadmin
     restart: always
-    image: farmageoadminweb:latest
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.prod
+    image: farmageoadminsql:latest
     ports:
-      - '3000:80'
+      - "3150:80"
+networks:
+  default:
+    name: fsqlnet
+    external: true

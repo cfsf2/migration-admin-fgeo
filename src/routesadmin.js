@@ -115,6 +115,8 @@ const Requerimientos = React.lazy(() =>
   import("./views/Requerimientos/Requerimientos")
 );
 
+const Pantalla = React.lazy(() => import("./views/Pantalla/Pantalla"));
+
 const routes = [
   { path: "/", exact: true, name: "", component: Dashboard, permiso: "inicio" },
   {
@@ -344,6 +346,31 @@ const routes = [
     component: PapeleraProductosPack,
     permiso: "packsdeproductos",
   },
+
+  {
+    path: "/Listado/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "campanas",
+  },
+
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "campanas",
+  },
+
+  {
+    path: "/Configuracion/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "campanas",
+  },
+  
   {
     path: "/campanas/requerimientos",
     exact: true,
@@ -351,7 +378,6 @@ const routes = [
     component: Requerimientos,
     permiso: "campanas",
   },
-
   {
     path: "/comunicadotransfers",
     exact: true,

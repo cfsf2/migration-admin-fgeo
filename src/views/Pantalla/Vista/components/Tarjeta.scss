@@ -1,0 +1,45 @@
+.tarjeta {
+  display: grid;
+  //grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.2rem;
+  padding: 0.75rem;
+  &_titulo {
+    grid-column: 1/-1;
+  }
+  &_grid_item {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    // flex-direction: column;
+    padding: 0.75rem;
+    height: auto;
+    border-radius: 0.45rem;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+      rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+      rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+
+    &_componente_campo {
+      display: flex;
+      margin: 3px 0;
+    }
+    &_label_item {
+      display: flex;
+      width:100%;
+      //margin-left: 0.5rem;
+    }
+    &_input_editable {
+      min-height: 26px;
+      width:100%;
+      border-radius: 0.225rem;
+    }
+    &_select {
+      margin-left: 4.5px;
+      width: 100%;
+    }
+  }
+}
+
+.checkbox_tarjeta {
+  font-weight: bold;
+  word-break: break-all;
+  margin-left: 5.5px;
+}

@@ -1,0 +1,106 @@
+.novedades_lista {
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    height: 2px;
+    color: blue;
+  }
+  .MuiIconButton-root {
+    &:hover {
+      background-color: rgba(32, 168, 216, 0);
+    }
+  }
+  .mostrarFilter {
+    margin-left: 1rem;
+    margin-top: 0.9rem;
+
+    @media screen and (min-width: 800px) {
+      margin-top: 0;
+    }
+    &_select {
+      min-width: 286px;
+      @media screen and (min-width: 800px) {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+  }
+  [class*="MTableToolbar-spacer"] {
+    display: none;
+  }
+  [class*="MTableToolbar-searchField"] {
+    align-self: flex-start;
+    margin: 0.7rem;
+  }
+  [class*="MTableToolbar-actions"] {
+    align-self: flex-start;
+    > div > div {
+      > span {
+        display: grid;
+        margin-top: 1rem;
+        @media screen and (min-width: 800px) {
+          grid-template-columns: 1fr 1fr 1fr;
+          width: 100%;
+          margin-top: 1rem;
+        }
+        @media screen and (min-width: 1100px) {
+          grid-template-columns: 1fr 1fr 1fr;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+  [class*="MTableToolbar-searchField"] {
+    padding-left: 0;
+    top: 3px;
+    width: 50%;
+  }
+  .MuiToolbar-root {
+    @media screen and (max-width: 1100px) {
+      flex-direction: column;
+    }
+  }
+  .MuiToolbar-gutters {
+    padding: 0;
+    padding-top: 0rem;
+    margin-bottom: 0rem;
+    justify-content: flex-end;
+    
+  }
+}
+
+.listado-desaparecer {
+  animation-name: desaparecer;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+}
+
+@keyframes desaparecer {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
+
+#Listado_Switch_Enlace{
+  padding: 0.5rem 0.8rem;
+  border-radius: 15px;
+  margin: 0.2rem;
+  background-color: lightgray;
+  
+
+a{
+    text-decoration: none;
+    color:rgb(79, 79, 79);
+  }
+  
+  &:hover{
+    background-color: lightblue;
+    a{color:black}
+    cursor: pointer;
+  }
+}
