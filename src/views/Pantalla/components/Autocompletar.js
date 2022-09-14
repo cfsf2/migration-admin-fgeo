@@ -30,6 +30,11 @@ const useStyles = makeStyles({
       fontSize: "0.875rem",
     },
   },
+  input: {
+    "& .css-1pysi21-MuiFormLabel-root-MuiInputLabel-root": {
+      fontSize: "0.875rem",
+    },
+  },
 });
 
 const LISTBOX_PADDING = 8; // px
@@ -215,7 +220,11 @@ export default function Virtualize({
           return option.label[0].toUpperCase();
         }}
         renderInput={(params) => (
-          <TextField {...params} label={cab.placeholder} />
+          <TextField
+            {...params}
+            label={cab.placeholder}
+            className={classes.input}
+          />
         )}
         renderOption={(props, option) => [props, option.label]}
         // TODO: Post React 18 update - validate this conversion, look like a hidden bug
