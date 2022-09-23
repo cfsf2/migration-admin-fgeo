@@ -1,18 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  FormGroup,
-  Input,
-  CardImg,
-  Label,
-  CardFooter,
-} from "reactstrap";
+
+import { Col, Row } from "reactstrap";
 
 import { connect } from "react-redux";
 import LaboratorioSelect from "./components/LaboratorioSelect";
@@ -23,7 +11,6 @@ import {
   CLEAN_PRODUCTOS,
 } from "../../../redux/actions/transfersActions";
 import ButtonHome from "../../Dashboard/components/ButtonHome";
-import Checkout from "./components/Checkout";
 
 class NuevoTransfer extends Component {
   componentDidMount() {
@@ -35,7 +22,11 @@ class NuevoTransfer extends Component {
     const { laboratorios } = this.props.tranfersReducer;
     return (
       <>
-        <div className="animated fadeIn" style={{ margin: 30, marginBottom: 0, padding: 30, paddingBottom: 5 }}>
+        <h1>NuevoTransfer.js</h1>
+        <div
+          className="animated fadeIn"
+          style={{ margin: 30, marginBottom: 0, padding: 30, paddingBottom: 5 }}
+        >
           <Row style={{ marginBottom: 30 }}>
             <Col>
               <ButtonHome
@@ -50,7 +41,7 @@ class NuevoTransfer extends Component {
           </Row>
           <Row>
             {laboratorios.map((lab, index) => {
-              return lab.habilitado && lab.transfer_farmageo ? (
+              return lab.habilitado === "s" && lab.transfer_farmageo === "s" ? (
                 <LaboratorioSelect laboratorio={lab} key={index} />
               ) : null;
             })}
@@ -66,7 +57,7 @@ class NuevoTransfer extends Component {
             marginLeft: 30,
             marginRight: 30,
             padding: 30,
-            paddingBottom: 5
+            paddingBottom: 5,
           }}
         >
           <Row style={{ marginBottom: 30 }}>
@@ -83,7 +74,7 @@ class NuevoTransfer extends Component {
           </Row>
           <Row>
             {laboratorios.map((lab, index) => {
-              return lab.habilitado && !lab.transfer_farmageo ? (
+              return lab.habilitado === "s" && lab.transfer_farmageo === "n" ? (
                 <LaboratorioSelect laboratorio={lab} key={index} />
               ) : null;
             })}
