@@ -30,6 +30,9 @@ const InfoInteres = React.lazy(() =>
 const Mutual = React.lazy(() => import("./views/Publicidades/Mutual"));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 
+//****************** CONFIGURACIONES ************************************/
+const Pantalla = React.lazy(() => import("./views/Pantalla/Pantalla"));
+
 //*********TRANSFERS */
 const NuevoTransfer = React.lazy(() =>
   import("./views/Transfers/Farmacia/NuevoTranfer")
@@ -173,6 +176,13 @@ const routes = [
     path: "/pdf",
     name: "DisplayPDF",
     component: DisplayPDF,
+  },
+  {
+    path: "/Pantalla/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "inicio",
   },
 
   /*

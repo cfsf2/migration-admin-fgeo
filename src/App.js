@@ -1,8 +1,59 @@
-import React, { Component } from "react";
-import { HashRouter, Route, Switch, useLocation } from "react-router-dom";
+import React from "react";
+import { HashRouter, Route, Switch } from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
 import "./App.scss";
 import GestorCampanas from "./views/gestorCampanas/GestorCampanas";
+
+import store from "./redux/store/index";
+import { LOGOUT } from "./redux/actions/authActions";
+import { ALERT } from "./redux/actions/alertActions";
+import axios from "axios";
+
+axios.interceptors.request.use((request) => {
+  request.headers.authorization = `Bearer ${window.localStorage.getItem(
+    "token"
+  )}`;
+  return request;
+});
+
+axios.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    switch (err.response.status) {
+      case 401:
+        // alert("Denegado: No tiene permiso para realizar esta accion");
+        store.dispatch(
+          ALERT(
+            "ACCESO DENEGADO",
+            "Usted no tiene acceso suficiente. Consulte con su administrador.",
+            "error",
+            "OK"
+          ).finally(() => {
+            window.location = process.env.PUBLIC_URL;
+          })
+        );
+
+        break;
+      case 440:
+        //alert("Su sesion ha expirado, debe loguearse de nuevo");
+        store.dispatch(
+          ALERT(
+            "SESION EXPIRADA",
+            "Su sesion ha expirado debe loguearse nuevamente",
+            "error",
+            "OK"
+          ).finally(() => {
+            store.dispatch(LOGOUT());
+          })
+        );
+        break;
+      default:
+        break;
+    }
+
+    return err.response;
+  }
+);
 
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Cargando...</div>

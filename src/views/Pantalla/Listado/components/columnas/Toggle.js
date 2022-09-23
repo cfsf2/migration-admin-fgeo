@@ -71,6 +71,7 @@ const Toggle = ({ data, cab, campokey, key, indiceData }) => {
     setValue(data[campokey]);
     setUpdate_id(data[cab.update_id_alias]);
   }, [configuraciones_ref[cab.id_a]]);
+
   return (
     <div
       key={key}

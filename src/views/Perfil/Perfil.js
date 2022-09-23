@@ -19,6 +19,8 @@ import MapContainer from "../../components/MapContainer";
 import DisplayImage from "../../components/DisplayImage";
 import VentaOnlineSelect from "../Dashboard/components/VentaOnlineSelect";
 
+import { Link } from "react-router-dom";
+
 class Perfil extends Component {
   constructor(props) {
     super(props);
@@ -378,6 +380,12 @@ class Perfil extends Component {
             </Card>
           </Col>
         </Row>
+        <Card>
+          <CardBody>
+            <Link to="/Pantalla/PANTALLA_ALALA">Link</Link>
+          </CardBody>
+        </Card>
+
         <Row>
           <Col xs="12" md="6">
             <Card>

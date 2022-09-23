@@ -368,9 +368,9 @@ const routes = [
     exact: true,
     name: "Listado",
     component: Pantalla,
-    permiso: "campanas",
+    permiso: "inicio",
   },
-  
+
   {
     path: "/campanas/requerimientos",
     exact: true,
