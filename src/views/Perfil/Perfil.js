@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   Button,
   Card,
@@ -10,6 +10,7 @@ import {
   Input,
   Label,
   Row,
+  Tooltip,
 } from "reactstrap";
 import { connect } from "react-redux";
 // import { GET_USUARIO } from '../../redux/actions/userActions'
@@ -26,6 +27,7 @@ class Perfil extends Component {
     super(props);
     this.state = {
       farmaciaProfile: null,
+      tooltipOpen: false
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleEditProfile = this.handleEditProfile.bind(this);
@@ -253,6 +255,26 @@ class Perfil extends Component {
                           />
                         </CardBody>
                       </Card>
+                      <div style={{ textAlign: "center" }}>
+                        <Button color="info" id="button_nro_drogueria">
+                          <Link
+                            to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA"
+                            style={{ color: "white", textDecoration: "none" }}
+                          >
+                            Número de cuenta de drogueria
+                          </Link>
+                        </Button>
+                        <Tooltip
+                          isOpen={this.state.tooltipOpen}
+                          placement="right"
+                          target="button_nro_drogueria"
+                          toggle={() => {
+                            this.setState({ tooltipOpen: !this.state.tooltipOpen })
+                          }}
+                        >
+                          Acá ponemos info de porque tiene que hacer click y completar la data
+                        </Tooltip>
+                      </div>
                     </FormGroup>
                   </Col>
                 </Row>
@@ -380,11 +402,6 @@ class Perfil extends Component {
             </Card>
           </Col>
         </Row>
-        <Card>
-          <CardBody>
-            <Link to="/Pantalla/PANTALLA_ALALA">Link</Link>
-          </CardBody>
-        </Card>
 
         <Row>
           <Col xs="12" md="6">
