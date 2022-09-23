@@ -22,7 +22,6 @@ class NuevoTransfer extends Component {
     const { laboratorios } = this.props.tranfersReducer;
     return (
       <>
-        <h1>NuevoTransfer.js</h1>
         <div
           className="animated fadeIn"
           style={{ margin: 30, marginBottom: 0, padding: 30, paddingBottom: 5 }}

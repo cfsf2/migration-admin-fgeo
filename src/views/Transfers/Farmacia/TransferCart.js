@@ -42,7 +42,7 @@ const Cart = (props) => {
           </Card>
         </>
       );
-      break;
+
     case 1:
       return (
         <>
@@ -54,7 +54,7 @@ const Cart = (props) => {
           </Card>
         </>
       );
-      break;
+
     default:
       break;
   }

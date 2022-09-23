@@ -147,6 +147,7 @@ export function ListadoProductos(props) {
         ) : null}
         {showProducts.map((producto) => {
           return (
+            //***** Linea de Listado ****/
             <div key={producto._id} className="transfer_lista_item">
               <div
                 style={{
@@ -156,14 +157,17 @@ export function ListadoProductos(props) {
                   marginBottom: "10px",
                 }}
               >
-                {laboratorios.filter(
-                  (lab) => lab._id === producto.laboratorioid
-                )[0]?.imagen ? (
+                {laboratorios.filter((lab) => {
+                  // return lab._id === producto.laboratorioid;
+                  return lab.id === producto.id_laboratorio;
+                })[0]?.imagen ? (
                   <img
+                    alt={producto.nombre}
                     src={
                       image_path_server +
                       laboratorios.filter(
-                        (lab) => lab._id === producto.laboratorioid
+                        // (lab) => lab._id === producto.laboratorioid
+                        (lab) => lab.id === producto.id_laboratorio
                       )[0]?.imagen
                     }
                     className="transfer_lista_item_imagen"
@@ -172,12 +176,13 @@ export function ListadoProductos(props) {
                 <p>
                   {
                     laboratorios.filter(
-                      (lab) => lab._id === producto.laboratorioid
+                      //(lab) => lab._id === producto.laboratorioid
+                      (lab) => lab.id === producto.id_laboratorio
                     )[0]?.nombre
                   }
                 </p>
               </div>
-              <Item key={producto._id} producto={producto} />
+              <Item key={producto.id} producto={producto} />
             </div>
           );
         })}

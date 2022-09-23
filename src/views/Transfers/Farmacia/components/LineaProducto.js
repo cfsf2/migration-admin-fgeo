@@ -10,7 +10,7 @@ import {
   Input,
   CardImg,
   Label,
-  CardFooter
+  CardFooter,
 } from "reactstrap";
 
 import { image_path_server } from "../../../../config";
@@ -24,8 +24,8 @@ class LineaProducto extends Component {
         codigo_producto: this.props.prod.codigo,
         cantidad: "",
         observacion: "",
-        nombre: this.props.prod.nombre + "  " + this.props.prod.presentacion
-      }
+        nombre: this.props.prod.nombre + "  " + this.props.prod.presentacion,
+      },
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -35,7 +35,7 @@ class LineaProducto extends Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     await this.setState({
-      linea: { ...this.state.linea, [name]: value }
+      linea: { ...this.state.linea, [name]: value },
     });
 
     this.props.handleLineaChange(
@@ -61,7 +61,7 @@ class LineaProducto extends Component {
               }
               style={{
                 backgroundColor: "#ffffff",
-                width: 80
+                width: 80,
               }}
             />
           </td>
@@ -80,7 +80,7 @@ class LineaProducto extends Component {
                     this.state.linea.cantidad != ""
                     ? "#ff00002e"
                     : null
-                  : null
+                  : null,
               }}
             />
           </td>
@@ -119,11 +119,11 @@ class LineaProducto extends Component {
               }
               style={{
                 backgroundColor: "#ffffff",
-                width: 80
+                width: 80,
               }}
             />
           </td>
-          <td></td>
+
           <td>{prod.descuento_porcentaje}</td>
 
           <td>
