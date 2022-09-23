@@ -47,6 +47,15 @@ axios.interceptors.response.use(
           })
         );
         break;
+      case 404:
+        console.log("404");
+
+        return window.location.replace(`${process.env.PUBLIC_URL}/#/404`);
+
+      case 500:
+        console.log("500");
+
+        return window.location.replace(`${process.env.PUBLIC_URL}/#/500`);
       default:
         break;
     }
