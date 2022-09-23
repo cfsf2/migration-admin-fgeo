@@ -266,13 +266,13 @@ class Perfil extends Component {
                         </Button>
                         <Tooltip
                           isOpen={this.state.tooltipOpen}
-                          placement="right"
+                          placement="bottom"
                           target="button_nro_drogueria"
                           toggle={() => {
                             this.setState({ tooltipOpen: !this.state.tooltipOpen })
                           }}
                         >
-                          Acá ponemos info de porque tiene que hacer click y completar la data
+                          Complete aquí los datos requeridos para realizar transfers de manera satisfactoria
                         </Tooltip>
                       </div>
                     </FormGroup>
