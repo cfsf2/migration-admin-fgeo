@@ -53,9 +53,19 @@ axios.interceptors.response.use(
         return window.location.replace(`${process.env.PUBLIC_URL}/#/404`);
 
       case 500:
-        console.log("500");
+        console.log("500", err.response);
+        return store.dispatch(
+          ALERT(
+            "Ha Ocurrido un Error",
+            "consulte con el administrador",
+            "error",
+            "Volver a Log In"
+          ).finally(() => {
+            store.dispatch(LOGOUT());
+          })
+        );
 
-        return window.location.replace(`${process.env.PUBLIC_URL}/#/500`);
+      // return window.location.replace(`${process.env.PUBLIC_URL}/#/500`);
       default:
         break;
     }

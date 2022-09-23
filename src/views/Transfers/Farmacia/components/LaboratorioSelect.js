@@ -24,10 +24,13 @@ class LaboratorioSelect extends Component {
           href={
             this.props.laboratorio.transfer_farmageo
               ? process.env.PUBLIC_URL +
-                `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`
+                //  `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`
+                `/#/FinalizarTransfer?l=${this.props.laboratorio.id}`
               : this.props.laboratorio.url
           }
-          target={!this.props.laboratorio.transfer_farmageo ? "_blank" : null}
+          target={
+            this.props.laboratorio.transfer_farmageo === "n" ? "_blank" : null
+          }
           // className="btn btn-light"
           onClick={() => {
             this.props.GET_PRODUCTOS_TRANSFERS_BY_LAB(this.props.laboratorio);
@@ -61,20 +64,6 @@ class LaboratorioSelect extends Component {
               alt={this.props.laboratorio.nombre}
             />
           </div>
-
-          {/* <div
-            style={{
-              padding: "3px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              maxWidth: "150px",
-              background: "aliceblue",
-              whiteSpace: "normal",
-            }}
-          >
-            {this.props.laboratorio.nombre}
-          </div> */}
         </a>
       </Col>
     );
