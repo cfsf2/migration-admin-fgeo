@@ -9,19 +9,15 @@ const SelectDrogueria = ({
   laboratorio,
 }) => {
   useEffect(() => {
-    console.log(
-      farmacia.nro_cuenta_laboratorio.find(
-        (l) => l.laboratorio.id === laboratorio.id
-      )
-    );
     handleInputNroCuenta({
       target: {
         value: farmacia.nro_cuenta_laboratorio.find(
           (l) => l.laboratorio.id === laboratorio.id
         ).nro_cuenta,
+        name: "nro_cuenta_drogueria",
       },
     });
-  }, []);
+  }, [farmacia.nro_cuenta_laboratorio, handleInputNroCuenta, laboratorio]);
   return (
     <>
       <Col md="3" xs="12">

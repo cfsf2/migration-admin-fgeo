@@ -35,15 +35,16 @@ class FinalizarTransfer extends Component {
       finalizar: false,
       vistaprevia: false,
       submitting: false,
-      lab_selected: null,
+      lab_selected: {},
     };
-    // this.handleInputChange = this.handleInputChange.bind(this);
+
     this.handlequery = this.handlequery.bind(this);
     this.handleInputNroCuenta = this.handleInputNroCuenta.bind(this);
   }
 
   handleInputNroCuenta(e) {
-    if (this.lab_selected.permite_nro_cuenta === "n") {
+    console.log(e.target.value);
+    if (this.state.lab_selected.permite_nro_cuenta === "n") {
       this.setState({
         transfer: { ...this.state.transfer, [e.name]: e.target.value },
       });
@@ -60,9 +61,9 @@ class FinalizarTransfer extends Component {
         },
       });
     }
-    if (this.lab_selected?.permite_nro_cuenta === "s") {
+    if (this.state.lab_selected.permite_nro_cuenta === "s") {
       this.setState({
-        transfer: { ...this.state.transfer, [e.name]: e.target.value },
+        transfer: { ...this.state.transfer, [e.target.name]: e.target.value },
       });
     }
   }
@@ -73,9 +74,18 @@ class FinalizarTransfer extends Component {
 
   async componentDidMount() {
     var laboratorio = this.handlequery().get("l");
+
     if (this.props.tranfersReducer.laboratorios.length === 0) {
       this.props.GET_LABORATORIOS();
     }
+
+    if (laboratorio) {
+      const lab_local = this.props.tranfersReducer.laboratorios.find(
+        (l) => l.id.toString() === laboratorio.toString()
+      );
+      this.props.SET_LABORATORIO_SELECTED(lab_local);
+    }
+
     if (laboratorio) {
       try {
         const result = await axios.get(
