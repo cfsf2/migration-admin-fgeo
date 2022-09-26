@@ -62,6 +62,7 @@ axios.interceptors.response.use(
             "Volver a Log In"
           ).finally(() => {
             store.dispatch(LOGOUT());
+            window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
           })
         );
 

@@ -383,23 +383,6 @@ class FinalizarTransfer extends Component {
         <Card>
           <CardBody>
             <Row style={{ color: "#20a8d8", fontSize: 18 }}>
-              {/* <Col md="3" xs="12">
-                <FormGroup>
-                  <Label>Fecha del transfer</Label>
-                  <Input
-                    type="date"
-                    name="fecha"
-                    defaultValue={null}
-                    value={
-                      this.state.transfer
-                        ? this.state.transfer.fecha
-                        : undefined
-                    }
-                    onChange={this.handleInputChange}
-                  />
-                </FormGroup>
-              </Col> */}
-
               <Col md="4" xs="12">
                 <FormGroup>
                   <Label>Elegir Droguería</Label>
@@ -461,52 +444,6 @@ class FinalizarTransfer extends Component {
               history={this.props.history}
             />
           </CardBody>
-          <div>
-            {/* <CardFooter>
-            <Row>
-              <Col>
-                {this.state.finalizar ? (
-                  <Fragment key={new Date()}>
-                    <Button
-                      onClick={() => {
-                        this.handleFiltroFinalizar(false);
-                        this.handleVistaPrevia(false);
-                        //this.handleLimpiarProductos();
-                      }}
-                      className="btn btn-info"
-                    >
-                      Volver
-                    </Button>
-
-                    <Button
-                      onClick={this.handleSubmit}
-                      className="btn btn-success"
-                      disabled={
-                        this.state.transfer == null ||
-                        this.state.transfer.drogueria_id == undefined ||
-                        this.state.submitting
-                      }
-                      style={{ marginLeft: 5 }}
-                    >
-                      Confirmar
-                    </Button>
-                  </Fragment>
-                ) : (
-                  <Button
-                    onClick={() => {
-                      this.handleFiltroFinalizar(true);
-                    }}
-                    className="btn btn-success"
-                    disabled={this.state.productos.length < 1}
-                  >
-                    Siguiente
-                  </Button>
-                )}
-              </Col>
-              <Col></Col>
-            </Row>
-          </CardFooter> */}
-          </div>
         </Card>
       </div>
     );

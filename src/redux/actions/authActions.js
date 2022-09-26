@@ -1,7 +1,7 @@
 import axios from "axios";
 import { errorParser } from "../../helpers/errorHelper";
-import { wp_api, farmageo_api, wp_api_auth } from "../../config";
-import { GET_ALL_PEDIDOS_ADMIN, GET_PEDIDOS } from "./pedidosActions";
+import { farmageo_api } from "../../config";
+import { GET_PEDIDOS } from "./pedidosActions";
 import { ALERT } from "./alertActions";
 import store from "../store/index";
 import { GET_NOVEDADES_FARMACIA } from "./publicidadesActions";

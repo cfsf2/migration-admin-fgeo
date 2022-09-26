@@ -34,8 +34,6 @@ import { LOADPROFILE } from "../../redux/actions/authActions";
 import { Filtrar_Sin_Venta_Online } from "../../helpers/NavHelper";
 import { ValidarPerfil } from "../../helpers/Validaciones";
 
-import axios from "axios";
-
 const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
@@ -45,7 +43,7 @@ function DefaultLayout(props) {
   const [routes, setRoutes] = useState(routesdefault);
   const [userprofile, setUserProfile] = useState(props.authReducer);
   const dispatch = useDispatch();
-  const history = useHistory();
+
   function loading() {
     return <div className="animated fadeIn pt-1 text-center">Cargando...</div>;
   }
