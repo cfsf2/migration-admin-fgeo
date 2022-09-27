@@ -79,7 +79,6 @@
     "test:cov": "npm test -- --coverage --watchAll=false",
     "test:debug": "react-scripts --inspect-brk test --runInBand",
     "eject": "react-scripts eject",
-    "postbuild": "rm -R ../public_html/static && mv build/* ../public_html/"
   },
   "bugs": {
     "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
