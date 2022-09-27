@@ -22,7 +22,7 @@ const SelectDrogueria = ({ transfer, handleInputNroCuenta, farmacia }) => {
 
           <Input
             type="select"
-            name="drogueria_id"
+            name="id_drogueria"
             value={transfer ? transfer.drogueria_nombre : undefined}
             onChange={handleInputNroCuenta}
           >

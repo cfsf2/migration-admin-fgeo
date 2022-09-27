@@ -76,6 +76,7 @@ function TransferCart(props) {
       ...transfer,
       productos_solicitados: pedido,
       laboratorio_id: lab_selected.nombre,
+      id_laboratorio: lab_selected.id,
     };
 
     props.ADD_TRANSFER(transfer, history);

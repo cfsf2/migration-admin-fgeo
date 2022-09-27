@@ -43,18 +43,16 @@ class FinalizarTransfer extends Component {
   }
 
   handleInputNroCuenta(e) {
-    console.log(e.target.value);
     if (this.state.lab_selected.permite_nro_cuenta === "n") {
-      this.setState({
-        transfer: { ...this.state.transfer, [e.name]: e.target.value },
-      });
       const nro_cuenta_drogueria =
         this.props.farmaciaReducer.farmacia.nro_cuenta_drogueria.find(
           (cta) => cta.id_drogueria.toString() === e.target.value.toString()
         );
+
       this.setState({
         transfer: {
           ...this.state.transfer,
+          [e.target.name]: e.target.value,
           nro_cuenta_drogueria: nro_cuenta_drogueria
             ? nro_cuenta_drogueria.nro_cuenta
             : "",

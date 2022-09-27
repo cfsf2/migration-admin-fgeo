@@ -8,18 +8,25 @@ export default function Barra(props) {
 
   const handleClick = () => {
     if (
-      props.transfer.drogueria_id &&
-      props.transfer.nro_cuenta_drogueria &&
-      props.transfer.nro_cuenta_drogueria.trim() !== "" &&
-      props.transfer.drogueria_id.trim() !== ""
+      !props.transfer.nro_cuenta_drogueria ||
+      props.transfer.nro_cuenta_drogueria.toString().trim() === ""
     ) {
-      setConfirm(() => true);
-      setTimeout(() => {
-        setConfirm((state) => !state);
-      }, 3000);
+      alert("Nro de Cuenta es un campo Obligatorio");
       return;
     }
-    alert("Drogueria y su Nro de Cuenta son campos Obligatorios");
+
+    if (props.tranfersReducer.lab_selected.permite_nro_cuenta === "n") {
+      if (
+        !props.transfer.id_drogueria ||
+        props.transfer.id_drogueria.trim() === ""
+      )
+        return alert("Drogueria es un campo Obligatorio");
+    }
+
+    setConfirm(() => true);
+    setTimeout(() => {
+      setConfirm((state) => !state);
+    }, 3000);
   };
 
   const handleSubmit = async () => {

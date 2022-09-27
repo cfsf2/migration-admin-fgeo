@@ -1,17 +1,5 @@
-import React, { Component, Fragment } from "react";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  FormGroup,
-  Input,
-  CardImg,
-  Label,
-  CardFooter,
-} from "reactstrap";
+import React, { Component } from "react";
+import { Col } from "reactstrap";
 
 import { connect } from "react-redux";
 import { GET_PRODUCTOS_TRANSFERS_BY_LAB } from "../../../../redux/actions/transfersActions";
