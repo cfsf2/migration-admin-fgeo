@@ -31,7 +31,7 @@ export const LOGIN = (user, password) => {
         password: password,
       })
       .then(function (response) {
-        if (response.data.statusCode == 500) {
+        if (response.status == 500) {
           ALERT(
             "Error",
             "Usuario y/o contraseña incorrectos",
@@ -39,10 +39,11 @@ export const LOGIN = (user, password) => {
             "OK"
           ).then(() => {
             store.dispatch(LOGOUT());
-            window.location = process.env.PUBLIC_URL;
+            window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
           });
         }
-        if (response.data.statusCode < 300) {
+        if (parseInt(response.status) < 300) {
+          console.log("localstorage set");
           dispatch({ type: "authenticated", payload: user });
           dispatch({ type: "LOGIN_OK", payload: response.data });
           dispatch({ type: "GET_USER_ROLES" });
@@ -60,19 +61,29 @@ export const LOGIN = (user, password) => {
           if (response.data.user_rol.includes("admin")) {
             //dispatch(GET_ALL_PEDIDOS_ADMIN(response.data.token));
           } else {
+            console.log("despachando loadprofile");
             dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }
         }
       })
       .catch(function (error) {
+        ALERT(
+          "Error",
+          "Usuario y/o contraseña incorrectos",
+          "error",
+          "OK"
+        ).then(() => {
+          store.dispatch(LOGOUT());
+          window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
+        });
         dispatch(LOGOUT());
         dispatch({ type: "LOGIN_ERROR", error: errorParser(error) });
+        return window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
       });
   };
 };
 
 export const LOADPROFILE = (username, token) => {
-  console.log("LOADPROFILE");
   return (dispatch) => {
     return axios
       .get(farmageo_api + "/farmacias/login/" + username?.toUpperCase(), {

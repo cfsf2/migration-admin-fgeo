@@ -1,6 +1,6 @@
 import React, { Suspense, useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { useDispatch, useSelector, connect } from "react-redux";
+import { Route, Switch, useHistory, Redirect } from "react-router-dom";
 import * as router from "react-router-dom";
 import { Container, Col, Row } from "reactstrap";
 
@@ -29,7 +29,6 @@ import routesfarmacias from "../../routes";
 import routesadmin from "../../routesadmin";
 import routesdefault from "../../routesdefault";
 
-import { useDispatch } from "react-redux";
 import { LOADPROFILE } from "../../redux/actions/authActions";
 
 import { Filtrar_Sin_Venta_Online } from "../../helpers/NavHelper";
@@ -114,7 +113,34 @@ function DefaultLayout(props) {
       />
     ) : null;
   }
+  async function componentDidMount() {
+    const { IS_ADMIN, IS_FARMACIA } = props.user;
 
+    if (IS_ADMIN) {
+      let allowedNav = { items: [] };
+      let allowedRoutes;
+      allowedNav.items = nav_admin.items.filter((route) => {
+        return props.user.permisos.some((per) => route.permiso === per);
+      });
+      allowedRoutes = routesadmin.filter((route) => {
+        return props.user.permisos.some((per) => {
+          return route.permiso === per;
+        });
+      });
+
+      setNavigation(allowedNav);
+      setRoutes(allowedRoutes);
+    } else if (IS_FARMACIA) {
+      var _nav_farmacia = Filtrar_Sin_Venta_Online(nav_farmacia, userprofile);
+
+      setNavigation(_nav_farmacia);
+      setRoutes(routesfarmacias);
+    } else {
+      setNavigation({ navigation: nav_default, routes: routesdefault });
+      setNavigation(nav_default);
+      setRoutes(routesdefault);
+    }
+  }
   useEffect(() => {
     if (localStorage.authenticated === "true") {
       props.LOADPROFILE(
@@ -129,36 +155,10 @@ function DefaultLayout(props) {
 
       componentDidMount();
     }
-    async function componentDidMount() {
-      const { IS_ADMIN, IS_FARMACIA } = props.user;
-
-      if (IS_ADMIN) {
-        let allowedNav = { items: [] };
-        let allowedRoutes;
-        allowedNav.items = nav_admin.items.filter((route) => {
-          return props.user.permisos.some((per) => route.permiso === per);
-        });
-        allowedRoutes = routesadmin.filter((route) => {
-          return props.user.permisos.some((per) => {
-            return route.permiso === per;
-          });
-        });
-
-        setNavigation(allowedNav);
-        setRoutes(allowedRoutes);
-      } else if (IS_FARMACIA) {
-        var _nav_farmacia = Filtrar_Sin_Venta_Online(nav_farmacia, userprofile);
-
-        setNavigation(_nav_farmacia);
-        setRoutes(routesfarmacias);
-      } else {
-        setNavigation({ navigation: nav_default, routes: routesdefault });
-        setNavigation(nav_default);
-        setRoutes(routesdefault);
-      }
-    }
   }, [props.user.IS_ADMIN, props.user.IS_FARMACIA, localStorage.authenticated]);
 
+  const islogin = useSelector((state) => state.authReducer.user.islogin);
+  if (!islogin) return <Redirect to="/login" />;
   return (
     <div className="app">
       <AppHeader fixed>
