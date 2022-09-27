@@ -142,7 +142,7 @@ const Login = (props) => {
 
   if (islogin) {
     // console.log("username " + username) !!localStorage.getItem("authenticated")
-    console.log("esta autenticado");
+
     dispatch(LOADPROFILE(username, window.localStorage.getItem("token")));
     return <Redirect to="/dashboard"></Redirect>;
   } else {

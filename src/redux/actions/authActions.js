@@ -43,7 +43,6 @@ export const LOGIN = (user, password) => {
           });
         }
         if (parseInt(response.status) < 300) {
-          console.log("localstorage set");
           dispatch({ type: "authenticated", payload: user });
           dispatch({ type: "LOGIN_OK", payload: response.data });
           dispatch({ type: "GET_USER_ROLES" });
@@ -61,7 +60,6 @@ export const LOGIN = (user, password) => {
           if (response.data.user_rol.includes("admin")) {
             //dispatch(GET_ALL_PEDIDOS_ADMIN(response.data.token));
           } else {
-            console.log("despachando loadprofile");
             dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }
         }
