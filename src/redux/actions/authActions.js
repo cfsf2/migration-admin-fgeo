@@ -41,7 +41,8 @@ export const LOGIN = (user, password) => {
             store.dispatch(LOGOUT());
             window.location = process.env.PUBLIC_URL;
           });
-        } else {
+        }
+        if (response.data.statusCode < 300) {
           dispatch({ type: "authenticated", payload: user });
           dispatch({ type: "LOGIN_OK", payload: response.data });
           dispatch({ type: "GET_USER_ROLES" });
