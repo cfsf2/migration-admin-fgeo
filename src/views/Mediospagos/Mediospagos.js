@@ -197,7 +197,7 @@ class Mediospagos extends Component {
           </Row>
         <Row>
           <Col>
-            <Button style={{float:"right", backgroundColor:'#00D579', color:'white'}} onClick={this.handleEditProfile}>Guardar</Button>
+            <Button style={{float:"right", backgroundColor:'#00D579', color:'white', marginRight: "20px"}} onClick={this.handleEditProfile}>Guardar</Button>
           </Col>
         </Row>
       </div>
