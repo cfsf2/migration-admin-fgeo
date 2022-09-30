@@ -44,7 +44,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData }) => {
 
   const Componente = () => {
     switch (cab.componente) {
-      case undefined:
+      case undefined || "columna_simple":
         return (
           <Default
             key={cab.id_a}

@@ -110,8 +110,6 @@ function DefaultLayout(props) {
     }
   }, [props.user.IS_ADMIN, props.user.IS_FARMACIA, localStorage.authenticated]);
 
-  const islogin = useSelector((state) => state.authReducer.user.islogin);
-  if (!islogin) return <Redirect to="/login" />;
   return (
     <div className="app">
       <AppHeader fixed>

@@ -43,7 +43,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData }) => {
             indiceData={indiceData}
           />
         );
-      case "":
+      case "" || "columna_simple":
         return (
           <Default
             key={cab.id_a}
