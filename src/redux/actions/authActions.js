@@ -6,10 +6,22 @@ import { ALERT } from "./alertActions";
 import store from "../store/index";
 import { GET_NOVEDADES_FARMACIA } from "./publicidadesActions";
 import { GET_USUARIO } from "./userActions";
+
 export const RESET_ERROR = () => {
   return (dispatch) => {
     dispatch({ type: "RESET_ERROR" });
   };
+};
+
+export const CHECK_TOKEN = async () => {
+  return (dispatch) =>
+    axios.post(farmageo_api + "/checkToken").then((res) => {
+      console.log(res);
+      if (res.status > 300) {
+        dispatch(LOGOUT());
+      }
+      return res;
+    });
 };
 
 export const TRYREGISTER = (body) => {
@@ -23,6 +35,7 @@ export const TRYREGISTER = (body) => {
       .then((r) => alert(JSON.stringify(r.data)));
   };
 };
+
 export const LOGIN = (user, password) => {
   return (dispatch) => {
     axios

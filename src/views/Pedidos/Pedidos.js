@@ -58,7 +58,7 @@ class Pedidos extends Component {
     const target = event.nativeEvent.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    await this.setState({
+    this.setState({
       pedido: {
         ...this.state.pedido,
         [name]: value,
@@ -70,7 +70,7 @@ class Pedidos extends Component {
     const target = event.nativeEvent.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    await this.setState({
+    this.setState({
       pedido: {
         ...this.state.pedido,
         gruposproductos: this.state.pedido.gruposproductos.map((p) => {
@@ -111,7 +111,7 @@ class Pedidos extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.loading
+                    {this.state.loading && Array.isArray(mis_pedidos)
                       ? "Cargando..."
                       : mis_pedidos.map((p, index) => {
                           return (

@@ -14,6 +14,8 @@ import {
   LOADPROFILE,
   RESET_ERROR,
   TRYREGISTER,
+  CHECK_TOKEN,
+  LOGOUT,
 } from "../../../redux/actions/authActions";
 import { Redirect } from "react-router-dom";
 import { GET_SESSION } from "../../../redux/actions/authActions";
@@ -142,9 +144,15 @@ const Login = (props) => {
 
   if (islogin) {
     // console.log("username " + username) !!localStorage.getItem("authenticated")
+    try {
+      dispatch(CHECK_TOKEN());
+      dispatch(LOADPROFILE(username, window.localStorage.getItem("token")));
 
-    dispatch(LOADPROFILE(username, window.localStorage.getItem("token")));
-    return <Redirect to="/dashboard"></Redirect>;
+      return <Redirect to="/dashboard"></Redirect>;
+    } catch (err) {
+      console.log(err);
+      return dispatch(LOGOUT());
+    }
   } else {
     //esto habrìa que correrlo
     dispatch(GET_SESSION());

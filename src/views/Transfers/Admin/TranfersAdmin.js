@@ -176,13 +176,10 @@ class TransfersAdmin extends Component {
                                                           {linea.cantidad}
                                                         </td>
                                                         <td>
-                                                          {
-                                                            linea._id
-                                                              ?.presentacion
-                                                          }
+                                                          {linea.presentacion}
                                                         </td>
                                                         <td>
-                                                          {linea.observacion}
+                                                          {linea.observaciones}
                                                         </td>
                                                       </tr>
                                                     );

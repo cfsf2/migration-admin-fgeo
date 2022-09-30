@@ -1,5 +1,7 @@
 import axios from "axios";
 import { farmageo_api } from "../../config";
+import { LOGOUT } from "./authActions";
+import { ALERT } from "./alertActions";
 
 export const GET_INSTITUCIONES = (limit) => {
   return (dispatch) => {
@@ -11,6 +13,15 @@ export const GET_INSTITUCIONES = (limit) => {
       axios
         .get(farmageo_api + "/instituciones", { params: { limit: limit } })
         .then((response) => {
+          if (response.status > 300) {
+            dispatch(LOGOUT());
+            ALERT(
+              "Sesion vencida o invalida",
+              "Su sesion ha vencido o credencial ha quedado invalidada. Intente loguearse nuevamente",
+              "info",
+              "Aceptar"
+            );
+          }
           dispatch({
             type: "GET_INSTITUCIONES",
             payload: response.data,
