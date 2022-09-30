@@ -300,7 +300,7 @@ const Novedades = (props) => {
                                     (inst) => {
                                       return inst._id === ins;
                                     }
-                                  ).nombre;
+                                  )?.nombre;
 
                                 return <li key={ins}>{nombre} </li>;
                               })}

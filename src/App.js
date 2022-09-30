@@ -112,6 +112,7 @@ function App() {
         <GestorCampanas />
         <Switch>
           <Route
+            index
             exact
             path="/login"
             name="Entrar al sistema"

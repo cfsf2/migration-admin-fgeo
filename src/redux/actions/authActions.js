@@ -6,10 +6,22 @@ import { ALERT } from "./alertActions";
 import store from "../store/index";
 import { GET_NOVEDADES_FARMACIA } from "./publicidadesActions";
 import { GET_USUARIO } from "./userActions";
+
 export const RESET_ERROR = () => {
   return (dispatch) => {
     dispatch({ type: "RESET_ERROR" });
   };
+};
+
+export const CHECK_TOKEN = async () => {
+  return (dispatch) =>
+    axios.post(farmageo_api + "/checkToken").then((res) => {
+      console.log(res);
+      if (res.status > 300) {
+        dispatch(LOGOUT());
+      }
+      return res;
+    });
 };
 
 export const TRYREGISTER = (body) => {
@@ -23,6 +35,7 @@ export const TRYREGISTER = (body) => {
       .then((r) => alert(JSON.stringify(r.data)));
   };
 };
+
 export const LOGIN = (user, password) => {
   return (dispatch) => {
     axios
@@ -31,7 +44,7 @@ export const LOGIN = (user, password) => {
         password: password,
       })
       .then(function (response) {
-        if (response.data.statusCode == 500) {
+        if (response.status == 500) {
           ALERT(
             "Error",
             "Usuario y/o contraseña incorrectos",
@@ -39,9 +52,10 @@ export const LOGIN = (user, password) => {
             "OK"
           ).then(() => {
             store.dispatch(LOGOUT());
-            window.location = process.env.PUBLIC_URL;
+            window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
           });
-        } else {
+        }
+        if (parseInt(response.status) < 300) {
           dispatch({ type: "authenticated", payload: user });
           dispatch({ type: "LOGIN_OK", payload: response.data });
           dispatch({ type: "GET_USER_ROLES" });
@@ -64,14 +78,23 @@ export const LOGIN = (user, password) => {
         }
       })
       .catch(function (error) {
+        ALERT(
+          "Error",
+          "Usuario y/o contraseña incorrectos",
+          "error",
+          "OK"
+        ).then(() => {
+          store.dispatch(LOGOUT());
+          window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
+        });
         dispatch(LOGOUT());
         dispatch({ type: "LOGIN_ERROR", error: errorParser(error) });
+        return window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
       });
   };
 };
 
 export const LOADPROFILE = (username, token) => {
-  console.log("LOADPROFILE");
   return (dispatch) => {
     return axios
       .get(farmageo_api + "/farmacias/login/" + username?.toUpperCase(), {

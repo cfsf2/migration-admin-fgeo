@@ -62,9 +62,6 @@ class Dashboard extends Component {
     var promResuelta = Promise.resolve(
       this.props.GET_PRODUCTOS_PACK_BY_ENTIDAD(entidadNutriEspe)
     );
-    var thenProm = promResuelta.then(
-      (window.location.href = "/#/FinalizarSolicitudProveeduria")
-    );
   }
 
   handleFiltro(event) {
@@ -105,10 +102,10 @@ class Dashboard extends Component {
       prevProps.publicidadesReducer.publicidades !==
       this.props.publicidadesReducer.publicidades
     ) {
-      await this.setState({
+      this.setState({
         publicidades: this.props.publicidadesReducer.publicidades,
       });
-      await this.setState({
+      this.setState({
         bannerAdmin: this.props.publicidadesReducer.publicidades
           .filter((p) => p.tipo === "banners_admin")
           .sort(),

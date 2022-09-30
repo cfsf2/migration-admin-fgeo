@@ -22,18 +22,6 @@ export const Novedades = (props) => {
           <Col>
             <b>Novedades de interés</b>
           </Col>
-          {/* <Col>
-            <select
-              value={state.filtro}
-              onChange={handleFiltro}
-              name="filtro"
-            >
-              <option value="recientes">Más recientes primero</option>
-              <option value="hoy">Hoy</option>
-              <option value="semana">Últimos 7 días</option>
-              <option value="mes">Último mes</option>
-            </select>
-          </Col> */}
         </Row>
       </CardHeader>
       <CardBody>

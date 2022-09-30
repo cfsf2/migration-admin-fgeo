@@ -29,10 +29,10 @@ export default function MisPedidos(props) {
     if (userprofile !== null) {
       if (!user.IS_ADMIN && userprofile.productos !== undefined) {
         const pedidosnuevos_ = mis_pedidos.filter((p) => {
-          return p.estado == "nuevo";
+          return p.estado === "nuevo";
         }).length;
         const pedidosenproceso_ = mis_pedidos.filter((p) => {
-          return p.estado == "enproceso";
+          return p.estado === "enproceso";
         }).length;
         setPedidosNuevos(() => pedidosnuevos_);
         setPedidosEnProceso(() => pedidosenproceso_);
@@ -50,7 +50,9 @@ export default function MisPedidos(props) {
   }
 
   React.useEffect(() => {
-    handlePanelExistencias();
+    if (Array.isArray(props.pedidosReducer.mis_pedidos)) {
+      handlePanelExistencias();
+    }
   }, [props.pedidosReducer]);
 
   return (
@@ -72,12 +74,13 @@ export default function MisPedidos(props) {
                     height: 80,
                     marginTop: 15,
                     marginBottom: 15,
+                    color: "black",
+                    width: "100%",
                   }}
                   align="center"
                   className={
                     pedidosnuevos > 0 ? "btn btn-success" : "btn btn-white"
                   }
-                  style={{ color: "black", width: "100%" }}
                 >
                   <Row>
                     <Col md="3" xs="3">
@@ -124,12 +127,13 @@ export default function MisPedidos(props) {
                     height: 80,
                     marginTop: 15,
                     marginBottom: 15,
+                    color: "black",
+                    width: "100%",
                   }}
                   align="center"
                   className={
                     pedidosenproceso > 0 ? "btn btn-success" : "btn btn-white"
                   }
-                  style={{ color: "black", width: "100%" }}
                 >
                   <Row>
                     <Col md="3" xs="3">
@@ -178,6 +182,8 @@ export default function MisPedidos(props) {
                     height: 80,
                     marginTop: 15,
                     marginBottom: 15,
+                    color: "black",
+                    width: "100%",
                   }}
                   align="center"
                   className={
@@ -185,7 +191,6 @@ export default function MisPedidos(props) {
                       ? "btn btn-warning"
                       : "btn btn-white"
                   }
-                  style={{ color: "black", width: "100%" }}
                 >
                   <Row>
                     <Col md="3" xs="3">
@@ -231,12 +236,13 @@ export default function MisPedidos(props) {
                     height: 80,
                     marginTop: 15,
                     marginBottom: 15,
+                    color: "black",
+                    width: "100%",
                   }}
                   align="center"
                   className={
                     pedidosenproceso > 0 ? "btn btn-success" : "btn btn-white"
                   }
-                  style={{ color: "black", width: "100%" }}
                 >
                   <Row>
                     <Col md="3" xs="3">

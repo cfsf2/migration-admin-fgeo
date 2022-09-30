@@ -97,15 +97,119 @@ class TransfersAdmin extends Component {
                                 <td>{obj.laboratorio_id}</td>
                                 <td>{obj.drogueria_id}</td>
                                 <td>
-                                  <Button className="btn btn-info" disabled>
-                                    Editar
-                                  </Button>
+                                  <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    data-toggle="modal"
+                                    data-target=".bd-example-modal-lg"
+                                    onClick={() => {
+                                      this.setState({ transfer: obj });
+                                    }}
+                                  >
+                                    ver
+                                  </button>
                                 </td>
                               </tr>
                             );
                           })}
                         </tbody>
                       </table>
+                    </div>
+                    <div
+                      className="modal fade bd-example-modal-lg"
+                      tabIndex="-1"
+                      role="dialog"
+                      aria-labelledby="myLargeModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog modal-lg">
+                        <div className="modal-content">
+                          {this.state.transfer === null ? null : (
+                            <Row>
+                              <Col xs="12" md="12">
+                                <Card>
+                                  <CardHeader>
+                                    <Row>
+                                      <Col>
+                                        Transfer:{" "}
+                                        {this.state.transfer.codigo_transfer}
+                                      </Col>
+                                      <Col>
+                                        <Button
+                                          className="close"
+                                          data-dismiss="modal"
+                                        >
+                                          {" "}
+                                          X{" "}
+                                        </Button>
+                                      </Col>
+                                    </Row>
+                                  </CardHeader>
+                                  <CardBody>
+                                    <Row className="my-2">
+                                      <div className="table-responsive">
+                                        <table className="table table-striped">
+                                          <thead className="bg-dark">
+                                            <tr>
+                                              <th>sku</th>
+                                              <th>Producto</th>
+                                              <th>Cantidad</th>
+                                              <th>Presentacion</th>
+                                              <th>Observación</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {this.state.transfer
+                                              .productos_solicitados.length > 0
+                                              ? this.state.transfer.productos_solicitados.map(
+                                                  (linea, index) => {
+                                                    console.log(linea);
+                                                    return (
+                                                      <tr>
+                                                        <td>
+                                                          {
+                                                            linea.codigo_producto
+                                                          }
+                                                        </td>
+                                                        <td>{linea.nombre}</td>
+                                                        <td>
+                                                          {linea.cantidad}
+                                                        </td>
+                                                        <td>
+                                                          {linea.presentacion}
+                                                        </td>
+                                                        <td>
+                                                          {linea.observaciones}
+                                                        </td>
+                                                      </tr>
+                                                    );
+                                                  }
+                                                )
+                                              : null}
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </Row>
+                                    <hr />
+                                    <br />
+                                    <Row>
+                                      <Col className="mt-3">
+                                        <Button
+                                          className="close"
+                                          data-dismiss="modal"
+                                        >
+                                          {" "}
+                                          X{" "}
+                                        </Button>
+                                      </Col>
+                                    </Row>
+                                  </CardBody>
+                                </Card>
+                              </Col>
+                            </Row>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </CardBody>
                 </Card>
