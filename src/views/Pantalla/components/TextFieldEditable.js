@@ -68,7 +68,7 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
       onBlur={handleOnBlur}
       onKeyDown={handleAlt}
       style={{ width: "100%" }}
-      inputProps={{ maxLength: maxCaracteres ? maxCaracteres : 60 }}
+      inputProps={{ maxLength: maxCaracteres ?? 60 }}
       multiline
       className={classes.miTextField}
     />
