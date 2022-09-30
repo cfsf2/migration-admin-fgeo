@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TextFieldEditable = ({ value, setValue, onEnter }) => {
+const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
   const keyUp = useRef(0); // Evita que el evento onBlur se dispare luego de onKeyUp
   const altEnter = useRef(0); // Detecta keyDown = alt + enter
 
@@ -68,7 +68,7 @@ const TextFieldEditable = ({ value, setValue, onEnter }) => {
       onBlur={handleOnBlur}
       onKeyDown={handleAlt}
       style={{ width: "100%" }}
-      inputProps={{ maxLength: 60 }}
+      inputProps={{ maxLength: maxCaracteres ?? 60 }}
       multiline
       className={classes.miTextField}
     />

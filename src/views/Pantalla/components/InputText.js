@@ -16,6 +16,7 @@ const InputText = ({ data, cab, campokey }) => {
         placeholder={cab.placeholder}
         onChange={handleInput}
         className=""
+        inputProps={{ maxLength: cab.maximo_caracteres !== "" ? parseInt(cab.maximo_caracteres) : 60 }}
       />
     </>
   );

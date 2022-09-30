@@ -82,6 +82,7 @@ const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
         value={value}
         setValue={setValue}
         onEnter={handleGuardar}
+        maxCaracteres={parseInt(cab.maximo_caracteres)}
       />
     </div>
   );
