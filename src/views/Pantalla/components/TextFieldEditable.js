@@ -60,7 +60,6 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
 
   const classes = useStyles();
 
-  console.log("max: ", maxCaracteres);
   return (
     <TextField
       value={value}
