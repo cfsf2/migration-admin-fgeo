@@ -10,6 +10,9 @@ import {
   GET_DROGUERIAS,
   CLEAN_PRODUCTOS,
 } from "../../../redux/actions/transfersActions";
+
+import { LOADPROFILE } from "../../../redux/actions/authActions";
+
 import ButtonHome from "../../Dashboard/components/ButtonHome";
 
 class NuevoTransfer extends Component {
@@ -17,7 +20,9 @@ class NuevoTransfer extends Component {
     this.props.CLEAN_PRODUCTOS();
     this.props.GET_LABORATORIOS();
     this.props.GET_DROGUERIAS();
+    this.props.LOADPROFILE();
   }
+
   render() {
     const { laboratorios } = this.props.tranfersReducer;
     return (
@@ -91,6 +96,7 @@ const mapDispatchToProps = {
   GET_LABORATORIOS,
   GET_DROGUERIAS,
   CLEAN_PRODUCTOS,
+  LOADPROFILE,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NuevoTransfer);
