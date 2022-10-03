@@ -22,6 +22,8 @@ import {
   SUBMITTING,
 } from "../../../redux/actions/transfersActions";
 
+import { LOADPROFILE } from "../../../redux/actions/authActions";
+
 import TransferCart from "./TransferCart";
 import SelectDrogueria from "./components/SelectDrogueria";
 import SelectLaboratorioCuenta from "./components/SelectLaboratorioCuenta";
@@ -72,7 +74,9 @@ class FinalizarTransfer extends Component {
 
   async componentDidMount() {
     var laboratorio = this.handlequery().get("l");
-
+    if (this.props.farmaciaReducer.load === false) {
+      LOADPROFILE(localStorage.user, localStorage.token);
+    }
     if (this.props.tranfersReducer.laboratorios.length === 0) {
       this.props.GET_LABORATORIOS();
     }
@@ -107,7 +111,8 @@ class FinalizarTransfer extends Component {
   render() {
     const { lab_selected } = this.state;
     const { comunicadoTransfers } = this.props.publicidadesReducer;
-
+    if (this.props.farmaciaReducer.load === false)
+      return <p>Cargando farmacia</p>;
     return (
       <div className="animated fadeIn">
         {/* <ModalStep /> */}
@@ -254,6 +259,7 @@ const mapDispatchToProps = {
   SUBMITTING,
   GET_LABORATORIOS,
   SET_LABORATORIO_SELECTED,
+  LOADPROFILE,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinalizarTransfer);

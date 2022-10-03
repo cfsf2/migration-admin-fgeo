@@ -13,7 +13,7 @@ const SelectDrogueria = ({
       target: {
         value: farmacia.nro_cuenta_laboratorio.find(
           (l) => l.laboratorio.id === laboratorio.id
-        ).nro_cuenta,
+        )?.nro_cuenta,
         name: "nro_cuenta_drogueria",
       },
     });
