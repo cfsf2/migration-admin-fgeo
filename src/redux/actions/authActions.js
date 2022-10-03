@@ -96,6 +96,7 @@ export const LOGIN = (user, password) => {
 
 export const LOADPROFILE = (username, token) => {
   return (dispatch) => {
+    dispatch({ type: "LOADING_FARMACIA" });
     return axios
       .get(farmageo_api + "/farmacias/login/" + username?.toUpperCase(), {
         headers: {

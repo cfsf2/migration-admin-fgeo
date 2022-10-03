@@ -112,7 +112,7 @@ function DefaultLayout(props) {
 
   const islogin = useSelector((state) => state.authReducer.user.islogin);
 
-  if (!islogin) return <Redirect to="/login" />;
+  if (localStorage.authenticated !== "true") return <Redirect to="/login" />;
 
   return (
     <div className="app">
