@@ -158,9 +158,9 @@ export const IS_USER = () => {
 
 export const GET_SESSION = () => {
   return async (dispatch) => {
-    var authenticated = await localStorage.getItem("authenticated");
-    var user = await localStorage.getItem("user");
-    var pass = await localStorage.getItem("pass");
+    var authenticated = localStorage.getItem("authenticated");
+    var user = localStorage.getItem("user");
+    var pass = localStorage.getItem("pass");
 
     if (authenticated) {
       dispatch({

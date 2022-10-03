@@ -20,8 +20,9 @@ class NuevoTransfer extends Component {
     this.props.CLEAN_PRODUCTOS();
     this.props.GET_LABORATORIOS();
     this.props.GET_DROGUERIAS();
-    this.props.LOADPROFILE();
+    this.props.LOADPROFILE(localStorage.user, localStorage.token);
   }
+  componentDidUpdate() {}
 
   render() {
     const { laboratorios } = this.props.tranfersReducer;
@@ -90,7 +91,11 @@ class NuevoTransfer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { tranfersReducer: state.tranfersReducer };
+  return {
+    tranfersReducer: state.tranfersReducer,
+    farmaciaReducer: state.farmaciaReducer,
+    authReducer: state.authReducer,
+  };
 };
 const mapDispatchToProps = {
   GET_LABORATORIOS,

@@ -39,8 +39,6 @@ class Perfil extends Component {
     this.setState({ farmaciaProfile: this.props.authReducer.userprofile });
   }
 
-  componentWillUpdate() {}
-
   async handleInputChange(event) {
     const target = event.nativeEvent.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
