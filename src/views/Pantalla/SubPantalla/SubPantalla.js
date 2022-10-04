@@ -6,6 +6,7 @@ import FuncionesContext from "../context/FuncionesContext";
 import SwitchMaestro from "../components/SwitchMaestro";
 
 import { Card } from "reactstrap";
+import HeaderConf from "../components/HeaderConf";
 
 const SubPantalla = ({ configuracion, id, nollamar }) => {
   const id_a = configuracion.opciones.id_a;
@@ -64,6 +65,10 @@ const SubPantalla = ({ configuracion, id, nollamar }) => {
         border: "none",
       }}
     >
+      <HeaderConf
+        opciones={configuracion.opciones}
+        className="configuracion_pantalla_titulo_secundario"
+      />
       {loadingPantalla ? (
         <div
           style={{

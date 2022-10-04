@@ -43,6 +43,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData }) => {
       : null;
 
   const Componente = () => {
+    console.log(cab.componente);
     switch (cab.componente) {
       case undefined || "columna_simple":
         return (
