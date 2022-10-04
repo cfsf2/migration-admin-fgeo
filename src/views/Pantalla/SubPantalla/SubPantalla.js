@@ -56,6 +56,7 @@ const SubPantalla = ({ configuracion, id, nollamar }) => {
       />
     ));
 
+  if (configuracion.opciones.display_container !== "s") return <></>;
   return (
     <Card
       className={id_a + "_CONTENEDOR"}

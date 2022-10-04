@@ -16,7 +16,6 @@ export const RESET_ERROR = () => {
 export const CHECK_TOKEN = async () => {
   return (dispatch) =>
     axios.post(farmageo_api + "/checkToken").then((res) => {
-      console.log(res);
       if (res.status > 300) {
         dispatch(LOGOUT());
       }

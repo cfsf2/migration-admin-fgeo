@@ -21,7 +21,6 @@ const InputAreaEditable = ({ data, cab, hijos, campokey, indiceData }) => {
   const handleCancelar = () => {
     setValue(data[campokey]);
     setLastvalue(data[campokey]);
-    console.log(data[campokey]);
   };
 
   const handleGuardar = async (e) => {

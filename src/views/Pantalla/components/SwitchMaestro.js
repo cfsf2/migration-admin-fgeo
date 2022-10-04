@@ -10,6 +10,7 @@ import ABM from "../ABM/ABM";
 const SwitchMaestro = ({ configuracion, id, _key, nollamar }) => {
   const Componente = (() => {
     // console.log("opciones", configuracion.opciones);
+
     switch (configuracion.opciones.tipo.id) {
       //Listado
       case 2:

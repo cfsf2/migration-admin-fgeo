@@ -10,7 +10,6 @@ import PantallaReducer, { initialState } from "./context/PantallaReducer";
 import { useParams, useLocation } from "react-router";
 import SwitchMaestro from "./components/SwitchMaestro";
 import { AlertasProvider } from "./context/AlertaContext";
-import { ALERT } from "./context/AlertaContext";
 import HeaderConf from "./components/HeaderConf";
 
 const Pantalla = () => {

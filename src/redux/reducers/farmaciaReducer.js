@@ -7,7 +7,6 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
-  console.log(action.type, action.payload);
   switch (action.type) {
     case "LOADING_FARMACIA":
       return {
