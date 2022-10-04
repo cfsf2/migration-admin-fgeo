@@ -7,7 +7,7 @@ import ABMProvider from "../ABM/ABMProvider";
 import ABM from "../ABM/ABM";
 
 //cabeceras data opciones
-const SwitchMaestro = ({ configuracion, id, _key, nollamar }) => {
+const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
   const Componente = (() => {
     // console.log("opciones", configuracion.opciones);
 
@@ -20,6 +20,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar }) => {
             configuracion={configuracion}
             id={id}
             nollamar={nollamar}
+            idx={idx}
           >
             <ConfigListado />
           </ListadoProvider>
@@ -32,6 +33,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar }) => {
             configuracion={configuracion}
             id={id}
             nollamar={nollamar}
+            idx={idx}
           />
         );
       case 7:
@@ -41,6 +43,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar }) => {
             configuracion={configuracion}
             id={id}
             nollamar={nollamar}
+            idx={idx}
           />
         );
 
@@ -51,6 +54,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar }) => {
             configuracion={configuracion}
             id={id}
             nollamar={nollamar}
+            idx={idx}
           >
             <ABM />
           </ABMProvider>
