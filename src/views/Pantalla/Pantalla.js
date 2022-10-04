@@ -10,7 +10,6 @@ import PantallaReducer, { initialState } from "./context/PantallaReducer";
 import { useParams, useLocation } from "react-router";
 import SwitchMaestro from "./components/SwitchMaestro";
 import { AlertasProvider } from "./context/AlertaContext";
-import { ALERT } from "./context/AlertaContext";
 import HeaderConf from "./components/HeaderConf";
 
 const Pantalla = () => {
@@ -96,8 +95,13 @@ const Pantalla = () => {
           ) : (
             state.configuraciones
               .sort((a, b) => a.opciones.orden - b.opciones.orden)
-              .map((item) => (
-                <SwitchMaestro key={item.id_a} configuracion={item} id={id} />
+              .map((item, idx) => (
+                <SwitchMaestro
+                  key={item.id_a}
+                  configuracion={item}
+                  id={id}
+                  idx={idx}
+                />
               ))
           )}
         </FuncionesProvider>

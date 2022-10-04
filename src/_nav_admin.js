@@ -157,6 +157,10 @@ export default {
           name: "Configuracion",
           url: "/Configuracion/PANTALLA_LISTADO_CONFIGURACION",
         },
+        {
+          name: "Laboratorios",
+          url: "/Configuracion/PANTALLA_ADMIN_LABORATORIOS",
+        },
       ],
     },
 

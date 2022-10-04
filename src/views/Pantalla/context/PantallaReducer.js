@@ -85,7 +85,12 @@ export default function PantallaReducer(state, action) {
         filtrosAplicados: nuevosFiltros,
       };
     case "SET_DATOS_CONF":
-      return state;
+      const newState = { ...state };
+
+      newState.configuraciones[action.payload.idx] =
+        action.payload.configuracion;
+
+      return newState;
 
     default:
       return state;

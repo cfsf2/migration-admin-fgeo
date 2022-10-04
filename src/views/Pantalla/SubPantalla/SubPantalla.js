@@ -6,8 +6,9 @@ import FuncionesContext from "../context/FuncionesContext";
 import SwitchMaestro from "../components/SwitchMaestro";
 
 import { Card } from "reactstrap";
+import HeaderConf from "../components/HeaderConf";
 
-const SubPantalla = ({ configuracion, id, nollamar }) => {
+const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
   const id_a = configuracion.opciones.id_a;
   const { configuraciones_ref, PantallaDispatch } = useContext(PantallaContext);
   const { getConfiguracion, requestErrorHandler } =
@@ -30,7 +31,10 @@ const SubPantalla = ({ configuracion, id, nollamar }) => {
           if (response.status >= 400) {
             requestErrorHandler(response);
           }
-          PantallaDispatch({ type: "SET_DATOS_CONF", payload: configuracion });
+          PantallaDispatch({
+            type: "SET_DATOS_CONF",
+            payload: { configuracion: response.data, idx },
+          });
 
           setSubPantallaConfs(response.data);
           setLoadingPantalla(false);
@@ -55,6 +59,10 @@ const SubPantalla = ({ configuracion, id, nollamar }) => {
       />
     ));
 
+  if (configuracion.opciones.display_container !== "s") {
+    return <></>;
+  }
+
   return (
     <Card
       className={id_a + "_CONTENEDOR"}
@@ -64,6 +72,10 @@ const SubPantalla = ({ configuracion, id, nollamar }) => {
         border: "none",
       }}
     >
+      <HeaderConf
+        opciones={configuracion.opciones}
+        className="configuracion_pantalla_titulo_secundario"
+      />
       {loadingPantalla ? (
         <div
           style={{

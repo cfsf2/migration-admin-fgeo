@@ -10,7 +10,7 @@ import AutocompletarABM from "./inputs/AutocompletarABM";
 
 const SwitchABM = (props) => {
   const { ABMDispatch, valorFormulario } = useContext(ABMContext);
-  console.log(props);
+
   const { cab } = props;
 
   const id_a = cab.id_a;

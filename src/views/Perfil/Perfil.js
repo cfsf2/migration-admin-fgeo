@@ -27,7 +27,7 @@ class Perfil extends Component {
     super(props);
     this.state = {
       farmaciaProfile: null,
-      tooltipOpen: false
+      tooltipOpen: false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleEditProfile = this.handleEditProfile.bind(this);
@@ -43,7 +43,7 @@ class Perfil extends Component {
     const target = event.nativeEvent.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    await this.setState({
+    this.setState({
       farmaciaProfile: {
         ...this.state.farmaciaProfile,
         [name]: value,
@@ -101,6 +101,9 @@ class Perfil extends Component {
       perfil_farmageo,
     } = this.props.authReducer.userprofile;
 
+    if (!this.props.farmaciaReducer.load) {
+      return <p>Cargando perfil...</p>;
+    }
     return (
       <div className="animated fadeIn">
         <Row style={{ marginBottom: 10 }}>
@@ -269,10 +272,13 @@ class Perfil extends Component {
                           placement="bottom"
                           target="button_nro_drogueria"
                           toggle={() => {
-                            this.setState({ tooltipOpen: !this.state.tooltipOpen })
+                            this.setState({
+                              tooltipOpen: !this.state.tooltipOpen,
+                            });
                           }}
                         >
-                          Complete aquí los datos requeridos para realizar transfers de manera satisfactoria
+                          Complete aquí los datos requeridos para realizar
+                          transfers de manera satisfactoria
                         </Tooltip>
                       </div>
                     </FormGroup>
@@ -600,6 +606,7 @@ class Perfil extends Component {
 const mapStateToProps = (state) => {
   return {
     authReducer: state.authReducer,
+    farmaciaReducer: state.farmaciaReducer,
   };
 };
 const mapDispatchToProps = {

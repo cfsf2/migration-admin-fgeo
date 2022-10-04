@@ -96,7 +96,7 @@ function TransferCart(props) {
       axios
         .get(farmageo_api + "/productosTransfers/laboratorio/" + laboratorio, {
           params: {
-            instituciones: props.authReducer.userprofile.instituciones,
+            instituciones: props.farmaciaReducer.farmacia.instituciones,
             from: "TransferCart",
           },
         })
@@ -133,6 +133,7 @@ const mapStateToProps = (state) => {
     tranfersReducer: state.tranfersReducer,
     authReducer: state.authReducer,
     publicidadesReducer: state.publicidadesReducer,
+    farmaciaReducer: state.farmaciaReducer,
   };
 };
 const mapDispatchToProps = {
