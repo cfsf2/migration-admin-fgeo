@@ -9,7 +9,7 @@ const useStyles = makeStyles({
       display: "none",
     },
     "& .MuiInputBase-inputMultiline": {
-      marginLeft: "10px",
+      marginLeft: "5px",
       fontSize: "0.875rem",
     },
     "& .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root": {
