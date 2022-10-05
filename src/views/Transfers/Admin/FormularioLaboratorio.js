@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Laboratorios from "./Laboratorios";
 import {
   Button,
   Card,
@@ -26,6 +25,7 @@ const labinit = {
   novedades: "",
   condiciones_comerciales: "",
   imagen: undefined,
+  email: undefined,
 };
 
 const FormularioLaboratorio = (props) => {
@@ -34,7 +34,6 @@ const FormularioLaboratorio = (props) => {
   const [datos, setDatos] = useState(laboratorio);
 
   const handleEditImagen = (urlImagen) => {
-    console.log(urlImagen);
     setDatos({
       ...datos,
       imagen: urlImagen,
@@ -72,6 +71,7 @@ const FormularioLaboratorio = (props) => {
         novedades: laboratorio.novedades,
         condiciones_comerciales: laboratorio.condiciones_comerciales,
         imagen: laboratorio.imagen,
+        email: laboratorio.email,
       });
     } else {
       setDatos(labinit);
@@ -176,6 +176,20 @@ const FormularioLaboratorio = (props) => {
                       name="condiciones_comerciales"
                       onChange={handleInputChange}
                       value={datos.condiciones_comerciales}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <FormGroup>
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      type="email"
+                      id="email"
+                      name="email"
+                      onChange={handleInputChange}
+                      value={datos.email}
                     />
                   </FormGroup>
                 </Col>

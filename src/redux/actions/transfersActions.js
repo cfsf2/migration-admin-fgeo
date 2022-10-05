@@ -12,6 +12,9 @@ export const ADD_LABORATORIO = (laboratorio) => {
       .post(farmageo_api + "/laboratorios", laboratorio)
       .then(function (response) {
         dispatch(GET_LABORATORIOS());
+        window.location.replace(
+          `${process.env.PUBLIC_URL}/#/configuracion/PANTALLA_ADMIN_LABORATORIOS`
+        );
       })
       .catch(function (error) {
         console.log(error);
