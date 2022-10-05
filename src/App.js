@@ -20,6 +20,15 @@ axios.interceptors.response.use(
   (res) => res,
   (err) => {
     switch (err.response.status) {
+      case 409:
+        return store.dispatch(
+          ALERT(
+            "Hubo un Problema con su solicitud",
+            err.response.data.error.message,
+            "error",
+            "OK"
+          )
+        );
       case 401:
         // alert("Denegado: No tiene permiso para realizar esta accion");
         store.dispatch(

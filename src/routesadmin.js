@@ -52,6 +52,9 @@ const Denuncias = React.lazy(() => import("./views/Denuncias/Denuncias"));
 const Laboratorios = React.lazy(() =>
   import("./views/Transfers/Admin/Laboratorios")
 );
+const AddLaboratorio = React.lazy(() =>
+  import("./views/Transfers/Admin/AddLaboratorio")
+);
 
 const Droguerias = React.lazy(() =>
   import("./views/Transfers/Admin/Droguerias")
@@ -295,6 +298,13 @@ const routes = [
     exact: true,
     name: "Laboratorios",
     component: Laboratorios,
+    permiso: "transfer",
+  },
+  {
+    path: "/addlaboratorio",
+    exact: true,
+    name: "Laboratorios",
+    component: AddLaboratorio,
     permiso: "transfer",
   },
   {
