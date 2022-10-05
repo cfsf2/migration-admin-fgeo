@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Laboratorios from "./Laboratorios";
 import {
   Button,
   Card,
@@ -26,15 +25,15 @@ const labinit = {
   novedades: "",
   condiciones_comerciales: "",
   imagen: undefined,
+  email: undefined,
 };
 
 const FormularioLaboratorio = (props) => {
-  const { laboratorio } = props;
+  const { laboratorio, pantalla } = props;
 
   const [datos, setDatos] = useState(laboratorio);
 
   const handleEditImagen = (urlImagen) => {
-    console.log(urlImagen);
     setDatos({
       ...datos,
       imagen: urlImagen,
@@ -72,6 +71,7 @@ const FormularioLaboratorio = (props) => {
         novedades: laboratorio.novedades,
         condiciones_comerciales: laboratorio.condiciones_comerciales,
         imagen: laboratorio.imagen,
+        email: laboratorio.email,
       });
     } else {
       setDatos(labinit);
@@ -180,6 +180,20 @@ const FormularioLaboratorio = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
+              <Row>
+                <Col>
+                  <FormGroup>
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      type="email"
+                      id="email"
+                      name="email"
+                      onChange={handleInputChange}
+                      value={datos.email}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
               <hr />
               <Row>
                 <Col>
@@ -225,7 +239,7 @@ const FormularioLaboratorio = (props) => {
                       className="btn btn-success"
                       data-dismiss="modal"
                       onClick={() => {
-                        props.ADD_LABORATORIO(datos);
+                        props.ADD_LABORATORIO(datos, pantalla);
                       }}
                     >
                       Confirmar

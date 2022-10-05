@@ -6,12 +6,18 @@ import { ALERT } from "./alertActions";
 import authReducer from "../reducers/authReducer";
 
 //******************** LABORATORIOS ********************************* */
-export const ADD_LABORATORIO = (laboratorio) => {
+export const ADD_LABORATORIO = (laboratorio, pantalla) => {
   return (dispatch) => {
     axios
       .post(farmageo_api + "/laboratorios", laboratorio)
       .then(function (response) {
         dispatch(GET_LABORATORIOS());
+
+        if (pantalla === "s") {
+          window.location.replace(
+            `${process.env.PUBLIC_URL}/#/configuracion/PANTALLA_ADMIN_LABORATORIOS`
+          );
+        }
       })
       .catch(function (error) {
         console.log(error);
