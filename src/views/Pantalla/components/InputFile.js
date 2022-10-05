@@ -21,7 +21,7 @@ const InputFile = ({ data, cab, campokey, indiceData }) => {
   return (
     <>
       {
-        <>
+        <div style={{ width: "100%", textAlign: cab.align }}>
           <input
             type="file"
             multiple
@@ -40,7 +40,7 @@ const InputFile = ({ data, cab, campokey, indiceData }) => {
           <button onClick={() => inputRef.current.click()}>
             {cab.boton_texto ? cab.boton_texto : "Seleccionar archivos"}
           </button>
-        </>
+        </div>
       }
       {cab.archivo_subir_onclick === "s" ? (
         <button onClick={() => handleSubmit(imagenOnClick)}>
