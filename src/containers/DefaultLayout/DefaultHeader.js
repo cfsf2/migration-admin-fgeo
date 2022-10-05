@@ -63,6 +63,9 @@ class DefaultHeader extends Component {
         <img src={logo} style={{ width: 100 }} className="d-lg-none" />
 
         <Nav className="ml-auto" navbar>
+        <p style={{ margin: "0 5px", padding: "10px" }}>
+            {user_display_name}
+          </p>
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
               <i className="icon-user"></i>

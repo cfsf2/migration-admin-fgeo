@@ -137,7 +137,6 @@ function DefaultLayout(props) {
           <Container fluid className="mx-0 px-0">
             <Row
               className="py-2 mb-2 px-3"
-              style={{ backgroundColor: "#00788f" }}
             >
               {userprofile && userprofile.esfarmacia ? (
                 userprofile.perfil_farmageo !== "solo_visible" ||
@@ -169,11 +168,11 @@ function DefaultLayout(props) {
                 )
               ) : null}
 
-              <Col className="align-content-center">
+              {/* <Col className="align-content-center">
                 <b style={{ float: "right", color: "white" }}>
                   {props.user.user_display_name}
                 </b>
-              </Col>
+              </Col> */}
             </Row>
           </Container>
           <Container fluid className="mx-1 px-0">
