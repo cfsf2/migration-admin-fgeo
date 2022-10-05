@@ -29,7 +29,7 @@ const labinit = {
 };
 
 const FormularioLaboratorio = (props) => {
-  const { laboratorio } = props;
+  const { laboratorio, pantalla } = props;
 
   const [datos, setDatos] = useState(laboratorio);
 
@@ -239,7 +239,7 @@ const FormularioLaboratorio = (props) => {
                       className="btn btn-success"
                       data-dismiss="modal"
                       onClick={() => {
-                        props.ADD_LABORATORIO(datos);
+                        props.ADD_LABORATORIO(datos, pantalla);
                       }}
                     >
                       Confirmar

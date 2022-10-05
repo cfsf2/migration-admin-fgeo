@@ -9,7 +9,13 @@ import {
 } from "../../../redux/actions/transfersActions";
 
 const AddLaboratorio = (props) => {
-  return <FormularioLaboratorio laboratorio={{ _id: "" }} {...props} />;
+  return (
+    <FormularioLaboratorio
+      pantalla={"s"}
+      laboratorio={{ _id: "" }}
+      {...props}
+    />
+  );
 };
 
 const mapStateToProps = (state) => {
