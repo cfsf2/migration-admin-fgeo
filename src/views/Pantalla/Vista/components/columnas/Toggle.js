@@ -74,9 +74,12 @@ const Toggle = ({ data, cab, campokey, key, indiceData }) => {
     <div
       key={key}
       className="tarjeta_grid_item_label_item"
-      style={{ justifyContent: "center" }}
+      style={{ justifyContent: cab.align }}
     >
-      <div className="vista_label" style={{ fontWeight: "bold" }}>
+      <div
+        className="vista_label"
+        style={{ fontWeight: "bold", margin: "6px 0" }}
+      >
         {nombre}:
       </div>
       <Switch
