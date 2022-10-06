@@ -67,6 +67,7 @@ const Tarjeta = () => {
                           indiceData={indiceData}
                           data={dato}
                           cab={cab}
+                          Context={VistaContext}
                         />
                       </div>
                     ))}

@@ -25,7 +25,7 @@ import InputTextEditable from "./columnas/InputTextEditable";
 
 import VistaContext from "../context/VistaContext";
 
-const SwitchCampos = ({ data, cab, padre, indiceData }) => {
+const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
 
@@ -169,6 +169,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            Context={Context}
           />
         );
       case "radio_button":

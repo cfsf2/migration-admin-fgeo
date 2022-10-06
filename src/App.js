@@ -34,7 +34,7 @@ axios.interceptors.response.use(
         store.dispatch(
           ALERT(
             "ACCESO DENEGADO",
-            "Usted no tiene acceso suficiente. Consulte con su administrador.",
+            err.response.data.error.message,
             "error",
             "OK"
           ).finally(() => {

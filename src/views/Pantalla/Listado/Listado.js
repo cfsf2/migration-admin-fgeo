@@ -226,6 +226,7 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
             filtrosUsuarioAlCargarPagina: state.filtrosUsuarioAlCargarPagina,
             filtros: filtros,
             opcionesListado: state.opcionesListado,
+            opciones: state.opcionesListado,
             listadoBotones: state.listadoBotones,
             id_global: state.id_global,
             setFilter: callMF, //pasar setQueryFilter para reaccionar a url}
