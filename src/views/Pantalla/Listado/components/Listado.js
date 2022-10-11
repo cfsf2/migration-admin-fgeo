@@ -135,7 +135,7 @@ export const Listado = (props) => {
                     },
                     search: opcionesListado.search === "s",
                     searchFieldStyle: { top: "3px" },
-                    tableLayout: "fixed",
+                    // tableLayout: "fixed",
                   }}
                   components={{
                     Row: (props) => (

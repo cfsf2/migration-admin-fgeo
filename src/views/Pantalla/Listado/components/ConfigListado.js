@@ -35,15 +35,16 @@ const ConfigListado = () => {
         .sort((a, b) => a.orden - b.orden)
         .filter((cab) => cab.componente !== "hidden")
         .filter((cab) => cab.mostrar !== "n")
-        .map((cab) => {
+        .map((cab, i) => {
           return {
             title: cab.nombre,
-            field: cab.campo_alias ? cab.campo_alias : cab.id_a,
+            field: cab.campo_alias ?? cab.id_a,
+            width: cab.width ?? "10%",
             cellStyle: {
-              width: cab.width ? cab.width : "10%",
-              textAlign: "center",
+              textAlign: cab.align ?? "center",
+              // width: cab.width ?? "10%",
             },
-
+            headerStyle: { textAlign: "center" },
             render: (data) => (
               <SwitchColumnas
                 data={data}
