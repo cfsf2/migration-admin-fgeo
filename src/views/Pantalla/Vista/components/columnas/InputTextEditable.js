@@ -15,8 +15,6 @@ const InputTextEditable = ({
 
   const { datos, Dispatch, opciones } = useContext(Context);
 
-  console.log(opciones);
-
   const [value, setValue] = useState(data[campokey]);
   const [lastValue, setLastvalue] = useState(data[campokey]);
 
