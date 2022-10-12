@@ -378,7 +378,7 @@ export const FuncionesProvider = (props) => {
 
   const redireccionar = async ({ cab, data, res }) => {
     const enlace_siguiente_pasar_id = cab.enlace_siguiente_pasar_id === "s";
-    const id_nombre = cab.update_id_nombre ? cab.update_id_nombre : "id";
+    const id_nombre = cab.update_id_nombre ?? "id";
 
     if (checkID_A(cab.enlace_siguiente)) {
       const location = {
