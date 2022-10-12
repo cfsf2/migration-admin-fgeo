@@ -18,30 +18,56 @@ import {
   GET_TRANSFERS,
   GET_LABORATORIOS,
   GET_DROGUERIAS,
+  REENVIAR_EMAIL,
 } from "../../../redux/actions/transfersActions";
+import { ALERT } from "../../../redux/actions/alertActions";
 
 const TransfersAdmin = (props) => {
   const [transfer, setTransfer] = useState(null);
-  const [enviandoMail, setEnviando] = useState(false);
+
+  const reenviarEmailTransfer = async (transfer, setEnviando) => {
+    setEnviando(true);
+    await props
+      .REENVIAR_EMAIL(transfer.id)
+      .then((res) => {
+        setEnviando(false);
+
+        console.log("RES", res);
+
+        if (res.status > 300) {
+          console.log("ERROR", res);
+          props.ALERT(
+            "Ha Ocurrido un Error",
+            "Un email con el detalle se ha enviado al equipo de sistemas",
+            "error",
+            "Ok"
+          );
+        }
+
+        if (res.status < 300) {
+          console.log("EXITO", res);
+          props.ALERT(
+            "Email Enviado con Exito",
+            res.data.envelope.to.toString().replaceAll(",", " - "),
+            "success",
+            "Ok"
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        props.ALERT(
+          "Ha Ocurrido un Error",
+          "Un email con el detalle se ha enviado al equipo de sistemas",
+          "error",
+          "Ok"
+        );
+      });
+  };
 
   useEffect(() => {
     props.GET_TRANSFERS();
   }, []);
-
-  async function handleInputChange(event) {
-    const target = event.nativeEvent.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      transfer: {
-        ...this.state.transfer,
-        [name]: value,
-      },
-    });
-  }
-
-  console.log(props.transferReducer);
 
   const { transfers } = props.tranfersReducer;
   return (
@@ -99,22 +125,15 @@ const TransfersAdmin = (props) => {
                                   data-toggle="modal"
                                   data-target=".bd-example-modal-lg"
                                   onClick={() => {
-                                    setTransfer({ transfer: obj });
+                                    setTransfer(obj);
                                   }}
                                 >
                                   ver
                                 </button>
-                                <button
-                                  type="button"
-                                  className="btn btn-primary"
-                                  onClick={() => {
-                                    setTransfer({ transfer: obj });
-                                  }}
-                                >
-                                  {enviandoMail
-                                    ? "Enviando..."
-                                    : "Reenviar Email"}
-                                </button>
+                                <BotonEnviarEmail
+                                  reenviarEmailTransfer={reenviarEmailTransfer}
+                                  obj={obj}
+                                />
                               </td>
                             </tr>
                           );
@@ -169,7 +188,6 @@ const TransfersAdmin = (props) => {
                                             .length > 0
                                             ? transfer.productos_solicitados.map(
                                                 (linea, index) => {
-                                                  console.log(linea);
                                                   return (
                                                     <tr>
                                                       <td>
@@ -230,6 +248,24 @@ const mapDispatchToProps = {
   GET_TRANSFERS,
   GET_LABORATORIOS,
   GET_DROGUERIAS,
+  REENVIAR_EMAIL,
+  ALERT,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransfersAdmin);
+
+const BotonEnviarEmail = ({ reenviarEmailTransfer, obj }) => {
+  const [enviandoMail, setEnviandoMail] = useState(false);
+
+  return (
+    <button
+      type="button"
+      className="btn btn-primary"
+      onClick={() => {
+        reenviarEmailTransfer(obj, setEnviandoMail);
+      }}
+    >
+      {enviandoMail ? "Enviando..." : "Reenviar Email"}
+    </button>
+  );
+};
