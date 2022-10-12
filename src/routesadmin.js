@@ -372,7 +372,12 @@ const routes = [
     component: Pantalla,
     permiso: "campanas",
   },
-
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    component: Pantalla,
+    permiso: "recupero",
+  },
   {
     path: "/Configuracion/:pantalla",
     exact: true,

@@ -150,10 +150,6 @@ export default {
       permiso: "campanas",
       children: [
         {
-          name: "Recuperos",
-          url: "/Configuracion/PANTALLA_RECUPERO",
-        },
-        {
           name: "Configuracion",
           url: "/Configuracion/PANTALLA_LISTADO_CONFIGURACION",
         },
@@ -161,9 +157,18 @@ export default {
           name: "Laboratorios",
           url: "/Configuracion/PANTALLA_ADMIN_LABORATORIOS",
         },
+        {
+          name: "Recuperos",
+          url: "/Configuracion/PANTALLA_RECUPERO",
+          permiso: "recupero",
+        },
       ],
     },
-
+    {
+      name: "Recuperos",
+      url: "/Configuracion/PANTALLA_RECUPERO",
+      permiso: "recupero",
+    },
     {
       name: "Campañas",
       //url: "/ecommerce/banners-home",
