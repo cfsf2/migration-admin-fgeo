@@ -191,11 +191,11 @@ function DefaultLayout(props) {
           </Suspense>
         </AppAside>
       </div>
-      <AppFooter>
+      {/* <AppFooter>
         <Suspense fallback={loading()}>
           <DefaultFooter />
         </Suspense>
-      </AppFooter>
+      </AppFooter> */}
     </div>
   );
 }
