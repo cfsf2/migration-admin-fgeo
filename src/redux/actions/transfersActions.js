@@ -296,6 +296,13 @@ export const GET_TRANSFERS = () => {
   };
 };
 
+export const REENVIAR_EMAIL = async (id) => {
+  console.log(id);
+  return async (dispatch) => {
+    return await axios.post(farmageo_api + "/transfers/enviarTransfer", { id });
+  };
+};
+
 export const GET_TRANSFERS_FARMACIA = (farmaciaid) => {
   return (dispatch) => {
     axios
