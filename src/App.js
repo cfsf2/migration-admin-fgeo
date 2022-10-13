@@ -22,24 +22,6 @@ function App() {
 
   return (
     <HashRouter>
-      {false !== "https://admin.farmageo.com.ar/" ? (
-        <div className="leyendatesting">
-          <h1
-            style={{
-              fontSize: "1rem",
-              textAlign: "center",
-              color: "black",
-              backgroundColor: "lightgray",
-              fontWeight: "bold",
-              letterSpacing: "10px",
-            }}
-          >
-            ENTORNO MySQL
-          </h1>
-        </div>
-      ) : (
-        <></>
-      )}
       <React.Suspense fallback={loading()}>
         <GestorCampanas />
         <Switch>
