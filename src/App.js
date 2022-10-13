@@ -22,7 +22,7 @@ function App() {
 
   return (
     <HashRouter>
-      {testing !== "https://admin.farmageo.com.ar/" ? (
+      {false !== "https://admin.farmageo.com.ar/" ? (
         <div className="leyendatesting">
           <h1
             style={{
@@ -37,7 +37,9 @@ function App() {
             ENTORNO MySQL
           </h1>
         </div>
-      ) : null}
+      ) : (
+        <></>
+      )}
       <React.Suspense fallback={loading()}>
         <GestorCampanas />
         <Switch>
