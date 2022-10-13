@@ -81,28 +81,25 @@ const InputAreaEditable = ({
     };
   })();
 
-  if (type === "number") {
-    return (
-      <TextField
-        id={cab.id_a}
-        type="number"
-        onBlur={handleGuardar}
-        defaultValue={value}
-        inputProps={{ style: { textAlign: cab.align ?? "right" } }}
-      />
-    );
-  }
-
   return (
     <div className="tarjeta_grid_item_label_item">
       <div className="vista_label">{nombre}:</div>
-
-      <TextArea
-        value={value}
-        setValue={setValue}
-        onEnter={handleGuardar}
-        style={style}
-      />
+      {type === "number" ? (
+        <TextField
+          id={cab.id_a}
+          type="number"
+          onBlur={handleGuardar}
+          defaultValue={value}
+          inputProps={{ style: { textAlign: cab.align ?? "right" } }}
+        />
+      ) : (
+        <TextArea
+          value={value}
+          setValue={setValue}
+          onEnter={handleGuardar}
+          style={style}
+        />
+      )}
     </div>
   );
 };
