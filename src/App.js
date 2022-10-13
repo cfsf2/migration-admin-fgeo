@@ -113,7 +113,7 @@ function App() {
               letterSpacing: "10px",
             }}
           >
-            ENTORNO MySQL
+            ENTORNO TESTING MySQL
           </h1>
         </div>
       ) : null}

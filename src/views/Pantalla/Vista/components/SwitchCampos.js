@@ -160,6 +160,18 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             indiceData={indiceData}
           />
         );
+      case "input_number_editable":
+        return (
+          <InputAreaEditable
+            key={cab.id_a}
+            data={data}
+            cab={cab}
+            hijos={hijos}
+            campokey={campokey}
+            indiceData={indiceData}
+            type="number"
+          />
+        );
       case "input_text_editable":
         return (
           <InputTextEditable
