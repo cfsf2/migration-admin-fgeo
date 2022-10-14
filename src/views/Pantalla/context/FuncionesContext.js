@@ -150,6 +150,7 @@ export const FuncionesProvider = (props) => {
           cab.refrescarConfiguracion &&
           cab.refrescarConfiguracion.trim() !== ""
         ) {
+          console.log(cab.refrescarConfiguracion, "guardarSinConfirmar");
           refrescarConfiguracion({ cab });
         }
         return res;
