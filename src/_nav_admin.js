@@ -158,9 +158,9 @@ export default {
           url: "/Configuracion/PANTALLA_ADMIN_LABORATORIOS",
         },
         {
-          name: "Recuperos",
-          url: "/Configuracion/PANTALLA_RECUPERO",
-          permiso: "recupero",
+          name: "Transfers Nuevo",
+          url: "/Configuracion/PANTALLA_TRANSFER",
+          permiso: "transfer",
         },
       ],
     },
