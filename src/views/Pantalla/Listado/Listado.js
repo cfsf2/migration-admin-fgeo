@@ -53,6 +53,10 @@ const objetoQueryFiltrosdeF = (filtros, filtrosAAplicar, pantalla) => {
 export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
   let pantalla = configuracion.opciones.id_a; //ID_A de Listado
 
+  const [display_container, setDisplay] = useState(
+    configuracion.opciones.display_container
+  );
+
   const { pantalla: PPantalla, configuraciones_ref } =
     useContext(PantallaContext);
 
@@ -139,6 +143,8 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
         type: "SET_OPCIONES_LISTADO",
         payload: res.data.opciones,
       });
+
+      setDisplay(() => res.data.opciones.display_container);
 
       dispatch({
         type: "SET_BOTONES_LISTADO",
@@ -247,7 +253,9 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
           callMF,
         ])}
       >
-        {state.loading_pantalla ? (
+        {display_container === "n" ? (
+          <></>
+        ) : state.loading_pantalla ? (
           <div style={{ width: "100%", textAlign: "center" }}>Cargando...</div>
         ) : (
           children
