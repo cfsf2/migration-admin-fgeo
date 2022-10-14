@@ -27,8 +27,9 @@ const SelectNroCuenta = ({
         });
     }
   }, [farmacia.id, laboratorio.id]);
+
   if (!laboratorio.id) return <></>;
-  console.log(laboratorio);
+
   return (
     <>
       <Row style={{ color: "#20a8d8", fontSize: 18 }}>
