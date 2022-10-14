@@ -25,8 +25,7 @@ import {
 import { LOADPROFILE } from "../../../redux/actions/authActions";
 
 import TransferCart from "./TransferCart";
-import SelectDrogueria from "./components/SelectDrogueria";
-import SelectLaboratorioCuenta from "./components/SelectLaboratorioCuenta";
+import SelectNroCuenta from "./components/SelectNroCuenta";
 
 class FinalizarTransfer extends Component {
   constructor(props) {
@@ -45,7 +44,7 @@ class FinalizarTransfer extends Component {
   }
 
   handleInputNroCuenta(e) {
-    if (this.state.lab_selected.permite_nro_cuenta === "n") {
+    if (this.state.lab_selected.modalidad_entrega === "TODAS_DROGUERIAS") {
       const nro_cuenta_drogueria =
         this.props.farmaciaReducer.farmacia.nro_cuenta_drogueria.find(
           (cta) => cta.id_drogueria.toString() === e.target.value.toString()
@@ -61,6 +60,22 @@ class FinalizarTransfer extends Component {
         },
       });
     }
+
+    const nro_cuenta_drogueria =
+      this.props.farmaciaReducer.farmacia.nro_cuenta_drogueria.find(
+        (cta) => cta.id_drogueria.toString() === e.target.value.toString()
+      );
+
+    this.setState({
+      transfer: {
+        ...this.state.transfer,
+        [e.target.name]: e.target.value,
+        nro_cuenta_drogueria: nro_cuenta_drogueria
+          ? nro_cuenta_drogueria.nro_cuenta
+          : "",
+      },
+    });
+
     if (this.state.lab_selected.permite_nro_cuenta === "s") {
       this.setState({
         transfer: { ...this.state.transfer, [e.target.name]: e.target.value },
@@ -205,35 +220,13 @@ class FinalizarTransfer extends Component {
 
         <Card>
           <CardBody>
-            <Row style={{ color: "#20a8d8", fontSize: 18 }}>
-              {lab_selected?.permite_nro_cuenta === "s" ? (
-                <SelectLaboratorioCuenta
-                  transfer={this.state.transfer}
-                  handleInputNroCuenta={this.handleInputNroCuenta}
-                  farmacia={this.props.farmaciaReducer.farmacia}
-                  laboratorio={lab_selected}
-                />
-              ) : (
-                <SelectDrogueria
-                  transfer={this.state.transfer}
-                  handleInputNroCuenta={this.handleInputNroCuenta}
-                  farmacia={this.props.farmaciaReducer.farmacia}
-                />
-              )}
+            <SelectNroCuenta
+              transfer={this.state.transfer}
+              handleInputNroCuenta={this.handleInputNroCuenta}
+              farmacia={this.props.farmaciaReducer.farmacia}
+              laboratorio={lab_selected}
+            />
 
-              <Col md="4" xs="12">
-                <FormGroup>
-                  <Label>Laboratorio elegido</Label>
-                  <Input
-                    type="text"
-                    value={
-                      lab_selected != null ? lab_selected.nombre : undefined
-                    }
-                    disabled
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
             <hr />
             <TransferCart
               transfer={this.state.transfer}
