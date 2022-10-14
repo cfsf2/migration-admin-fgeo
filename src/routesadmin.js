@@ -379,6 +379,12 @@ const routes = [
     permiso: "recupero",
   },
   {
+    path: "/Vista/:pantalla",
+    exact: true,
+    component: Pantalla,
+    permiso: "transfer",
+  },
+  {
     path: "/Configuracion/:pantalla",
     exact: true,
     name: "Listado",
