@@ -191,8 +191,6 @@ export const SET_LABORATORIO_SELECTED = async (lab) => {
 };
 
 export const GET_PRODUCTOS_TRANSFERS_BY_LAB = async (laboratorio) => {
-  const instituciones = await store.getState().authReducer.userprofile
-    .instituciones;
   return (dispatch) => {
     dispatch({
       type: "SET_LABORATORIO_SELECTED",
