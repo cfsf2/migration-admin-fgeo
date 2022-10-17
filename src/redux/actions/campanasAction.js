@@ -189,10 +189,10 @@ export const NUEVO_REQUERIMIENTO = ({
   };
 };
 
-export const NEGAR_REQUERIMIENTO = () => {
+export const NEGAR_REQUERIMIENTO = ({ id_usuario }) => {
   return (dispatch) => {
     return axios
-      .post(farmageo_api + "/campana/negarRequerimiento")
+      .post(farmageo_api + "/campana/negarRequerimiento", { id_usuario })
       .then((res) => null)
       .catch((err) => console.log(err));
   };
