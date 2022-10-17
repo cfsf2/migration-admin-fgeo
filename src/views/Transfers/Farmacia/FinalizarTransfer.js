@@ -44,20 +44,25 @@ class FinalizarTransfer extends Component {
   }
 
   handleInputNroCuenta(e) {
-    if (this.state.lab_selected.modalidad_entrega === "TODAS_DROGUERIAS") {
-      const nro_cuenta_drogueria =
-        this.props.farmaciaReducer.farmacia.nro_cuenta_drogueria.find(
-          (cta) => cta.id_drogueria.toString() === e.target.value.toString()
-        );
+    // if (this.state.lab_selected.modalidad_entrega.id_a === "TODAS_DROGUERIAS") {
+    //   const nro_cuenta_drogueria =
+    //     this.props.farmaciaReducer.farmacia.nro_cuenta_drogueria.find(
+    //       (cta) => cta.id_drogueria.toString() === e.target.value.toString()
+    //     );
 
-      this.setState({
-        transfer: {
-          ...this.state.transfer,
-          [e.target.name]: e.target.value,
-          nro_cuenta_drogueria: nro_cuenta_drogueria
-            ? nro_cuenta_drogueria.nro_cuenta
-            : "",
-        },
+    //   this.setState({
+    //     transfer: {
+    //       ...this.state.transfer,
+    //       [e.target.name]: e.target.value,
+    //       nro_cuenta_drogueria: nro_cuenta_drogueria
+    //         ? nro_cuenta_drogueria.nro_cuenta
+    //         : "",
+    //     },
+    //   });
+    // }
+    if (this.state.lab_selected.modalidad_entrega.id_a === "DIRECTO") {
+      return this.setState({
+        transfer: { ...this.state.transfer, [e.target.name]: e.target.value },
       });
     }
 
@@ -75,12 +80,6 @@ class FinalizarTransfer extends Component {
           : "",
       },
     });
-
-    if (this.state.lab_selected.permite_nro_cuenta === "s") {
-      this.setState({
-        transfer: { ...this.state.transfer, [e.target.name]: e.target.value },
-      });
-    }
   }
 
   handlequery = () => {

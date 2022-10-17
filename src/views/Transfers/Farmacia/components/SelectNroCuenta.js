@@ -24,6 +24,17 @@ const SelectNroCuenta = ({
         })
         .then((res) => {
           setCuentas(() => res.data);
+          if (
+            laboratorio.modalidad_entrega.id_a === "DIRECTO" &&
+            res.data.nro_cuenta
+          ) {
+            handleInputNroCuenta({
+              target: {
+                name: "nro_cuenta_drogueria",
+                value: res.data.nro_cuenta,
+              },
+            });
+          }
         });
     }
   }, [farmacia.id, laboratorio.id]);
@@ -71,7 +82,12 @@ const SelectNroCuenta = ({
             <Input
               type="text"
               name="nro_cuenta_drogueria"
-              value={transfer ? transfer.nro_cuenta_drogueria : undefined}
+              onChange={handleInputNroCuenta}
+              value={
+                laboratorio.modalidad_entrega.id_a !== "DIRECTO"
+                  ? transfer.nro_cuenta_drogueria
+                  : cuentas?.nro_cuenta
+              }
               disabled={laboratorio.modalidad_entrega.id_a !== "DIRECTO"}
             />
           </FormGroup>
