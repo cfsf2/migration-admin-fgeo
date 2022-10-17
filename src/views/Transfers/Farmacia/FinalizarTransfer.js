@@ -60,6 +60,11 @@ class FinalizarTransfer extends Component {
     //     },
     //   });
     // }
+    if (this.state.lab_selected.modalidad_entrega.id_a === "DIRECTO") {
+      this.setState({
+        transfer: { ...this.state.transfer, [e.target.name]: e.target.value },
+      });
+    }
 
     const nro_cuenta_drogueria =
       this.props.farmaciaReducer.farmacia.nro_cuenta_drogueria.find(
@@ -75,12 +80,6 @@ class FinalizarTransfer extends Component {
           : "",
       },
     });
-
-    if (this.state.lab_selected.modalidad_entrega.id_a === "DIRECTO") {
-      this.setState({
-        transfer: { ...this.state.transfer, [e.target.name]: e.target.value },
-      });
-    }
   }
 
   handlequery = () => {
