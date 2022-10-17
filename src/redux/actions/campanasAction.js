@@ -188,3 +188,12 @@ export const NUEVO_REQUERIMIENTO = ({
       .catch((err) => console.log(err));
   };
 };
+
+export const NEGAR_REQUERIMIENTO = () => {
+  return (dispatch) => {
+    return axios
+      .post(farmageo_api + "/campana/negarRequerimiento")
+      .then((res) => null)
+      .catch((err) => console.log(err));
+  };
+};
