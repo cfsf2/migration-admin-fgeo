@@ -61,7 +61,7 @@ class FinalizarTransfer extends Component {
     //   });
     // }
     if (this.state.lab_selected.modalidad_entrega.id_a === "DIRECTO") {
-      this.setState({
+      return this.setState({
         transfer: { ...this.state.transfer, [e.target.name]: e.target.value },
       });
     }
