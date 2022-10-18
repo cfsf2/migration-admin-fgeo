@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import Modal from "../../../../src/components/Modal";
 import "../components/capturaWs.css";
 
-import { NUEVO_REQUERIMIENTO } from "../../../../src/redux/actions/campanasAction";
+import {
+  NUEVO_REQUERIMIENTO,
+  NEGAR_REQUERIMIENTO,
+} from "../../../../src/redux/actions/campanasAction";
 import {
   UPDATE_USER_LOGUEADO,
   // UPDATE_LOCAL_USER,
@@ -108,7 +111,6 @@ const CapturaWs = (props) => {
   };
 
   React.useEffect(() => {
-    console.log("--->", props.UsuarioReducer.load);
     props.UsuarioReducer.load && setMostrar(true);
   }, [props.UsuarioReducer.load]);
 
@@ -133,6 +135,24 @@ const CapturaWs = (props) => {
   const desc = campana.descripcion;
   const comas = desc.replace(/\./g, ",");
   const arr = comas.split(",");
+
+  const handleNegar = () => {
+    props
+      .NEGAR_REQUERIMIENTO({
+        id_usuario: usuario ? usuario._id : null,
+      })
+      .then((res) => {
+        setCapturaExitosa(true);
+
+        setTimeout(() => {
+          setMostrar(false);
+        }, 2000);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Ha ocurrido un error");
+      });
+  };
 
   return (
     <Modal
@@ -200,11 +220,18 @@ const CapturaWs = (props) => {
                     <div className="form-row justify-content-center pt-3">
                       <button
                         type="submit"
-                        className="btn btn-info"
+                        className="btn btn-success"
                         data-dismiss="modal"
                         aria-label="Close"
                       >
                         Confirmar
+                      </button>
+                      <button
+                        type="submit"
+                        onClick={handleNegar}
+                        className="btn btn-danger mx-2"
+                      >
+                        atributo negativo
                       </button>
                     </div>
                   </form>
@@ -228,6 +255,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   NUEVO_REQUERIMIENTO,
   UPDATE_USER_LOGUEADO,
+  NEGAR_REQUERIMIENTO
   //UPDATE_LOCAL_USER,
 };
 
