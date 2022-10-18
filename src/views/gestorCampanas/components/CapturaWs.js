@@ -70,7 +70,7 @@ const CapturaWs = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log("disparado ! ! !");
     if (validacion()) {
       props
         .NUEVO_REQUERIMIENTO({
@@ -115,7 +115,11 @@ const CapturaWs = (props) => {
   }, [props.UsuarioReducer.load]);
 
   React.useEffect(() => {
-    if (props.UsuarioReducer.usuario && props.UsuarioReducer.usuario.telefono) {
+    if (
+      props.UsuarioReducer.usuario &&
+      props.UsuarioReducer.usuario.telefono &&
+      props.UsuarioReducer.usuario.telefono !== ""
+    ) {
       setState({
         caracteristica: props.UsuarioReducer.usuario.telefono
           ?.toString()
@@ -124,6 +128,7 @@ const CapturaWs = (props) => {
           ?.toString()
           .slice(3, 10),
       });
+      //setError(true);
     } else {
       setState({
         caracteristica: "",
@@ -143,11 +148,7 @@ const CapturaWs = (props) => {
         id_usuario: usuario ? usuario.id : null,
       })
       .then((res) => {
-        setCapturaExitosa(true);
-
-        setTimeout(() => {
-          setMostrar(false);
-        }, 2000);
+        setMostrar(false);
       })
       .catch((err) => {
         console.log(err);
@@ -194,7 +195,7 @@ const CapturaWs = (props) => {
                       ))}
                     </p>{" "}
                   </div>
-                  <form onSubmit={handleSubmit}>
+                  <form>
                     <div className="form-row col-md-12 mb-1 pr-3 input-position">
                       <input
                         className="col-4 h-100 registro"
@@ -213,27 +214,36 @@ const CapturaWs = (props) => {
                         onChange={handleChange}
                       />
                     </div>
-                    {error || (usuario.telefono && usuario.telefono !== "") ? (
+                    {error ? (
                       <p className="registro-alert">
                         Revise los datos ingresados &#128070;
                       </p>
-                    ) : null}
+                    ) : (
+                      <></>
+                    )}
                     <div className="form-row justify-content-center pt-3">
                       <button
-                        type="submit"
                         className="btn btn-success"
                         data-dismiss="modal"
                         aria-label="Close"
+                        onClick={handleSubmit}
                       >
                         Confirmar
                       </button>
-                      <button
-                        type="submit"
-                        onClick={handleNegar}
-                        className="btn btn-danger mx-2"
-                      >
-                        atributo negativo
-                      </button>
+                      {campana.atributos.map((atributo) =>
+                        atributo.codigo === "negativo" 
+                        ? (
+                          <button
+                            onClick={handleNegar}
+                            className="btn btn-danger mx-2"
+                          >
+                            {atributo.valor}
+                          </button>
+                        ) 
+                        : (
+                          <></>
+                        )
+                      )}
                     </div>
                   </form>
                 </div>
