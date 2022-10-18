@@ -74,9 +74,9 @@ const CapturaWs = (props) => {
     if (validacion()) {
       props
         .NUEVO_REQUERIMIENTO({
-          id_campana: campana._id,
-          id_usuario: usuario ? usuario._id : null,
-          id_farmacia: farmacia ? farmacia._id : null,
+          id_campana: campana.id,
+          id_usuario: usuario ? usuario.id : null,
+          id_farmacia: farmacia ? farmacia.id : null,
           celular: unirTelefono(),
         })
         .then((res) => {
@@ -139,7 +139,8 @@ const CapturaWs = (props) => {
   const handleNegar = () => {
     props
       .NEGAR_REQUERIMIENTO({
-        id_usuario: usuario ? usuario._id : null,
+        id_campana: campana.id,
+        id_usuario: usuario ? usuario.id : null,
       })
       .then((res) => {
         setCapturaExitosa(true);
@@ -255,7 +256,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   NUEVO_REQUERIMIENTO,
   UPDATE_USER_LOGUEADO,
-  NEGAR_REQUERIMIENTO
+  NEGAR_REQUERIMIENTO,
   //UPDATE_LOCAL_USER,
 };
 
