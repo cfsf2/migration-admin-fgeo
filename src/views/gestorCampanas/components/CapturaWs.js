@@ -156,14 +156,17 @@ const CapturaWs = (props) => {
       });
   };
 
-  const botonNegativo = campana.atributos.map(
-    (atr) => atr.codigo === "boton_negativo"
+  const botonNegativo = campana.atributos.find(
+    (atr) => atr.codigo === "boton_negativo" && atr.valor === "s"
   );
 
-  const textoBotonNegativo = campana.atributos.map((atr) =>
-    atr.codigo === "texto_boton_negativo" ? atr.valor ?? "Rechazar" : <></>
+  const textoBotonNegativo = campana.atributos.find(
+    (atr) => atr.codigo === "texto_boton_negativo"
   );
 
+  const textoBotonPositivo = campana.atributos.find(
+    (atr) => atr.codigo === "texto_boton_positivo"
+  );
 
   return (
     <Modal
@@ -237,14 +240,17 @@ const CapturaWs = (props) => {
                         aria-label="Close"
                         onClick={handleSubmit}
                       >
-                        Confirmar
+                        {!textoBotonPositivo.valor ? "Acepto" : textoBotonPositivo.valor}
                       </button>
+
                       {botonNegativo ? (
                         <button
                           onClick={handleNegar}
                           className="btn btn-danger mx-2"
                         >
-                          {textoBotonNegativo}
+                          {!textoBotonNegativo.valor
+                            ? "Rechazar"
+                            : textoBotonNegativo.valor}
                         </button>
                       ) : (
                         <></>
