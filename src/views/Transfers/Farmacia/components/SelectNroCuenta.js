@@ -78,7 +78,7 @@ const SelectNroCuenta = ({
         )}
         <Col md="3" xs="12">
           <FormGroup>
-            <Label>N° de cuenta de Droguería</Label>
+            <Label>N° de cuenta</Label>
             <Input
               type="text"
               name="nro_cuenta_drogueria"
