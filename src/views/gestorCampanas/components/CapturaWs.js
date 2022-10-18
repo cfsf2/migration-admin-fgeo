@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import Modal from "../../../../src/components/Modal";
 import "../components/capturaWs.css";
 
-import { NUEVO_REQUERIMIENTO } from "../../../../src/redux/actions/campanasAction";
+import {
+  NUEVO_REQUERIMIENTO,
+  NEGAR_REQUERIMIENTO,
+} from "../../../../src/redux/actions/campanasAction";
 import {
   UPDATE_USER_LOGUEADO,
   // UPDATE_LOCAL_USER,
@@ -67,13 +70,13 @@ const CapturaWs = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log("disparado ! ! !");
     if (validacion()) {
       props
         .NUEVO_REQUERIMIENTO({
-          id_campana: campana._id,
-          id_usuario: usuario ? usuario._id : null,
-          id_farmacia: farmacia ? farmacia._id : null,
+          id_campana: campana.id,
+          id_usuario: usuario ? usuario.id : null,
+          id_farmacia: farmacia ? farmacia.id : null,
           celular: unirTelefono(),
         })
         .then((res) => {
@@ -108,12 +111,15 @@ const CapturaWs = (props) => {
   };
 
   React.useEffect(() => {
-    console.log("--->", props.UsuarioReducer.load);
     props.UsuarioReducer.load && setMostrar(true);
   }, [props.UsuarioReducer.load]);
 
   React.useEffect(() => {
-    if (props.UsuarioReducer.usuario && props.UsuarioReducer.usuario.telefono) {
+    if (
+      props.UsuarioReducer.usuario &&
+      props.UsuarioReducer.usuario.telefono &&
+      props.UsuarioReducer.usuario.telefono !== ""
+    ) {
       setState({
         caracteristica: props.UsuarioReducer.usuario.telefono
           ?.toString()
@@ -122,6 +128,7 @@ const CapturaWs = (props) => {
           ?.toString()
           .slice(3, 10),
       });
+      //setError(true);
     } else {
       setState({
         caracteristica: "",
@@ -133,6 +140,33 @@ const CapturaWs = (props) => {
   const desc = campana.descripcion;
   const comas = desc.replace(/\./g, ",");
   const arr = comas.split(",");
+
+  const handleNegar = () => {
+    props
+      .NEGAR_REQUERIMIENTO({
+        id_campana: campana.id,
+        id_usuario: usuario ? usuario.id : null,
+      })
+      .then((res) => {
+        setMostrar(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Ha ocurrido un error");
+      });
+  };
+
+  const botonNegativo = campana.atributos.find(
+    (atr) => atr.codigo === "boton_negativo" && atr.valor === "s"
+  );
+
+  const textoBotonNegativo = campana.atributos.find(
+    (atr) => atr.codigo === "texto_boton_negativo"
+  );
+
+  const textoBotonPositivo = campana.atributos.find(
+    (atr) => atr.codigo === "texto_boton_positivo"
+  );
 
   return (
     <Modal
@@ -173,7 +207,7 @@ const CapturaWs = (props) => {
                       ))}
                     </p>{" "}
                   </div>
-                  <form onSubmit={handleSubmit}>
+                  <form>
                     <div className="form-row col-md-12 mb-1 pr-3 input-position">
                       <input
                         className="col-4 h-100 registro"
@@ -192,20 +226,35 @@ const CapturaWs = (props) => {
                         onChange={handleChange}
                       />
                     </div>
-                    {error || (usuario.telefono && usuario.telefono !== "") ? (
+                    {error ? (
                       <p className="registro-alert">
                         Revise los datos ingresados &#128070;
                       </p>
-                    ) : null}
+                    ) : (
+                      <></>
+                    )}
                     <div className="form-row justify-content-center pt-3">
                       <button
-                        type="submit"
-                        className="btn btn-info"
+                        className="btn btn-success"
                         data-dismiss="modal"
                         aria-label="Close"
+                        onClick={handleSubmit}
                       >
-                        Confirmar
+                        {!textoBotonPositivo.valor ? "Acepto" : textoBotonPositivo.valor}
                       </button>
+
+                      {botonNegativo ? (
+                        <button
+                          onClick={handleNegar}
+                          className="btn btn-danger mx-2"
+                        >
+                          {!textoBotonNegativo.valor
+                            ? "Rechazar"
+                            : textoBotonNegativo.valor}
+                        </button>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </form>
                 </div>
@@ -228,6 +277,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   NUEVO_REQUERIMIENTO,
   UPDATE_USER_LOGUEADO,
+  NEGAR_REQUERIMIENTO,
   //UPDATE_LOCAL_USER,
 };
 
