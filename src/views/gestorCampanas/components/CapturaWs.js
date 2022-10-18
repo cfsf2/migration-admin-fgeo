@@ -156,6 +156,15 @@ const CapturaWs = (props) => {
       });
   };
 
+  const botonNegativo = campana.atributos.map(
+    (atr) => atr.codigo === "boton_negativo"
+  );
+
+  const textoBotonNegativo = campana.atributos.map((atr) =>
+    atr.codigo === "texto_boton_negativo" ? atr.valor ?? "Rechazar" : <></>
+  );
+
+
   return (
     <Modal
       open={mostrar}
@@ -230,19 +239,15 @@ const CapturaWs = (props) => {
                       >
                         Confirmar
                       </button>
-                      {campana.atributos.map((atributo) =>
-                        atributo.codigo === "negativo" 
-                        ? (
-                          <button
-                            onClick={handleNegar}
-                            className="btn btn-danger mx-2"
-                          >
-                            {atributo.valor}
-                          </button>
-                        ) 
-                        : (
-                          <></>
-                        )
+                      {botonNegativo ? (
+                        <button
+                          onClick={handleNegar}
+                          className="btn btn-danger mx-2"
+                        >
+                          {textoBotonNegativo}
+                        </button>
+                      ) : (
+                        <></>
                       )}
                     </div>
                   </form>
