@@ -168,6 +168,7 @@ const CapturaWs = (props) => {
   );
 
   const dataFarmacia = props.FarmaciaReducer?.farmacia;
+  console.log(props.FarmaciaReducer);
 
   return (
     <Modal
