@@ -13,6 +13,7 @@ import debitospamiReducer from "./debitospamiReducer";
 import userReducer from "./userReducer";
 import institucionesReducer from "./institucionesReducer";
 import campanasReducer from "./campanasReducer";
+import farmaciaReducer from "./farmaciaReducer";
 
 export default combineReducers({
   imageReducer,
@@ -21,6 +22,7 @@ export default combineReducers({
   pedidosReducer,
   publicidadesReducer,
   farmaciasAdminReducer,
+  farmaciaReducer,
   denunciasReducer,
   tranfersReducer,
   packsproductosReducer,
