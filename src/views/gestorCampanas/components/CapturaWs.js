@@ -24,7 +24,6 @@ const CapturaWs = (props) => {
   const campana = props.campana;
   const usuario = props.UsuarioReducer.usuario;
   const farmacia = props.farmacia;
-
   const [capturaExitosa, setCapturaExitosa] = React.useState(false);
 
   const handleChange = (e) => {
@@ -168,13 +167,15 @@ const CapturaWs = (props) => {
     (atr) => atr.codigo === "texto_boton_positivo"
   );
 
+  const dataFarmacia = props.FarmaciaReducer?.farmacia;
+
   return (
     <Modal
       open={mostrar}
       handleClose={setMostrar}
       style={{ position: "fixed", left: "50%", minwidth: "500px" }}
     >
-      <div className="modal-dialog modal-md ">
+      <div className="modal-dialog">
         <div className="modal-content">
           <div style={{ float: "right" }}></div>
           <div className="modal-body" align="left">
@@ -200,12 +201,14 @@ const CapturaWs = (props) => {
                         textAlign: "center",
                         paddingLeft: "15px",
                         paddingRight: "15px",
+                        width: "60ch",
                       }}
                     >
                       {arr.map((item) => (
                         <p style={{ margin: 0, maxWidth: "56ch" }}>{item}</p>
                       ))}
-                    </p>{" "}
+                      {`Titular: ${dataFarmacia?.nombrefarmaceutico}  Matricula: ${dataFarmacia?.matricula}`}
+                    </p>
                   </div>
                   <form>
                     <div className="form-row col-md-12 mb-1 pr-3 input-position">
@@ -240,7 +243,9 @@ const CapturaWs = (props) => {
                         aria-label="Close"
                         onClick={handleSubmit}
                       >
-                        {!textoBotonPositivo.valor ? "Acepto" : textoBotonPositivo.valor}
+                        {!textoBotonPositivo.valor
+                          ? "Acepto"
+                          : textoBotonPositivo.valor}
                       </button>
 
                       {botonNegativo ? (
@@ -271,6 +276,7 @@ const mapStateToProps = (state) => {
   return {
     CampanaReducer: state.campanasReducer,
     UsuarioReducer: state.userReducer,
+    FarmaciaReducer: state.farmaciaReducer,
   };
 };
 
