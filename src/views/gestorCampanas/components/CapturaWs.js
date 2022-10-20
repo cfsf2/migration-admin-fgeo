@@ -204,7 +204,7 @@ const CapturaWs = (props) => {
                     }}
                   >
                     {arr.map((item) => (
-                      <p style={{ margin: 0, maxWidth: "56ch" }}>{item}</p>
+                      <p style={{ margin: 0 }}>{item}</p>
                     ))}
                     {`Titular: ${dataFarmacia?.nombrefarmaceutico}  Matricula: ${dataFarmacia?.matricula}`}
                   </p>
