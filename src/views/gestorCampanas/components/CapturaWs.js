@@ -167,7 +167,7 @@ const CapturaWs = (props) => {
     (atr) => atr.codigo === "texto_boton_positivo"
   );
 
-  const dataFarmacia = props.FarmaciaReducer.farmacia;
+  const dataFarmacia = props.FarmaciaReducer?.farmacia;
 
   return (
     <Modal
@@ -207,7 +207,7 @@ const CapturaWs = (props) => {
                       {arr.map((item) => (
                         <p style={{ margin: 0, maxWidth: "56ch" }}>{item}</p>
                       ))}
-                      {`Titular: ${dataFarmacia.nombrefarmaceutico}  Matricula: ${dataFarmacia.matricula}`}
+                      {`Titular: ${dataFarmacia?.nombrefarmaceutico}  Matricula: ${dataFarmacia?.matricula}`}
                     </p>
                   </div>
                   <form>
