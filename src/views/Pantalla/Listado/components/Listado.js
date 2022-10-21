@@ -28,19 +28,14 @@ export const Listado = (props) => {
   const { data, loading, columnas } = props;
   const { opcionesListado, cabeceras } = useContext(ListadoContext);
 
-  const totalSi = cabeceras.filter((item) => item.totalizar === "s");
-
-  console.log('totalizador "si": ', totalSi);
-
-  const funTotal = ({ column, data }) =>
-    totalSi.map((item) =>
-      column.field === item.id_a
-        ? {
-            value: data.reduce((agg, row) => agg + row[item.id_a], 0),
-            style: { textAlign: "center" },
-          }
-        : undefined
-    );
+  const funTotal = ({ column, data }) => {
+    return column.totalizar
+      ? {
+          value: data.reduce((agg, row) => agg + row[column.field], 0),
+          style: { textAlign: "center" },
+        } 
+      : undefined;
+  };
 
   const calcPagesize = useCallback(() => {
     let size = 10;
