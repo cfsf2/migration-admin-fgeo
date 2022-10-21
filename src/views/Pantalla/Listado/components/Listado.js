@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useCallback } from "react";
-import MaterialTable, { MTableBodyRow } from "material-table";
+import MaterialTable, { MTableBodyRow } from "@material-table/core";
 import ListadoContext from "../context/ListadoContext";
 
 import { Card, CardBody, Col, Row, Spinner, CardTitle } from "reactstrap";
@@ -26,7 +26,21 @@ const theme = createMuiTheme({
 
 export const Listado = (props) => {
   const { data, loading, columnas } = props;
-  const { opcionesListado } = useContext(ListadoContext);
+  const { opcionesListado, cabeceras } = useContext(ListadoContext);
+
+  const totalSi = cabeceras.filter((item) => item.totalizar === "s");
+
+  console.log('totalizador "si": ', totalSi);
+
+  const funTotal = ({ column, data }) =>
+    totalSi.map((item) =>
+      column.field === item.id_a
+        ? {
+            value: data.reduce((agg, row) => agg + row[item.id_a], 0),
+            style: { textAlign: "center" },
+          }
+        : undefined
+    );
 
   const calcPagesize = useCallback(() => {
     let size = 10;
@@ -81,6 +95,7 @@ export const Listado = (props) => {
               <ThemeProvider theme={theme}>
                 <Filtros />
                 <MaterialTable
+                  renderSummaryRow={funTotal}
                   tableRef={tableRef}
                   isLoading={loading || opcionesListado === undefined}
                   className="listado_materialtable"
