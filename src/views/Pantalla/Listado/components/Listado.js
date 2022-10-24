@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useCallback } from "react";
-import MaterialTable, { MTableBodyRow } from "material-table";
+import MaterialTable, { MTableBodyRow } from "@material-table/core";
 import ListadoContext from "../context/ListadoContext";
 
 import { Card, CardBody, Col, Row, Spinner, CardTitle } from "reactstrap";
@@ -10,6 +10,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import "./listado.scss";
 import Filtros from "./Filtros";
+import { width } from "@mui/system";
 
 const theme = createMuiTheme({
   overrides: {
@@ -64,6 +65,17 @@ export const Listado = (props) => {
     </p>
   );
 
+  const funTotal = ({ column, data }) =>
+    column.totalizar
+      ? {
+          value: data.reduce((agg, row) => agg + row[column.field], 0),
+          style: {
+            textAlign: "center",
+            borderTop: "double",
+          },
+        }
+      : undefined;
+
   return (
     <div style={styles} className="animated fadeIn novedades_lista">
       <Row>
@@ -81,6 +93,7 @@ export const Listado = (props) => {
               <ThemeProvider theme={theme}>
                 <Filtros />
                 <MaterialTable
+                  renderSummaryRow={funTotal}
                   tableRef={tableRef}
                   isLoading={loading || opcionesListado === undefined}
                   className="listado_materialtable"
