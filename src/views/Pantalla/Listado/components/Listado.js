@@ -10,6 +10,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import "./listado.scss";
 import Filtros from "./Filtros";
+import { width } from "@mui/system";
 
 const theme = createMuiTheme({
   overrides: {
@@ -26,16 +27,7 @@ const theme = createMuiTheme({
 
 export const Listado = (props) => {
   const { data, loading, columnas } = props;
-  const { opcionesListado, cabeceras } = useContext(ListadoContext);
-
-  const funTotal = ({ column, data }) => {
-    return column.totalizar
-      ? {
-          value: data.reduce((agg, row) => agg + row[column.field], 0),
-          style: { textAlign: "center" },
-        } 
-      : undefined;
-  };
+  const { opcionesListado } = useContext(ListadoContext);
 
   const calcPagesize = useCallback(() => {
     let size = 10;
@@ -72,6 +64,17 @@ export const Listado = (props) => {
         : "No se encontraron datos"}
     </p>
   );
+
+  const funTotal = ({ column, data }) =>
+    column.totalizar
+      ? {
+          value: data.reduce((agg, row) => agg + row[column.field], 0),
+          style: {
+            textAlign: "center",
+            borderTop: "double",
+          },
+        }
+      : undefined;
 
   return (
     <div style={styles} className="animated fadeIn novedades_lista">
