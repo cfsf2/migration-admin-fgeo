@@ -382,6 +382,12 @@ const routes = [
     path: "/Vista/:pantalla",
     exact: true,
     component: Pantalla,
+    permiso: "transfer_nuevo",
+  },
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    component: Pantalla,
     permiso: "transfer",
   },
   {
