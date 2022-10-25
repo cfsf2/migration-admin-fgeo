@@ -6,8 +6,12 @@ import VistaReducer, { initialState } from "./context/VistaReducer";
 import Tarjeta from "./components/Tarjeta";
 
 const VistaProvider = ({ configuracion, id, children, nollamar }) => {
-  const { configuraciones_ref, loadingPantalla, requestErrorHandler } =
-    useContext(PantallaContext);
+  const {
+    configuraciones_ref,
+    loadingPantalla,
+    requestErrorHandler,
+    PantallaDispatch,
+  } = useContext(PantallaContext);
   const { getConfiguracion } = useContext(FuncionesContext);
 
   const [state, dispatch] = useReducer(VistaReducer, initialState);
@@ -54,6 +58,12 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
           type: "SET_OPCIONES",
           payload: res.data.opciones,
         });
+
+        PantallaDispatch({
+          type: "ADD_SQL",
+          payload: res.data.sql,
+        });
+
         setLoading(false);
       });
     })();

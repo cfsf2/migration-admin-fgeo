@@ -13,6 +13,8 @@ import { AlertasProvider } from "./context/AlertaContext";
 import { ALERT } from "./context/AlertaContext";
 import HeaderConf from "./components/HeaderConf";
 
+import Debugger from "./components/Debugger";
+
 const Pantalla = () => {
   const [state, dispatch] = useReducer(PantallaReducer, initialState);
 
@@ -60,6 +62,11 @@ const Pantalla = () => {
           payload: id,
         });
 
+        dispatch({
+          type: "ADD_SQL",
+          payload: response.data.sql,
+        });
+
         setLoadingPantalla(false);
       })
 
@@ -81,10 +88,12 @@ const Pantalla = () => {
         filtrosAplicados: state.filtrosAplicados,
         PantallaDispatch: dispatch,
         loadingPantalla,
+        sql: state.sql,
       }}
     >
       <AlertasProvider>
         <FuncionesProvider>
+          <Debugger />
           <HeaderConf
             opciones={state.opciones_de_pantalla}
             className="configuracion_pantalla_titulo_principal"

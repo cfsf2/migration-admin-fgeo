@@ -87,6 +87,15 @@ export default function PantallaReducer(state, action) {
     case "SET_DATOS_CONF":
       return state;
 
+    case "ADD_SQL":
+      let newSql = [...state.sql];
+
+      newSql = newSql.concat(action.payload).filter((s) => s);
+      return {
+        ...state,
+        sql: newSql,
+      };
+
     default:
       return state;
   }
@@ -97,4 +106,5 @@ export const initialState = {
   opciones_de_pantalla: {},
   configuraciones_ref: {},
   filtrosAplicados: {},
+  sql: [],
 };

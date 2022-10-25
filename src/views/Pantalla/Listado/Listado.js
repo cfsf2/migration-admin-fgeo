@@ -53,8 +53,15 @@ const objetoQueryFiltrosdeF = (filtros, filtrosAAplicar, pantalla) => {
 export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
   let pantalla = configuracion.opciones.id_a; //ID_A de Listado
 
-  const { pantalla: PPantalla, configuraciones_ref } =
-    useContext(PantallaContext);
+  const [display_container, setDisplay] = useState(
+    configuracion.opciones.display_container
+  );
+
+  const {
+    pantalla: PPantalla,
+    configuraciones_ref,
+    PantallaDispatch,
+  } = useContext(PantallaContext);
 
   const { requestErrorHandler } = useContext(FuncionesContext);
 
@@ -143,6 +150,11 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
       dispatch({
         type: "SET_BOTONES_LISTADO",
         payload: res.data.listadoBotones,
+      });
+
+      PantallaDispatch({
+        type: "ADD_SQL",
+        payload: res.data.sql,
       });
 
       setCabeceras(res.data.cabeceras ? res.data.cabeceras : []);
