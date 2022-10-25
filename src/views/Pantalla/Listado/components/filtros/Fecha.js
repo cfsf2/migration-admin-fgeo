@@ -3,19 +3,11 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import Label from "./LabelF";
 import "react-datepicker/dist/react-datepicker.css";
 import "../filtros.scss";
-import { makeStyles } from "@material-ui/core";
+
 import ar from "date-fns/locale/es";
 import { TextField } from "@mui/material";
 registerLocale("ar", ar);
 
-const useStyle = makeStyles({
-  dateComponent: {
-    "& .MuiInputBase-input": {
-      height: "1.55em",
-      padding: "16.5px 14px",
-    },
-  },
-});
 
 function parseISOString(s) {
   if (!s) return;
@@ -60,8 +52,6 @@ const Fecha = (props) => {
   const styles = {
     gridColumn: grid_span,
   };
-
-  const classes = useStyle();
 
   return (
     <div style={styles}>
