@@ -102,7 +102,7 @@ const Fecha = (props) => {
           endDate={filtrosAAplicar[id_a] ? endDate : null}
           customInput={
             <TextField
-              style={{ marginBottom: "8px" }}
+              style={{ marginBottom: "8px", width: "100%" }}
               className={error[id_a] ? "filtro_fecha_input_error" : ""}
               label="Desde"
             />
@@ -144,6 +144,7 @@ const Fecha = (props) => {
             customInput={
               <TextField
                 label="Hasta"
+                style={{ marginBottom: "8px", width: "100%" }}
                 className={error[id_a] ? "filtro_fecha_input_error" : ""}
               />
             }
