@@ -2,68 +2,78 @@ import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const Draggable = (props) => {
-  const [id, setId] = useState(uuidv4() + "#Draggable");
-  const [mouseDown, setMouseDown] = useState(false);
-  const [position, setPosition] = useState({
-    pos1: 0,
-    pos2: 0,
-    pos3: 0,
-    pos4: 0,
-  });
+  const [idDragable, setIdDragable] = useState(uuidv4() + "#Draggable");
+  const [idDragzone, setIdDragzone] = useState(uuidv4() + "#Dragzone");
 
-  const dragMouseUp = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const dragable = document.getElementById(idDragable),
+      dragzone = document.getElementById(idDragzone);
 
-    setMouseDown(false);
-  };
-  const dragMouseDown = (e) => {
-    e.preventDefault();
-    e.persist();
-
-    setMouseDown(true);
-
-    setPosition((p) => {
-      const np = { ...p };
-      np.pos3 = e.clientX;
-      np.pos4 = e.clientY;
-      return np;
-    });
-  };
-
-  const dragMouseMove = (e) => {
-    e.preventDefault();
-    e.persist();
-    if (!mouseDown) return;
-
-    setPosition((p) => {
-      return {
-        pos1: p.pos3 - e.clientX,
-        pos2: p.pos4 - e.clientY,
-        pos3: e.clientX,
-        pos4: e.clientY,
-      };
-    });
-  };
-
-  useLayoutEffect(() => {
-    const dragEl = document.getElementById(id);
-
-    dragEl.style.top = `${dragEl.offsetTop - position.pos2}px`;
-    dragEl.style.left = `${dragEl.offsetLeft - position.pos1}px`;
-  }, [id, position.pos1, position.pos2]);
+    dragElement(dragable, dragzone);
+  }, []);
 
   return (
     <div
-      onMouseMove={dragMouseMove}
-      onMouseUp={dragMouseUp}
-      onMouseDown={dragMouseDown}
-      onMouseLeave={dragMouseUp}
-      style={{ position: "absolute", zIndex: "410" }}
-      id={id}
+      style={{
+        position: "absolute",
+        zIndex: "1020",
+        top: props.top,
+        left: props.left,
+      }}
+      id={idDragable}
     >
+      <div
+        id={idDragzone}
+        style={{
+          background: "#D3D3D3",
+          width: "100%",
+          textAlign: "center",
+          cursor: "move",
+          padding: 0,
+          margin: 0,
+        }}
+      >
+        =
+      </div>
       {props.children}
     </div>
   );
 };
 
 export default Draggable;
+
+const dragElement = (element, dragzone) => {
+  let pos1 = 0,
+    pos2 = 0,
+    pos3 = 0,
+    pos4 = 0;
+
+  const dragMouseUp = () => {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  };
+
+  const dragMouseMove = (event) => {
+    event.preventDefault();
+
+    pos1 = pos3 - event.clientX;
+    pos2 = pos4 - event.clientY;
+    pos3 = event.clientX;
+    pos4 = event.clientY;
+
+    element.style.top = `${element.offsetTop - pos2}px`;
+    element.style.left = `${element.offsetLeft - pos1}px`;
+  };
+
+  const dragMouseDown = (event) => {
+    event.preventDefault();
+
+    pos3 = event.clientX;
+    pos4 = event.clientY;
+
+    document.onmouseup = dragMouseUp;
+    document.onmousemove = dragMouseMove;
+  };
+
+  dragzone.onmousedown = dragMouseDown;
+};

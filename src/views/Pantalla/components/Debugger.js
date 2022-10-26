@@ -6,6 +6,8 @@ import React, {
   useLayoutEffect,
 } from "react";
 
+import ReactDOM from "react-dom";
+
 import PantallaContext from "../context/PantallaContext";
 import { Link } from "react-router-dom";
 
@@ -17,6 +19,7 @@ const Debugger = () => {
   const id = "Debugger";
 
   const [height, setH] = useState();
+  const [display, setDisplay] = useState(false);
 
   const obs = new ResizeObserver((entries) => {
     if (!entries) return;
@@ -45,13 +48,25 @@ const Debugger = () => {
   }, [height]);
 
   if (sql.length === 0) return <></>;
+
+  const element = (
+    <Draggable top="100px" left="250px">
+      <button
+        onClick={() => setDisplay((s) => !s)}
+        style={{ padding: "1rem 2rem", background: "lightgray" }}
+      >
+        SQLs
+      </button>
+    </Draggable>
+  );
+  const root = ReactDOM.createPortal(
+    element,
+    document.getElementById("modal-root")
+  );
+
   return (
     <>
-      <Draggable>
-        <div style={{ padding: "1rem 2rem", background: "lightgray" }}>
-          ARrastrame
-        </div>
-      </Draggable>
+      {root}
       <div
         style={{
           position: "fixed",
@@ -64,6 +79,7 @@ const Debugger = () => {
           zIndex: "400",
           marginTop: "50px",
           borderBottom: "1px black solid",
+          display: display ? "inherit" : "none",
         }}
         id={id}
         ref={ref}
