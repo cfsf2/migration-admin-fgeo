@@ -9,6 +9,8 @@ import React, {
 import PantallaContext from "../context/PantallaContext";
 import { Link } from "react-router-dom";
 
+import Draggable from "./Draggable";
+
 const Debugger = () => {
   const { sql } = useContext(PantallaContext);
   const ref = useRef();
@@ -44,49 +46,56 @@ const Debugger = () => {
 
   if (sql.length === 0) return <></>;
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        background: "white",
-        height: "15vh",
-        maxHeight: "50vh",
-        overflowY: "scroll",
-        resize: "vertical",
-        zIndex: "400",
-        marginTop: "50px",
-        borderBottom: "1px black solid",
-      }}
-      id={id}
-      ref={ref}
-    >
-      <code>
-        {sql.map((s) => {
-          if (!s) return <></>;
-          if (s.conf === "Separador")
+    <>
+      <Draggable>
+        <div style={{ padding: "1rem 2rem", background: "lightgray" }}>
+          ARrastrame
+        </div>
+      </Draggable>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          background: "white",
+          height: "15vh",
+          maxHeight: "50vh",
+          overflowY: "scroll",
+          resize: "vertical",
+          zIndex: "400",
+          marginTop: "50px",
+          borderBottom: "1px black solid",
+        }}
+        id={id}
+        ref={ref}
+      >
+        <code>
+          {sql.map((s) => {
+            if (!s) return <></>;
+            if (s.conf === "Separador")
+              return (
+                <div style={{ marginTop: "0.8rem" }}>
+                  <hr />
+                  <h5>{s.sql}</h5>
+                </div>
+              );
             return (
-              <div style={{ marginTop: "0.8rem" }}>
-                <hr />
-                <h5>{s.sql}</h5>
+              <div style={{ fontSize: "1rem" }}>
+                <Link
+                  to={{
+                    pathname: "Vista/PANTALLA_VISTA_CONFIGURACION",
+                    search: "id=" + s.confId,
+                  }}
+                  target="_blank"
+                >
+                  <h4>{s.conf}</h4>
+                </Link>
+                <code>{s.sql}</code>
               </div>
             );
-          return (
-            <div style={{ fontSize: "1rem" }}>
-              <Link
-                to={{
-                  pathname: "Vista/PANTALLA_VISTA_CONFIGURACION",
-                  search: "id=" + s.confId,
-                }}
-                target="_blank"
-              >
-                <h4>{s.conf}</h4>
-              </Link>
-              <code>{s.sql}</code>
-            </div>
-          );
-        })}
-      </code>
-    </div>
+          })}
+        </code>
+      </div>
+    </>
   );
 };
 
