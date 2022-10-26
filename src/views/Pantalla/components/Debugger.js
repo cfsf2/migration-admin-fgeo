@@ -119,7 +119,9 @@ const Debugger = () => {
                 >
                   <h4>{s.conf}</h4>
                 </Link>
-                <code>{s.sql}</code>
+                <code style={{ color: s.error ? "inherit" : "gray" }}>
+                  {s.sql}
+                </code>
               </div>
             );
           })}

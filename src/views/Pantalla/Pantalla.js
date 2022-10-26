@@ -38,7 +38,9 @@ const Pantalla = () => {
       .then((response) => {
         if (response.status >= 400) {
           requestErrorHandler(response);
-          if (!response.data.error?.continuar) return;
+          console.log(response);
+          return response;
+          if (!response.data.error?.continuar) return response;
         }
         dispatch({
           type: "SET_CONFIGURACIONES_REF",
@@ -61,16 +63,19 @@ const Pantalla = () => {
           payload: id,
         });
 
+        setLoadingPantalla(false);
+        return response;
+      })
+      .then((response) => {
+        console.log(response);
         dispatch({
           type: "ADD_SQL",
           payload: response.data.sql,
         });
-
-        setLoadingPantalla(false);
       })
-
       .catch((error) => {
         console.log(error);
+        return;
       });
   }, [pantalla, id]);
 
