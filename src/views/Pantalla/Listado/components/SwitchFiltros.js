@@ -49,7 +49,10 @@ const SwitchFiltros = (props) => {
   })();
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(11, 1fr)" }}>
+    <div
+      id={props.id_a}
+      style={{ display: "grid", gridTemplateColumns: "repeat(11, 1fr)" }}
+    >
       <div style={{ gridColumn: props.grid_span ? props.grid_span : "1 / -1" }}>
         {Componente}
       </div>

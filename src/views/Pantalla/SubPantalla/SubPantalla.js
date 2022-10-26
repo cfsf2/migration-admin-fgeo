@@ -70,6 +70,7 @@ const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
 
   return (
     <Card
+      id={id_a}
       className={id_a + "_CONTENEDOR"}
       style={{
         display: "grid",

@@ -84,6 +84,7 @@ const Pantalla = () => {
         pantalla: state.pantalla,
         pantalla_id: state.pantalla_id,
         configuraciones_ref: state.configuraciones_ref,
+        configuraciones_ids: state.configuraciones_ids,
         filtrosAplicados: state.filtrosAplicados,
         PantallaDispatch: dispatch,
         loadingPantalla,
@@ -97,22 +98,24 @@ const Pantalla = () => {
             opciones={state.opciones_de_pantalla}
             className="configuracion_pantalla_titulo_principal"
           />
-          {loadingPantalla ? (
-            <div style={{ width: "100%", textAlign: "center" }}>
-              Cargando...
-            </div>
-          ) : (
-            state.configuraciones
-              .sort((a, b) => a.opciones.orden - b.opciones.orden)
-              .map((item, idx) => (
-                <SwitchMaestro
-                  key={item.id_a}
-                  configuracion={item}
-                  id={id}
-                  idx={idx}
-                />
-              ))
-          )}
+          <div id={pantalla}>
+            {loadingPantalla ? (
+              <div style={{ width: "100%", textAlign: "center" }}>
+                Cargando...
+              </div>
+            ) : (
+              state.configuraciones
+                .sort((a, b) => a.opciones.orden - b.opciones.orden)
+                .map((item, idx) => (
+                  <SwitchMaestro
+                    key={item.id_a}
+                    configuracion={item}
+                    id={id}
+                    idx={idx}
+                  />
+                ))
+            )}
+          </div>
         </FuncionesProvider>
       </AlertasProvider>
     </PantallaContext.Provider>

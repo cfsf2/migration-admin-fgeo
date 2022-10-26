@@ -44,6 +44,7 @@ const ConfigListado = () => {
               textAlign: cab.align ?? "center",
               // width: cab.width ?? "10%",
             },
+            id: cab.id_a,
             headerStyle: { textAlign: "center" },
             render: (data) => (
               <SwitchColumnas
