@@ -348,8 +348,13 @@ export const FuncionesProvider = (props) => {
   };
 
   const ABMSubmit = async ({ opciones, id_a, id, params, setLoading }) => {
-    const { endpoint, enlace_siguiente, alerta_exito, alerta_confirmar } =
-      opciones;
+    const {
+      endpoint,
+      enlace_siguiente,
+      alerta_exito,
+      alerta_confirmar,
+      abm_refrescarConf,
+    } = opciones;
     try {
       let confirmado = true;
 
@@ -366,11 +371,20 @@ export const FuncionesProvider = (props) => {
       if (res.status > 400) {
         throw res.data;
       }
-      if (alerta_exito) await alertarExito(res);
-      if (enlace_siguiente) redireccionar({ cab: opciones, res });
+      if (res.status < 400) {
+        if (alerta_exito) await alertarExito(res);
+        if (enlace_siguiente) redireccionar({ cab: opciones, res });
 
+        if (
+          opciones.refrescarConfiguracion &&
+          opciones.refrescarConfiguracion.trim() !== ""
+        ) {
+          refrescarConfiguracion({ cab: opciones });
+        }
+      }
       return res;
     } catch ({ error }) {
+      console.log(error);
       return alertarError(error.message);
     }
   };

@@ -4,7 +4,6 @@ import { Button } from "@material-ui/core";
 import "./botonera.scss";
 
 const Guardar = ({ handleSubmit, loading, id, texto_confirmar }) => {
-  console.log(texto_confirmar ?? (id ? "Guardar" : "Crear"));
   return (
     <>
       <Button
