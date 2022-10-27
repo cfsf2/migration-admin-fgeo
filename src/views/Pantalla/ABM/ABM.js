@@ -127,6 +127,7 @@ const ABM = () => {
         funcion: "ABM handleSubmit",
         cab: opciones,
       });
+      if (opciones.limpiar_formulario === "s") return handleCancelar();
       return;
     }
   };
@@ -155,7 +156,7 @@ const ABM = () => {
     return undefined;
   };
   return (
-    <Card className="abm">
+    <Card id={opciones?.id_a} className="abm">
       <Card className="abm_campos" style={{ display: "grid" }}>
         {datos.length === 0
           ? cabeceras.map((cab, i) => (
@@ -196,6 +197,7 @@ const ABM = () => {
         handleSubmit={handleSubmit}
         id={id}
         loading={loading}
+        opciones={opciones}
       />
     </Card>
   );

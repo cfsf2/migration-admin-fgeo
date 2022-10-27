@@ -38,7 +38,7 @@ const Pantalla = () => {
       .then((response) => {
         if (response.status >= 400) {
           requestErrorHandler(response);
-          console.log(response);
+
           return response;
           if (!response.data.error?.continuar) return response;
         }
@@ -67,7 +67,6 @@ const Pantalla = () => {
         return response;
       })
       .then((response) => {
-        console.log(response);
         dispatch({
           type: "ADD_SQL",
           payload: response.data.sql,

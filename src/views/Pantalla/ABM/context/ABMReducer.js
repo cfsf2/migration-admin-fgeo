@@ -44,10 +44,10 @@ export default function ABMReducer(state, action) {
       };
     }
 
-    case "SET_OPCIONES_ABM": {
+    case "SET_OPCIONES": {
       return {
         ...state,
-        opcionesABM: action.payload,
+        opciones: action.payload,
       };
     }
 
@@ -79,4 +79,5 @@ export const initialState = {
   filtros: [],
   formularioValor: {},
   formularioInicial: {},
+  loading: true,
 };

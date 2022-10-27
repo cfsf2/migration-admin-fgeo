@@ -40,7 +40,10 @@ const ABMProvider = ({ configuracion, id, children, nollamar }) => {
       });
     });
 
-    setLoading(false);
+    dispatch({
+      type: "SET_LOADING",
+      payload: false,
+    });
   }, [loadingPantalla, id]);
 
   useEffect(() => {
@@ -55,6 +58,10 @@ const ABMProvider = ({ configuracion, id, children, nollamar }) => {
   }, [load]);
 
   const callAPI = async ({ params }) => {
+    dispatch({
+      type: "SET_LOADING",
+      payload: true,
+    });
     setLoading(true);
     await getConfiguracion(id_a, id, params).then((res) => {
       if (res.status >= 400) {
@@ -71,6 +78,10 @@ const ABMProvider = ({ configuracion, id, children, nollamar }) => {
       dispatch({
         type: "SET_OPCIONES",
         payload: res.data.opciones,
+      });
+      dispatch({
+        type: "SET_LOADING",
+        payload: false,
       });
       setLoading(false);
     });
@@ -114,14 +125,14 @@ const ABMProvider = ({ configuracion, id, children, nollamar }) => {
         formularioInicial: state.formularioInicial,
         state,
         id,
-        loading,
+        loading: state.loading,
         ABMDispatch: dispatch,
         Dispatch: dispatch,
         callAPI,
         guardarAPI,
       }}
     >
-      {loading ? (
+      {state.loading ? (
         <div
           style={{
             backgroundColor: "rgba(200,150,100,0.5)",
@@ -135,9 +146,8 @@ const ABMProvider = ({ configuracion, id, children, nollamar }) => {
           CARGANDO....
         </div>
       ) : (
-        <></>
+        children
       )}
-      {children}
     </ABMContext.Provider>
   );
 };

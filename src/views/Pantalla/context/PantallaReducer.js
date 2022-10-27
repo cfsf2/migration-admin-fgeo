@@ -32,7 +32,6 @@ export default function PantallaReducer(state, action) {
 
       configuraciones_ida[data.opciones.id_a] = Number(1);
       configuraciones_ids[data.opciones.id_a] = data.opciones.id;
-      console.log(data.opciones);
 
       const goConf = (cab) => {
         if (!cab.sc_hijos) return;

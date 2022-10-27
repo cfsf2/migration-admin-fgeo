@@ -348,10 +348,8 @@ export const FuncionesProvider = (props) => {
   };
 
   const ABMSubmit = async ({ opciones, id_a, id, params, setLoading }) => {
-    const alerta_confirmar = opciones.alerta_confirmar === "s";
-    const alerta_exito = opciones.alerta_exito === "s";
-    const enlace_siguiente = opciones.enlace_siguiente;
-
+    const { endpoint, enlace_siguiente, alerta_exito, alerta_confirmar } =
+      opciones;
     try {
       let confirmado = true;
 
@@ -362,7 +360,7 @@ export const FuncionesProvider = (props) => {
 
       setLoading(true);
 
-      const res = await putConfiguracion(id_a, id, params);
+      const res = await putConfiguracion(id_a, id, params, endpoint);
 
       setLoading(false);
       if (res.status > 400) {
@@ -397,10 +395,10 @@ export const FuncionesProvider = (props) => {
     });
   };
 
-  const putConfiguracion = async (id_a, id, body) => {
+  const putConfiguracion = async (id_a, id, body, endpoint = "/insertar") => {
     body.id_a = id_a;
     body.id = id;
-    return axios.post(farmageo_api + "/insertar", body);
+    return axios.post(farmageo_api + endpoint, body);
   };
 
   const eliminarRegistro = async (props) => {

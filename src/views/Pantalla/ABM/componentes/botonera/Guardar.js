@@ -3,7 +3,8 @@ import { Button } from "@material-ui/core";
 
 import "./botonera.scss";
 
-const Guardar = ({ handleSubmit, loading, id }) => {
+const Guardar = ({ handleSubmit, loading, id, texto_confirmar }) => {
+  console.log(texto_confirmar ?? (id ? "Guardar" : "Crear"));
   return (
     <>
       <Button
@@ -14,7 +15,7 @@ const Guardar = ({ handleSubmit, loading, id }) => {
         disabled={loading}
         style={{ width: "100px", marginRight: "20px" }}
       >
-        {id ? "Guardar" : "Crear"}
+        {texto_confirmar ?? (id ? "Guardar" : "Crear")}
       </Button>
     </>
   );

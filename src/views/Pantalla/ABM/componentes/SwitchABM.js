@@ -96,7 +96,11 @@ const SwitchABM = (props) => {
     }
   })();
 
-  return <div style={{ gridColumn: cab.grid_span }}>{Componente}</div>;
+  return (
+    <div id={cab.id_a} style={{ gridColumn: cab.grid_span }}>
+      {Componente}
+    </div>
+  );
 };
 
 export default SwitchABM;
