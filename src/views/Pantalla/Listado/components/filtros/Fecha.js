@@ -157,11 +157,16 @@ const Fecha = (props) => {
             customInput={
               <TextField
                 label="Hasta"
+<<<<<<< HEAD
                 className={
                   error[id_a]
                     ? `filtro_fecha_input_error`
                     : classes.dateComponent
                 }
+=======
+                style={{ marginBottom: "8px", width: "100%" }}
+                className={error[id_a] ? "filtro_fecha_input_error" : ""}
+>>>>>>> transfer
               />
             }
             isClearable

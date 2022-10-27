@@ -33,18 +33,22 @@ const InputText = ({
 
   return (
     <>
-      <Label
-        label={cab.label}
-        opcionales_null={cab.opcionales_null}
-        permite_null={cab.permite_null}
-      />
+      {cab.label ? (
+        <Label
+          label={cab.label}
+          opcionales_null={cab.opcionales_null}
+          permite_null={cab.permite_null}
+        />
+      ) : (
+        <></>
+      )}
       <TextField
         id={id}
-        type={number ? "number" : "text"}
+        type={cab.input_type ?? (number ? "number" : "text")}
         placeholder={cab.placeholder}
         onChange={handleInput}
         defaultValue={data[id_a]}
-        label={label}
+        label={cab.nombre}
         value={valor ? valor : ""}
         error={error[id_a]}
         multiline={textarea}

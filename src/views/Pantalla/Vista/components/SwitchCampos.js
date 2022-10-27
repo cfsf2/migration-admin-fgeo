@@ -277,7 +277,9 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
   };
 
   return (
-    <div className="tarjeta_grid_item_componente_campo">{Componente()}</div>
+    <div id={cab.id_a} className="tarjeta_grid_item_componente_campo">
+      {Componente()}
+    </div>
   );
 };
 

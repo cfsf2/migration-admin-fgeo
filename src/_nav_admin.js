@@ -165,6 +165,11 @@ export default {
       ],
     },
     {
+      name: "Transfers Nuevo",
+      url: "/Configuracion/PANTALLA_TRANSFER",
+      permiso: "transfer_nuevo",
+    },
+    {
       name: "Recuperos",
       url: "/Configuracion/PANTALLA_RECUPERO",
       permiso: "recupero",

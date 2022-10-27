@@ -26,33 +26,42 @@ export default function PantallaReducer(state, action) {
 
     case "SET_CONFIGURACIONES_REF":
       const configuraciones_ida = {};
+      const configuraciones_ids = {};
+
       const data = action.payload;
 
       configuraciones_ida[data.opciones.id_a] = Number(1);
+      configuraciones_ids[data.opciones.id_a] = data.opciones.id;
 
       const goConf = (cab) => {
         if (!cab.sc_hijos) return;
         return cab.sc_hijos?.forEach((sc) => {
           configuraciones_ida[sc.id_a] = Number(1);
+          configuraciones_ids[sc.id_a] = sc.id;
           goConf(sc.sc_hijos);
         });
       };
 
       data.configuraciones.forEach((c) => {
         configuraciones_ida[c.opciones.id_a] = Number(1);
+        configuraciones_ids[c.opciones.id_a] = c.opciones.id;
 
         // eslint-disable-next-line no-unused-expressions
         c.configuraciones?.forEach((sc) => {
+          console.log(sc.opciones);
           configuraciones_ida[sc.opciones.id_a] = Number(1);
+          configuraciones_ids[sc.opciones.id_a] = sc.opciones.id;
           // eslint-disable-next-line no-unused-expressions
           sc.cabeceras?.forEach((scc) => {
             configuraciones_ida[scc.id_a] = Number(1);
+            configuraciones_ids[scc.id_a] = scc.id;
             goConf(scc);
           });
         });
 
         return c.cabeceras?.forEach((sc) => {
           configuraciones_ida[sc.id_a] = Number(1);
+          configuraciones_ids[sc.id_a] = sc.id;
           goConf(sc);
         });
       });
@@ -60,6 +69,7 @@ export default function PantallaReducer(state, action) {
       return {
         ...state,
         configuraciones_ref: configuraciones_ida,
+        configuraciones_ids: configuraciones_ids,
       };
 
     case "REFRESCAR":
@@ -92,6 +102,15 @@ export default function PantallaReducer(state, action) {
 
       return newState;
 
+    case "ADD_SQL":
+      let newSql = [...state.sql];
+
+      newSql = newSql.concat(action.payload).filter((s) => s);
+      return {
+        ...state,
+        sql: newSql,
+      };
+
     default:
       return state;
   }
@@ -102,4 +121,5 @@ export const initialState = {
   opciones_de_pantalla: {},
   configuraciones_ref: {},
   filtrosAplicados: {},
+  sql: [],
 };

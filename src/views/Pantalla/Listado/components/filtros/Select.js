@@ -51,7 +51,7 @@ export const SelectF = (props) => {
           {opciones &&
             opciones.map((opcion) => (
               <MenuItem
-                style={{ width: "200px", textAlign: "center" }}
+                style={{ width: "100%", textAlign: "center" }}
                 value={opcion.value}
                 key={opcion.value + opcion.label}
               >

@@ -11,11 +11,21 @@ const Botonera = ({
   buscar,
   cancelar,
   acciones,
+  opciones,
 }) => {
   return (
     <div className={className}>
-      <Guardar handleSubmit={handleSubmit} loading={loading} id={id} />
-      <Cancelar handleCancelar={handleCancelar} />
+      <Guardar
+        handleSubmit={handleSubmit}
+        loading={loading}
+        id={id}
+        texto_confirmar={opciones.abm_texto_boton_confirmar}
+      />
+      {opciones.abm_boton_cancelar === "s" ? (
+        <Cancelar handleCancelar={handleCancelar} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

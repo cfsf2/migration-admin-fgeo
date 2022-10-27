@@ -36,6 +36,11 @@ const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
             payload: { configuracion: response.data, idx },
           });
 
+          PantallaDispatch({
+            type: "ADD_SQL",
+            payload: response.data.sql,
+          });
+
           setSubPantallaConfs(response.data);
           setLoadingPantalla(false);
         })
@@ -65,6 +70,7 @@ const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
 
   return (
     <Card
+      id={id_a}
       className={id_a + "_CONTENEDOR"}
       style={{
         display: "grid",

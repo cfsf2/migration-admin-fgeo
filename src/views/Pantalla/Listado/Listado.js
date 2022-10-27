@@ -57,8 +57,11 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
     configuracion.opciones.display_container
   );
 
-  const { pantalla: PPantalla, configuraciones_ref } =
-    useContext(PantallaContext);
+  const {
+    pantalla: PPantalla,
+    configuraciones_ref,
+    PantallaDispatch,
+  } = useContext(PantallaContext);
 
   const { requestErrorHandler } = useContext(FuncionesContext);
 
@@ -149,6 +152,11 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
       dispatch({
         type: "SET_BOTONES_LISTADO",
         payload: res.data.listadoBotones,
+      });
+
+      PantallaDispatch({
+        type: "ADD_SQL",
+        payload: res.data.sql,
       });
 
       setCabeceras(res.data.cabeceras ? res.data.cabeceras : []);
