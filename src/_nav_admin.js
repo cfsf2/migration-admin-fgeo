@@ -161,6 +161,12 @@ export default {
           name: "Laboratorios",
           url: "/Configuracion/PANTALLA_ADMIN_LABORATORIOS",
         },
+        {
+          name: "Droguería Nuevo",
+          url: "/Configuracion/PANTALLA_DROGUERIA",
+          //permiso: "drogueria_nuevo",
+
+        },
       ],
     },
     {

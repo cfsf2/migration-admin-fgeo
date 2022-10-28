@@ -388,6 +388,12 @@ const routes = [
     path: "/Vista/:pantalla",
     exact: true,
     component: Pantalla,
+    permiso: "drogueria_nuevo",
+  },
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    component: Pantalla,
     permiso: "transfer",
   },
   {
