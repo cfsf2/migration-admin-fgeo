@@ -11,7 +11,17 @@ import "./transfer.scss";
 
 export function Checkout(props) {
   const { pedido } = props.tranfersReducer;
-  const { nobar } = props;
+  const {
+    nobar,
+    productos,
+    handleNextPage,
+    handlePreviousPage,
+    page,
+    prodPerPage,
+    paginas,
+    setPage,
+    setProdsPerPage,
+  } = props;
   const [allproducts, setAllProducts] = React.useState(pedido);
   const history = useHistory();
   return (
@@ -20,12 +30,23 @@ export function Checkout(props) {
         <h1>Checkout</h1>
       </CardHeader>
       <div>
-        <ListadoProductos productos={pedido} allproducts={allproducts} />
+        <ListadoProductos
+          productos={pedido}
+          allproducts={allproducts}
+          handleNextPage={handleNextPage}
+          handlePreviousPage={handlePreviousPage}
+          page={page}
+          prodPerPage={prodPerPage}
+          paginas={paginas}
+          setPage={setPage}
+          setProdsPerPage={setProdsPerPage}
+        />
       </div>
       {nobar ? null : (
         <Barra
           stage={0}
           setStage={() => history.replace("/ConfirmacionPedido")}
+          productos={productos}
           {...props}
         />
       )}
