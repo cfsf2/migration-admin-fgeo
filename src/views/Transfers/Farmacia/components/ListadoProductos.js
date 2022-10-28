@@ -29,14 +29,14 @@ export const ordenar = (array, key, direccion) => {
 };
 
 export function ListadoProductos(props) {
-  const { loading, productos, allproducts } = props;
+  const { loading, productos, page, prodPerPage, paginas, setPage } = props;
   const { laboratorios } = props.tranfersReducer;
 
   const [direccion, setDireccion] = React.useState(1);
   const [sortType, setSortType] = React.useState("nombre");
 
-  const [page, setPage] = React.useState(0);
-  const [prodPerPage, setProdsPerPage] = React.useState(20);
+  // const [page, setPage] = React.useState(0);
+  // const [prodPerPage, setProdsPerPage] = React.useState(20);
   const [showProducts, setShowProducts] = React.useState([]);
 
   const handleSort = (e) => {
@@ -52,15 +52,15 @@ export function ListadoProductos(props) {
   };
 
   //paginacion
-  const paginas = Math.ceil(productos.length / prodPerPage) - 1;
-  const handleNextPage = (e) => {
-    if (page >= paginas) return;
-    setPage((page) => page + 1);
-  };
-  const handlePreviousPage = () => {
-    if (page <= 0) return;
-    setPage((page) => page - 1);
-  };
+  //const paginas = Math.ceil(productos.length / prodPerPage) - 1;
+  // const handleNextPage = (e) => {
+  //   if (page >= paginas) return;
+  //   setPage((page) => page + 1);
+  // };
+  // const handlePreviousPage = () => {
+  //   if (page <= 0) return;
+  //   setPage((page) => page - 1);
+  // };
 
   React.useEffect(() => {
     const primerProd = page * prodPerPage;
@@ -83,7 +83,7 @@ export function ListadoProductos(props) {
     if (page > paginas) {
       setPage(0);
     }
-  }, [sortType, direccion, page, productos, prodPerPage]);
+  }, [sortType, direccion, page, productos, prodPerPage, paginas, setPage]);
 
   return (
     <div className="transfer_lista">
@@ -186,39 +186,6 @@ export function ListadoProductos(props) {
             </div>
           );
         })}
-      </div>
-      <div className="transfer_lista_footer">
-        <div className="transfer_lista_footer_paginacion">
-          <button onClick={handlePreviousPage}>Pagina Anterior</button>
-
-          <button onClick={handleNextPage}>Pagina Siguiente</button>
-          <p>
-            Pagina {page + 1} de {paginas + 1}
-          </p>
-        </div>
-        <div className="transfer_lista_footer_mostrando">
-          <p>
-            Mostrando {page * prodPerPage + 1} a{" "}
-            {(page + 1) * prodPerPage < productos.length
-              ? (page + 1) * prodPerPage
-              : productos.length}{" "}
-            de {productos.length}
-          </p>
-        </div>
-        <div className="transfer_lista_footer_resultados">
-          <p>Resultados por Pagina</p>
-          <select
-            value={prodPerPage}
-            onChange={(e) => {
-              setProdsPerPage(Number(e.target.value));
-            }}
-          >
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={15}>15</option>
-            <option value={20}>20</option>
-          </select>
-        </div>
       </div>
     </div>
   );
