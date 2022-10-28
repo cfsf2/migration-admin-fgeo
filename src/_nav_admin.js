@@ -153,22 +153,9 @@ export default {
           name: "Configuracion",
           url: "/Configuracion/PANTALLA_LISTADO_CONFIGURACION",
         },
-        {
-          name: "Laboratorios",
-          url: "/Configuracion/PANTALLA_ADMIN_LABORATORIOS",
-        },
-        {
-          name: "Transfers Nuevo",
-          url: "/Configuracion/PANTALLA_TRANSFER",
-          permiso: "transfer",
-        },
       ],
     },
-    {
-      name: "Transfers Nuevo",
-      url: "/Configuracion/PANTALLA_TRANSFER",
-      permiso: "transfer_nuevo",
-    },
+
     {
       name: "Recuperos",
       url: "/Configuracion/PANTALLA_RECUPERO",
@@ -202,13 +189,32 @@ export default {
       permiso: "transfer",
       icon: "icon-calendar",
       children: [
+        // {
+        //   name: "Laboratorios",
+        //   url: "/laboratorios",
+        // },
+        // {
+        //   name: "Droguerías",
+        //   url: "/droguerias",
+        // },
+        // {
+        //   name: "Administrar Transfers",
+        //   url: "/administrartranfers",
+        // },
         {
-          name: "Laboratorios",
-          url: "/laboratorios",
+          name: "Transfers Nuevo",
+          url: "/Configuracion/PANTALLA_TRANSFER",
+          permiso: "transfer_nuevo",
         },
         {
-          name: "Droguerías",
-          url: "/droguerias",
+          name: "Droguería Nuevo",
+          url: "/Configuracion/PANTALLA_DROGUERIA",
+          permiso: "drogueria_nuevo",
+        },
+        {
+          name: "Laboratorios",
+          url: "/Configuracion/PANTALLA_ADMIN_LABORATORIOS",
+          permiso: "transfer_nuevo",
         },
         {
           name: "Productos",
@@ -218,10 +224,6 @@ export default {
         {
           name: "Comunicado transfers",
           url: "/comunicadotransfers",
-        },
-        {
-          name: "Administrar Transfers",
-          url: "/administrartranfers",
         },
         {
           name: "Importar .csv",
