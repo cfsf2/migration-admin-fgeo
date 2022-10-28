@@ -108,7 +108,7 @@ const routes = [
   },
 
   { path: "/NuevoTransfer", name: "Nuevo Transfer", component: NuevoTransfer },
-  { path: "/MisTransfers", name: "Mis Transfers", component: MisTransfers },
+  // { path: "/MisTransfers", name: "Mis Transfers", component: MisTransfers },
   {
     path: "/FinalizarTransfer",
     name: "Finalizar Transfer",
@@ -183,6 +183,12 @@ const routes = [
     name: "Listado",
     component: Pantalla,
     permiso: "inicio",
+  },
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    component: Pantalla,
+    permiso: "transfer_nuevo",
   },
 
   /*
