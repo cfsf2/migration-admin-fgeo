@@ -10,7 +10,7 @@ class LaboratorioSelect extends Component {
       <Col md="3" sm="4" lg="3" xl="2" style={{ marginBottom: 30 }}>
         <a
           href={
-            this.props.laboratorio.transfer_farmageo
+            this.props.laboratorio.transfer_farmageo === "s"
               ? process.env.PUBLIC_URL +
                 //  `/#/FinalizarTransfer?l=${this.props.laboratorio._id}`
                 `/#/FinalizarTransfer?l=${this.props.laboratorio.id}`
