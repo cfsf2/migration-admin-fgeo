@@ -53,7 +53,7 @@ class NuevoTransfer extends Component {
           </Row>
           <Row>
             {laboratorios.map((lab, index) => {
-              return lab.transfer_farmageo ? (
+              return lab.transfer_farmageo === "s" ? (
                 <LaboratorioSelect laboratorio={lab} key={index} />
               ) : null;
             })}
@@ -86,7 +86,7 @@ class NuevoTransfer extends Component {
           </Row>
           <Row>
             {laboratorios.map((lab, index) => {
-              return lab.habilitado && !lab.transfer_farmageo ? (
+              return lab.habilitado === "s" && lab.transfer_farmageo === "n" ? (
                 <LaboratorioSelect laboratorio={lab} key={index} />
               ) : null;
             })}
