@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import TextField from "@mui/material/TextField";
 import Label from "./LabelF";
+import { makeStyles } from "@material-ui/core";
+
+const useStyle = makeStyles({
+  numberComponent: {
+    "& .MuiInputBase-input": {
+      height: "1.4375em",
+      padding: "16.5px 14px",
+      textAlign: "right",
+    },
+    "& .css-nnbavb": {
+      display: "none",
+    },
+  },
+});
 
 const Number = (props) => {
-  const {
-    id,
-    id_a,
-    orden,
-    label,
-    campo,
-    filtroActivo,
-    setFiltrosAAplicar,
-    grid_span,
-    error,
-    setError,
-  } = props;
+  const { id, id_a, setFiltrosAAplicar, error, setError } = props;
 
   const handleInput = (e) => {
     const { value } = e.target;
@@ -25,6 +28,8 @@ const Number = (props) => {
       return { ...e, [id_a]: false };
     });
   };
+
+  const classes = useStyle();
 
   return (
     <div>
@@ -42,6 +47,7 @@ const Number = (props) => {
         defaultValue={props.default}
         inputProps={{ style: { textAlign: "right" } }}
         error={error[id_a]}
+        className={classes.numberComponent}
       />
     </div>
   );

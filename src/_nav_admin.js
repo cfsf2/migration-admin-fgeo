@@ -150,16 +150,25 @@ export default {
       permiso: "campanas",
       children: [
         {
-          name: "Recuperos",
-          url: "/Configuracion/PANTALLA_RECUPERO",
-        },
-        {
           name: "Configuracion",
           url: "/Configuracion/PANTALLA_LISTADO_CONFIGURACION",
         },
+        {
+          name: "Laboratorios",
+          url: "/Configuracion/PANTALLA_ADMIN_LABORATORIOS",
+        },
+        {
+          name: "Transfers Nuevo",
+          url: "/Configuracion/PANTALLA_TRANSFER",
+          permiso: "transfer",
+        },
       ],
     },
-
+    {
+      name: "Recuperos",
+      url: "/Configuracion/PANTALLA_RECUPERO",
+      permiso: "recupero",
+    },
     {
       name: "Recuperos",
       url: "/Configuracion/PANTALLA_RECUPERO",

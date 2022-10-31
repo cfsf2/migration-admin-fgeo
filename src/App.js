@@ -101,6 +101,22 @@ function App() {
 
   return (
     <HashRouter>
+      {testing !== "https://admin.farmageo.com.ar/" ? (
+        <div className="leyendatesting">
+          <h1
+            style={{
+              fontSize: "1rem",
+              textAlign: "center",
+              color: "black",
+              backgroundColor: "lightgray",
+              fontWeight: "bold",
+              letterSpacing: "10px",
+            }}
+          >
+            ENTORNO TESTING MySQL
+          </h1>
+        </div>
+      ) : null}
       <React.Suspense fallback={loading()}>
         <GestorCampanas />
         <Switch>

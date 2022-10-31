@@ -36,10 +36,12 @@ const ConfigListado = () => {
         .filter((cab) => cab.componente !== "hidden")
         .filter((cab) => cab.mostrar !== "n")
         .map((cab, i) => {
+          //console.log("cab:  ", cab);
           return {
             title: cab.nombre,
             field: cab.campo_alias ?? cab.id_a,
             width: cab.width ?? "10%",
+            totalizar: cab.totalizar ?? undefined,
             cellStyle: {
               textAlign: cab.align ?? "center",
               // width: cab.width ?? "10%",
