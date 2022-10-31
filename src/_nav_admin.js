@@ -147,20 +147,11 @@ export default {
     {
       name: "PANTALLAS",
       //url: "/ecommerce/banners-home",
-      permiso: "campanas",
+      permiso: "sistemas",
       children: [
         {
           name: "Configuracion",
           url: "/Configuracion/PANTALLA_LISTADO_CONFIGURACION",
-        },
-        {
-          name: "Laboratorios",
-          url: "/Configuracion/PANTALLA_ADMIN_LABORATORIOS",
-        },
-        {
-          name: "Transfers Nuevo",
-          url: "/Configuracion/PANTALLA_TRANSFER",
-          permiso: "transfer",
         },
       ],
     },
