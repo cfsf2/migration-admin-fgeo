@@ -30,9 +30,14 @@ const InfoInteres = React.lazy(() =>
 const Mutual = React.lazy(() => import("./views/Publicidades/Mutual"));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 
+const Pantalla = React.lazy(() => import("./views/Pantalla/Pantalla"));
+
 //*********TRANSFERS */
 const NuevoTransfer = React.lazy(() =>
   import("./views/Transfers/Farmacia/NuevoTranfer")
+);
+const NuevoTransfer2 = React.lazy(() =>
+  import("./views/Transfers/Farmacia/NuevoTransferTEST")
 );
 const MisTransfers = React.lazy(() =>
   import("./views/Transfers/Farmacia/MisTransfers")
@@ -174,6 +179,34 @@ const routes = [
     name: "DisplayPDF",
     component: DisplayPDF,
   },
+  {
+    path: "/Pantalla/:pantalla",
+    exact: true,
+    name: "Pantalla",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Listado/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    name: "Vista",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Configuracion/:pantalla",
+    exact: true,
+    name: "Configuracion",
+    component: Pantalla,
+    permiso: "inicio",
+  },
 
   /*
   { path: '/pedidosadmin', exact: true, name: 'Pedidos Admin', component: PedidosAdmin },
@@ -181,6 +214,12 @@ const routes = [
   { path: '/publicidadesadmin/infointeres', exact: true, name: 'Información de interés', component: InfoInteres },
   { path: '/publicidadesadmin/mutual', exact: true, name: 'banner mutual', component: Mutual },
 */
+
+  {
+    path: "/TEST/NuevoTransfer",
+    name: "Nuevo Transfer Test",
+    component: NuevoTransfer2,
+  },
 ];
 
 export default routes;

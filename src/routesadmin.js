@@ -346,31 +346,6 @@ const routes = [
     component: PapeleraProductosPack,
     permiso: "packsdeproductos",
   },
-
-  {
-    path: "/Listado/:pantalla",
-    exact: true,
-    name: "Listado",
-    component: Pantalla,
-    permiso: "campanas",
-  },
-
-  {
-    path: "/Vista/:pantalla",
-    exact: true,
-    name: "Listado",
-    component: Pantalla,
-    permiso: "campanas",
-  },
-
-  {
-    path: "/Configuracion/:pantalla",
-    exact: true,
-    name: "Listado",
-    component: Pantalla,
-    permiso: "campanas",
-  },
-  
   {
     path: "/campanas/requerimientos",
     exact: true,
@@ -419,6 +394,35 @@ const routes = [
     name: "csv",
     component: BannersEcommerce,
     permiso: "banners",
+  },
+
+  {
+    path: "/Listado/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Configuracion/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Pantalla/:pantalla",
+    exact: true,
+    name: "Pantalla",
+    component: Pantalla,
+    permiso: "inicio",
   },
 ];
 
