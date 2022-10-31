@@ -235,6 +235,11 @@ export default {
         },
       ],
     },
+    {
+      name: "Administrar Transfers",
+      url: "/Configuracion/PANTALLA_TRANSFER",
+      permiso: "transfer_nuevo",
+    },
 
     /*{
       name: 'Productos',
