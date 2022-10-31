@@ -10,7 +10,7 @@ import AutocompletarABM from "./inputs/AutocompletarABM";
 
 const SwitchABM = (props) => {
   const { ABMDispatch, valorFormulario } = useContext(ABMContext);
-  console.log(props);
+
   const { cab } = props;
 
   const id_a = cab.id_a;
@@ -96,7 +96,11 @@ const SwitchABM = (props) => {
     }
   })();
 
-  return <div style={{ gridColumn: cab.grid_span }}>{Componente}</div>;
+  return (
+    <div id={cab.id_a} style={{ gridColumn: cab.grid_span }}>
+      {Componente}
+    </div>
+  );
 };
 
 export default SwitchABM;

@@ -1,10 +1,24 @@
 .vista_label {
   font-weight: bold;
+  font-size: 0.875rem;
   margin-right: 4.5px;
+  // &_fuente {
+  //   //font-weight: bold;
+  //   max-width: 85px;
+  //   text-overflow: ellipsis;
+  //   white-space: nowrap;
+  //   word-break: break-all;
+  //   overflow: hidden;
+  // }
+  &_select {
+    font-weight: bold;
+    display: flex;
+    width: 100%;
+  }
 }
 
-.vista_dato {
-  margin-bottom: 0.3rem;
+.suW {
+  width: max-content;
 }
 
 #Vista_Switch_Enlace {

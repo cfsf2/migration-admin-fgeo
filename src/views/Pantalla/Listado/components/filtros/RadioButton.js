@@ -3,6 +3,16 @@ import { FormControlLabel } from "@material-ui/core";
 import FormLabel from "@mui/material/FormLabel";
 import { FormControl, Radio, RadioGroup } from "@mui/material";
 import Label from "./LabelF";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles({
+  myRadioButton: {
+    "&.MuiButtonBase-root": {
+      //backgroundColor: "red",
+      padding: "6px",
+    },
+  },
+});
 
 const RadioF = (props) => {
   const {
@@ -32,6 +42,8 @@ const RadioF = (props) => {
     gridColumn: grid_span,
   };
 
+  const classes = useStyles();
+
   return (
     <FormControl style={styles}>
       <Label
@@ -50,14 +62,14 @@ const RadioF = (props) => {
               <FormControlLabel
                 key={item.label + "_" + item.value}
                 value={item.value}
-                control={<Radio />}
+                control={<Radio className={classes.myRadioButton} />}
                 label={item.label}
               />
             );
           })}
           <FormControlLabel
             value={" "}
-            control={<Radio />}
+            control={<Radio className={classes.myRadioButton} />}
             label={"Todas"}
             checked={!filtrosAAplicar[id_a]}
           />

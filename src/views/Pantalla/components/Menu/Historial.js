@@ -18,7 +18,7 @@ const Historial = () => {
     >
       <Link
         to={{
-          pathname: process.env.PUBLIC_URL + "/Vista/PANTALLA_HISTORIAL",
+          pathname: "/Vista/PANTALLA_HISTORIAL",
           state: {
             filtros: { FILTRO_HISTORIAL_ID: id, FILTRO_HISTORIAL_TABLA: tabla },
           },

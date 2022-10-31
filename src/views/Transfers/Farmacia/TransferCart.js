@@ -18,7 +18,21 @@ import { farmageo_api } from "../../../config";
 import "./components/transfer.scss";
 
 const Cart = (props) => {
-  const { stage, setProductos, productos, loading, allproducts } = props;
+  const {
+    stage,
+    setProductos,
+    productos,
+    loading,
+    allproducts,
+    handleNextPage,
+    handlePreviousPage,
+    page,
+    prodPerPage,
+    paginas,
+    setPage,
+    setProdsPerPage,
+  } = props;
+
   switch (stage) {
     case 0:
       return (
@@ -32,6 +46,13 @@ const Cart = (props) => {
                   productos={productos}
                   loading={loading}
                   allproducts={allproducts}
+                  handleNextPage={handleNextPage}
+                  handlePreviousPage={handlePreviousPage}
+                  page={page}
+                  prodPerPage={prodPerPage}
+                  paginas={paginas}
+                  setPage={setPage}
+                  setProdsPerPage={setProdsPerPage}
                 />
               ) : (
                 <div className="transfer_cart_spinner">
@@ -42,19 +63,28 @@ const Cart = (props) => {
           </Card>
         </>
       );
-      break;
+
     case 1:
       return (
         <>
           {" "}
           <Card>
             <CardBody>
-              <Checkout />
+              <Checkout
+                handleNextPage={handleNextPage}
+                handlePreviousPage={handlePreviousPage}
+                page={page}
+                prodPerPage={prodPerPage}
+                paginas={paginas}
+                setPage={setPage}
+                setProdsPerPage={setProdsPerPage}
+                productos={productos}
+              />
             </CardBody>
           </Card>
         </>
       );
-      break;
+
     default:
       break;
   }
@@ -66,8 +96,23 @@ function TransferCart(props) {
   const [productos, setProductos] = useState([]);
   const [allproducts, setAllProducts] = useState([]);
   const [lab, setLab] = useState({});
+  const [paginas, setPaginas] = useState();
+
+  const { pedido } = props.tranfersReducer;
 
   const [loading, setLoading] = useState(true);
+
+  const [page, setPage] = React.useState(0);
+  const [prodPerPage, setProdsPerPage] = React.useState(20);
+
+  const handleNextPage = (e) => {
+    if (page >= paginas) return;
+    setPage((page) => page + 1);
+  };
+  const handlePreviousPage = () => {
+    if (page <= 0) return;
+    setPage((page) => page - 1);
+  };
 
   const handleSubmit = async () => {
     const { lab_selected, pedido } = props.tranfersReducer;
@@ -76,6 +121,7 @@ function TransferCart(props) {
       ...transfer,
       productos_solicitados: pedido,
       laboratorio_id: lab_selected.nombre,
+      id_laboratorio: lab_selected.id,
     };
 
     props.ADD_TRANSFER(transfer, history);
@@ -95,7 +141,7 @@ function TransferCart(props) {
       axios
         .get(farmageo_api + "/productosTransfers/laboratorio/" + laboratorio, {
           params: {
-            instituciones: props.authReducer.userprofile.instituciones,
+            instituciones: props.farmaciaReducer.farmacia.instituciones,
             from: "TransferCart",
           },
         })
@@ -107,21 +153,45 @@ function TransferCart(props) {
     }
   }, []);
 
+  useEffect(() => {
+    if (stage === 0) {
+      setPaginas(Math.ceil(productos.length / prodPerPage) - 1);
+    }
+    if (stage === 1) {
+      setPaginas(Math.ceil(pedido.length / prodPerPage) - 1);
+    }
+  }, [prodPerPage, stage, productos.length, pedido.length]);
+
   return (
     <>
       <Cart
         setProductos={setProductos}
-        productos={productos}
+        productos={stage === 0 ? productos : pedido}
         loading={loading}
         stage={stage}
         allproducts={allproducts}
         nobar
+        handleNextPage={handleNextPage}
+        handlePreviousPage={handlePreviousPage}
+        page={page}
+        prodPerPage={prodPerPage}
+        paginas={paginas}
+        setPage={setPage}
+        setProdsPerPage={setProdsPerPage}
       />
       <Barra
         stage={stage}
         setStage={setStage}
         {...props}
         Submit={handleSubmit}
+        handleNextPage={handleNextPage}
+        handlePreviousPage={handlePreviousPage}
+        page={page}
+        prodPerPage={prodPerPage}
+        paginas={paginas}
+        setPage={setPage}
+        setProdsPerPage={setProdsPerPage}
+        productos={stage === 0 ? productos : pedido}
       />
     </>
   );
@@ -132,6 +202,7 @@ const mapStateToProps = (state) => {
     tranfersReducer: state.tranfersReducer,
     authReducer: state.authReducer,
     publicidadesReducer: state.publicidadesReducer,
+    farmaciaReducer: state.farmaciaReducer,
   };
 };
 const mapDispatchToProps = {

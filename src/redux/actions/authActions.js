@@ -1,7 +1,7 @@
 import axios from "axios";
 import { errorParser } from "../../helpers/errorHelper";
-import { wp_api, farmageo_api, wp_api_auth } from "../../config";
-import { GET_ALL_PEDIDOS_ADMIN, GET_PEDIDOS } from "./pedidosActions";
+import { farmageo_api } from "../../config";
+import { GET_PEDIDOS } from "./pedidosActions";
 import { ALERT } from "./alertActions";
 import store from "../store/index";
 import { GET_NOVEDADES_FARMACIA } from "./publicidadesActions";
@@ -16,7 +16,6 @@ export const RESET_ERROR = () => {
 export const CHECK_TOKEN = async () => {
   return (dispatch) =>
     axios.post(farmageo_api + "/checkToken").then((res) => {
-      console.log(res);
       if (res.status > 300) {
         dispatch(LOGOUT());
       }
@@ -158,9 +157,9 @@ export const IS_USER = () => {
 
 export const GET_SESSION = () => {
   return async (dispatch) => {
-    var authenticated = await localStorage.getItem("authenticated");
-    var user = await localStorage.getItem("user");
-    var pass = await localStorage.getItem("pass");
+    var authenticated = localStorage.getItem("authenticated");
+    var user = localStorage.getItem("user");
+    var pass = localStorage.getItem("pass");
 
     if (authenticated) {
       dispatch({

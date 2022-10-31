@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   Button,
   Card,
@@ -10,6 +10,7 @@ import {
   Input,
   Label,
   Row,
+  Tooltip,
 } from "reactstrap";
 import { connect } from "react-redux";
 // import { GET_USUARIO } from '../../redux/actions/userActions'
@@ -19,11 +20,14 @@ import MapContainer from "../../components/MapContainer";
 import DisplayImage from "../../components/DisplayImage";
 import VentaOnlineSelect from "../Dashboard/components/VentaOnlineSelect";
 
+import { Link } from "react-router-dom";
+
 class Perfil extends Component {
   constructor(props) {
     super(props);
     this.state = {
       farmaciaProfile: null,
+      tooltipOpen: false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleEditProfile = this.handleEditProfile.bind(this);
@@ -39,7 +43,7 @@ class Perfil extends Component {
     const target = event.nativeEvent.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    await this.setState({
+    this.setState({
       farmaciaProfile: {
         ...this.state.farmaciaProfile,
         [name]: value,
@@ -97,6 +101,9 @@ class Perfil extends Component {
       perfil_farmageo,
     } = this.props.authReducer.userprofile;
 
+    if (!this.props.farmaciaReducer.load) {
+      return <p>Cargando perfil...</p>;
+    }
     return (
       <div className="animated fadeIn">
         <Row style={{ marginBottom: 10 }}>
@@ -251,6 +258,29 @@ class Perfil extends Component {
                           />
                         </CardBody>
                       </Card>
+                      <div style={{ textAlign: "center" }}>
+                        <Button color="info" id="button_nro_drogueria">
+                          <Link
+                            to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA"
+                            style={{ color: "white", textDecoration: "none" }}
+                          >
+                            Número de cuenta de drogueria
+                          </Link>
+                        </Button>
+                        <Tooltip
+                          isOpen={this.state.tooltipOpen}
+                          placement="bottom"
+                          target="button_nro_drogueria"
+                          toggle={() => {
+                            this.setState({
+                              tooltipOpen: !this.state.tooltipOpen,
+                            });
+                          }}
+                        >
+                          Complete aquí los datos requeridos para realizar
+                          transfers de manera satisfactoria
+                        </Tooltip>
+                      </div>
                     </FormGroup>
                   </Col>
                 </Row>
@@ -378,6 +408,7 @@ class Perfil extends Component {
             </Card>
           </Col>
         </Row>
+
         <Row>
           <Col xs="12" md="6">
             <Card>
@@ -575,6 +606,7 @@ class Perfil extends Component {
 const mapStateToProps = (state) => {
   return {
     authReducer: state.authReducer,
+    farmaciaReducer: state.farmaciaReducer,
   };
 };
 const mapDispatchToProps = {

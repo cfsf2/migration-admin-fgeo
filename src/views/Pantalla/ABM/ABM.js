@@ -3,8 +3,38 @@ import Botonera from "./componentes/Botonera";
 import SwitchABM from "./componentes/SwitchABM";
 import ABMContext from "./context/ABMContext";
 
+import { useLocation } from "react-router";
+
 import { Card } from "react-bootstrap";
 import "./abm.scss";
+
+const hashCode = function (string) {
+  var hash = 0,
+    i,
+    chr;
+  if (string.length === 0) return hash;
+  for (i = 0; i < string.length; i++) {
+    chr = string.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+const getUrlParamsToObject = (laLocation) => {
+  const urlParams = {};
+
+  const { search } = laLocation();
+  const params = new URLSearchParams(search);
+
+  const keys = params.keys();
+
+  for (const key of keys) {
+    urlParams[key] = params.get(key);
+  }
+
+  return { urlParams, params, keys, ui: hashCode(urlParams.toString()) };
+};
 
 const ABM = () => {
   const {
@@ -17,10 +47,13 @@ const ABM = () => {
     guardarAPI,
     id,
     opciones,
+    Dispatch,
   } = useContext(ABMContext);
 
   const [requeridos, setRequeridos] = useState([]);
   const [error, setError] = useState({});
+
+  const { urlParams: parametros, ui } = getUrlParamsToObject(useLocation);
 
   useEffect(() => {
     cabeceras
@@ -38,7 +71,18 @@ const ABM = () => {
           return { ...s, [c.id_a]: false };
         });
       });
-  }, [ABMDispatch, cabeceras, datos, id, loading]);
+
+    const parametros_keys = Object.keys(parametros);
+    parametros_keys.forEach((k) => {
+      return Dispatch({
+        type: "SET_FORMULARIO_VALOR",
+        payload: {
+          id_a: k,
+          valor: parametros[k],
+        },
+      });
+    });
+  }, [ABMDispatch, Dispatch, cabeceras, datos, id, loading, ui]);
 
   const validar = () => {
     let validados = {};
@@ -83,6 +127,8 @@ const ABM = () => {
         funcion: "ABM handleSubmit",
         cab: opciones,
       });
+      if (opciones.limpiar_formulario === "s") return handleCancelar();
+
       return;
     }
   };
@@ -94,8 +140,24 @@ const ABM = () => {
     });
   };
 
+  const styles = {
+    gridColumn: opciones?.grid_span ?? "1 / -1",
+    border: "none",
+    marginBottom: 0,
+  };
+
+  const gridTemplatecolumns = () => {
+    if (datos.length === 1) return "repeat(12, 1fr)";
+
+    return "repeat(auto-fill, minmax(340px, 1fr)";
+  };
+
+  const gridcolumns = () => {
+    if (datos.length === 1) return "span 12";
+    return undefined;
+  };
   return (
-    <Card className="abm">
+    <Card id={opciones?.id_a} className="abm">
       <Card className="abm_campos" style={{ display: "grid" }}>
         {datos.length === 0
           ? cabeceras.map((cab, i) => (
@@ -136,6 +198,7 @@ const ABM = () => {
         handleSubmit={handleSubmit}
         id={id}
         loading={loading}
+        opciones={opciones}
       />
     </Card>
   );

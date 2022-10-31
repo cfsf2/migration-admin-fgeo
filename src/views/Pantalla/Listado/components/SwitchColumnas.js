@@ -15,10 +15,11 @@ import InputAreaEditable from "./columnas/InputEditableL";
 import SiNoEditable from "./columnas/SiNoEditable";
 import Toggle from "./columnas/Toggle";
 import Autocompletar from "../../components/Autocompletar";
+import InputTextEditable from "../../Vista/components/columnas/InputTextEditable";
 
 import ListadoContext from "../context/ListadoContext";
 
-const SwitchColumnas = ({ data, cab, padre, indiceData }) => {
+const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   if (!cab) return <></>;
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
@@ -43,7 +44,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData }) => {
             indiceData={indiceData}
           />
         );
-      case "":
+      case "" || "columna_simple":
         return (
           <Default
             key={cab.id_a}
@@ -164,6 +165,18 @@ const SwitchColumnas = ({ data, cab, padre, indiceData }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+          />
+        );
+      case "input_text_editable":
+        return (
+          <InputTextEditable
+            key={cab.id_a}
+            data={data}
+            cab={cab}
+            hijos={hijos}
+            campokey={campokey}
+            indiceData={indiceData}
+            Context={Context}
           />
         );
       case "input_number_editable":

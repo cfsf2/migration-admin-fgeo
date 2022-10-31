@@ -6,8 +6,9 @@ import FuncionesContext from "../context/FuncionesContext";
 import SwitchMaestro from "../components/SwitchMaestro";
 
 import { Card } from "reactstrap";
+import HeaderConf from "../components/HeaderConf";
 
-const SubPantalla = ({ configuracion, id, nollamar }) => {
+const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
   const id_a = configuracion.opciones.id_a;
   const { configuraciones_ref, PantallaDispatch } = useContext(PantallaContext);
   const { getConfiguracion, requestErrorHandler } =
@@ -30,7 +31,15 @@ const SubPantalla = ({ configuracion, id, nollamar }) => {
           if (response.status >= 400) {
             requestErrorHandler(response);
           }
-          PantallaDispatch({ type: "SET_DATOS_CONF", payload: configuracion });
+          PantallaDispatch({
+            type: "SET_DATOS_CONF",
+            payload: { configuracion: response.data, idx },
+          });
+
+          PantallaDispatch({
+            type: "ADD_SQL",
+            payload: response.data.sql,
+          });
 
           setSubPantallaConfs(response.data);
           setLoadingPantalla(false);
@@ -55,11 +64,24 @@ const SubPantalla = ({ configuracion, id, nollamar }) => {
       />
     ));
 
+  if (configuracion.opciones.display_container !== "s") {
+    return <></>;
+  }
+
   return (
     <Card
+      id={id_a}
       className={id_a + "_CONTENEDOR"}
-      style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)" }}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(12, 1fr)",
+        border: "none",
+      }}
     >
+      <HeaderConf
+        opciones={configuracion.opciones}
+        className="configuracion_pantalla_titulo_secundario"
+      />
       {loadingPantalla ? (
         <div
           style={{

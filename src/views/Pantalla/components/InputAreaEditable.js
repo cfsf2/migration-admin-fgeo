@@ -1,9 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
 import FuncionesContext from "../context/FuncionesContext";
 import TextArea from "./TextArea";
+import { TextField } from "@material-ui/core";
 import VistaContext from "../Vista/context/VistaContext";
 
-const InputAreaEditable = ({ data, cab, hijos, campokey, indiceData }) => {
+const InputAreaEditable = ({
+  data,
+  cab,
+  hijos,
+  campokey,
+  indiceData,
+  type,
+}) => {
   const { superSubmit } = useContext(FuncionesContext);
 
   const { datos, VistaDispatch } = useContext(VistaContext);
@@ -21,7 +29,6 @@ const InputAreaEditable = ({ data, cab, hijos, campokey, indiceData }) => {
   const handleCancelar = () => {
     setValue(data[campokey]);
     setLastvalue(data[campokey]);
-    console.log(data[campokey]);
   };
 
   const handleGuardar = async (e) => {
@@ -76,16 +83,23 @@ const InputAreaEditable = ({ data, cab, hijos, campokey, indiceData }) => {
 
   return (
     <div className="tarjeta_grid_item_label_item">
-      <div className="vista_label" style={{ fontWeight: "bold" }}>
-        {nombre}:
-      </div>
-
-      <TextArea
-        value={value}
-        setValue={setValue}
-        onEnter={handleGuardar}
-        style={style}
-      />
+      <div className="vista_label">{nombre}:</div>
+      {type === "number" ? (
+        <TextField
+          id={cab.id_a}
+          type="number"
+          onBlur={handleGuardar}
+          defaultValue={value}
+          inputProps={{ style: { textAlign: cab.align ?? "right" } }}
+        />
+      ) : (
+        <TextArea
+          value={value}
+          setValue={setValue}
+          onEnter={handleGuardar}
+          style={style}
+        />
+      )}
     </div>
   );
 };

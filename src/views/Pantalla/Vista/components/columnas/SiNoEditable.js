@@ -47,13 +47,11 @@ const SiNoEditable = ({ data, cab, campokey, key, indiceData }) => {
 
   return (
     <div key={key} className="tarjeta_grid_item_label_item">
-      <div className="vista_label" style={{ fontWeight: "bold" }}>
-        {nombre}:
-      </div>
+      <div className="vista_label vista_label_fuente">{nombre}:</div>
       <select
         onChange={handleChange}
         value={value === null ? "null" : value === "s" ? "s" : "n"}
-        style={{ marginLeft: "5px" }}
+        style={{ marginLeft: "10px" }}
       >
         <option value="s" disabled={data[cab.update_id_alias] ? false : true}>
           SI

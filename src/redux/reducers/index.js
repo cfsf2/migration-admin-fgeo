@@ -31,4 +31,5 @@ export default combineReducers({
   userReducer,
   institucionesReducer,
   campanasReducer,
+  farmaciaReducer,
 });

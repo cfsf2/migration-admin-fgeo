@@ -9,12 +9,16 @@ const useStyles = makeStyles({
       display: "none",
     },
     "& .MuiInputBase-inputMultiline": {
-      marginLeft: "10px",
+      marginLeft: "5px",
+      fontSize: "0.875rem",
+    },
+    "& .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root": {
+      padding: "4px",
     },
   },
 });
 
-const TextFieldEditable = ({ value, setValue, onEnter }) => {
+const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
   const keyUp = useRef(0); // Evita que el evento onBlur se dispare luego de onKeyUp
   const altEnter = useRef(0); // Detecta keyDown = alt + enter
 
@@ -64,7 +68,7 @@ const TextFieldEditable = ({ value, setValue, onEnter }) => {
       onBlur={handleOnBlur}
       onKeyDown={handleAlt}
       style={{ width: "100%" }}
-      inputProps={{ maxLength: 60 }}
+      inputProps={{ maxLength: maxCaracteres ?? 60 }}
       multiline
       className={classes.miTextField}
     />

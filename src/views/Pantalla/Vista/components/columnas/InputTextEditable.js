@@ -1,12 +1,21 @@
 import React, { useContext, useState } from "react";
 import FuncionesContext from "../../../context/FuncionesContext";
-import VistaContext from "../../context/VistaContext";
 import TextFieldEditable from "../../../components/TextFieldEditable";
+import "../Vista.scss";
 
-const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
+const InputTextEditable = ({
+  data,
+  cab,
+  hijos,
+  campokey,
+  indiceData,
+  Context,
+}) => {
   const { superSubmit } = useContext(FuncionesContext);
 
-  const { datos, VistaDispatch } = useContext(VistaContext);
+  const { datos, Dispatch, opciones } = useContext(Context);
+
+  console.log(opciones);
 
   const [value, setValue] = useState(data[campokey]);
   const [lastValue, setLastvalue] = useState(data[campokey]);
@@ -37,7 +46,7 @@ const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
       .then((result) => {
         setLastvalue(() => valor);
 
-        VistaDispatch({
+        Dispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {
             value: result.data.id,
@@ -46,7 +55,7 @@ const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
           },
         });
 
-        VistaDispatch({
+        Dispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {
             value: valor,
@@ -64,13 +73,28 @@ const InputTextEditable = ({ data, cab, hijos, campokey, indiceData }) => {
 
   return (
     <div className="tarjeta_grid_item_label_item">
-      <div className="vista_label" style={{ fontWeight: "bold" }}>
-        {nombre}:
-      </div>
+      {opciones.tipo.id === 6 ? (
+        <div className="vista_label">
+          <p
+            style={{
+              maxHeight: "25px",
+              position: "relative",
+              top: "2px",
+              wordBreak: "break-all",
+            }}
+            className="suW"
+          >
+            {nombre}:
+          </p>
+        </div>
+      ) : (
+        <></>
+      )}
       <TextFieldEditable
         value={value}
         setValue={setValue}
         onEnter={handleGuardar}
+        maxCaracteres={parseInt(cab.maximo_caracteres)}
       />
     </div>
   );

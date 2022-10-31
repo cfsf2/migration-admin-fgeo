@@ -5,13 +5,10 @@ import { connect } from "react-redux";
 export function Item(props) {
   const pedido = props.tranfersReducer.pedido;
   const { producto } = props;
-  const pedidoProd = pedido.find((prod) => {
-    return prod._id === producto.id;
-  });
 
   const [cantidad, setCantidad] = React.useState(() => {
     const cantidadEnPedido = pedido.find(
-      (prod) => prod._id === producto._id
+      (prod) => prod.id === producto.id
     )?.cantidad;
 
     if (cantidadEnPedido > 0) {
@@ -21,15 +18,16 @@ export function Item(props) {
   });
   const [observaciones, setObservaciones] = React.useState(() => {
     const obsEnPedido = pedido.find(
-      (prod) => prod._id === producto._id
-    )?.observaciones;
+      (prod) => prod.id === producto.id
+    )?.observacion;
+
     return obsEnPedido;
   });
 
   const suma = (id, producto) => {
     let newPedido = [...pedido];
-    const pedidoProd = newPedido.find((prod) => prod._id === id);
-    const idx = newPedido.findIndex((prod) => prod._id === id);
+    const pedidoProd = newPedido.find((prod) => prod.id === id);
+    const idx = newPedido.findIndex((prod) => prod.id === id);
 
     if (idx !== -1) {
       pedidoProd.cantidad = cantidad + 1;
@@ -49,13 +47,13 @@ export function Item(props) {
 
   const resta = (id, producto) => {
     let newPedido = [...pedido];
-    const pedidoProd = newPedido.find((prod) => prod._id === id);
-    const idx = newPedido.findIndex((prod) => prod._id === id);
+    const pedidoProd = newPedido.find((prod) => prod.id === id);
+    const idx = newPedido.findIndex((prod) => prod.id === id);
 
     if (cantidad <= 0) return;
     if (cantidad === producto.cantidad_minima) {
       pedidoProd.observacion = "";
-      newPedido = newPedido.filter((prod) => prod._id !== producto._id);
+      newPedido = newPedido.filter((prod) => prod.id !== producto.id);
       setCantidad(() => 0);
       setObservaciones("");
 
@@ -71,8 +69,8 @@ export function Item(props) {
 
   const handleChange = (e, producto, id) => {
     let newPedido = [...pedido];
-    const pedidoProd = newPedido.find((prod) => prod._id === id);
-    const idx = newPedido.findIndex((prod) => prod._id === id);
+    const pedidoProd = newPedido.find((prod) => prod.id === id);
+    const idx = newPedido.findIndex((prod) => prod.id === id);
     const value = Number(e.target.value);
     setCantidad(value);
 
@@ -94,7 +92,7 @@ export function Item(props) {
     if (value <= producto.cantidad_minima) {
       setCantidad(() => 0);
 
-      newPedido = newPedido.filter((prod) => prod._id !== producto._id);
+      newPedido = newPedido.filter((prod) => prod.id !== producto.id);
       //setPedido(() => newPedido);
       props.SET_PEDIDO(newPedido);
     }
@@ -103,8 +101,8 @@ export function Item(props) {
   const handleObservacion = (e, producto, id) => {
     setObservaciones(() => e.target.value);
     let newPedido = [...pedido];
-    const pedidoProd = newPedido.find((prod) => prod._id === id);
-    const idx = newPedido.findIndex((prod) => prod._id === id);
+    const pedidoProd = newPedido.find((prod) => prod.id === id);
+    const idx = newPedido.findIndex((prod) => prod.id === id);
 
     if (idx !== -1) {
       pedidoProd.observacion = e.target.value;
@@ -133,7 +131,7 @@ export function Item(props) {
           <div className="transfer_lista_items_cantidad">
             <button
               className="btn transfer_lista_items_cantidad_resta"
-              onClick={() => resta(producto._id, producto)}
+              onClick={() => resta(producto.id, producto)}
               disabled={producto.nombre ? false : true}
             >
               -
@@ -141,13 +139,13 @@ export function Item(props) {
             <input
               type="number"
               value={cantidad}
-              onBlur={(e) => handleChange(e, producto, producto._id)}
+              onBlur={(e) => handleChange(e, producto, producto.id)}
               onChange={(e) => setCantidad(e.target.value)}
               disabled={producto.nombre ? false : true}
             />
             <button
               className="btn transfer_lista_items_cantidad_suma"
-              onClick={() => suma(producto._id, producto)}
+              onClick={() => suma(producto.id, producto)}
               disabled={producto.nombre ? false : true}
             >
               +
@@ -157,7 +155,7 @@ export function Item(props) {
             placeholder={"Aclaraciones"}
             value={observaciones}
             className=" transfer_lista_items_observaciones"
-            onChange={(e) => handleObservacion(e, producto, producto._id)}
+            onChange={(e) => handleObservacion(e, producto, producto.id)}
             disabled={producto.nombre && cantidad > 0 ? false : true}
           ></textarea>
         </>

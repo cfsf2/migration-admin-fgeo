@@ -25,7 +25,7 @@ import InputTextEditable from "./columnas/InputTextEditable";
 
 import VistaContext from "../context/VistaContext";
 
-const SwitchCampos = ({ data, cab, padre, indiceData }) => {
+const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
 
@@ -44,7 +44,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData }) => {
 
   const Componente = () => {
     switch (cab.componente) {
-      case undefined:
+      case undefined || "columna_simple":
         return (
           <Default
             key={cab.id_a}
@@ -160,6 +160,18 @@ const SwitchCampos = ({ data, cab, padre, indiceData }) => {
             indiceData={indiceData}
           />
         );
+      case "input_number_editable":
+        return (
+          <InputAreaEditable
+            key={cab.id_a}
+            data={data}
+            cab={cab}
+            hijos={hijos}
+            campokey={campokey}
+            indiceData={indiceData}
+            type="number"
+          />
+        );
       case "input_text_editable":
         return (
           <InputTextEditable
@@ -169,6 +181,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            Context={Context}
           />
         );
       case "radio_button":
@@ -264,7 +277,9 @@ const SwitchCampos = ({ data, cab, padre, indiceData }) => {
   };
 
   return (
-    <div className="tarjeta_grid_item_componente_campo">{Componente()}</div>
+    <div id={cab.id_a} className="tarjeta_grid_item_componente_campo">
+      {Componente()}
+    </div>
   );
 };
 

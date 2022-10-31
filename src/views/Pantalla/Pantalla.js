@@ -10,8 +10,9 @@ import PantallaReducer, { initialState } from "./context/PantallaReducer";
 import { useParams, useLocation } from "react-router";
 import SwitchMaestro from "./components/SwitchMaestro";
 import { AlertasProvider } from "./context/AlertaContext";
-import { ALERT } from "./context/AlertaContext";
 import HeaderConf from "./components/HeaderConf";
+
+import Debugger from "./components/Debugger";
 
 const Pantalla = () => {
   const [state, dispatch] = useReducer(PantallaReducer, initialState);
@@ -37,7 +38,9 @@ const Pantalla = () => {
       .then((response) => {
         if (response.status >= 400) {
           requestErrorHandler(response);
-          if (!response.data.error?.continuar) return;
+
+          return response;
+          if (!response.data.error?.continuar) return response;
         }
         dispatch({
           type: "SET_CONFIGURACIONES_REF",
@@ -61,10 +64,17 @@ const Pantalla = () => {
         });
 
         setLoadingPantalla(false);
+        return response;
       })
-
+      .then((response) => {
+        dispatch({
+          type: "ADD_SQL",
+          payload: response.data.sql,
+        });
+      })
       .catch((error) => {
         console.log(error);
+        return;
       });
   }, [pantalla, id]);
 
@@ -78,28 +88,38 @@ const Pantalla = () => {
         pantalla: state.pantalla,
         pantalla_id: state.pantalla_id,
         configuraciones_ref: state.configuraciones_ref,
+        configuraciones_ids: state.configuraciones_ids,
         filtrosAplicados: state.filtrosAplicados,
         PantallaDispatch: dispatch,
         loadingPantalla,
+        sql: state.sql,
       }}
     >
       <AlertasProvider>
         <FuncionesProvider>
+          <Debugger />
           <HeaderConf
             opciones={state.opciones_de_pantalla}
             className="configuracion_pantalla_titulo_principal"
           />
-          {loadingPantalla ? (
-            <div style={{ width: "100%", textAlign: "center" }}>
-              Cargando...
-            </div>
-          ) : (
-            state.configuraciones
-              .sort((a, b) => a.opciones.orden - b.opciones.orden)
-              .map((item) => (
-                <SwitchMaestro key={item.id_a} configuracion={item} id={id} />
-              ))
-          )}
+          <div id={pantalla}>
+            {loadingPantalla ? (
+              <div style={{ width: "100%", textAlign: "center" }}>
+                Cargando...
+              </div>
+            ) : (
+              state.configuraciones
+                .sort((a, b) => a.opciones.orden - b.opciones.orden)
+                .map((item, idx) => (
+                  <SwitchMaestro
+                    key={item.id_a}
+                    configuracion={item}
+                    id={id}
+                    idx={idx}
+                  />
+                ))
+            )}
+          </div>
         </FuncionesProvider>
       </AlertasProvider>
     </PantallaContext.Provider>

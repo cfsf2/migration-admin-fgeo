@@ -30,6 +30,7 @@ const InfoInteres = React.lazy(() =>
 const Mutual = React.lazy(() => import("./views/Publicidades/Mutual"));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 
+//****************** CONFIGURACIONES ************************************/
 const Pantalla = React.lazy(() => import("./views/Pantalla/Pantalla"));
 
 //*********TRANSFERS */
@@ -110,7 +111,7 @@ const routes = [
   },
 
   { path: "/NuevoTransfer", name: "Nuevo Transfer", component: NuevoTransfer },
-  { path: "/MisTransfers", name: "Mis Transfers", component: MisTransfers },
+  // { path: "/MisTransfers", name: "Mis Transfers", component: MisTransfers },
   {
     path: "/FinalizarTransfer",
     name: "Finalizar Transfer",

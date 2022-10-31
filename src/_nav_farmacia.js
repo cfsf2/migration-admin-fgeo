@@ -108,7 +108,7 @@ export default {
     },
     {
       name: "Mis Transfers",
-      url: "/MisTransfers",
+      url: "/Pantalla/PANTALLA_TRANSFER",
       perfil_farmageo: [],
     },
     {

@@ -53,8 +53,15 @@ const objetoQueryFiltrosdeF = (filtros, filtrosAAplicar, pantalla) => {
 export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
   let pantalla = configuracion.opciones.id_a; //ID_A de Listado
 
-  const { pantalla: PPantalla, configuraciones_ref } =
-    useContext(PantallaContext);
+  const [display_container, setDisplay] = useState(
+    configuracion.opciones.display_container
+  );
+
+  const {
+    pantalla: PPantalla,
+    configuraciones_ref,
+    PantallaDispatch,
+  } = useContext(PantallaContext);
 
   const { requestErrorHandler } = useContext(FuncionesContext);
 
@@ -140,9 +147,16 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
         payload: res.data.opciones,
       });
 
+      setDisplay(() => res.data.opciones.display_container);
+
       dispatch({
         type: "SET_BOTONES_LISTADO",
         payload: res.data.listadoBotones,
+      });
+
+      PantallaDispatch({
+        type: "ADD_SQL",
+        payload: res.data.sql,
       });
 
       setCabeceras(res.data.cabeceras ? res.data.cabeceras : []);
@@ -226,6 +240,7 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
             filtrosUsuarioAlCargarPagina: state.filtrosUsuarioAlCargarPagina,
             filtros: filtros,
             opcionesListado: state.opcionesListado,
+            opciones: state.opcionesListado,
             listadoBotones: state.listadoBotones,
             id_global: state.id_global,
             setFilter: callMF, //pasar setQueryFilter para reaccionar a url}
@@ -246,7 +261,9 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
           callMF,
         ])}
       >
-        {state.loading_pantalla ? (
+        {display_container === "n" ? (
+          <></>
+        ) : state.loading_pantalla ? (
           <div style={{ width: "100%", textAlign: "center" }}>Cargando...</div>
         ) : (
           children
