@@ -193,7 +193,7 @@ class ImportProductosTransfers extends Component {
                                     laboratorioid={linea.laboratorioid}
                                     laboratorioNombre={
                                       laboratorios.filter((l) => {
-                                        return l._id === linea.laboratorioid;
+                                        return l.nombre === linea.laboratorioid;
                                       })[0].nombre
                                     }
                                     nombre={linea.nombre}
@@ -209,17 +209,6 @@ class ImportProductosTransfers extends Component {
                                     instituciones={this.state.instituciones}
                                   />
                                 );
-                                {
-                                  /*<tr>
-                            <td>{linea.codigo}</td>
-                            <td>{laboratorios.filter(l=>{return l._id === linea.laboratorioid})[0].nombre}</td>
-                            <td>{linea.nombre+" / "+linea.presentacion}</td>
-                            <td></td>
-                            <td>{linea.cantidad_minima}</td>
-                            <td>{linea.descuento_porcentaje}</td>
-                            <td>{linea.habilitado}</td>
-                          </tr>*/
-                                }
                               })}
                             </tbody>
                           </table>
