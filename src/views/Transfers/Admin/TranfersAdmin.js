@@ -16,7 +16,7 @@ import {
 import { connect } from "react-redux";
 import {
   GET_TRANSFERS,
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_ADMIN,
   GET_DROGUERIAS,
   REENVIAR_EMAIL,
 } from "../../../redux/actions/transfersActions";
@@ -246,7 +246,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   GET_TRANSFERS,
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_ADMIN,
   GET_DROGUERIAS,
   REENVIAR_EMAIL,
   ALERT,

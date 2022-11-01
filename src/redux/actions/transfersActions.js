@@ -44,6 +44,25 @@ export const GET_LABORATORIOS = () => {
   };
 };
 
+export const GET_LABORATORIOS_ADMIN = () => {
+  return (dispatch) => {
+    axios
+      .get(farmageo_api + "/laboratorios_admin")
+      .then(function (response) {
+        //console.log(response.data);
+        dispatch({
+          type: "GET_LABORATORIOS",
+          payload: response.data.sort((a, b) =>
+            a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0
+          ),
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
+
 export const UPDATE_LABORATORIO = (laboratorio) => {
   return (dispatch) => {
     axios
