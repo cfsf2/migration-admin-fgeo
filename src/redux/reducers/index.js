@@ -22,6 +22,7 @@ export default combineReducers({
   pedidosReducer,
   publicidadesReducer,
   farmaciasAdminReducer,
+  farmaciaReducer,
   denunciasReducer,
   tranfersReducer,
   packsproductosReducer,

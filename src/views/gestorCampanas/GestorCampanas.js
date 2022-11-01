@@ -5,12 +5,12 @@ import { CampanasPage } from "./CampanasPage";
 
 const GestorCampanas = (props) => {
   React.useEffect(() => {
-    if (props.UsuarioReducer.usuario) {
-      if (props.UsuarioReducer.load) {
+    if (props.UsuarioReducer.usuario && props.FarmaciaReducer) {
+      if (props.UsuarioReducer.load && props.FarmaciaReducer.load) {
         props.GET_CAMPANA(props.UsuarioReducer.usuario._id);
       }
     }
-  }, [props.UsuarioReducer.usuario._id]);
+  }, [props.UsuarioReducer.usuario._id, props.FarmaciaReducer.load]);
 
   return (
     <>
@@ -25,6 +25,7 @@ const mapStateToProps = (state) => {
   return {
     CampanaReducer: state.campanasReducer,
     UsuarioReducer: state.userReducer,
+    FarmaciaReducer: state.farmaciaReducer,
   };
 };
 

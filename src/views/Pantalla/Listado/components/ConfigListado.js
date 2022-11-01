@@ -38,7 +38,7 @@ const ConfigListado = () => {
         .map((cab, i) => {
           //console.log("cab:  ", cab);
           return {
-            title: cab.nombre,
+            title: cab.nombre_alias ? datos[i][cab.nombre_alias] : cab.nombre,
             field: cab.campo_alias ?? cab.id_a,
             width: cab.width ?? "10%",
             totalizar: cab.totalizar ?? undefined,

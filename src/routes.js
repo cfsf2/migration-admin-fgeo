@@ -37,6 +37,9 @@ const Pantalla = React.lazy(() => import("./views/Pantalla/Pantalla"));
 const NuevoTransfer = React.lazy(() =>
   import("./views/Transfers/Farmacia/NuevoTranfer")
 );
+const NuevoTransfer2 = React.lazy(() =>
+  import("./views/Transfers/Farmacia/NuevoTransferTEST")
+);
 const MisTransfers = React.lazy(() =>
   import("./views/Transfers/Farmacia/MisTransfers")
 );
@@ -180,6 +183,13 @@ const routes = [
   {
     path: "/Pantalla/:pantalla",
     exact: true,
+    name: "Pantalla",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Listado/:pantalla",
+    exact: true,
     name: "Listado",
     component: Pantalla,
     permiso: "inicio",
@@ -187,8 +197,16 @@ const routes = [
   {
     path: "/Vista/:pantalla",
     exact: true,
+    name: "Vista",
     component: Pantalla,
-    permiso: "transfer_nuevo",
+    permiso: "inicio",
+  },
+  {
+    path: "/Configuracion/:pantalla",
+    exact: true,
+    name: "Configuracion",
+    component: Pantalla,
+    permiso: "inicio",
   },
 
   /*
@@ -197,6 +215,12 @@ const routes = [
   { path: '/publicidadesadmin/infointeres', exact: true, name: 'Información de interés', component: InfoInteres },
   { path: '/publicidadesadmin/mutual', exact: true, name: 'banner mutual', component: Mutual },
 */
+
+  {
+    path: "/TEST/NuevoTransfer",
+    name: "Nuevo Transfer Test",
+    component: NuevoTransfer2,
+  },
 ];
 
 export default routes;

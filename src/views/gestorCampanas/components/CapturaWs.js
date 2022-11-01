@@ -168,6 +168,7 @@ const CapturaWs = (props) => {
   );
 
   const dataFarmacia = props.FarmaciaReducer?.farmacia;
+  console.log(props.FarmaciaReducer);
 
   return (
     <Modal
@@ -175,7 +176,7 @@ const CapturaWs = (props) => {
       handleClose={setMostrar}
       style={{ position: "fixed", left: "50%", minwidth: "500px" }}
     >
-      <div className="modal-dialog">
+      <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div style={{ float: "right" }}></div>
           <div className="modal-body" align="left">
@@ -194,22 +195,20 @@ const CapturaWs = (props) => {
                     />
                   )}
                 </div>
-                <div className="form-row mt-1 pr-3 pl-3 form-position">
-                  <div className="col-md-12 mb-1 pr-3">
-                    <p
-                      style={{
-                        textAlign: "center",
-                        paddingLeft: "15px",
-                        paddingRight: "15px",
-                        width: "60ch",
-                      }}
-                    >
-                      {arr.map((item) => (
-                        <p style={{ margin: 0, maxWidth: "56ch" }}>{item}</p>
-                      ))}
-                      {`Titular: ${dataFarmacia?.nombrefarmaceutico}  Matricula: ${dataFarmacia?.matricula}`}
-                    </p>
-                  </div>
+                <div className="form-row mt-1 pr-3 pl-3 form-position text-center">
+                  <p
+                    style={{
+                      textAlign: "center",
+                      paddingLeft: "15px",
+                      paddingRight: "15px",
+                    }}
+                  >
+                    {arr.map((item) => (
+                      <p style={{ margin: 0 }}>{item}</p>
+                    ))}
+                    {`Titular: ${dataFarmacia?.nombrefarmaceutico}  Matricula: ${dataFarmacia?.matricula}`}
+                  </p>
+
                   <form>
                     <div className="form-row col-md-12 mb-1 pr-3 input-position">
                       <input

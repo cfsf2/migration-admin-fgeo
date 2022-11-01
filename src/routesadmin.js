@@ -453,6 +453,35 @@ const routes = [
     component: BannersEcommerce,
     permiso: "banners",
   },
+
+  {
+    path: "/Listado/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Configuracion/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Pantalla/:pantalla",
+    exact: true,
+    name: "Pantalla",
+    component: Pantalla,
+    permiso: "inicio",
+  },
 ];
 
 export default routes;

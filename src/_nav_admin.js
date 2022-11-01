@@ -147,7 +147,7 @@ export default {
     {
       name: "PANTALLAS",
       //url: "/ecommerce/banners-home",
-      permiso: "campanas",
+      permiso: "sistemas",
       children: [
         {
           name: "Configuracion",
@@ -202,12 +202,12 @@ export default {
         //   url: "/administrartranfers",
         // },
         {
-          name: "Transfers Nuevo",
+          name: "Administrar Transfers",
           url: "/Configuracion/PANTALLA_TRANSFER",
           permiso: "transfer_nuevo",
         },
         {
-          name: "Droguería Nuevo",
+          name: "Droguerías",
           url: "/Configuracion/PANTALLA_DROGUERIA",
           permiso: "drogueria_nuevo",
         },
