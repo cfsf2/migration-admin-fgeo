@@ -90,7 +90,7 @@ class ProductosTransfers extends Component {
                           <option value={null}>Laboratorio...</option>
                           {laboratorios.map((lab, index) => {
                             return (
-                              <option value={lab._id} key={index}>
+                              <option value={lab.id} key={index}>
                                 {lab.nombre}
                               </option>
                             );
@@ -151,8 +151,9 @@ class ProductosTransfers extends Component {
                               <tr key={index}>
                                 <td>{obj.codigo}</td>
                                 <td>
-                                  {laboratorios.map((lab, index) => {
-                                    return lab._id === obj.laboratorioid
+                                  {laboratorios.map((lab, ind) => {
+                                    return lab.id ===
+                                      parseInt(obj.laboratorioid)
                                       ? lab.nombre
                                       : null;
                                   })}
