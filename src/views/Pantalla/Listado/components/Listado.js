@@ -78,8 +78,8 @@ export const Listado = (props) => {
 
   return (
     <div style={styles} className="animated fadeIn novedades_lista">
-      <Row>
-        <Col xs="12" sm="12">
+      {/* <Row>
+        <Col xs="12" sm="12"> */}
           <Card
             id={opcionesListado.id_a}
             style={{ border: "none", marginBottom: 0 }}
@@ -160,8 +160,8 @@ export const Listado = (props) => {
               </ThemeProvider>
             </CardBody>
           </Card>
-        </Col>
-      </Row>
+        {/* </Col>
+      </Row> */}
     </div>
   );
 };
