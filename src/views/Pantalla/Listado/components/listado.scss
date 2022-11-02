@@ -64,7 +64,6 @@
     padding-top: 0rem;
     margin-bottom: 0rem;
     justify-content: flex-end;
-    
   }
 }
 
@@ -84,23 +83,27 @@
   }
 }
 
-
-
-#Listado_Switch_Enlace{
+#Listado_Switch_Enlace {
   padding: 0.5rem 0.8rem;
   border-radius: 15px;
   margin: 0.2rem;
   background-color: lightgray;
-  
 
-a{
+  a {
     text-decoration: none;
-    color:rgb(79, 79, 79);
+    color: rgb(79, 79, 79);
   }
-  
-  &:hover{
+
+  &:hover {
     background-color: lightblue;
-    a{color:black}
+    a {
+      color: black;
+    }
     cursor: pointer;
   }
+}
+
+[data-rfd-drag-handle-context-id="0"],
+[data-rfd-drag-handle-context-id="1"] {
+  justify-content: center;
 }
