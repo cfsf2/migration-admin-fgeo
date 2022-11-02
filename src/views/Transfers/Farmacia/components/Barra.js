@@ -54,6 +54,40 @@ export default function Barra(props) {
   });
   return (
     <div className="transfer_barra">
+      <div style={{ width: "100%" }} className="transfer_lista_footer">
+        <div className="transfer_lista_footer_paginacion">
+          <button onClick={handlePreviousPage}>Pagina Anterior</button>
+
+          <button onClick={handleNextPage}>Pagina Siguiente</button>
+          <p>
+            Pagina {page + 1} de {paginas + 1}
+          </p>
+        </div>
+
+        <div className="transfer_lista_footer_mostrando">
+          <p>
+            Mostrando {page * prodPerPage + 1} a{" "}
+            {(page + 1) * prodPerPage < productos.length
+              ? (page + 1) * prodPerPage
+              : productos.length}{" "}
+            de {productos.length} productos
+          </p>
+        </div>
+        <div className="transfer_lista_footer_resultados">
+          <p>Resultados por Pagina</p>
+          <select
+            value={prodPerPage}
+            onChange={(e) => {
+              setProdsPerPage(Number(e.target.value));
+            }}
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={15}>15</option>
+            <option value={20}>20</option>
+          </select>
+        </div>
+      </div>
       <div className="transfer_barra_nav">
         {stage !== 0 ? (
           <button
@@ -88,45 +122,12 @@ export default function Barra(props) {
           <div className={`no-enviando ${enviando ? "enviando" : ""}`}></div>
         </button>
       </div>
-      <div style={{ width: "100%" }} className="transfer_lista_footer">
-        <div className="transfer_lista_footer_paginacion">
-          <button onClick={handlePreviousPage}>Pagina Anterior</button>
 
-          <button onClick={handleNextPage}>Pagina Siguiente</button>
-          <p>
-            Pagina {page + 1} de {paginas + 1}
-          </p>
-        </div>
-
-        <div className="transfer_lista_footer_mostrando">
-          <p>
-            Mostrando {page * prodPerPage + 1} a{" "}
-            {(page + 1) * prodPerPage < productos.length
-              ? (page + 1) * prodPerPage
-              : productos.length}{" "}
-            de {productos.length}
-          </p>
-        </div>
-        <div className="transfer_lista_footer_resultados">
-          <p>Resultados por Pagina</p>
-          <select
-            value={prodPerPage}
-            onChange={(e) => {
-              setProdsPerPage(Number(e.target.value));
-            }}
-          >
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={15}>15</option>
-            <option value={20}>20</option>
-          </select>
-        </div>
-      </div>
       <a
         href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
         className="btn btn-labs"
       >
-        <b style={{ fontSize: 15 }}>{"<   "}</b>
+        <b style={{ fontSize: 14 }}>{"<   "}</b>
         <b>Elegir Otro Laboratorio</b>
       </a>
     </div>
