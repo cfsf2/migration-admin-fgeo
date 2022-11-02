@@ -13,7 +13,7 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
   }
   &_barra {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-between;
     background: rgb(218, 218, 218);
     width: 82%;
@@ -24,16 +24,18 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
     margin-right: 1rem;
     border-radius: 20px 20px 0% 0%;
     &_nav {
-      width: 60%;
+      width: 62%;
     }
     .btn {
       color: white;
-      font-weight: bold;
+    
       letter-spacing: 1px;
       margin: 0 1rem;
+      font-size: 0.7rem;
     }
     & .btn-labs {
       background-color: hsl(214, 43%, 40%);
+      height:50%;
     }
     & .siguiente {
       background-color: rgba(114, 156, 114, 1);
@@ -106,6 +108,8 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
     background: #ffff;
     margin: 1rem;
     border-radius: 15px 15px 0 0;
+   
+
     &_sinresultados {
       width: 100%;
       position: absolute;
@@ -115,21 +119,29 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
     &_footer {
       display: flex;
       justify-content: space-between;
+     
       margin-top: 0.5rem;
+      width:100%;
+      font-size: 0.6rem;
       button {
         margin: 0rem 1rem;
       }
       &_mostrando {
         display: flex;
         align-items: baseline;
+        
+        width:20%
       }
       &_paginacion {
-        width: 40%;
+        width: 35%;
         display: flex;
         align-items: baseline;
+        justify-content: space-around;
+        
       }
       &_resultados {
-        width: 30%;
+        
+        width: 20%;
         display: flex;
         align-items: baseline;
         justify-content: space-around;
