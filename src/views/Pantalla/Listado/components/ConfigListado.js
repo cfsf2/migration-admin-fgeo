@@ -37,8 +37,9 @@ const ConfigListado = () => {
         .filter((cab) => cab.mostrar !== "n")
         .map((cab, i) => {
           //console.log("cab:  ", cab);
+
           return {
-            title: cab.nombre_alias ? datos[i][cab.nombre_alias] : cab.nombre,
+            title: cab.nombre_alias ? datos[0][cab.nombre_alias] : cab.nombre,
             field: cab.campo_alias ?? cab.id_a,
             width: cab.width ?? "10%",
             totalizar: cab.totalizar ?? undefined,
@@ -48,14 +49,16 @@ const ConfigListado = () => {
             },
             id: cab.id_a,
             headerStyle: { textAlign: "center" },
-            render: (data) => (
-              <SwitchColumnas
-                data={data}
-                cab={cab}
-                indiceData={data.tableData.id}
-                Context={ListadoContext}
-              />
-            ),
+            render: (data) => {
+              return (
+                <SwitchColumnas
+                  data={data}
+                  cab={cab}
+                  indiceData={data.tableData.id}
+                  Context={ListadoContext}
+                />
+              );
+            },
           };
         }),
     [cabeceras]
