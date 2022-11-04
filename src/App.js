@@ -3,6 +3,8 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
 import "./App.scss";
 import GestorCampanas from "./views/gestorCampanas/GestorCampanas";
+import { AuthProvider } from "./views/Pages/AuthContext/AuthContext";
+import ProtectedRoute from "./views/Pages/Login/ProtectedRoute";
 
 import store from "./redux/store/index";
 import { LOGOUT } from "./redux/actions/authActions";
@@ -38,7 +40,7 @@ axios.interceptors.response.use(
             "error",
             "OK"
           ).finally(() => {
-            window.location = process.env.PUBLIC_URL;
+            // window.location = process.env.PUBLIC_URL;
           })
         );
 
@@ -49,10 +51,11 @@ axios.interceptors.response.use(
           ALERT(
             "SESION EXPIRADA",
             "Su sesion ha expirado debe loguearse nuevamente",
-            "error",
+            "info",
             "OK"
           ).finally(() => {
             store.dispatch(LOGOUT());
+            // window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
           })
         );
         break;
@@ -103,6 +106,7 @@ function App() {
     <HashRouter>
       <React.Suspense fallback={loading()}>
         <GestorCampanas />
+
         <Switch>
           <Route
             index
@@ -117,23 +121,26 @@ function App() {
             name="Register Page"
             render={(props) => <Register {...props} />}
           />
-          <Route
-            exact
-            path="/404"
-            name="Page 404"
-            render={(props) => <Page404 {...props} />}
-          />
-          <Route
-            exact
-            path="/500"
-            name="Page 500"
-            render={(props) => <Page500 {...props} />}
-          />
-          <Route
-            path="/"
-            name="Home"
-            render={(props) => <DefaultLayout {...props} />}
-          />
+          <AuthProvider>
+            <Route
+              exact
+              path="/404"
+              name="Page 404"
+              render={(props) => <Page404 {...props} />}
+            />
+            <Route
+              exact
+              path="/500"
+              name="Page 500"
+              render={(props) => <Page500 {...props} />}
+            />
+            <ProtectedRoute
+              path="/"
+              name="Home"
+              Component={DefaultLayout}
+              // render={(props) => <DefaultLayout {...props} />}
+            />
+          </AuthProvider>
         </Switch>
       </React.Suspense>
     </HashRouter>
