@@ -4,6 +4,9 @@ import { Route, Switch, useHistory, Redirect } from "react-router-dom";
 import * as router from "react-router-dom";
 import { Container, Col, Row } from "reactstrap";
 
+import Axios from "axios";
+import { farmageo_api } from "../../config";
+
 import { LOGOUT } from "../../redux/actions/authActions";
 import { ALERT } from "../../redux/actions/alertActions";
 
@@ -88,10 +91,30 @@ function DefaultLayout(props) {
       setNavigation(_nav_farmacia);
       setRoutes(routesfarmacias);
     } else {
-      setNavigation({ navigation: nav_default, routes: routesdefault });
       setNavigation(nav_default);
       setRoutes(routesdefault);
     }
+  }
+
+  function convertMenu(menuCriollo) {
+    const m = JSON.stringify(menuCriollo);
+
+    const nuevoMenu = JSON.parse(m, function (k, v) {
+      this.attributes = {};
+      if (k === "nombre") this.name = v;
+      else if (k === "hijos") {
+        this.children = v.length === 0 ? undefined : v;
+      } else if (k === "url_imagen") this.icon = v;
+      else if (k === "target") {
+        this.attributes.target = v;
+        this.attributes.rel = "noopener";
+      } else if (k === "tipo") {
+        if (v.id_a === "TITLE") {
+          this.title = true;
+        }
+      } else return v;
+    });
+    return nuevoMenu;
   }
 
   useEffect(() => {
@@ -109,6 +132,18 @@ function DefaultLayout(props) {
       componentDidMount();
     }
   }, [props.user.IS_ADMIN, props.user.IS_FARMACIA, localStorage.authenticated]);
+
+  useEffect(() => {
+    if (localStorage.authenticated === "true") {
+      Axios.post(farmageo_api + "/menu", { menu: "M_NAV_FARMACIA" }).then(
+        async (res) => {
+          const menu = convertMenu(res.data);
+          console.log(menu.children);
+          setNavigation({ items: menu.children });
+        }
+      );
+    }
+  }, [localStorage.authenticated, props.user.IS_ADMIN, props.user.IS_FARMACIA]);
 
   const islogin = useSelector((state) => state.authReducer.user.islogin);
 
@@ -135,9 +170,7 @@ function DefaultLayout(props) {
         <main className="main" style={{ backgroundColor: "white" }}>
           {/*<AppBreadcrumb appRoutes={routes} router={router}/>*/}
           <Container fluid className="mx-0 px-0">
-            <Row
-              className="py-2 mb-2 px-3"
-            >
+            <Row className="py-2 mb-2 px-3">
               {userprofile && userprofile.esfarmacia ? (
                 userprofile.perfil_farmageo !== "solo_visible" ||
                 userprofile.perfil_farmageo === "no_visible" ? (

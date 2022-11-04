@@ -52,7 +52,7 @@ const Login = (props) => {
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [terminos, setTerminos] = useState("");
+  const [terminos, setTerminos] = useState(true);
 
   const islogin = useSelector((state) => state.authReducer.user.islogin);
   const username = useSelector((state) => state.authReducer.user.username);
@@ -139,7 +139,7 @@ const Login = (props) => {
   };
 
   const handleChangeTerminos = (event) => {
-    setTerminos(event.target.value);
+    setTerminos(event.target.checked);
   };
 
   return (
@@ -250,6 +250,7 @@ const Login = (props) => {
                 type="checkbox"
                 onChange={handleChangeTerminos}
                 style={{ marginRight: 10 }}
+                checked={terminos}
               />
               <a
                 href="https://farmageo.com.ar/terminos-legales.html"
