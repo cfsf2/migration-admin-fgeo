@@ -15,7 +15,7 @@ import {
 
 import { connect } from "react-redux";
 import {
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_ADMIN,
   ADD_LABORATORIO,
   UPDATE_LABORATORIO,
 } from "../../../redux/actions/transfersActions";
@@ -52,7 +52,7 @@ class Laboratorios extends Component {
   }
 
   componentDidMount() {
-    this.props.GET_LABORATORIOS();
+    this.props.GET_LABORATORIOS_ADMIN();
   }
 
   render() {
@@ -188,7 +188,7 @@ const mapStateToProps = (state) => {
   return { tranfersReducer: state.tranfersReducer };
 };
 const mapDispatchToProps = {
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_ADMIN,
   ADD_LABORATORIO,
   UPDATE_LABORATORIO,
 };

@@ -19,7 +19,7 @@ import { connect } from "react-redux";
 import {
   GET_PRODUCTOS_TRANSFERS,
   ADD_PRODUCTO_TRANSFER,
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_ADMIN,
   UPDATE_PRODUCTO_TRANSFER,
   DELETE_PRODUCTO_TRANSFER,
 } from "../../../redux/actions/transfersActions";
@@ -48,7 +48,7 @@ class ProductosTransfers extends Component {
   }
 
   componentDidMount() {
-    this.props.GET_LABORATORIOS();
+    this.props.GET_LABORATORIOS_ADMIN();
     this.props.GET_PRODUCTOS_TRANSFERS();
   }
 
@@ -90,7 +90,7 @@ class ProductosTransfers extends Component {
                           <option value={null}>Laboratorio...</option>
                           {laboratorios.map((lab, index) => {
                             return (
-                              <option value={lab._id} key={index}>
+                              <option value={lab.id} key={index}>
                                 {lab.nombre}
                               </option>
                             );
@@ -151,8 +151,9 @@ class ProductosTransfers extends Component {
                               <tr key={index}>
                                 <td>{obj.codigo}</td>
                                 <td>
-                                  {laboratorios.map((lab, index) => {
-                                    return lab._id === obj.laboratorioid
+                                  {laboratorios.map((lab, ind) => {
+                                    return lab.id ===
+                                      parseInt(obj.laboratorioid)
                                       ? lab.nombre
                                       : null;
                                   })}
@@ -239,7 +240,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   GET_PRODUCTOS_TRANSFERS,
   ADD_PRODUCTO_TRANSFER,
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_ADMIN,
   UPDATE_PRODUCTO_TRANSFER,
   DELETE_PRODUCTO_TRANSFER,
 };

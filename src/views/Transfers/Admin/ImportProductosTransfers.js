@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 import ImportarCsv from "../../../components/ImportarCsv";
 import {
   ADD_PRODUCTO_TRANSFER,
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_ADMIN,
 } from "../../../redux/actions/transfersActions";
 import LineaImportTransfer from "./LineaImportTransfer";
 import ejemplo_transfer_csv from "./ejemplo_importar_transfers.csv";
@@ -43,7 +43,6 @@ class ImportProductosTransfers extends Component {
   }
 
   async handleConvertToJson(data) {
-    // console.log(data)
     let vistaPrevia = [];
     try {
       await data.map((fila) => {
@@ -59,8 +58,8 @@ class ImportProductosTransfers extends Component {
         ) {
           vistaPrevia.push({
             codigo: fila.data[0],
-            laboratorioid: this.state.laboratorioid,
-            nombre: fila.data[1],
+            laboratorioid: parseInt(this.state.laboratorioid),
+            nombre: JSON.stringify(fila.data[1]),
             presentacion: fila.data[2],
             cantidad_minima: fila.data[3],
             descuento_porcentaje: fila.data[4],
@@ -77,7 +76,7 @@ class ImportProductosTransfers extends Component {
   }
 
   componentDidMount() {
-    this.props.GET_LABORATORIOS();
+    this.props.GET_LABORATORIOS_ADMIN();
   }
 
   render() {
@@ -116,7 +115,7 @@ class ImportProductosTransfers extends Component {
                           <option value={"none"}>Laboratorio...</option>
                           {laboratorios.map((lab, index) => {
                             return (
-                              <option value={lab._id} key={index}>
+                              <option value={lab.id} key={index}>
                                 {lab.nombre}
                               </option>
                             );
@@ -193,7 +192,7 @@ class ImportProductosTransfers extends Component {
                                     laboratorioid={linea.laboratorioid}
                                     laboratorioNombre={
                                       laboratorios.filter((l) => {
-                                        return l._id === linea.laboratorioid;
+                                        return l.id === linea.laboratorioid;
                                       })[0].nombre
                                     }
                                     nombre={linea.nombre}
@@ -209,17 +208,6 @@ class ImportProductosTransfers extends Component {
                                     instituciones={this.state.instituciones}
                                   />
                                 );
-                                {
-                                  /*<tr>
-                            <td>{linea.codigo}</td>
-                            <td>{laboratorios.filter(l=>{return l._id === linea.laboratorioid})[0].nombre}</td>
-                            <td>{linea.nombre+" / "+linea.presentacion}</td>
-                            <td></td>
-                            <td>{linea.cantidad_minima}</td>
-                            <td>{linea.descuento_porcentaje}</td>
-                            <td>{linea.habilitado}</td>
-                          </tr>*/
-                                }
                               })}
                             </tbody>
                           </table>
@@ -251,7 +239,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   ADD_PRODUCTO_TRANSFER,
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_ADMIN,
 };
 
 export default connect(

@@ -88,6 +88,12 @@ export default function Barra(props) {
           <div className={`no-enviando ${enviando ? "enviando" : ""}`}></div>
         </button>
       </div>
+      <a
+        href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
+        className="btn btn-labs"
+      >
+        <b>Elegir Otro Laboratorio</b>
+      </a>
       <div style={{ width: "100%" }} className="transfer_lista_footer">
         <div className="transfer_lista_footer_paginacion">
           <button onClick={handlePreviousPage}>Pagina Anterior</button>
@@ -104,11 +110,11 @@ export default function Barra(props) {
             {(page + 1) * prodPerPage < productos.length
               ? (page + 1) * prodPerPage
               : productos.length}{" "}
-            de {productos.length}
+            de {productos.length} productos
           </p>
         </div>
         <div className="transfer_lista_footer_resultados">
-          <p>Resultados por Pagina</p>
+          <p style={{ marginRight: "1rem" }}>Resultados por Pagina</p>
           <select
             value={prodPerPage}
             onChange={(e) => {
@@ -122,13 +128,6 @@ export default function Barra(props) {
           </select>
         </div>
       </div>
-      <a
-        href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
-        className="btn btn-labs"
-      >
-        <b style={{ fontSize: 15 }}>{"<   "}</b>
-        <b>Elegir Otro Laboratorio</b>
-      </a>
     </div>
   );
 }
