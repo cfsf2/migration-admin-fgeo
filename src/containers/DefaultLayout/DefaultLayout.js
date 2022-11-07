@@ -35,6 +35,7 @@ import { LOADPROFILE } from "../../redux/actions/authActions";
 
 import { Filtrar_Sin_Venta_Online } from "../../helpers/NavHelper";
 import { ValidarPerfil } from "../../helpers/Validaciones";
+import _nav_farmacia from "../../_nav_farmacia";
 
 const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
@@ -83,15 +84,15 @@ function DefaultLayout(props) {
         });
       });
 
-      setNavigation(allowedNav);
+      // setNavigation(allowedNav);
       setRoutes(allowedRoutes);
     } else if (IS_FARMACIA) {
       var _nav_farmacia = Filtrar_Sin_Venta_Online(nav_farmacia, userprofile);
 
-      setNavigation(_nav_farmacia);
+      // setNavigation(_nav_farmacia);
       setRoutes(routesfarmacias);
     } else {
-      setNavigation(nav_default);
+      // setNavigation(nav_default);
       setRoutes(routesdefault);
     }
   }
@@ -100,20 +101,23 @@ function DefaultLayout(props) {
     const m = JSON.stringify(menuCriollo);
 
     const nuevoMenu = JSON.parse(m, function (k, v) {
-      this.attributes = {};
       if (k === "nombre") this.name = v;
       else if (k === "hijos") {
         this.children = v.length === 0 ? undefined : v;
       } else if (k === "url_imagen") this.icon = v;
-      else if (k === "target") {
-        this.attributes.target = v;
-        this.attributes.rel = "noopener";
+      if (k === "target") {
+        const attributes = {
+          target: v,
+          rel: "noopener",
+        };
+        this.attributes = attributes;
       } else if (k === "tipo") {
         if (v.id_a === "TITLE") {
           this.title = true;
         }
       } else return v;
     });
+
     return nuevoMenu;
   }
 
@@ -138,7 +142,7 @@ function DefaultLayout(props) {
       Axios.post(farmageo_api + "/menu", { menu: "M_NAV_FARMACIA" }).then(
         async (res) => {
           const menu = convertMenu(res.data);
-          console.log(menu.children);
+          //console.log(menu.children);
           setNavigation({ items: menu.children });
         }
       );
