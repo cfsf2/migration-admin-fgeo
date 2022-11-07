@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import { TextField } from "@mui/material";
 import "../components/Pantalla.scss";
 import { makeStyles } from "@material-ui/core/styles";
+import { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 
 const useStyles = makeStyles({
   miTextField: {
@@ -19,8 +22,11 @@ const useStyles = makeStyles({
 });
 
 const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
+  const [id, setId] = useState("a" + uuidv4().replace(/-/g, ""));
+
   const keyUp = useRef(0); // Evita que el evento onBlur se dispare luego de onKeyUp
   const altEnter = useRef(0); // Detecta keyDown = alt + enter
+  const setingStart = useRef();
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
@@ -47,21 +53,40 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
   };
 
   const handleAlt = (e) => {
+    setingStart.current = e.target.selectionStart;
+    console.log("SETINGSTART: ", setingStart);
+
     if (e.key === "Enter") {
       e.preventDefault();
     }
     if (e.key === "Enter" && e.altKey) {
       altEnter.current = 1;
 
-      setValue(value + "\n");
+      setValue(
+        value.slice(0, setingStart.current) +
+          "\n" +
+          value.slice(setingStart.current, value.length)
+      );
+      return;
     }
+
     return;
   };
+
+  useEffect(() => {
+    const ctrl = document.getElementById(id);
+
+    if (ctrl.setSelectionRange) {
+      ctrl.focus();
+      ctrl.setSelectionRange(setingStart.current + 1, setingStart.current + 1);
+    }
+  }, [value]);
 
   const classes = useStyles();
 
   return (
     <TextField
+      id={id}
       value={value}
       onChange={handleInput}
       onKeyUp={handleEnter}
