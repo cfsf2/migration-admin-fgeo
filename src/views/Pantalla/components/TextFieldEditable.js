@@ -54,8 +54,6 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
 
   const handleAlt = (e) => {
     setingStart.current = e.target.selectionStart;
-    console.log("SETINGSTART: ", setingStart);
-
     if (e.key === "Enter") {
       e.preventDefault();
     }
@@ -69,7 +67,6 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
       );
       return;
     }
-
     return;
   };
 
