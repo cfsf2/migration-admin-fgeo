@@ -49,9 +49,7 @@ export default function Barra(props) {
       setConfirm(() => false);
     }, 10000);
   };
-  useEffect(() => {
-    console.log(productos.length, paginas);
-  });
+
   return (
     <div className="transfer_barra">
       <div className="transfer_barra_nav">

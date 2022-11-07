@@ -14,13 +14,13 @@ export const GET_INSTITUCIONES = (limit) => {
         .get(farmageo_api + "/instituciones", { params: { limit: limit } })
         .then((response) => {
           if (response.status > 300) {
-            dispatch(LOGOUT());
             ALERT(
               "Sesion vencida o invalida",
               "Su sesion ha vencido o credencial ha quedado invalidada. Intente loguearse nuevamente",
               "info",
-              "Aceptar"
-            );
+              "Aceptar",
+              5000
+            ).then(() => dispatch(LOGOUT()));
           }
           dispatch({
             type: "GET_INSTITUCIONES",

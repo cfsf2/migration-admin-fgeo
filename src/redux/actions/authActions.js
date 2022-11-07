@@ -74,6 +74,8 @@ export const LOGIN = (user, password) => {
           } else {
             dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }
+
+          window.location.replace(`${process.env.PUBLIC_URL}/#/dashboard`);
         }
       })
       .catch(function (error) {
@@ -84,11 +86,10 @@ export const LOGIN = (user, password) => {
           "OK"
         ).then(() => {
           store.dispatch(LOGOUT());
-          window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
         });
         dispatch(LOGOUT());
         dispatch({ type: "LOGIN_ERROR", error: errorParser(error) });
-        return window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
+        return;
       });
   };
 };
