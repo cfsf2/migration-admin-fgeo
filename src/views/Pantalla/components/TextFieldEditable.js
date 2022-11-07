@@ -1,10 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import "../components/Pantalla.scss";
 import { makeStyles } from "@material-ui/core/styles";
-import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
 
 const useStyles = makeStyles({
   miTextField: {
@@ -54,6 +52,7 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
 
   const handleAlt = (e) => {
     setingStart.current = e.target.selectionStart;
+    
     if (e.key === "Enter") {
       e.preventDefault();
     }
