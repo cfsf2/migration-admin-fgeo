@@ -102,7 +102,19 @@ function DefaultLayout(props) {
 
     const nuevoMenu = JSON.parse(m, function (k, v) {
       if (k === "nombre") this.name = v;
-      else if (k === "hijos") {
+      if (k === "nombre") {
+        const vv = v.toUpperCase().replace(" ", "");
+        if (
+          v === "VENTAONLINE" ||
+          v === "PRODUCTOS" ||
+          v === "PROMOCIONES" ||
+          v === "PEDIDOS"
+        )
+          this.perfil_farmageo = ["vender_online"];
+
+        if (v === "MEDIOSDEPAGO" || v === "SERVICIOS" || v === "HORARIOS")
+          this.perfil_farmageo = ["solo_visible"];
+      } else if (k === "hijos") {
         this.children = v.length === 0 ? undefined : v;
       } else if (k === "url_imagen") this.icon = v;
       if (k === "target") {
@@ -143,7 +155,7 @@ function DefaultLayout(props) {
         async (res) => {
           const menu = convertMenu(res.data);
           //console.log(menu.children);
-          setNavigation({ items: menu.children });
+          setNavigation({ items: menu });
         }
       );
     }
