@@ -4,6 +4,8 @@ import { Col } from "reactstrap";
 import { connect } from "react-redux";
 import { GET_PRODUCTOS_TRANSFERS_BY_LAB } from "../../../../redux/actions/transfersActions";
 import { image_path_server } from "../../../../config";
+import "../components/transfer.scss";
+
 class LaboratorioSelect extends Component {
   render() {
     return (
