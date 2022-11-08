@@ -275,12 +275,10 @@ export const ADD_TRANSFER = (transfer, history) => {
       .then(function (response) {
         if (response.status == 200) {
           history.push("/ConfirmacionPedido");
-        } else {
-          alert("ha ocurrido un error");
         }
       })
       .catch(function (error) {
-        alert("Ha ocurrido un error");
+        console.log(error);
       });
   };
 };
