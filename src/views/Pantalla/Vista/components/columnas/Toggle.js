@@ -33,29 +33,29 @@ const Toggle = ({ data, cab, campokey, key, indiceData }) => {
 
     const { id_a } = cab;
 
-    setValue(valor);
-
     superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })
       .then((result) => {
+        if (result.status > 300) return setValue(lastValue);
         setLastvalue(() => valor);
+        setValue(valor);
 
-        VistaDispatch({
-          type: "SET_DATO_ESPECIFICO",
-          payload: {
-            value: result.data.id,
-            indiceData,
-            key: cab.update_id_alias,
-          },
-        });
+        // VistaDispatch({
+        //   type: "SET_DATO_ESPECIFICO",
+        //   payload: {
+        //     value: result.data.id,
+        //     indiceData,
+        //     key: cab.update_id_alias,
+        //   },
+        // });
 
-        VistaDispatch({
-          type: "SET_DATO_ESPECIFICO",
-          payload: {
-            value: valor,
-            indiceData,
-            key: cab.campo_alias ? cab.campo_alias : id_a,
-          },
-        });
+        // VistaDispatch({
+        //   type: "SET_DATO_ESPECIFICO",
+        //   payload: {
+        //     value: valor,
+        //     indiceData,
+        //     key: cab.campo_alias ? cab.campo_alias : id_a,
+        //   },
+        // });
 
         return result;
       })
