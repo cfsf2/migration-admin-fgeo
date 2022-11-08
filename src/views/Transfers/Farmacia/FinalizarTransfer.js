@@ -128,7 +128,7 @@ class FinalizarTransfer extends Component {
     if (this.props.farmaciaReducer.load === false)
       return <p>Cargando farmacia</p>;
     return (
-      <div className="animated fadeIn">
+      <div className="animated fadeIn" style={{ whiteSpace: "pre-wrap" }}>
         {/* <ModalStep /> */}
 
         <Row>
@@ -158,64 +158,67 @@ class FinalizarTransfer extends Component {
             </Button>
           </Col>
         </Row>
-
-        <Row>
-          <Col md="12" xs="12">
-            <div
-              style={{
-                color: "black",
-                fontSize: 14,
-                backgroundColor: "#FFFFFF",
-                borderRadius: 8,
-                paddingLeft: 30,
-                paddingRight: 30,
-                paddingTop: 20,
-                paddingBottom: 20,
-                marginBottom: 10,
-                borderBottomWidth: 0,
-                borderTopWidth: 10,
-                borderRightWidth: 0,
-                borderColor: "#000000",
-                borderLeftWidth: 0,
-                fontWeight: "bold",
-              }}
-            >
-              <p style={{ whiteSpace: "pre-wrap" }}>
-                {lab_selected !== null ? lab_selected.novedades : ""}
-              </p>
-              <p style={{ whiteSpace: "pre-wrap" }}>{comunicadoTransfers}</p>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col md="12" xs="12">
-            <div
-              style={{
-                color: "black",
-                fontSize: 16,
-                backgroundColor: "#FFFFFF",
-                borderRadius: 8,
-                paddingLeft: 30,
-                paddingRight: 30,
-                paddingTop: 20,
-                paddingBottom: 20,
-                marginBottom: 10,
-                borderBottomWidth: 0,
-                borderTopWidth: 10,
-                borderRightWidth: 0,
-                borderColor: "#000000",
-                borderLeftWidth: 0,
-              }}
-            >
-              <p>
-                <b>Condiciones comerciales: </b>
-                {lab_selected !== null
-                  ? lab_selected.condiciones_comerciales
-                  : ""}
-              </p>
-            </div>
-          </Col>
-        </Row>
+        {lab_selected.novedades ? (
+          <Row>
+            <Col md="12" xs="12">
+              <div
+                style={{
+                  color: "black",
+                  fontSize: 14,
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: 8,
+                  paddingLeft: 30,
+                  paddingRight: 30,
+                  paddingTop: 20,
+                  paddingBottom: 20,
+                  marginBottom: 10,
+                  borderBottomWidth: 0,
+                  borderTopWidth: 10,
+                  borderRightWidth: 0,
+                  borderColor: "#000000",
+                  borderLeftWidth: 0,
+                  fontWeight: "bold",
+                }}
+              >
+                <p>{lab_selected.novedades}</p>
+              </div>
+            </Col>
+          </Row>
+        ) : (
+          <></>
+        )}
+        {lab_selected.condiciones_comerciales ? (
+          <Row>
+            <Col md="12" xs="12">
+              <div
+                style={{
+                  color: "black",
+                  fontSize: 16,
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: 8,
+                  paddingLeft: 30,
+                  paddingRight: 30,
+                  paddingTop: 20,
+                  paddingBottom: 20,
+                  marginBottom: 10,
+                  borderBottomWidth: 0,
+                  borderTopWidth: 10,
+                  borderRightWidth: 0,
+                  borderColor: "#000000",
+                  borderLeftWidth: 0,
+                }}
+              >
+                <p>
+                  <b>Condiciones comerciales: </b>
+                  {/* strig literal para que acepte saltos de linea desde css con pre-wrap */}
+                  {`${lab_selected.condiciones_comerciales}`}
+                </p>
+              </div>
+            </Col>
+          </Row>
+        ) : (
+          <></>
+        )}
 
         <Card>
           <CardBody>
