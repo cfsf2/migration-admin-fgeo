@@ -1,17 +1,16 @@
-
 .div-imagen {
   padding: 1rem;
   display: flex;
   justify-content: center;
-  }
-  
-  .style-imagen {
+}
+
+.style-imagen {
   width: 100%;
   height: 100%;
   max-width: 300px;
-  }
-  
-  .registro {
+}
+
+.registro {
   border: 1px solid rgba(180, 180, 180, 1);
   padding: 4px;
   border-radius: 20px;
@@ -19,9 +18,9 @@
   width: 50%;
   text-align: center;
   margin: 2px auto;
-  }
-  
-  .registro-alert {
+}
+
+.registro-alert {
   background-color: rgba(240, 240, 240, 1);
   border: 1px solid rgba(180, 180, 180, 1);
   padding: 4px;
@@ -30,12 +29,17 @@
   text-align: center;
   line-height: 2rem;
   width: 75%;
-  }
-  
-  .form-position {
+}
+
+.form-position {
   justify-content: center;
-  }
-  
-  .input-position {
+}
+
+.input-position {
   margin: 0 auto;
-  }
+}
+
+.campana-description {
+  margin: 0;
+  white-space: pre-wrap;
+}

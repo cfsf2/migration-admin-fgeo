@@ -136,9 +136,9 @@ const CapturaWs = (props) => {
     }
   }, [props.UsuarioReducer, props.UsuarioReducer.usuario]);
 
-  const desc = campana.descripcion;
-  const comas = desc.replace(/\./g, ",");
-  const arr = comas.split(",");
+  // const desc = campana.descripcion;
+  // const comas = desc.replace(/\./g, ",");
+  // const arr = comas.split(",");
 
   const handleNegar = () => {
     props
@@ -168,7 +168,6 @@ const CapturaWs = (props) => {
   );
 
   const dataFarmacia = props.FarmaciaReducer?.farmacia;
-  console.log(props.FarmaciaReducer);
 
   return (
     <Modal
@@ -203,9 +202,8 @@ const CapturaWs = (props) => {
                       paddingRight: "15px",
                     }}
                   >
-                    {arr.map((item) => (
-                      <p style={{ margin: 0 }}>{item}</p>
-                    ))}
+                    <p className="campana-description">{`${campana.descripcion}`}</p>
+
                     {`Titular: ${dataFarmacia?.nombrefarmaceutico}  Matricula: ${dataFarmacia?.matricula}`}
                   </p>
 
