@@ -48,7 +48,6 @@ export default function PantallaReducer(state, action) {
 
         // eslint-disable-next-line no-unused-expressions
         c.configuraciones?.forEach((sc) => {
-          // console.log(sc.opciones);
           configuraciones_ida[sc.opciones.id_a] = Number(1);
           configuraciones_ids[sc.opciones.id_a] = sc.opciones.id;
           // eslint-disable-next-line no-unused-expressions

@@ -134,10 +134,10 @@ function DefaultLayout(props) {
         </AppSidebar>
         <main className="main" style={{ backgroundColor: "white" }}>
           {/*<AppBreadcrumb appRoutes={routes} router={router}/>*/}
-          <Container fluid className="mx-0 px-0">
+          {/* <Container fluid className="mx-0 px-0">
             <Row
               className="py-2 mb-2 px-3"
-            >
+            > */}
               {userprofile && userprofile.esfarmacia ? (
                 userprofile.perfil_farmageo !== "solo_visible" ||
                 userprofile.perfil_farmageo === "no_visible" ? (
@@ -173,8 +173,8 @@ function DefaultLayout(props) {
                   {props.user.user_display_name}
                 </b>
               </Col> */}
-            </Row>
-          </Container>
+            {/* </Row>
+          </Container> */}
           <Container fluid className="mx-1 px-0">
             <Suspense fallback={loading()}>
               <Switch>

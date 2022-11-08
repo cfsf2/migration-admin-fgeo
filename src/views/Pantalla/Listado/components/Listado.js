@@ -7,12 +7,12 @@ import HeaderConf from "../../components/HeaderConf";
 
 import tableIcons from "./tableIcons";
 import { ThemeProvider } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import "./listado.scss";
 import Filtros from "./Filtros";
 import { width } from "@mui/system";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   overrides: {
     MuiTableRow: {
       root: {
@@ -78,90 +78,90 @@ export const Listado = (props) => {
 
   return (
     <div style={styles} className="animated fadeIn novedades_lista">
-      <Row>
-        <Col xs="12" sm="12">
-          <Card
-            id={opcionesListado.id_a}
-            style={{ border: "none", marginBottom: 0 }}
-          >
-            <HeaderConf
-              opciones={opcionesListado}
-              className={"configuracion_pantalla_titulo_secundario"}
-            />
+      {/* <Row>
+        <Col xs="12" sm="12"> */}
+      <Card
+        id={opcionesListado.id_a}
+        style={{ border: "none", marginBottom: 0 }}
+      >
+        <HeaderConf
+          opciones={opcionesListado}
+          className={"configuracion_pantalla_titulo_secundario"}
+        />
 
-            <CardBody style={{ padding: 0 }}>
-              <ThemeProvider theme={theme}>
-                <Filtros />
-                <MaterialTable
-                  renderSummaryRow={funTotal}
-                  tableRef={tableRef}
-                  isLoading={loading || opcionesListado === undefined}
-                  className="listado_materialtable"
-                  hideSortIcon={false}
-                  icons={tableIcons}
-                  localization={{
-                    header: {
-                      //actions: "Acciones",
-                    },
-                    body: {
-                      emptyDataSourceMessage: mensajeSinDatos,
-                    },
-                    pagination: {
-                      labelDisplayedRows: "{from}-{to} de {count}",
-                      labelRowsSelect: "Filas",
-                      labelRowsPerPage: "Productos x pág",
-                      firstAriaLabel: "Primera",
-                      lastAriaLabel: "Ultima",
-                      firstTooltip: "Primera página",
-                      lastTooltip: "Ultima página",
-                      previousAriaLabel: "Página anterior",
-                      previousTooltip: "Página anterior",
-                      nextAriaLabel: "Próxima pagina",
-                      nextTooltip: "Próxima pagina",
-                    },
-                    toolbar: {
-                      searchTooltip: "Buscar",
-                      searchPlaceholder: "Buscar",
-                    },
-                  }}
-                  columns={columnas}
-                  data={data}
-                  actions={[]}
-                  options={{
-                    filtering: false,
-                    actionsColumnIndex: -1,
-                    showTitle: false,
-                    toolbar: opcionesListado.search === "s",
-                    pageSize: Number(pageSize),
-                    pageSizeOptions: [
-                      5,
-                      10,
-                      20,
-                      opcionesListado.cantdd_registros_max
-                        ? opcionesListado.cantdd_registros_max
-                        : 30,
-                    ],
-                    headerStyle: {
-                      textAlign: "center",
-                      fontWeight: "bold",
-                      height: "57px",
-                    },
-                    search: opcionesListado.search === "s",
-                    searchFieldStyle: { top: "3px" },
-                    // tableLayout: "fixed",
-                  }}
-                  components={{
-                    Row: (props) => (
-                      <MTableBodyRow id={props.data._id} {...props} />
-                    ),
-                  }}
-                  // style={{ minWidth: "1300px", overflowX: "auto" }}
-                />
-              </ThemeProvider>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
+        <CardBody style={{ padding: 0 }}>
+          <ThemeProvider theme={theme}>
+            <Filtros />
+            <MaterialTable
+              renderSummaryRow={funTotal}
+              tableRef={tableRef}
+              isLoading={loading || opcionesListado === undefined}
+              className="listado_materialtable"
+              hideSortIcon={false}
+              icons={tableIcons}
+              localization={{
+                header: {
+                  //actions: "Acciones",
+                },
+                body: {
+                  emptyDataSourceMessage: mensajeSinDatos,
+                },
+                pagination: {
+                  labelDisplayedRows: "{from}-{to} de {count}",
+                  labelRowsSelect: "Filas",
+                  labelRowsPerPage: "Productos x pág",
+                  firstAriaLabel: "Primera",
+                  lastAriaLabel: "Ultima",
+                  firstTooltip: "Primera página",
+                  lastTooltip: "Ultima página",
+                  previousAriaLabel: "Página anterior",
+                  previousTooltip: "Página anterior",
+                  nextAriaLabel: "Próxima pagina",
+                  nextTooltip: "Próxima pagina",
+                },
+                toolbar: {
+                  searchTooltip: "Buscar",
+                  searchPlaceholder: "Buscar",
+                },
+              }}
+              columns={columnas}
+              data={data}
+              actions={[]}
+              options={{
+                filtering: false,
+                actionsColumnIndex: -1,
+                showTitle: false,
+                toolbar: opcionesListado.search === "s",
+                pageSize: Number(pageSize),
+                pageSizeOptions: [
+                  5,
+                  10,
+                  20,
+                  opcionesListado.cantdd_registros_max
+                    ? opcionesListado.cantdd_registros_max
+                    : 30,
+                ],
+                headerStyle: {
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  height: "57px",
+                },
+                search: opcionesListado.search === "s",
+                searchFieldStyle: { top: "3px" },
+                // tableLayout: "fixed",
+              }}
+              components={{
+                Row: (props) => (
+                  <MTableBodyRow id={props.data._id} {...props} />
+                ),
+              }}
+              // style={{ minWidth: "1300px", overflowX: "auto" }}
+            />
+          </ThemeProvider>
+        </CardBody>
+      </Card>
+      {/* </Col>
+      </Row> */}
     </div>
   );
 };

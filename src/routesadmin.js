@@ -356,6 +356,54 @@ const routes = [
     component: PapeleraProductosPack,
     permiso: "packsdeproductos",
   },
+
+  {
+    path: "/Listado/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "campanas",
+  },
+
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "campanas",
+  },
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    component: Pantalla,
+    permiso: "recupero",
+  },
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    component: Pantalla,
+    permiso: "transfer_nuevo",
+  },
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    component: Pantalla,
+    permiso: "drogueria_nuevo",
+  },
+  // {
+  //   path: "/Vista/:pantalla",
+  //   exact: true,
+  //   component: Pantalla,
+  //   permiso: "transfer",
+  // },
+  {
+    path: "/Configuracion/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+
   {
     path: "/campanas/requerimientos",
     exact: true,

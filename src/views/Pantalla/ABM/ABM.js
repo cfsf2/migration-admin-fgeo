@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import Botonera from "./componentes/Botonera";
 import SwitchABM from "./componentes/SwitchABM";
 import ABMContext from "./context/ABMContext";
+import HeaderConf from "../components/HeaderConf";
 
 import { useLocation } from "react-router";
 
@@ -158,6 +159,14 @@ const ABM = () => {
   };
   return (
     <Card id={opciones?.id_a} className="abm">
+      {opciones.titulo ? (
+        <HeaderConf
+          opciones={opciones}
+          className="configuracion_pantalla_titulo_secundario"
+        />
+      ) : (
+        <></>
+      )}
       <Card className="abm_campos" style={{ display: "grid" }}>
         {datos.length === 0
           ? cabeceras.map((cab, i) => (

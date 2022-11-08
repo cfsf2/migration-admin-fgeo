@@ -5,7 +5,10 @@ import { CardTitle } from "reactstrap";
 
 const HeaderConf = ({ opciones, className }) => {
   return (
-    <CardTitle className="tarjeta_titulo" style={{ position: "relative" }}>
+    <CardTitle
+      className="tarjeta_titulo"
+      style={{ position: "relative", margin: "0" }}
+    >
       {opciones.titulo ? (
         <>
           <Titulo
@@ -14,7 +17,9 @@ const HeaderConf = ({ opciones, className }) => {
             className={className}
           />
         </>
-      ) : null}
+      ) : (
+        <></>
+      )}
       <AccionesVista opciones={opciones} />
     </CardTitle>
   );

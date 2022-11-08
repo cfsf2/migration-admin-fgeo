@@ -15,42 +15,45 @@
 }
 
 div[id$="menu_vista"] {
-  position: absolute;
-  height: 100%;
-  top: 50%;
-  right: 0;
-  //border: solid 3px red;
-  transform: translate(0%, -50%);
-  max-height: 1.65rem;
-  width: 200px;
-  margin: 0 15px;
-  @media print {
-    display: none;
+  .flex_acciones_vista {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 1.45em;
+    position: relative;
+    bottom: 2.25px;
+    padding-top: 5px;
+    @media print {
+      display: none;
+    }
+    &_imprimir,
+    &_email,
+    &_historial,
+    &_excel,
+    &_configuracion {
+      font-size: 1.4em;
+      color: whitesmoke;
+    }
+    &_alt_imprimir,
+    &_alt_email,
+    &_alt_historial,
+    &_alt_excel,
+    &_alt_configuracion {
+      font-size: 1.4em;
+      color: #0096b3;
+    }
   }
-}
-
-.flex_acciones_vista {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 1.2em;
-  position: relative;
-  bottom: 2.25px;
-  &_imprimir,
-  &_email,
-  &_historial,
-  &_excel,
-  &_configuracion {
-    font-size: 1.4em;
-    color: whitesmoke;
-  }
-  &_alt_imprimir,
-  &_alt_email,
-  &_alt_historial,
-  &_alt_excel,
-  &_alt_configuracion {
-    font-size: 1.4em;
-    color: #0096b3;
-  }
+  // position: absolute;
+  // height: 100%;
+  // top: 50%;
+  // right: 0;
+  // //border: solid 3px red;
+  // transform: translate(0%, -50%);
+  // max-height: 1.65rem;
+  // width: 200px;
+  // margin: 0 15px;
+  // @media print {
+  //   display: none;
+  // }
 }
 
 .link_historial,

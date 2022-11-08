@@ -155,11 +155,7 @@ export default {
         },
       ],
     },
-    {
-      name: "Recuperos",
-      url: "/Configuracion/PANTALLA_RECUPERO",
-      permiso: "recupero",
-    },
+
     {
       name: "Recuperos",
       url: "/Configuracion/PANTALLA_RECUPERO",

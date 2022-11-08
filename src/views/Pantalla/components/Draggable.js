@@ -33,7 +33,9 @@ const Draggable = (props) => {
           margin: 0,
         }}
       >
-        =
+        <i>
+          Developer <span style={{ fontSize: "1rem" }}>🕶️</span>
+        </i>
       </div>
       {props.children}
     </div>
