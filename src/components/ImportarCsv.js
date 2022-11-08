@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { CSVReader } from "react-papaparse";
+import { CSVReader, readString } from "react-papaparse";
 
 const buttonRef = React.createRef();
 
@@ -20,9 +20,9 @@ export default class ImportarCsv extends Component {
 
   handleOnFileLoad = (data) => {
     this.props.handleResponse(data);
-    //console.log('---------------------------')
-    //console.log(data)
-    //console.log('---------------------------')
+    console.log("---------------------------");
+    console.log(data);
+    console.log("---------------------------");
   };
 
   handleOnError = (err, file, inputElem, reason) => {
@@ -58,6 +58,9 @@ export default class ImportarCsv extends Component {
         noClick
         noDrag
         onRemoveFile={this.handleOnRemoveFile}
+        config={{
+          encoding: "latin1",
+        }}
       >
         {({ file }) => (
           <aside
