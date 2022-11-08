@@ -39,14 +39,14 @@ const Toggle = ({ data, cab, campokey, key, indiceData }) => {
         setLastvalue(() => valor);
         setValue(valor);
 
-        // VistaDispatch({
-        //   type: "SET_DATO_ESPECIFICO",
-        //   payload: {
-        //     value: result.data.id,
-        //     indiceData,
-        //     key: cab.update_id_alias,
-        //   },
-        // });
+        VistaDispatch({
+          type: "SET_DATO_ESPECIFICO",
+          payload: {
+            value: result.data.id,
+            indiceData,
+            key: cab.update_id_alias,
+          },
+        });
 
         // VistaDispatch({
         //   type: "SET_DATO_ESPECIFICO",
@@ -70,6 +70,7 @@ const Toggle = ({ data, cab, campokey, key, indiceData }) => {
     setValue(data[campokey]);
     setUpdate_id(data[cab.update_id_alias]);
   }, [configuraciones_ref[cab.id_a]]);
+
   return (
     <div
       key={key}

@@ -59,7 +59,7 @@ class ImportProductosTransfers extends Component {
           vistaPrevia.push({
             codigo: fila.data[0],
             laboratorioid: parseInt(this.state.laboratorioid),
-            nombre: JSON.stringify(fila.data[1]),
+            nombre: fila.data[1],
             presentacion: fila.data[2],
             cantidad_minima: fila.data[3],
             descuento_porcentaje: fila.data[4],
