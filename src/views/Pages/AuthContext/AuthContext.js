@@ -1,22 +1,18 @@
 import Axios from "axios";
 import React, { createContext, useEffect, useState, useMemo } from "react";
 import { farmageo_api } from "../../../config";
-import { useDispatch, useSelector } from "react-redux";
 
 import { Redirect, Route } from "react-router-dom";
-import { LOGOUT } from "../../../redux/actions/authActions";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage("user", null);
-  const [token, setToken] = useLocalStorage("token", null);
+
   const [authenticated, setAuthenticated] = useLocalStorage(
     "authenticated",
     false
   );
-
-  const dispatch = useDispatch();
 
   const login = async (data) => {
     setUser(data);
@@ -46,7 +42,7 @@ export const AuthProvider = ({ children }) => {
       check,
       authenticated,
     }),
-    [user]
+    [user, authenticated]
   );
 
   useEffect(() => {
