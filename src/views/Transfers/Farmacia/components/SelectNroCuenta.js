@@ -39,6 +39,10 @@ const SelectNroCuenta = ({
     }
   }, [farmacia.id, laboratorio.id]);
 
+  React.useEffect(() => {
+    console.log(transfer.nro_cuenta_drogueria, cuentas.nro_cuenta);
+  }, [transfer.nro_cuenta_drogueria]);
+
   if (!laboratorio.id) return <></>;
 
   return (
@@ -83,11 +87,7 @@ const SelectNroCuenta = ({
               type="text"
               name="nro_cuenta_drogueria"
               onChange={handleInputNroCuenta}
-              value={
-                laboratorio.modalidad_entrega.id_a !== "DIRECTO"
-                  ? transfer.nro_cuenta_drogueria
-                  : cuentas?.nro_cuenta
-              }
+              value={transfer.nro_cuenta_drogueria}
               disabled={laboratorio.modalidad_entrega.id_a !== "DIRECTO"}
             />
           </FormGroup>
