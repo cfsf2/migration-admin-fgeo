@@ -316,6 +316,7 @@ export const FuncionesProvider = (props) => {
       })
       .catch((err) => {
         handleCancelar();
+        requestErrorHandler(err);
         throw err;
       });
   };
