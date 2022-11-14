@@ -1,5 +1,5 @@
 $table: 1fr;
-$table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
+$table2: 1fr 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
 
 .transfer {
   &_cart {
@@ -29,13 +29,12 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
     .btn {
       color: white;
       font-weight: lighter;
-    
-    //  margin: 0 1rem;
+
+      //  margin: 0 1rem;
       font-size: 0.7rem;
     }
     & .btn-labs {
       background-color: hsl(214, 43%, 40%);
-    
     }
     & .siguiente {
       background-color: rgba(114, 156, 114, 1);
@@ -107,9 +106,8 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
   }
   &_lista {
     background: #ffff;
-    margin: 1rem;
+    margin-top: 1rem;
     border-radius: 15px 15px 0 0;
-   
 
     &_sinresultados {
       width: 100%;
@@ -120,28 +118,26 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
     &_footer {
       display: flex;
       justify-content: space-between;
-     
+
       margin-top: 0.5rem;
-      width:100%;
+      width: 100%;
       font-size: 0.6rem;
       button {
-      //  margin: 0rem 1rem;
+        //  margin: 0rem 1rem;
       }
       &_mostrando {
         display: flex;
         align-items: baseline;
-        
-        width:20%
+
+        width: 20%;
       }
       &_paginacion {
         width: 35%;
         display: flex;
         align-items: baseline;
         justify-content: space-between;
-        
       }
       &_resultados {
-        
         width: 20%;
         display: flex;
         align-items: baseline;
@@ -150,7 +146,7 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
     }
     &_header {
       display: grid;
-      padding: 0 1rem;
+      //padding: 0 1rem;
       grid-template-columns: $table2;
       & > div {
         padding: 0.5rem 0;
@@ -173,11 +169,11 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
       }
       &#nombre {
         text-align: left;
-        padding-left: 2rem;
+        padding-left: 0.55rem;
       }
       &#presentacion {
         text-align: left;
-        padding-left: 2rem;
+        padding-left: 0.55rem;
       }
     }
     &_items {
@@ -190,7 +186,7 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
       align-self: baseline;
       min-height: 2rem;
       height: 100%;
-      padding: 1rem;
+      padding: 0.5rem;
 
       .transfer_lista_item {
         display: grid;
@@ -198,8 +194,8 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
         column-gap: 10px;
 
         &_imagen {
-          max-width: 100px;
-          max-height: 60px;
+          max-width: 75px;
+          max-height: 85px;
           //height: 60px;
         }
         p {
@@ -234,10 +230,10 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
       }
       &_nombre {
         text-align: left;
-        padding-left: 2rem;
+        padding-left: 0.55rem;
       }
       &_presentacion {
-        padding-left: 2rem;
+        padding-left: 0.55rem;
         text-align: left;
       }
       &_cantidad {
@@ -343,11 +339,12 @@ $table2: 2fr 1fr 3fr 2fr 1fr 1fr 2fr 2fr;
 
   //hover efect de cada uno de los elementos
   &_laboratorioSelect_hover {
-    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     transition: box-shadow 0.3s ease-in-out;
 
-    &:hover{
-      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-        }
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+        rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    }
   }
 }
