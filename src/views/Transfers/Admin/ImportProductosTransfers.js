@@ -72,7 +72,7 @@ class ImportProductosTransfers extends Component {
     );
 
     if (productos.length > i) {
-      return this.handleSubmitBulk(i + n);
+      return await this.handleSubmitBulk(i + n);
     }
 
     this.props.GET_PRODUCTOS_TRANSFERS();
