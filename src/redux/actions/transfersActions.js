@@ -141,7 +141,7 @@ export const UPDATE_DROGUERIA = (drogueria) => {
 //********************** PRODUCTOS ******************************* */
 export const ADD_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
   return (dispatch) => {
-    axios
+    return axios
       .post(farmageo_api + "/productosTransfers", {
         codigo: productosTransfers.codigo,
         laboratorioid: productosTransfers.laboratorioid,
@@ -153,12 +153,18 @@ export const ADD_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
         instituciones: instituciones,
       })
       .then(function (response) {
-        dispatch(GET_PRODUCTOS_TRANSFERS());
-        dispatch(ALERT("Exito", "Producto Transfer Creado", "success", "OK"));
+        if (response.status >= 400) {
+          console.log("ERROR", productosTransfers.id);
+        }
+
+        // dispatch(GET_PRODUCTOS_TRANSFERS());
+        // dispatch(ALERT("Exito", "Producto Transfer Creado", "success", "OK"));
+        return response;
       })
       .catch(function (error) {
         ALERT("Error", "Ha ocurrido un error", "error", ":(");
         console.log(error);
+        return error;
       });
   };
 };
