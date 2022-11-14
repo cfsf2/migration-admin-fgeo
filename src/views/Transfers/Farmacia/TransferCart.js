@@ -38,7 +38,7 @@ const Cart = (props) => {
       return (
         <>
           <Card>
-            <CardBody>
+            <CardBody style={{ padding: "0", paddingTop: "1rem" }}>
               <Search setProductos={setProductos} allproducts={allproducts} />
               {productos && loading === false ? (
                 <ListadoProductos

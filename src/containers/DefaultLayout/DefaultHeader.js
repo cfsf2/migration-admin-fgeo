@@ -17,7 +17,7 @@ import {
   AppNavbarBrand,
   AppSidebarToggler,
 } from "@coreui/react";
-import logo from "../../assets/img/brand/logofarma.png";
+import logo from "../../assets/img/brand/nuevo-logo-negativo.png";
 import sygnet from "../../assets/img/brand/sygnet.svg";
 
 import { Col, Row } from "reactstrap";
@@ -41,7 +41,7 @@ class DefaultHeader extends Component {
           full={{
             src: logo,
             width: "80%",
-            height: 28,
+            height: 25,
             alt: "Farmageo",
           }}
           //minimized={{ src: logo, width: 30, height: 14, alt: "Farmageo" }}
@@ -49,7 +49,7 @@ class DefaultHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <a
-          style={{ marginLeft: "2rem" }}
+          style={{ marginLeft: "2rem"}}
           id="colegioLogo"
           href="http://www.cfsf2.org.ar/"
           target="_blank"
@@ -63,7 +63,7 @@ class DefaultHeader extends Component {
         <img src={logo} style={{ width: 100 }} className="d-lg-none" />
 
         <Nav className="ml-auto" navbar>
-        <p style={{ margin: "0 5px", padding: "10px" }}>
+          <p style={{ margin: "0 5px", padding: "10px" }}>
             {user_display_name}
           </p>
           <UncontrolledDropdown nav direction="down">
