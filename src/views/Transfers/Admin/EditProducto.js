@@ -204,7 +204,7 @@ export function EditProducto(props) {
                     <textarea
                       name="presentacion"
                       class="form-control"
-                      style={{ overflow: "auto", height: '100%' }}
+                      style={{ overflow: "auto", height: "100px" }}
                       onChange={handleInputChange}
                       value={producto !== null ? producto.presentacion : ""}
                     ></textarea>
