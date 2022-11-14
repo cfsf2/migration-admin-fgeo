@@ -264,6 +264,20 @@ export const DELETE_PRODUCTO_TRANSFER = (obj) => {
   };
 };
 
+export const DELETE_PRODUCTO_TRANSFER_BY_LAB = (id) => {
+  return (dispatch) => {
+    return axios
+      .delete(farmageo_api + "/productosTransfers/laboratorio/" + id)
+      .then(function (response) {
+        dispatch(GET_PRODUCTOS_TRANSFERS());
+        return response;
+      })
+      .catch(function (error) {
+        return error;
+      });
+  };
+};
+
 //********************** TRANSFERS ******************************* */
 export const ADD_TRANSFER = (transfer, history) => {
   return (dispatch) => {

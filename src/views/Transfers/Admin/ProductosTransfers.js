@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import {
   Button,
   Card,
@@ -6,14 +6,10 @@ import {
   CardHeader,
   Col,
   Row,
-  FormGroup,
   Input,
   CardImg,
-  Label,
-  CardFooter,
 } from "reactstrap";
 
-import AsignarInstitucion from "../../FarmaciasAdmin/components/AsignarInstituciones";
 import { EditProducto } from "./EditProducto";
 import { connect } from "react-redux";
 import {
@@ -22,9 +18,15 @@ import {
   GET_LABORATORIOS_ADMIN,
   UPDATE_PRODUCTO_TRANSFER,
   DELETE_PRODUCTO_TRANSFER,
+  DELETE_PRODUCTO_TRANSFER_BY_LAB,
 } from "../../../redux/actions/transfersActions";
-import Uploader from "../../../components/Uploader";
-import { image_path_server } from "../../../config";
+
+import Swal from "sweetalert2";
+import { requestErrorHandler } from "../../Pantalla/context/FuncionesContext";
+
+import { image_path_server, farmageo_api } from "../../../config";
+import Axios from "axios";
+
 class ProductosTransfers extends Component {
   constructor(props) {
     super(props);
@@ -38,13 +40,42 @@ class ProductosTransfers extends Component {
   }
 
   async handleListadoPapelera() {
-    const { productos } = this.props.tranfersReducer;
-    const filter = await productos.filter((p) => {
-      return p.laboratorioid === this.state.labFilter;
-    });
-    filter.map((f) => {
-      this.props.DELETE_PRODUCTO_TRANSFER(f);
-    });
+    try {
+      if (!this.state.labFilter) {
+        const r = await Swal.fire({
+          title: "Esta Seguro?",
+          text: "No ha seleccionado un laboratorio. Si continua enviara a todos los productos a la papelera.",
+          icon: "warning",
+          confirmButtonText: "Eliminar Todos los Productos",
+          timer: 300000,
+          denyButtonText: "Cancelar",
+          showDenyButton: true,
+          allowOutsideClick: true,
+          allowEscapeKey: true,
+        });
+
+        if (r.isDenied || r.isDismissed) {
+          return;
+        }
+      }
+
+      const res = await this.props.DELETE_PRODUCTO_TRANSFER_BY_LAB(
+        this.state.labFilter
+      );
+
+      if (res.status >= 400) {
+        return requestErrorHandler(res);
+      }
+      Swal.fire({
+        title: "Exito",
+        icon: "success",
+        timer: 5000,
+        allowOutsideClick: true,
+        allowEscapeKey: true,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   componentDidMount() {
@@ -243,6 +274,7 @@ const mapDispatchToProps = {
   GET_LABORATORIOS_ADMIN,
   UPDATE_PRODUCTO_TRANSFER,
   DELETE_PRODUCTO_TRANSFER,
+  DELETE_PRODUCTO_TRANSFER_BY_LAB,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductosTransfers);
