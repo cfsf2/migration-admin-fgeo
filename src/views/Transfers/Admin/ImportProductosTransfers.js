@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import {
   Button,
   Card,
@@ -6,11 +6,7 @@ import {
   CardHeader,
   Col,
   Row,
-  FormGroup,
   Input,
-  CardImg,
-  Label,
-  CardFooter,
 } from "reactstrap";
 
 import { connect } from "react-redux";
@@ -91,7 +87,7 @@ class ImportProductosTransfers extends Component {
                   <CardHeader>
                     <Row>
                       <Col>
-                        <b>Importar transfers desde csv</b>
+                        <b>Importar transfers desde csv PERRO</b>
                       </Col>
                       <Col align="right">
                         <a href={ejemplo_transfer_csv} download>
