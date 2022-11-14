@@ -41,14 +41,14 @@ class ImportProductosTransfers extends Component {
       ...this.state,
       loading: true,
     });
+
     const productos = this.state.vistaPrevia;
     let n = 20;
-
     await Promise.all(
       productos.slice(i, i + n).map(async (p) => {
         if (!p) return;
 
-        this.props
+        return this.props
           .ADD_PRODUCTO_TRANSFER(p, this.state.instituciones)
           .then((res) => {
             if (res.status < 300) {
@@ -61,9 +61,7 @@ class ImportProductosTransfers extends Component {
                 newVistaPrevia[p.id] = newP;
                 return {
                   ...this.state,
-                  alreadySubmitted: true,
                   vistaPrevia: [...this.state.vistaPrevia],
-                  loading: false,
                 };
               });
             }
@@ -76,6 +74,11 @@ class ImportProductosTransfers extends Component {
     }
 
     this.props.GET_PRODUCTOS_TRANSFERS();
+    this.setState({
+      ...this.state,
+      alreadySubmitted: true,
+      loading: false,
+    });
     return console.log("FIN");
   }
 
