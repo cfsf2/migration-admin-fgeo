@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 //import logo from "../../../assets/img/brand/logofarma.png";
 import logo from "../../../assets/img/brand/img-panel.png";
 import bgImage from "../../../assets/images/bg-login.jpg";
-import logoWhite from "../../../assets/images/logoWhite.png";
+import logoWhite from "../../../assets/img/brand/nuevo-logo-negativo.png";
 import iLocation from "../../../assets/images/iconLocation.svg";
 import iEmail from "../../../assets/images/iconEmail.svg";
 import logoWhiteColegio from "../../../assets/images/logoColegio.png";
@@ -174,7 +174,7 @@ const Login = (props) => {
             >
               <img
                 src={logoWhite}
-                style={{ width: "150px", marginTop: "50px" }}
+                style={{ width: "250px", marginTop: "50px" }}
               />
               <div
                 style={{
