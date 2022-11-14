@@ -121,7 +121,7 @@ export function ListadoProductos(props) {
           id="descuento_porcentaje"
           className="transfer_lista_header_titulo"
           onClick={handleSort}
-          style={{ paddingRight: "2rem" }}
+          style={{ paddingRight: "0.55rem" }}
         >
           %
         </div>
