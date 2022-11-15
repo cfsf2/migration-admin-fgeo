@@ -91,6 +91,7 @@ export function ListadoProductos(props) {
         <div
           id="laboratorioid"
           className="transfer_lista_header_titulo"
+          style={{ paddingLeft: "7.5px" }}
           onClick={handleSort}
         >
           Laboratorio
@@ -120,6 +121,7 @@ export function ListadoProductos(props) {
           id="descuento_porcentaje"
           className="transfer_lista_header_titulo"
           onClick={handleSort}
+          style={{ paddingRight: "0.55rem" }}
         >
           %
         </div>
