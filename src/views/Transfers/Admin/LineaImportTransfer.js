@@ -21,14 +21,20 @@ import { ADD_PRODUCTO_TRANSFER } from "../../../redux/actions/transfersActions";
 class LineaImportTransfer extends Component {
   constructor(props) {
     super(props);
-    this.state = { status: "", submiting: false };
+    this.state = {
+      status: this.props.status ?? "",
+      submiting: this.props.submiting ?? false,
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.action !== this.props.action) {
-      //console.log('submiting...')
-      this.handleSubmit();
+    if (prevProps.status !== this.props.status) {
+      //this.handleSubmit();
+      this.setState({
+        ...this.state,
+        status: this.props.status,
+      });
     }
   }
 

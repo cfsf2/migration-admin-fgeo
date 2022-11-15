@@ -7,6 +7,7 @@ import {
   Col,
   Row,
   Input,
+  Spinner,
 } from "reactstrap";
 
 import { connect } from "react-redux";
@@ -14,6 +15,7 @@ import ImportarCsv from "../../../components/ImportarCsv";
 import {
   ADD_PRODUCTO_TRANSFER,
   GET_LABORATORIOS_ADMIN,
+  GET_PRODUCTOS_TRANSFERS,
 } from "../../../redux/actions/transfersActions";
 import LineaImportTransfer from "./LineaImportTransfer";
 import ejemplo_transfer_csv from "./ejemplo_importar_transfers.csv";
@@ -27,9 +29,57 @@ class ImportProductosTransfers extends Component {
       vistaPrevia: [],
       action: "stand",
       instituciones: [],
+      loading: false,
     };
     this.handleConvertToJson = this.handleConvertToJson.bind(this);
     this.handleLaboratorio = this.handleLaboratorio.bind(this);
+    this.handleSubmitBulk = this.handleSubmitBulk.bind(this);
+  }
+
+  async handleSubmitBulk(i = 0) {
+    this.setState({
+      ...this.state,
+      loading: true,
+    });
+
+    const productos = this.state.vistaPrevia;
+    let n = 20;
+    await Promise.all(
+      productos.slice(i, i + n).map(async (p) => {
+        if (!p) return;
+
+        return this.props
+          .ADD_PRODUCTO_TRANSFER(p, this.state.instituciones)
+          .then((res) => {
+            if (res.status < 300) {
+              const newP = p;
+              newP.status = "ok";
+              this.setState((state) => {
+                const newVistaPrevia = [...this.state.vistaPrevia].sort(
+                  (a, b) => a.id - b.id
+                );
+                newVistaPrevia[p.id] = newP;
+                return {
+                  ...this.state,
+                  vistaPrevia: [...this.state.vistaPrevia],
+                };
+              });
+            }
+          });
+      })
+    );
+
+    if (productos.length > i) {
+      return await this.handleSubmitBulk(i + n);
+    }
+
+    this.props.GET_PRODUCTOS_TRANSFERS();
+    this.setState({
+      ...this.state,
+      alreadySubmitted: true,
+      loading: false,
+    });
+    return console.log("FIN");
   }
 
   async handleLaboratorio(event) {
@@ -41,7 +91,7 @@ class ImportProductosTransfers extends Component {
   async handleConvertToJson(data) {
     let vistaPrevia = [];
     try {
-      await data.map((fila) => {
+      await data.map((fila, i) => {
         if (
           fila.data[0] != "" &&
           fila.data[0] !== "codigo" &&
@@ -53,6 +103,7 @@ class ImportProductosTransfers extends Component {
           fila.data[6] != ""
         ) {
           vistaPrevia.push({
+            id: i,
             codigo: fila.data[0],
             laboratorioid: parseInt(this.state.laboratorioid),
             nombre: fila.data[1],
@@ -87,7 +138,7 @@ class ImportProductosTransfers extends Component {
                   <CardHeader>
                     <Row>
                       <Col>
-                        <b>Importar transfers desde csv PERRO</b>
+                        <b>Importar transfers desde csv</b>
                       </Col>
                       <Col align="right">
                         <a href={ejemplo_transfer_csv} download>
@@ -130,16 +181,12 @@ class ImportProductosTransfers extends Component {
                           disabled={
                             this.state.laboratorioid === "none" ||
                             this.state.instituciones.length === 0 ||
-                            this.state.vistaPrevia.length === 0
+                            this.state.vistaPrevia.length === 0 ||
+                            this.state.alreadySubmitted
                           }
-                          onClick={() =>
-                            this.setState({
-                              action: "submit",
-                              alreadySubmitted: true,
-                            })
-                          }
+                          onClick={() => this.handleSubmitBulk()}
                         >
-                          Confirmar
+                          {this.state.loading ? <Spinner /> : "Confirmar"}
                         </Button>
                       </Col>
                       <Col align="left">
@@ -184,6 +231,7 @@ class ImportProductosTransfers extends Component {
                               {this.state.vistaPrevia.map((linea, index) => {
                                 return (
                                   <LineaImportTransfer
+                                    status={linea.status}
                                     codigo={linea.codigo}
                                     laboratorioid={linea.laboratorioid}
                                     laboratorioNombre={
@@ -236,6 +284,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   ADD_PRODUCTO_TRANSFER,
   GET_LABORATORIOS_ADMIN,
+  GET_PRODUCTOS_TRANSFERS,
 };
 
 export default connect(

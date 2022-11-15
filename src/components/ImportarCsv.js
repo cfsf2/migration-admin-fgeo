@@ -20,9 +20,9 @@ export default class ImportarCsv extends Component {
 
   handleOnFileLoad = (data) => {
     this.props.handleResponse(data);
-    console.log("---------------------------");
-    console.log(data);
-    console.log("---------------------------");
+    // console.log("---------------------------");
+    // console.log(data);
+    // console.log("---------------------------");
   };
 
   handleOnError = (err, file, inputElem, reason) => {

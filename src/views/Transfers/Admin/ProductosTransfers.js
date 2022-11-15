@@ -68,6 +68,7 @@ class ProductosTransfers extends Component {
       }
       Swal.fire({
         title: "Exito",
+        text: res.data,
         icon: "success",
         timer: 5000,
         allowOutsideClick: true,
