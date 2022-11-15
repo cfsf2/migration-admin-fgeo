@@ -32,6 +32,7 @@ div[id$="menu_vista"] {
     &_configuracion {
       font-size: 1.4em;
       color: whitesmoke;
+      padding: 0 5px;
     }
     &_alt_imprimir,
     &_alt_email,
@@ -40,6 +41,7 @@ div[id$="menu_vista"] {
     &_alt_configuracion {
       font-size: 1.4em;
       color: #0096b3;
+      padding: 0 5px;
     }
   }
   // position: absolute;

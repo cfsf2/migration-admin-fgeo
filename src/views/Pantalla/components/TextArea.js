@@ -54,7 +54,7 @@ const TextArea = ({ value, setValue, onEnter, style }) => {
   useEffect(() => {
     const ctrl = document.getElementById(id);
 
-    if (ctrl.setSelectionRange) {
+    if (ctrl.setSelectionRange && altEnter.current === 1) {
       ctrl.focus();
       ctrl.setSelectionRange(setingStart.current + 1, setingStart.current + 1);
     }
