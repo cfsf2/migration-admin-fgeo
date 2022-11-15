@@ -4,6 +4,9 @@ import { Route, Switch, useHistory, Redirect } from "react-router-dom";
 import * as router from "react-router-dom";
 import { Container, Col, Row } from "reactstrap";
 
+import Axios from "axios";
+import { farmageo_api } from "../../config";
+
 import { LOGOUT } from "../../redux/actions/authActions";
 import { ALERT } from "../../redux/actions/alertActions";
 
@@ -32,6 +35,7 @@ import { LOADPROFILE } from "../../redux/actions/authActions";
 
 import { Filtrar_Sin_Venta_Online } from "../../helpers/NavHelper";
 import { ValidarPerfil } from "../../helpers/Validaciones";
+import _nav_farmacia from "../../_nav_farmacia";
 
 const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
@@ -80,18 +84,53 @@ function DefaultLayout(props) {
         });
       });
 
-      setNavigation(allowedNav);
+      // setNavigation(allowedNav);
       setRoutes(allowedRoutes);
     } else if (IS_FARMACIA) {
       var _nav_farmacia = Filtrar_Sin_Venta_Online(nav_farmacia, userprofile);
 
-      setNavigation(_nav_farmacia);
+      // setNavigation(_nav_farmacia);
       setRoutes(routesfarmacias);
     } else {
-      setNavigation({ navigation: nav_default, routes: routesdefault });
-      setNavigation(nav_default);
+      // setNavigation(nav_default);
       setRoutes(routesdefault);
     }
+  }
+
+  function convertMenu(menuCriollo) {
+    const m = JSON.stringify(menuCriollo);
+
+    const nuevoMenu = JSON.parse(m, function (k, v) {
+      if (k === "nombre") this.name = v;
+      if (k === "nombre") {
+        const vv = v.toUpperCase().replace(" ", "");
+        if (
+          v === "VENTAONLINE" ||
+          v === "PRODUCTOS" ||
+          v === "PROMOCIONES" ||
+          v === "PEDIDOS"
+        )
+          this.perfil_farmageo = ["vender_online"];
+
+        if (v === "MEDIOSDEPAGO" || v === "SERVICIOS" || v === "HORARIOS")
+          this.perfil_farmageo = ["solo_visible"];
+      } else if (k === "hijos") {
+        this.children = v.length === 0 ? undefined : v;
+      } else if (k === "url_imagen") this.icon = v;
+      if (k === "target") {
+        const attributes = {
+          target: v,
+          rel: "noopener",
+        };
+        this.attributes = attributes;
+      } else if (k === "tipo") {
+        if (v.id_a === "TITLE") {
+          this.title = true;
+        }
+      } else return v;
+    });
+
+    return nuevoMenu;
   }
 
   useEffect(() => {
@@ -109,6 +148,18 @@ function DefaultLayout(props) {
       componentDidMount();
     }
   }, [props.user.IS_ADMIN, props.user.IS_FARMACIA, localStorage.authenticated]);
+
+  useEffect(() => {
+    if (localStorage.authenticated === "true") {
+      Axios.post(farmageo_api + "/menu", { menu: "M_NAV_FARMACIA" }).then(
+        async (res) => {
+          const menu = convertMenu(res.data);
+          //console.log(menu.children);
+          setNavigation({ items: menu });
+        }
+      );
+    }
+  }, [localStorage.authenticated, props.user.IS_ADMIN, props.user.IS_FARMACIA]);
 
   const islogin = useSelector((state) => state.authReducer.user.islogin);
 
@@ -138,42 +189,42 @@ function DefaultLayout(props) {
             <Row
               className="py-2 mb-2 px-3"
             > */}
-              {userprofile && userprofile.esfarmacia ? (
-                userprofile.perfil_farmageo !== "solo_visible" ||
-                userprofile.perfil_farmageo === "no_visible" ? (
-                  <Col md="8">
-                    <a
-                      href={process.env.PUBLIC_URL + "/#/perfilfarmageo"}
-                      className="text-warning"
-                    >
-                      <b style={{ float: "left", fontSize: 10 }}>
-                        SU FARMACIA SE ENCUENTRA DESHABILITADA EN NUESTRA
-                        APLICACIÓN Y SISTEMA DE VENTA ONLINE. SÓLO PUEDE
-                        GESTIONAR TRANSFERS Y OTROS SERVICIOS INTERNOS.
-                      </b>
-                    </a>
-                  </Col>
-                ) : ValidarPerfil(userprofile) ? null : (
-                  <Col md="8">
-                    <a
-                      href={process.env.PUBLIC_URL + "/#/perfil"}
-                      className="text-warning"
-                    >
-                      <b style={{ float: "left", fontSize: 10 }}>
-                        ATENCIÓN: hay campos sin completar en la información de
-                        su perfil
-                      </b>
-                    </a>
-                  </Col>
-                )
-              ) : null}
+          {userprofile && userprofile.esfarmacia ? (
+            userprofile.perfil_farmageo !== "solo_visible" ||
+            userprofile.perfil_farmageo === "no_visible" ? (
+              <Col md="8">
+                <a
+                  href={process.env.PUBLIC_URL + "/#/perfilfarmageo"}
+                  className="text-warning"
+                >
+                  <b style={{ float: "left", fontSize: 10 }}>
+                    SU FARMACIA SE ENCUENTRA DESHABILITADA EN NUESTRA APLICACIÓN
+                    Y SISTEMA DE VENTA ONLINE. SÓLO PUEDE GESTIONAR TRANSFERS Y
+                    OTROS SERVICIOS INTERNOS.
+                  </b>
+                </a>
+              </Col>
+            ) : ValidarPerfil(userprofile) ? null : (
+              <Col md="8">
+                <a
+                  href={process.env.PUBLIC_URL + "/#/perfil"}
+                  className="text-warning"
+                >
+                  <b style={{ float: "left", fontSize: 10 }}>
+                    ATENCIÓN: hay campos sin completar en la información de su
+                    perfil
+                  </b>
+                </a>
+              </Col>
+            )
+          ) : null}
 
-              {/* <Col className="align-content-center">
+          {/* <Col className="align-content-center">
                 <b style={{ float: "right", color: "white" }}>
                   {props.user.user_display_name}
                 </b>
               </Col> */}
-            {/* </Row>
+          {/* </Row>
           </Container> */}
           <Container fluid className="mx-1 px-0">
             <Suspense fallback={loading()}>
