@@ -32,6 +32,10 @@
   color: black;
 }
 
+.sidebar .nav-dropdown.open > .nav-dropdown-items{
+  background: #94a0a9
+}
+
 .sidebar .nav-title {
   border-bottom: solid 1px #8ccbf5;
   color: whitesmoke;
@@ -91,4 +95,8 @@
     margin: 0;
     height: 53px;
   }
+}
+
+.sidebar .nav-link .nav-icon{
+  color: white
 }
