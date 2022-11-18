@@ -24,7 +24,7 @@ const Default = ({ data, cab, hijos, campokey }) => {
       <div className="tarjeta_grid_item_label_item">
         <div className="vista_label vista_label_fuente">{nombre}:</div>
         <div
-          className={`${cab[cab.id_a + "_className"]}`}
+          className={data[cab.id_a + "_className"] + cab.className}
           // style={{ position: "relative", left: "-13px" }}
         >
           <div style={style}>{data[campokey]}</div>
