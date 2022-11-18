@@ -189,7 +189,7 @@ export function EditProducto(props) {
                       value={producto !== null ? producto.nombre : ""}
                     />
                   </Col>
-                  <Col>
+                  {/* <Col>
                     <Label htmlFor="titulo">Presentación</Label>
                     <Input
                       type="text"
@@ -198,6 +198,16 @@ export function EditProducto(props) {
                       onChange={handleInputChange}
                       value={producto !== null ? producto.presentacion : ""}
                     />
+                  </Col> */}
+                  <Col>
+                    <Label htmlFor="titulo">Presentación</Label>
+                    <textarea
+                      name="presentacion"
+                      class="form-control"
+                      style={{ overflow: "auto", height: "100px" }}
+                      onChange={handleInputChange}
+                      value={producto !== null ? producto.presentacion : ""}
+                    ></textarea>
                   </Col>
                 </Row>
               </FormGroup>
