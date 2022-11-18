@@ -24,16 +24,16 @@
 
 .sidebar .nav-link.active {
   color: #fff;
-  background: #00d579 !important;
+  background: #94a0a9 !important;
 }
 
 .sidebar .nav-dropdown.open {
-  background: #00d579;
+  background: #01accd ;
   color: black;
 }
 
-.sidebar .nav-dropdown.open > .nav-dropdown-items{
-  background: #94a0a9
+.sidebar .nav-dropdown.open > .nav-dropdown-items {
+  background: #00d579;
 }
 
 .sidebar .nav-title {
@@ -97,6 +97,6 @@
   }
 }
 
-.sidebar .nav-link .nav-icon{
-  color: white
+.sidebar .nav-link .nav-icon {
+  color: white;
 }
