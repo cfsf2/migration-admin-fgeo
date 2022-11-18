@@ -24,12 +24,16 @@
 
 .sidebar .nav-link.active {
   color: #fff;
-  background: #00d579 !important;
+  background: #94a0a9 !important;
 }
 
 .sidebar .nav-dropdown.open {
-  background: #00d579;
+  background: #01accd;
   color: black;
+}
+
+.sidebar .nav-dropdown.open > .nav-dropdown-items {
+  background: #00d579;
 }
 
 .sidebar .nav-title {
@@ -91,4 +95,8 @@
     margin: 0;
     height: 53px;
   }
+}
+
+.sidebar .nav-link .nav-icon, .sidebar .nav-link.active .nav-icon {
+  color: white;
 }
