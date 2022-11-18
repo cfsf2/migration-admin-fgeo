@@ -28,7 +28,7 @@
 }
 
 .sidebar .nav-dropdown.open {
-  background: #01accd ;
+  background: #01accd;
   color: black;
 }
 
@@ -97,6 +97,6 @@
   }
 }
 
-.sidebar .nav-link .nav-icon {
+.sidebar .nav-link .nav-icon, .sidebar .nav-link.active .nav-icon {
   color: white;
 }
