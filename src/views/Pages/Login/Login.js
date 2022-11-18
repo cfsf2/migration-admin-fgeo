@@ -142,20 +142,6 @@ const Login = (props) => {
     setTerminos(event.target.value);
   };
 
-  if (islogin) {
-    // console.log("username " + username) !!localStorage.getItem("authenticated")
-    try {
-      dispatch(CHECK_TOKEN());
-      dispatch(LOADPROFILE(username, window.localStorage.getItem("token")));
-
-      return <Redirect to="/dashboard"></Redirect>;
-    } catch (err) {
-      console.log(err);
-      return dispatch(LOGOUT());
-    }
-  } else {
-    //esto habrìa que correrlo
-    dispatch(GET_SESSION());
     return (
       <div
         style={{ width: "100%", height: "100%" }}
