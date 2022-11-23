@@ -19,12 +19,12 @@ import {
   AppSidebarToggler,
 } from "@coreui/react";
 
-import "../../containers/DefaultLayout/defaultheader.css";
 import logo from "../../assets/img/brand/nuevo-logo-negativo.png";
 
 import sygnet from "../../assets/img/brand/sygnet.svg";
 
 import { Col, Row } from "reactstrap";
+import BotonWhatsapp from "./BotonWhatsapp";
 
 const propTypes = {
   children: PropTypes.node,
@@ -36,7 +36,7 @@ class DefaultHeader extends Component {
   render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
-    const { user_display_name } = this.props.user;
+    const { user_display_name, IS_FARMACIA } = this.props.user;
 
     return (
       <React.Fragment>
@@ -70,17 +70,7 @@ class DefaultHeader extends Component {
           <p style={{ margin: "0 5px", padding: "10px" }}>
             {user_display_name}
           </p>
-          <div className="ca-whatsapp">
-            <a
-              href="https://api.whatsapp.com/send?phone=543412104056"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="icon-wp"
-              title="Consúltanos por Whatsapp"
-            >
-              <i class="fa fa-whatsapp"></i>
-            </a>
-          </div>
+          {IS_FARMACIA && <BotonWhatsapp />}
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
               <i className="icon-user"></i>
