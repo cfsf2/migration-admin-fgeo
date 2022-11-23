@@ -259,7 +259,7 @@ const Login = (props) => {
                 checked={terminos}
               />
               <a
-                href="https://farmageo.com.ar/terminos-legales.html"
+                href="https://sync-farmageo2.s3.amazonaws.com/soporte/Terminos_FMG_2021.pdf"
                 target="_blank"
                 style={{ fontSize: 10 }}
                 rel="noopener noreferrer"

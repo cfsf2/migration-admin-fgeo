@@ -9,6 +9,7 @@ import {
   Nav,
   NavItem,
 } from "reactstrap";
+
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -17,7 +18,10 @@ import {
   AppNavbarBrand,
   AppSidebarToggler,
 } from "@coreui/react";
+
+import "../../containers/DefaultLayout/defaultheader.css";
 import logo from "../../assets/img/brand/nuevo-logo-negativo.png";
+
 import sygnet from "../../assets/img/brand/sygnet.svg";
 
 import { Col, Row } from "reactstrap";
@@ -49,7 +53,7 @@ class DefaultHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <a
-          style={{ marginLeft: "2rem"}}
+          style={{ marginLeft: "2rem" }}
           id="colegioLogo"
           href="http://www.cfsf2.org.ar/"
           target="_blank"
@@ -66,6 +70,17 @@ class DefaultHeader extends Component {
           <p style={{ margin: "0 5px", padding: "10px" }}>
             {user_display_name}
           </p>
+          <div className="ca-whatsapp">
+            <a
+              href="https://api.whatsapp.com/send?phone=543412104056"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="icon-wp"
+              title="Consúltanos por Whatsapp"
+            >
+              <i class="fa fa-whatsapp"></i>
+            </a>
+          </div>
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
               <i className="icon-user"></i>

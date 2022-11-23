@@ -14,15 +14,18 @@ class Soporte extends Component {
               </CardHeader>
               <CardBody>
                 <Row>
+                  <Col>
+                    <a
+                      href="https://api.whatsapp.com/send?phone=543412104056"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Contactanos por Whatapp
+                    </a>
+                  </Col>
+                </Row>
+                <Row>
                   <Col xs="12">
-                    <Row>
-                      <Col>
-                        <a href="mailto:soporte@farmageo.com.ar">
-                          soporte@farmageo.com.ar
-                        </a>
-                      </Col>
-                    </Row>
-                    <Row> </Row>
                     <Row>
                       <Col>
                         <Link
@@ -34,6 +37,25 @@ class Soporte extends Component {
                         >
                           Manual de Usuario
                         </Link>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <Link
+                          to={{
+                            pathname: "/pdf",
+                            search: "?pdf=soporte/Terminos_FMG_2021.pdf",
+                          }}
+                        >
+                          Términos y condiciones
+                        </Link>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <a href="mailto:soporte@farmageo.com.ar">
+                          soporte@farmageo.com.ar
+                        </a>
                       </Col>
                     </Row>
                   </Col>
