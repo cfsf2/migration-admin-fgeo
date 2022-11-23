@@ -262,6 +262,8 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             context={VistaContext}
           />
         );
+      case "null":
+        return <></>;
       case "botonera":
         return (
           <div style={{ display: "flex", alignItems: "center" }}>

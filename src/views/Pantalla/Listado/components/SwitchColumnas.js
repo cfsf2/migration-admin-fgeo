@@ -214,6 +214,8 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             context={ListadoContext}
           />
         );
+      case "null":
+        return <></>;
       case "div":
         return <div>{hijos?.map((hijo) => hijo)}</div>;
       default:
