@@ -126,13 +126,6 @@ export default {
       perfil_farmageo: [],
     },
     {
-      name: "Tutoriales",
-      url: "https://farmageo.com.ar/tutoriales.html",
-      icon: "icon-cursor",
-      attributes: { target: "_blank", rel: "noopener" },
-      perfil_farmageo: [],
-    },
-    {
       name: "Soporte",
       url: "/soporte",
       icon: "icon-support",
