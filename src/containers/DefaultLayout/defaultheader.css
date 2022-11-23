@@ -1,0 +1,20 @@
+.ca-whatsapp {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 100;
+  right: 30px;
+}
+
+.icon-wp {
+  position: relative;
+  top: 5px;
+  left: 1.25px;
+}
