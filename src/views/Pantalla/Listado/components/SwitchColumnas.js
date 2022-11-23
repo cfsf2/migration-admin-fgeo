@@ -32,7 +32,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
       : null;
 
   const Componente = (() => {
-    switch (data[`${cab.id_a}_COMPONENTE`]) {
+    switch (data[`${cab.id_a}_COMPONENTE`] ?? cab.componente) {
       case undefined:
         return (
           <Default
