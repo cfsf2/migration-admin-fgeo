@@ -33,9 +33,7 @@ export const GET_LABORATORIOS = () => {
         //console.log(response.data);
         dispatch({
           type: "GET_LABORATORIOS",
-          payload: response.data.sort((a, b) =>
-            a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0
-          ),
+          payload: response.data,
         });
       })
       .catch(function (error) {
