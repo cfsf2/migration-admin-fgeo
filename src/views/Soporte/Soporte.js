@@ -41,19 +41,18 @@ class Soporte extends Component {
                     </Row>
                     <Row>
                       <Col>
-                        <Link
-                          to={{
-                            pathname: "/pdf",
-                            search: "?pdf=soporte/Terminos_FMG_2021.pdf",
-                          }}
+                        <a
+                          href="https://www.farmageo.com.ar/novedades/terminos-y-condiciones/"
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
                           Términos y condiciones
-                        </Link>
+                        </a>
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <a href="mailto:soporte@farmageo.com.ar">
+                        <a href="mailto:transfers@cfsf2.org.ar">
                           soporte@farmageo.com.ar
                         </a>
                       </Col>
