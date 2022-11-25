@@ -1,6 +1,7 @@
 const defaultState = {
   transfers: [],
   laboratorios: [],
+  categorias: [],
   droguerias: [],
   productos: [],
   pedido: [],
@@ -16,9 +17,16 @@ export default (state = defaultState, action) => {
         transfers: action.payload,
       };
     case "GET_LABORATORIOS":
+      const laboratorios = action.payload.laboratorios.sort(
+        (a, b) => a.nombre < b.nombre
+      );
+      const categorias = action.payload.categorias.sort(
+        (a, b) => a.orden < b.orden
+      );
       return {
         ...state,
-        laboratorios: action.payload,
+        laboratorios: laboratorios,
+        categorias: categorias,
       };
     case "GET_DROGUERIAS":
       return {

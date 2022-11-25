@@ -90,7 +90,14 @@ const InputAreaEditable = ({
           type="number"
           onBlur={handleGuardar}
           defaultValue={value}
-          inputProps={{ style: { textAlign: cab.align ?? "right" } }}
+          inputProps={{
+            style: {
+              textAlign: cab.align ?? "right",
+              display: "flex",
+              alignItems: "baseline",
+              minWidth: "max-content",
+            },
+          }}
         />
       ) : (
         <TextArea

@@ -142,80 +142,82 @@ const Login = (props) => {
     setTerminos(event.target.checked);
   };
 
-    return (
-      <div
-        style={{ width: "100%", height: "100%" }}
-        className="container-fluid"
-      >
-        <div style={backgroundStyle} className="row ">
-          {window.innerWidth > 769 ? (
+  return (
+    <div style={{ width: "100%", height: "100%" }} className="container-fluid">
+      <div style={backgroundStyle} className="row ">
+        {window.innerWidth > 769 ? (
+          <div
+            style={{
+              margin: window.innerWidth > 769 ? "auto 0" : "70px 0",
+            }}
+          >
+            <h1 style={h1Stule} className="bold white">
+              Mi Farmacia digital
+            </h1>
+            <p style={{ fontSize: "20px", ...whiteStyle }}>
+              Visibilidad digital de todos los servicios. Tienda online propia y
+              a medida.
+              <br /> Solicitá transfers, sector de proveeduría y colaboración
+              con acciones RSE.{" "}
+            </p>
+            <h3 style={{ ...boldStyle, ...whiteStyle }} className="mt-5 bold">
+              Todo en un solo lugar.
+            </h3>
+            <img
+              src={logoWhite}
+              style={{ width: "250px", marginTop: "50px" }}
+            />
             <div
               style={{
-                height:
-                  window.innerWidth > 769
-                    ? window.innerHeight
-                    : window.innerHeight,
+                margin: window.innerWidth > 769 ? "auto 0" : "70px 0",
               }}
-              className="col-md-8 col-sm-0 d-flex pl-md-5 pl-sm-3 flex-column overflow-hidden"
             >
+              <h1 style={h1Stule} className="bold white">
+                Mi Farmacia digital
+              </h1>
+              <p style={{ fontSize: "20px", ...whiteStyle }}>
+                Visibilidad digital de todos los servicios. Tienda online propia
+                y a medida.
+                <br /> Solicitá transfers, sector de proveeduría y colaboración
+                con acciones RSE.{" "}
+              </p>
+              <h3 style={{ ...boldStyle, ...whiteStyle }} className="mt-5 bold">
+                Todo en un solo lugar.
+              </h3>
               <img
-                src={logoWhite}
                 style={{ width: "250px", marginTop: "50px" }}
+                src={logoWhiteColegio}
               />
-              <div
-                style={{
-                  margin: window.innerWidth > 769 ? "auto 0" : "70px 0",
-                }}
-              >
-                <h1 style={h1Stule} className="bold white">
-                  Mi Farmacia digital
-                </h1>
-                <p style={{ fontSize: "20px", ...whiteStyle }}>
-                  Visibilidad digital de todos los servicios. Tienda online
-                  propia y a medida.
-                  <br /> Solicitá transfers, sector de proveeduría y
-                  colaboración con acciones RSE.{" "}
-                </p>
-                <h3
-                  style={{ ...boldStyle, ...whiteStyle }}
-                  className="mt-5 bold"
+            </div>
+            <div className="d-flex mt-auto flex-column ">
+              <div style={lineStyle}></div>
+              <div style={whiteStyle} className="my-2">
+                <img src={iEmail} style={{ widht: "25px", height: "22px" }} />{" "}
+                <a
+                  style={{
+                    fontSize: "18px",
+                    marginRight: "10px",
+                    ...whiteStyle,
+                  }}
+                  href="mailto:coordinador@farmageo.com.ar"
                 >
-                  Todo en un solo lugar.
-                </h3>
+                  coordinador@farmageo.com.ar
+                </a>
+                {window.innerWidth > 769 ? null : <br />}
                 <img
-                  style={{ width: "250px", marginTop: "50px" }}
-                  src={logoWhiteColegio}
-                />
-              </div>
-              <div className="d-flex mt-auto flex-column ">
-                <div style={lineStyle}></div>
-                <div style={whiteStyle} className="my-2">
-                  <img src={iEmail} style={{ widht: "25px", height: "22px" }} />{" "}
-                  <a
-                    style={{
-                      fontSize: "18px",
-                      marginRight: "10px",
-                      ...whiteStyle,
-                    }}
-                    href="mailto:coordinador@farmageo.com.ar"
-                  >
-                    coordinador@farmageo.com.ar
-                  </a>
-                  {window.innerWidth > 769 ? null : <br />}
-                  <img
-                    src={iLocation}
-                    style={{ widht: "25px", height: "22px" }}
-                  />{" "}
-                  <a
-                    style={{ fontSize: "18px", ...whiteStyle }}
-                    target="_blank"
-                    href="https://www.google.com/maps/place/Buenos+Aires+1262,+S2000+Rosario,+Santa+Fe/data=!4m2!3m1!1s0x95b7ab04a721ba5d:0x1080c44b44f427bf?sa=X&ved=2ahUKEwi36ryKmczxAhXnqJUCHdvjCToQ8gEwAHoECAYQAQ"
-                  >
-                    Buenos aires 1262, Rosario
-                  </a>
-                </div>
+                  src={iLocation}
+                  style={{ widht: "25px", height: "22px" }}
+                />{" "}
+                <a
+                  style={{ fontSize: "18px", ...whiteStyle }}
+                  target="_blank"
+                  href="https://www.google.com/maps/place/Buenos+Aires+1262,+S2000+Rosario,+Santa+Fe/data=!4m2!3m1!1s0x95b7ab04a721ba5d:0x1080c44b44f427bf?sa=X&ved=2ahUKEwi36ryKmczxAhXnqJUCHdvjCToQ8gEwAHoECAYQAQ"
+                >
+                  Buenos aires 1262, Rosario
+                </a>
               </div>
             </div>
+          </div>
         ) : (
           <div className="col-sm-12 mb-2 d-flex justify-content-center">
             <img

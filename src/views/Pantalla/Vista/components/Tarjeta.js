@@ -60,6 +60,10 @@ const Tarjeta = () => {
                         className="divCampo"
                         style={{
                           gridColumn: cab.grid_span ? cab.grid_span : "1 / -1",
+                          display:
+                            dato[`${cab.id_a}_COMPONENTE`] === "null"
+                              ? "none"
+                              : "inherit",
                         }}
                       >
                         <SwitchCampos

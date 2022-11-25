@@ -43,7 +43,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
       : null;
 
   const Componente = () => {
-    switch (cab.componente) {
+    switch (data[`${cab.id_a}_COMPONENTE`]) {
       case undefined || "columna_simple":
         return (
           <Default
@@ -262,6 +262,8 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             context={VistaContext}
           />
         );
+      case "null":
+        return <></>;
       case "botonera":
         return (
           <div style={{ display: "flex", alignItems: "center" }}>
