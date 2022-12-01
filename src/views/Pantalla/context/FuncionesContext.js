@@ -50,11 +50,10 @@ export const FuncionesProvider = (props) => {
   const { PantallaDispatch, pantalla } = useContext(PantallaContext);
 
   const pedirConfirmacion = async (props) => {
+    const { cab } = props;
     return ALERT({
-      title: "Confirmar",
-      text: `Desea confirmar la accion?
-      ${props?.advertencia ? props.advertencia : ""}
-      `,
+      title: "Desea confirmar la accion?",
+      text: cab.alerta_confirmar_texto ?? "",
       icon: "question",
       denyButtonText: "Cancelar",
       confirmButtonText: "Confirmar",
@@ -150,7 +149,6 @@ export const FuncionesProvider = (props) => {
           cab.refrescarConfiguracion &&
           cab.refrescarConfiguracion.trim() !== ""
         ) {
-          console.log(cab.refrescarConfiguracion, "guardarSinConfirmar");
           refrescarConfiguracion({ cab });
         }
         return res;
@@ -163,7 +161,9 @@ export const FuncionesProvider = (props) => {
   };
 
   const guardarConConfirmacion = async (props) => {
-    return pedirConfirmacion().then(async (result) => {
+    const { data, cab } = props;
+
+    return pedirConfirmacion({ data, cab }).then(async (result) => {
       if (!result.isConfirmed) {
         props.handleCancelar();
         throw result;
@@ -208,7 +208,9 @@ export const FuncionesProvider = (props) => {
   };
 
   const insertarConConfirmacion = async (props) => {
-    return pedirConfirmacion().then(async (result) => {
+    const { data, cab } = props;
+
+    return pedirConfirmacion({ data, cab }).then(async (result) => {
       if (!result.isConfirmed) {
         props.handleCancelar();
         throw result;
@@ -419,9 +421,10 @@ export const FuncionesProvider = (props) => {
   const eliminarRegistro = async (props) => {
     const { data, cab, indiceData } = props;
 
-    const result = await pedirConfirmacion({
-      advertencia: "Esta accion no se puede deshacer",
-    });
+    cab.alerta_confirmar_texto =
+      cab.alerta_confirmar_texto ?? "Esta acción no se puede deshacer.";
+
+    const result = await pedirConfirmacion({ data, cab });
 
     if (!result.isConfirmed) {
       props.handleCancelar();
