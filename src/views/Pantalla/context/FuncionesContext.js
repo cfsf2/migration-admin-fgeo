@@ -51,9 +51,20 @@ export const FuncionesProvider = (props) => {
 
   const pedirConfirmacion = async (props) => {
     const { cab, data } = props;
+
+    const mensaje = (() => {
+      if (data && data[cab.id_a + "_alerta_confirmar_texto"]) {
+        return data[cab.id_a + "_alerta_confirmar_texto"];
+      }
+      if (cab.alerta_confirmar_texto) {
+        return cab.alerta_confirmar_texto;
+      }
+      return "";
+    })();
+
     return ALERT({
       title: "Desea confirmar la accion?",
-      text: data[cab.id_a + "_" + "alerta_confirmar_texto"],
+      text: mensaje,
       icon: "question",
       denyButtonText: "Cancelar",
       confirmButtonText: "Confirmar",
@@ -362,7 +373,7 @@ export const FuncionesProvider = (props) => {
       let confirmado = true;
 
       if (alerta_confirmar)
-        confirmado = (await pedirConfirmacion(opciones)).isConfirmed;
+        confirmado = (await pedirConfirmacion({ cab: opciones })).isConfirmed;
 
       if (!confirmado) throw new Error({ message: "Cancelado" });
 
