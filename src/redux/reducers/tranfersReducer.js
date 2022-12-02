@@ -17,16 +17,16 @@ export default (state = defaultState, action) => {
         transfers: action.payload,
       };
     case "GET_LABORATORIOS":
-      const laboratorios = action.payload.laboratorios.sort(
-        (a, b) => a.nombre < b.nombre
-      );
       const categorias = action.payload.categorias.sort(
-        (a, b) => a.orden < b.orden
+        (a, b) => a.orden - b.orden
+      );
+      const laboratorios = action.payload.laboratorios.sort(
+        (a, b) => a.nombre - b.nombre
       );
       return {
         ...state,
-        laboratorios: laboratorios,
         categorias: categorias,
+        laboratorios: laboratorios,
       };
     case "GET_DROGUERIAS":
       return {
