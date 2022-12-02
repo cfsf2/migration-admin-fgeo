@@ -10,6 +10,7 @@ import Enlace from "./columnas/Enlace";
 import Imagen from "./columnas/Imagen";
 import Boton from "./columnas/Boton";
 import SelectC from "./columnas/SelectC";
+import SelectEnlazable from "../../components/SelectP";
 import EnlaceOpcional from "./columnas/EnlaceOpcional";
 import InputAreaEditable from "../../components/InputAreaEditable";
 import SiNoEditable from "./columnas/SiNoEditable";
@@ -56,13 +57,14 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
         );
       case "select":
         return (
-          <SelectC
+          <SelectEnlazable
             key={cab.id_a}
             data={data}
             cab={cab}
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            context={Context}
           />
         );
       case "fecha":
