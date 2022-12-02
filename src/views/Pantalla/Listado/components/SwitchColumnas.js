@@ -32,7 +32,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
       : null;
 
   const Componente = (() => {
-    switch (cab.componente) {
+    switch (data[`${cab.id_a}_COMPONENTE`] ?? cab.componente) {
       case undefined:
         return (
           <Default
@@ -214,6 +214,8 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             context={ListadoContext}
           />
         );
+      case "null":
+        return <></>;
       case "div":
         return <div>{hijos?.map((hijo) => hijo)}</div>;
       default:

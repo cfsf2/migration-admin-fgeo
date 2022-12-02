@@ -33,7 +33,10 @@ export const Listado = (props) => {
     let size = 10;
 
     if (opcionesListado.cantdd_registros) {
-      size = Number(opcionesListado.cantdd_registros);
+      size =
+        Number(opcionesListado.cantdd_registros) === 0
+          ? data.length
+          : Number(opcionesListado.cantdd_registros);
     }
     if (data.length === 0) {
       size = 0;

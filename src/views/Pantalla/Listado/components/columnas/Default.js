@@ -2,7 +2,10 @@ import React from "react";
 
 const Default = ({ data, cab, hijos, campokey }) => {
   return (
-    <div className={cab.class} style={{ textAlign: "center" }}>
+    <div
+      className={data[cab.id_a + "_className"]}
+      style={{ textAlign: "center" }}
+    >
       {data[campokey]}
       {hijos}
     </div>
@@ -13,7 +16,10 @@ export default Default;
 
 export const Code = ({ data, cab, hijos, campokey }) => {
   return (
-    <code className={cab.class} style={{ textAlign: "center" }}>
+    <code
+      className={data[cab.id_a + "_className"]}
+      style={{ textAlign: "center" }}
+    >
       {data[campokey]}
       {hijos}
     </code>
