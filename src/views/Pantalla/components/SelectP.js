@@ -15,7 +15,6 @@ const Select_Enlazable = ({
   const { dispatch, setFiltro, filtros } = useContext(context);
 
   const [value, setValue] = useState(() => {
-    console.log(data);
     if (filtros[cab.id_a]) {
       return filtros[cab.id_a];
     }
@@ -53,7 +52,7 @@ const Select_Enlazable = ({
 
     if (cab.select_es_maestro === "s") {
       await setFiltro({ id_a, valor });
-      console.log(cab, filtros);
+      console.log(cab.id_a, "filtros:", filtros);
       refrescarConfiguracion({ cab });
 
       return;

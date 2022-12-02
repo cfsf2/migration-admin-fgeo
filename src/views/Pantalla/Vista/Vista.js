@@ -3,7 +3,6 @@ import React, {
   useReducer,
   useContext,
   useState,
-  useCallback,
   useRef,
 } from "react";
 import VistaContext from "./context/VistaContext";
@@ -25,20 +24,20 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
   const [loading, setLoading] = useState(false);
   const [id_a, set_ida] = useState(configuracion.opciones.id_a);
   // Filtro de vista?
-  const [filtrosp, setFiltros] = useState({
+  const [filtros, setFiltros] = useState({
     pantalla: configuracion.opciones.id_a,
   });
-  const filtros = useRef({ pantalla: configuracion.opciones.id_a });
+  const filtrosp = useRef({ pantalla: configuracion.opciones.id_a });
 
-  const setFiltro = useCallback(async ({ id_a, valor }) => {
+  const setFiltro = async ({ id_a, valor }) => {
     try {
       if (filtros.current) {
-        console.log("estamos usando useRef", filtros.current);
         if (!valor || valor === "") {
           // setFiltros
           filtros.current = (() => {
             let ns = { ...filtros.current };
             delete ns[id_a];
+
             return ns;
           })();
         }
@@ -47,12 +46,13 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
         filtros.current = (() => {
           let ns = { ...filtros.current };
           ns[id_a] = valor;
+
           return ns;
         })();
-        console.log("setfiltro llamado", filtros.current);
+
         return;
       }
-      console.log("estamos usando useState", filtros);
+
       if (!valor || valor === "") {
         setFiltros((f) => {
           let ns = { ...f };
@@ -69,7 +69,7 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  };
 
   useEffect(() => {
     dispatch({
@@ -91,12 +91,13 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
 
     if (configuraciones_ref[id_a] === 1) return;
     console.log("Refresh de  ", configuracion.opciones.id_a, filtros);
+
     if (nollamar) return;
 
     (async () => {
       setLoading(true);
 
-      await getConfiguracion(id_a, id, filtros.current).then((res) => {
+      await getConfiguracion(id_a, id, filtros).then((res) => {
         if (res.status >= 400) {
           requestErrorHandler(res);
         }
