@@ -1,21 +1,17 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  createContext,
-  useMemo,
-} from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 
 import PantallaContext from "../context/PantallaContext";
 import FuncionesContext from "../context/FuncionesContext";
+import { v4 as uuidv4 } from "uuid";
 
 import SwitchMaestro from "../components/SwitchMaestro";
 
 import { Card } from "reactstrap";
 import HeaderConf from "../components/HeaderConf";
 
-const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
+const SubPantalla = ({ configuracion, id, nollamar, idx, key }) => {
   const id_a = configuracion.opciones.id_a;
+  const uuid = useRef(uuidv4());
   const { configuraciones_ref, PantallaDispatch } = useContext(PantallaContext);
   const { getConfiguracion, requestErrorHandler } =
     useContext(FuncionesContext);
@@ -63,7 +59,7 @@ const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
     .sort((a, b) => a.opciones.orden - b.opciones.orden)
     .map((item) => (
       <SwitchMaestro
-        _key={JSON.stringify(item)}
+        _key={id_a}
         configuracion={item}
         id={id}
         nollamar={nollamar}
@@ -77,6 +73,7 @@ const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
   return (
     <Card
       id={id_a}
+      key={key}
       className={id_a + "_CONTENEDOR"}
       style={{
         display: "grid",
@@ -88,6 +85,7 @@ const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
         opciones={configuracion.opciones}
         className="configuracion_pantalla_titulo_secundario"
       />
+
       {loadingPantalla ? (
         <div
           style={{
@@ -99,9 +97,8 @@ const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
           }}
         ></div>
       ) : (
-        <></>
+        <>{ConfiguracionesComponentes}</>
       )}
-      {ConfiguracionesComponentes}
     </Card>
   );
 };

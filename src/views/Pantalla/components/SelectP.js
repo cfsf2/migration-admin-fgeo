@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import Select from "./Select";
 import FuncionesContext from "../context/FuncionesContext";
+import { useEffect } from "react";
 
 const Select_Enlazable = ({
   data,
@@ -51,9 +52,10 @@ const Select_Enlazable = ({
     setValue(valor);
 
     if (cab.select_es_maestro === "s") {
-      await setFiltro({ id_a, valor });
-      console.log(cab.id_a, "filtros:", filtros);
+      setFiltro({ id_a, valor });
       refrescarConfiguracion({ cab });
+
+      // console.log(cab.id_a, "filtros:", filtros);
 
       return;
     }
@@ -74,6 +76,10 @@ const Select_Enlazable = ({
         console.log("Cancelado ", err);
       });
   };
+
+  useEffect(() => {
+    //console.log(cab.id_a, "value", value);
+  });
 
   return (
     //<div style={{ textAlign: "center"}}>

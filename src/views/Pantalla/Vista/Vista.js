@@ -10,8 +10,10 @@ import PantallaContext from "../context/PantallaContext";
 import FuncionesContext from "../context/FuncionesContext";
 import VistaReducer, { initialState } from "./context/VistaReducer";
 import Tarjeta from "./components/Tarjeta";
+import { useCallback } from "react";
+import { useMemo } from "react";
 
-const VistaProvider = ({ configuracion, id, children, nollamar }) => {
+const VistaProvider = ({ configuracion, id, children, nollamar, key }) => {
   const {
     configuraciones_ref,
     loadingPantalla,
@@ -22,54 +24,58 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
 
   const [state, dispatch] = useReducer(VistaReducer, initialState);
   const [loading, setLoading] = useState(false);
-  const [id_a, set_ida] = useState(configuracion.opciones.id_a);
+  const id_a = configuracion.opciones.id_a;
   // Filtro de vista?
   const [filtros, setFiltros] = useState({
     pantalla: configuracion.opciones.id_a,
   });
   const filtrosp = useRef({ pantalla: configuracion.opciones.id_a });
 
-  const setFiltro = async ({ id_a, valor }) => {
-    try {
-      if (filtros.current) {
-        if (!valor || valor === "") {
+  const setFiltro = useCallback(
+    async ({ id_a, valor }) => {
+      try {
+        if (filtros.current) {
+          if (!valor || valor === "") {
+            // setFiltros
+            filtros.current = (() => {
+              let ns = { ...filtros.current };
+              delete ns[id_a];
+
+              return ns;
+            })();
+          }
+
           // setFiltros
           filtros.current = (() => {
             let ns = { ...filtros.current };
-            delete ns[id_a];
+            ns[id_a] = valor;
 
             return ns;
           })();
+
+          return filtros.current;
         }
 
-        // setFiltros
-        filtros.current = (() => {
-          let ns = { ...filtros.current };
-          ns[id_a] = valor;
+        if (!valor || valor === "") {
+          setFiltros((f) => {
+            let ns = { ...f };
+            delete ns[id_a];
+            return ns;
+          });
+        }
 
-          return ns;
-        })();
-
-        return;
-      }
-
-      if (!valor || valor === "") {
         setFiltros((f) => {
-          let ns = { ...f };
-          delete ns[id_a];
-          return ns;
+          // let ns = { ...f };
+          // ns[id_a] = valor;
+          return { ...f, [id_a]: valor };
         });
+        return filtros;
+      } catch (err) {
+        console.log(err);
       }
-
-      setFiltros((f) => {
-        let ns = { ...f };
-        ns[id_a] = valor;
-        return ns;
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    },
+    [filtros]
+  );
 
   useEffect(() => {
     dispatch({
@@ -84,13 +90,18 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
       type: "SET_OPCIONES",
       payload: configuracion.opciones,
     });
-  }, [loadingPantalla]);
+  }, [
+    configuracion.cabeceras,
+    configuracion.datos,
+    configuracion.opciones,
+    loadingPantalla,
+  ]);
 
   useEffect(() => {
     //useEffect para actualizar datos a control
 
-    if (configuraciones_ref[id_a] === 1) return;
     console.log("Refresh de  ", configuracion.opciones.id_a, filtros);
+    if (configuraciones_ref[id_a] === 1) return;
 
     if (nollamar) return;
 
@@ -126,24 +137,34 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
 
   return (
     <VistaContext.Provider
-      value={{
-        datos: state.datos,
-        cabeceras: state.cabeceras,
-        opciones: state.opciones,
-        id: id,
+      value={useMemo(() => {
+        return {
+          datos: state.datos,
+          cabeceras: state.cabeceras,
+          opciones: state.opciones,
+          id: id,
+          filtros,
+          setFiltro,
+          VistaDispatch: dispatch,
+          Dispatch: dispatch,
+          dispatch,
+        };
+      }, [
         filtros,
+        id,
         setFiltro,
-        VistaDispatch: dispatch,
-        Dispatch: dispatch,
-        dispatch,
-      }}
+        state.cabeceras,
+        state.datos,
+        state.opciones,
+      ])}
     >
       {loading || loadingPantalla ? (
         <div
           style={{
+            position: "absolute",
             height: "100vh",
             width: "100vw",
-            backgroundColor: "rgba(200, 200, 200, 0.1)",
+            backgroundColor: "rgba(200, 200, 200, 0.3)",
             zIndex: 30000,
           }}
         ></div>
@@ -155,10 +176,10 @@ const VistaProvider = ({ configuracion, id, children, nollamar }) => {
   );
 };
 
-const Vista = ({ configuracion, id, nollamar }) => {
+const Vista = ({ configuracion, id, nollamar, key }) => {
   return (
     <VistaProvider configuracion={configuracion} id={id} nollamar={nollamar}>
-      <Tarjeta />
+      <Tarjeta key={key} />
     </VistaProvider>
   );
 };
