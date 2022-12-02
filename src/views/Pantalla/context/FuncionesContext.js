@@ -50,10 +50,10 @@ export const FuncionesProvider = (props) => {
   const { PantallaDispatch, pantalla } = useContext(PantallaContext);
 
   const pedirConfirmacion = async (props) => {
-    const { cab } = props;
+    const { cab, data } = props;
     return ALERT({
       title: "Desea confirmar la accion?",
-      text: cab.alerta_confirmar_texto ?? "",
+      text: data[cab.id_a + "_" + "alerta_confirmar_texto"],
       icon: "question",
       denyButtonText: "Cancelar",
       confirmButtonText: "Confirmar",

@@ -142,25 +142,6 @@ const Login = (props) => {
     setTerminos(event.target.checked);
   };
 
-<<<<<<< HEAD
-  return (
-    <div style={{ width: "100%", height: "100%" }} className="container-fluid">
-      <div style={backgroundStyle} className="row ">
-        {window.innerWidth > 769 ? (
-          <div
-            style={{
-              height:
-                window.innerWidth > 769
-                  ? window.innerHeight
-                  : window.innerHeight,
-            }}
-            className="col-md-8 col-sm-0 d-flex pl-md-5 pl-sm-3 flex-column overflow-hidden"
-          >
-            <img
-              src={logoWhite}
-              style={{ width: "250px", marginTop: "50px" }}
-            />
-=======
     return (
       <div
         style={{ width: "100%", height: "100%" }}
@@ -168,7 +149,6 @@ const Login = (props) => {
       >
         <div style={backgroundStyle} className="row ">
           {window.innerWidth > 769 ? (
->>>>>>> 3fdd8b12d566130d419ff88b0e32d535e6d6de76
             <div
               style={{
                 height:
@@ -179,41 +159,6 @@ const Login = (props) => {
               className="col-md-8 col-sm-0 d-flex pl-md-5 pl-sm-3 flex-column overflow-hidden"
             >
               <img
-<<<<<<< HEAD
-                style={{ width: "250px", marginTop: "50px" }}
-                src={logoWhiteColegio}
-              />
-            </div>
-            <div className="d-flex mt-auto flex-column ">
-              <div style={lineStyle}></div>
-              <div style={whiteStyle} className="my-2">
-                <img src={iEmail} style={{ widht: "25px", height: "22px" }} />{" "}
-                <a
-                  style={{
-                    fontSize: "18px",
-                    marginRight: "10px",
-                    ...whiteStyle,
-                  }}
-                  href="mailto:coordinador@farmageo.com.ar"
-                >
-                  coordinador@farmageo.com.ar
-                </a>
-                {window.innerWidth > 769 ? null : <br />}
-                <img
-                  src={iLocation}
-                  style={{ widht: "25px", height: "22px" }}
-                />{" "}
-                <a
-                  style={{ fontSize: "18px", ...whiteStyle }}
-                  target="_blank"
-                  href="https://www.google.com/maps/place/Buenos+Aires+1262,+S2000+Rosario,+Santa+Fe/data=!4m2!3m1!1s0x95b7ab04a721ba5d:0x1080c44b44f427bf?sa=X&ved=2ahUKEwi36ryKmczxAhXnqJUCHdvjCToQ8gEwAHoECAYQAQ"
-                >
-                  Buenos aires 1262, Rosario
-                </a>
-              </div>
-            </div>
-          </div>
-=======
                 src={logoWhite}
                 style={{ width: "250px", marginTop: "50px" }}
               />
@@ -271,7 +216,6 @@ const Login = (props) => {
                 </div>
               </div>
             </div>
->>>>>>> 3fdd8b12d566130d419ff88b0e32d535e6d6de76
         ) : (
           <div className="col-sm-12 mb-2 d-flex justify-content-center">
             <img
