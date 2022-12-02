@@ -1,12 +1,12 @@
 import React from "react";
 
 const Select = (props) => {
-  const { nombre, opciones, onChange, value, def } = props;
-
+  const { nombre, opciones, onChange, value, def, id } = props;
+  console.log(value, id, def);
   return (
     <select
       name={nombre}
-      value={value}
+      value={value ?? def}
       onChange={onChange}
       defaultValue={def}
       className="tarjeta_grid_item_select"

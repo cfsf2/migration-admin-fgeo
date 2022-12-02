@@ -12,9 +12,16 @@ const Select_Enlazable = ({
 }) => {
   const { superSubmit, refrescarConfiguracion } = useContext(FuncionesContext);
 
-  const { dispatch } = useContext(context);
+  const { dispatch, setFiltro, filtros } = useContext(context);
 
-  const [value, setValue] = useState(data[campokey]);
+  const [value, setValue] = useState(() => {
+    console.log(data);
+    if (filtros[cab.id_a]) {
+      return filtros[cab.id_a];
+    }
+    return data[campokey];
+  });
+
   const [lastValue, setLastvalue] = useState(data[campokey]);
 
   const nombre = (() => {
@@ -45,7 +52,10 @@ const Select_Enlazable = ({
     setValue(valor);
 
     if (cab.select_es_maestro === "s") {
-      refrescarConfiguracion(cab);
+      await setFiltro({ id_a, valor });
+      console.log(cab, filtros);
+      refrescarConfiguracion({ cab });
+
       return;
     }
 
@@ -65,6 +75,7 @@ const Select_Enlazable = ({
         console.log("Cancelado ", err);
       });
   };
+
   return (
     //<div style={{ textAlign: "center"}}>
     <div style={{ flex: "1 0 100%" }}>
@@ -74,6 +85,7 @@ const Select_Enlazable = ({
       >
         <p style={{ flexShrink: 0, flexWrap: "wrap" }}>{cab.nombre}:</p>
         <Select
+          id={cab.id_a}
           nombre={nombre}
           opciones={cab.opciones ? cab.opciones : []}
           value={value}
