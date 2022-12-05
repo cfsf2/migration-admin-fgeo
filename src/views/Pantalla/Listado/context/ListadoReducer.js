@@ -3,7 +3,7 @@ export default function ListadoReducer(state, action) {
     case "SET_DATOS":
       return {
         ...state,
-        datos: action.payload,
+        datos: action.payload ?? [],
       };
     case "SET_CABECERAS":
       return {

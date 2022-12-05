@@ -26,6 +26,7 @@ import ListadoReducer, { initialState } from "./context/ListadoReducer";
 // };
 
 const objetoQueryFiltrosdeF = (filtros, filtrosAAplicar, pantalla) => {
+  console.log(filtros);
   let queryfiltros = {
     pantalla: pantalla,
   };
@@ -40,6 +41,9 @@ const objetoQueryFiltrosdeF = (filtros, filtrosAAplicar, pantalla) => {
     if (filtrosAAplicar[f.id_a] || filtrosAAplicar[f.id_a] === "") {
       queryfiltros[f.id_a] = filtrosAAplicar[f.id_a]?.toString()?.trim();
     }
+    if (f.componente === "hidden") {
+      queryfiltros[f.id_a] = filtrosAAplicar[f.id_a] ?? "mandatory";
+    }
     if (
       !queryfiltros[f.id_a] ||
       queryfiltros[f.id_a] === null ||
@@ -47,6 +51,7 @@ const objetoQueryFiltrosdeF = (filtros, filtrosAAplicar, pantalla) => {
     )
       queryfiltros[f.id_a] = undefined;
   });
+
   return queryfiltros;
 };
 
