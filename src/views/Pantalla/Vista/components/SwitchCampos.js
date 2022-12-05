@@ -160,6 +160,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            context={VistaContext}
           />
         );
       case "input_number_editable":
@@ -172,6 +173,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             campokey={campokey}
             indiceData={indiceData}
             type="number"
+            context={VistaContext}
           />
         );
       case "input_text_editable":
