@@ -7,7 +7,7 @@ const useStyle = makeStyles({
   likeComponent: {
     "& .MuiInputBase-input": {
       height: "1.4375em",
-      padding: "16.5px 14px",
+      padding: "13px 14px",
     },
     "& .css-nnbavb": {
       display: "none",
@@ -49,7 +49,7 @@ const Like = (props) => {
         id={id}
         type="text"
         placeholder={props.placeholder}
-        style={{ width: "100%" }}
+        style={{ width: "100%", marginTop: "6.1px" }}
         onChange={handleInput}
         defaultValue={props.default}
         label={label}
