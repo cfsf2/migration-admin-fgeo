@@ -48,6 +48,8 @@ const SwitchFiltros = (props) => {
     }
   })();
 
+  if (componente === "hidden") return <></>;
+
   return (
     <div
       id={props.id_a}
