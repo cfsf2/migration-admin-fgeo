@@ -25,6 +25,13 @@ class Soporte extends Component {
                   </Col>
                 </Row>
                 <Row>
+                  <Col>
+                    <a href="mailto:transfers@cfsf2.org.ar">
+                      transfers@cfsf2.org.ar
+                    </a>
+                  </Col>
+                </Row>
+                <Row>
                   <Col xs="12">
                     <Row>
                       <Col>
@@ -47,13 +54,6 @@ class Soporte extends Component {
                           rel="noopener noreferrer"
                         >
                           Términos y condiciones
-                        </a>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <a href="mailto:transfers@cfsf2.org.ar">
-                          soporte@farmageo.com.ar
                         </a>
                       </Col>
                     </Row>

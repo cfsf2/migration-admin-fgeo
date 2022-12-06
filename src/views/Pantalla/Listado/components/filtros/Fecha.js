@@ -2,10 +2,10 @@ import React, { useCallback } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import Label from "./LabelF";
 import "react-datepicker/dist/react-datepicker.css";
-import "../filtros.scss";
 import { makeStyles } from "@material-ui/core";
 import ar from "date-fns/locale/es";
 import { TextField } from "@mui/material";
+import "../filtros.scss";
 registerLocale("ar", ar);
 
 const useStyle = makeStyles({
@@ -65,84 +65,43 @@ const Fecha = (props) => {
 
   return (
     <div style={styles}>
-      <div className="filtro_grid_fecha">
+      <div>
         <Label
           label={props.label}
           opcionales_null={props.opcionales_null}
           permite_null={props.permite_null}
         />
-
-        <DatePicker
-          showTimeSelect={operador !== "fecha"}
-          timeFormat="p"
-          timeIntervals={15}
-          dateFormat="Pp"
-          locale="ar"
-          placeholderText={" Desde"}
-          selected={filtrosAAplicar[id_a] ? startDate : null}
-          onChange={(date) => {
-            //setStartDate(date);
-            setError((e) => {
-              return { ...e, [id_a]: false };
-            });
-            setFiltrosAAplicar((prevState) => {
-              if (!date?.toISOString().trim()) {
-                return { ...prevState, [id_a]: "" };
-              }
-              if (componente === "fecha_simple") {
-                return {
-                  ...prevState,
-                  [id_a]: date?.toISOString(),
-                };
-              }
-
-              let fechas = [];
-              if (prevState[id_a]) {
-                fechas = JSON.parse(prevState[id_a]);
-              }
-              fechas[0] = date?.toISOString();
-
-              return {
-                ...prevState,
-                [id_a]: JSON.stringify(fechas),
-              };
-            });
-          }}
-          selectsStart
-          startDate={filtrosAAplicar[id_a] ? startDate : null}
-          endDate={filtrosAAplicar[id_a] ? endDate : null}
-          customInput={
-            <TextField
-              style={{ marginBottom: "8px" }}
-              className={
-                error[id_a] ? `filtro_fecha_input_error` : classes.dateComponent
-              }
-              label="Desde"
-            />
-          }
-          isClearable
-          label="Desde"
-          withPortal
-        />
-        {componente === "fecha_simple" ? null : (
+        <div className="filtro_grid_fecha">
           <DatePicker
-            showTimeSelect={operador === "fecha_hora"}
+            className="fecha_input"
+            showTimeSelect={operador !== "fecha"}
             timeFormat="p"
             timeIntervals={15}
             dateFormat="Pp"
             locale="ar"
-            placeholderText={" Hasta"}
-            selected={filtrosAAplicar[id_a] ? endDate : null}
+            placeholderText={" Desde"}
+            selected={filtrosAAplicar[id_a] ? startDate : null}
             onChange={(date) => {
-              //setEndDate(date);
+              //setStartDate(date);
+              setError((e) => {
+                return { ...e, [id_a]: false };
+              });
               setFiltrosAAplicar((prevState) => {
-                let fechas = [];
+                if (!date?.toISOString().trim()) {
+                  return { ...prevState, [id_a]: "" };
+                }
+                if (componente === "fecha_simple") {
+                  return {
+                    ...prevState,
+                    [id_a]: date?.toISOString(),
+                  };
+                }
 
+                let fechas = [];
                 if (prevState[id_a]) {
                   fechas = JSON.parse(prevState[id_a]);
                 }
-
-                fechas[1] = date?.toISOString();
+                fechas[0] = date?.toISOString();
 
                 return {
                   ...prevState,
@@ -150,24 +109,70 @@ const Fecha = (props) => {
                 };
               });
             }}
-            selectsEnd
+            selectsStart
             startDate={filtrosAAplicar[id_a] ? startDate : null}
             endDate={filtrosAAplicar[id_a] ? endDate : null}
-            minDate={filtrosAAplicar[id_a] ? startDate : null}
             customInput={
               <TextField
-                label="Hasta"
+                style={{ marginBottom: "8px" }}
                 className={
                   error[id_a]
                     ? `filtro_fecha_input_error`
                     : classes.dateComponent
                 }
+                label="Desde"
               />
             }
             isClearable
+            label="Desde"
             withPortal
           />
-        )}
+          {componente === "fecha_simple" ? null : (
+            <DatePicker
+              className="fecha_input"
+              showTimeSelect={operador === "fecha_hora"}
+              timeFormat="p"
+              timeIntervals={15}
+              dateFormat="Pp"
+              locale="ar"
+              placeholderText={" Hasta"}
+              selected={filtrosAAplicar[id_a] ? endDate : null}
+              onChange={(date) => {
+                //setEndDate(date);
+                setFiltrosAAplicar((prevState) => {
+                  let fechas = [];
+
+                  if (prevState[id_a]) {
+                    fechas = JSON.parse(prevState[id_a]);
+                  }
+
+                  fechas[1] = date?.toISOString();
+
+                  return {
+                    ...prevState,
+                    [id_a]: JSON.stringify(fechas),
+                  };
+                });
+              }}
+              selectsEnd
+              startDate={filtrosAAplicar[id_a] ? startDate : null}
+              endDate={filtrosAAplicar[id_a] ? endDate : null}
+              minDate={filtrosAAplicar[id_a] ? startDate : null}
+              customInput={
+                <TextField
+                  label="Hasta"
+                  className={
+                    error[id_a]
+                      ? `filtro_fecha_input_error`
+                      : classes.dateComponent
+                  }
+                />
+              }
+              isClearable
+              withPortal
+            />
+          )}
+        </div>
       </div>
     </div>
   );

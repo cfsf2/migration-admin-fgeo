@@ -20,6 +20,9 @@ const theme = createTheme({
           backgroundColor: "#F0F8FF",
           opacity: 0.9,
         },
+        "&:nth-of-type(even)": {
+          backgroundColor: "#f2f2f2",
+        },
       },
     },
   },
