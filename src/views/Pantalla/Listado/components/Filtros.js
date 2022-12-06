@@ -19,6 +19,12 @@ const useStyle = makeStyles({
     "& .MuiAccordionSummary-root ": {
       padding: "0 16px",
     },
+    "& .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded": {
+      minHeight: "30px",
+      height: "35px",
+      paddingTop: "15px",
+      paddingBottom: "6px",
+    },
   },
 });
 
