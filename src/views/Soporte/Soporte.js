@@ -17,8 +17,8 @@ class Soporte extends Component {
                   <Col xs="12">
                     <Row>
                       <Col>
-                        <a href="mailto:soporte@farmageo.com.ar">
-                          soporte@farmageo.com.ar
+                        <a href="mailto:transfers@cfsf2.org.ar">
+                          Contactanos a nuestro mail
                         </a>
                       </Col>
                     </Row>
