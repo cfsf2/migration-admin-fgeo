@@ -40,7 +40,6 @@ const RadioF = (props) => {
 
   const styles = {
     gridColumn: grid_span,
-    padding: "5px",
   };
 
   const classes = useStyles();
