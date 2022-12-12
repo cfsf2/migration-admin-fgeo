@@ -40,43 +40,71 @@ const Tarjeta = () => {
             gridTemplateColumns: gridTemplatecolumns(),
           }}
         >
-          {datos.length === 0
+          {/* {datos.length === 0
             ? `(No se recuperaron Datos del id especificado) id: ${id}`
-            : null}
-          {datos.length === 0
-            ? cabeceras.map((cab) => <SwitchCampos data={{}} cab={cab} />)
-            : datos.map((dato, indiceData) => (
-                <div
-                  style={{
-                    gridColumn: gridcolumns(),
-                  }}
-                  key={JSON.stringify(dato)}
-                  className="tarjeta_grid_item"
-                >
-                  {cabeceras
-                    .sort((a, b) => a.orden - b.orden)
-                    .map((cab, i) => (
-                      <div
-                        className="divCampo"
-                        style={{
-                          gridColumn: cab.grid_span ? cab.grid_span : "1 / -1",
-                          display:
-                            dato[`${cab.id_a}_COMPONENTE`] === "null"
-                              ? "none"
-                              : "inherit",
-                        }}
-                      >
-                        <SwitchCampos
-                          key={cab.id_a + i}
-                          indiceData={indiceData}
-                          data={dato}
-                          cab={cab}
-                          Context={VistaContext}
-                        />
-                      </div>
-                    ))}
-                </div>
-              ))}
+            : null} */}
+
+          {datos.length === 0 ? (
+            <div
+              style={{
+                gridColumn: "1/-1",
+              }}
+              className="tarjeta_grid_item"
+            >
+              {cabeceras.map((cab, i) => {
+                return (
+                  <div
+                    className="divCampo"
+                    style={{
+                      gridColumn: cab.grid_span ? cab.grid_span : "1 / -1",
+                      display: cab.componente === "null" ? "none" : "inherit",
+                    }}
+                  >
+                    <SwitchCampos
+                      data={{ nada: "nada" }}
+                      cab={cab}
+                      key={cab.id_a + i}
+                      indiceData={i}
+                      Context={VistaContext}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            datos.map((dato, indiceData) => (
+              <div
+                style={{
+                  gridColumn: gridcolumns(),
+                }}
+                key={JSON.stringify(dato)}
+                className="tarjeta_grid_item"
+              >
+                {cabeceras
+                  .sort((a, b) => a.orden - b.orden)
+                  .map((cab, i) => (
+                    <div
+                      className="divCampo"
+                      style={{
+                        gridColumn: cab.grid_span ? cab.grid_span : "1 / -1",
+                        display:
+                          dato[`${cab.id_a}_COMPONENTE`] === "null"
+                            ? "none"
+                            : "inherit",
+                      }}
+                    >
+                      <SwitchCampos
+                        key={cab.id_a + i}
+                        indiceData={indiceData}
+                        data={dato}
+                        cab={cab}
+                        Context={VistaContext}
+                      />
+                    </div>
+                  ))}
+              </div>
+            ))
+          )}
         </div>
       </CardBody>
     </Card>
