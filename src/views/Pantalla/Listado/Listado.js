@@ -26,7 +26,6 @@ import ListadoReducer, { initialState } from "./context/ListadoReducer";
 // };
 
 const objetoQueryFiltrosdeF = (filtros, filtrosAAplicar, pantalla) => {
-  console.log(filtros);
   let queryfiltros = {
     pantalla: pantalla,
   };

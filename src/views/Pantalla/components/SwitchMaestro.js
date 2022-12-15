@@ -61,13 +61,12 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
           </ABMProvider>
         );
       case 11:
-        const { enlace, target } = configuracion.opciones;
-        console.log(enlace);
+        const { enlace } = configuracion.opciones;
+
         return (
           <Redirect
             to={{
               pathname: enlace,
-              target,
             }}
           />
         );
