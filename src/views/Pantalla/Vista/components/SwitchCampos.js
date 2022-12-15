@@ -10,6 +10,7 @@ import Enlace from "./columnas/Enlace";
 import Imagen from "./columnas/Imagen";
 import Boton from "./columnas/Boton";
 import SelectC from "./columnas/SelectC";
+import SelectEnlazable from "../../components/SelectP";
 import EnlaceOpcional from "./columnas/EnlaceOpcional";
 import InputAreaEditable from "../../components/InputAreaEditable";
 import SiNoEditable from "./columnas/SiNoEditable";
@@ -43,7 +44,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
       : null;
 
   const Componente = () => {
-    switch (cab.componente) {
+    switch (data[`${cab.id_a}_COMPONENTE`] ?? cab.componente) {
       case undefined || "columna_simple":
         return (
           <Default
@@ -56,13 +57,14 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
         );
       case "select":
         return (
-          <SelectC
+          <SelectEnlazable
             key={cab.id_a}
             data={data}
             cab={cab}
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            context={Context}
           />
         );
       case "fecha":
@@ -158,6 +160,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            context={VistaContext}
           />
         );
       case "input_number_editable":
@@ -170,6 +173,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             campokey={campokey}
             indiceData={indiceData}
             type="number"
+            context={VistaContext}
           />
         );
       case "input_text_editable":
@@ -262,6 +266,8 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             context={VistaContext}
           />
         );
+      case "null":
+        return <></>;
       case "botonera":
         return (
           <div style={{ display: "flex", alignItems: "center" }}>

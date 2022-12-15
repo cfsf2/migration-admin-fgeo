@@ -29,18 +29,24 @@ function NuevoTransfer(props) {
     })();
   }, []);
 
-  const { laboratorios } = props.tranfersReducer;
+  const { laboratorios, categorias } = props.tranfersReducer;
+
   return (
     <>
       <div
         className="animated fadeIn"
-        style={{ margin: 30, marginBottom: 0, padding: 30, paddingBottom: 5 }}
+        style={{
+          margin: 30,
+          marginBottom: 0,
+          padding: 30,
+          paddingBottom: 5,
+        }}
       >
-        <Row style={{ marginBottom: 30 }}>
+        <Row style={{ marginBottom: 10 }}>
           <Col>
             <ButtonHome
               //href=""
-              titulo="TRANSFERS FARMACIAS"
+              titulo="TRANSFER FARMAGEO"
               subtitulo={<br />}
               align="left"
               tipo="grande"
@@ -48,14 +54,40 @@ function NuevoTransfer(props) {
             />
           </Col>
         </Row>
-        <Row>
-          {laboratorios.map((lab, index) => {
-            return lab.habilitado === "s" && lab.transfer_farmageo === "s" ? (
-              <LaboratorioSelect laboratorio={lab} key={index} />
-            ) : null;
-          })}
-        </Row>
       </div>
+      {categorias.map((c) => {
+        const labs_de_c = laboratorios.filter(
+          (l) => l.id_transfer_categoria === c.id
+        );
+        return (
+          <div
+            className="animated fadeIn"
+            style={{
+              margin: 10,
+              marginBottom: 0,
+              padding: 10,
+              paddingBottom: 5,
+            }}
+          >
+            <Row style={{ marginBottom: 30 }}>
+              <Col>
+                <ButtonHome
+                  //href=""
+                  titulo={c.nombre.toUpperCase()}
+                  subtitulo={<br />}
+                  align="left"
+                  tipo="grande"
+                />
+              </Col>
+            </Row>
+            <Row>
+              {labs_de_c.map((lab, index) => {
+                return <LaboratorioSelect laboratorio={lab} key={index} />;
+              })}
+            </Row>
+          </div>
+        );
+      })}
 
       {/*-----Container del bloque de links externos-----*/}
       <div

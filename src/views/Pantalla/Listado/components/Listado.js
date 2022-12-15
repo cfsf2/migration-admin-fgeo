@@ -20,6 +20,9 @@ const theme = createTheme({
           backgroundColor: "#F0F8FF",
           opacity: 0.9,
         },
+        "&:nth-of-type(even)": {
+          backgroundColor: "#f2f2f2",
+        },
       },
     },
   },
@@ -33,7 +36,10 @@ export const Listado = (props) => {
     let size = 10;
 
     if (opcionesListado.cantdd_registros) {
-      size = Number(opcionesListado.cantdd_registros);
+      size =
+        Number(opcionesListado.cantdd_registros) === 0
+          ? data.length
+          : Number(opcionesListado.cantdd_registros);
     }
     if (data.length === 0) {
       size = 0;

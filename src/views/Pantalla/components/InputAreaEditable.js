@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import FuncionesContext from "../context/FuncionesContext";
 import TextArea from "./TextArea";
 import { TextField } from "@material-ui/core";
-import VistaContext from "../Vista/context/VistaContext";
 
 const InputAreaEditable = ({
   data,
@@ -11,10 +10,11 @@ const InputAreaEditable = ({
   campokey,
   indiceData,
   type,
+  context,
 }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
-  const { datos, VistaDispatch } = useContext(VistaContext);
+  const { datos, Dispatch } = useContext(context);
 
   const [value, setValue] = useState(data[campokey]);
   const [lastValue, setLastvalue] = useState(data[campokey]);
@@ -44,7 +44,7 @@ const InputAreaEditable = ({
       .then((result) => {
         setLastvalue(() => valor);
 
-        VistaDispatch({
+        Dispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {
             value: result.data.id,
@@ -53,7 +53,7 @@ const InputAreaEditable = ({
           },
         });
 
-        VistaDispatch({
+        Dispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {
             value: valor,
@@ -90,7 +90,14 @@ const InputAreaEditable = ({
           type="number"
           onBlur={handleGuardar}
           defaultValue={value}
-          inputProps={{ style: { textAlign: cab.align ?? "right" } }}
+          inputProps={{
+            style: {
+              textAlign: cab.align ?? "right",
+              display: "flex",
+              alignItems: "baseline",
+              minWidth: "max-content",
+            },
+          }}
         />
       ) : (
         <TextArea

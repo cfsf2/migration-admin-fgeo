@@ -25,6 +25,7 @@
     &_label_item {
       display: flex;
       width: 100%;
+      align-items: center;
       //margin-left: 0.5rem;
     }
     &_input_editable {
@@ -44,4 +45,8 @@
   font-weight: bold;
   word-break: break-all;
   margin-left: 5.5px;
+}
+
+.badge-danger{
+  font-size: small;
 }

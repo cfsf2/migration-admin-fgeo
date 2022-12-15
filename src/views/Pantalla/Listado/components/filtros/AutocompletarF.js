@@ -138,11 +138,11 @@ export default function Virtualize(props) {
 
   return (
     <>
-      <Label
+      {/* <Label
         label={cab.label}
         opcionales_null={cab.opcionales_null}
         permite_null={cab.permite_null}
-      />
+      /> */}
       <Autocomplete
         id="virtualize-demo"
         sx={{ width: "100%" }}

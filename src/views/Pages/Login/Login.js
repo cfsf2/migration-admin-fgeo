@@ -161,13 +161,21 @@ const Login = (props) => {
             />
             <div
               style={{
-                height:
-                  window.innerWidth > 769
-                    ? window.innerHeight
-                    : window.innerHeight,
+                margin: window.innerWidth > 769 ? "auto 0" : "70px 0",
               }}
-              className="col-md-8 col-sm-0 d-flex pl-md-5 pl-sm-3 flex-column overflow-hidden"
             >
+              <h1 style={h1Stule} className="bold white">
+                Mi Farmacia digital
+              </h1>
+              <p style={{ fontSize: "20px", ...whiteStyle }}>
+                Visibilidad digital de todos los servicios. Tienda online propia
+                y a medida.
+                <br /> Solicitá transfers, sector de proveeduría y colaboración
+                con acciones RSE.{" "}
+              </p>
+              <h3 style={{ ...boldStyle, ...whiteStyle }} className="mt-5 bold">
+                Todo en un solo lugar.
+              </h3>
               <img
                 style={{ width: "250px", marginTop: "50px" }}
                 src={logoWhiteColegio}
@@ -245,7 +253,7 @@ const Login = (props) => {
                 checked={terminos}
               />
               <a
-                href="https://farmageo.com.ar/terminos-legales.html"
+                href="https://www.farmageo.com.ar/novedades/terminos-y-condiciones/"
                 target="_blank"
                 style={{ fontSize: 10 }}
                 rel="noopener noreferrer"

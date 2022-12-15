@@ -9,6 +9,7 @@ import {
   Nav,
   NavItem,
 } from "reactstrap";
+
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -17,10 +18,13 @@ import {
   AppNavbarBrand,
   AppSidebarToggler,
 } from "@coreui/react";
+
 import logo from "../../assets/img/brand/nuevo-logo-negativo.png";
+
 import sygnet from "../../assets/img/brand/sygnet.svg";
 
 import { Col, Row } from "reactstrap";
+import BotonWhatsapp from "./BotonWhatsapp";
 
 const propTypes = {
   children: PropTypes.node,
@@ -32,7 +36,7 @@ class DefaultHeader extends Component {
   render() {
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
-    const { user_display_name } = this.props.user;
+    const { user_display_name, IS_FARMACIA } = this.props.user;
 
     return (
       <React.Fragment>
@@ -49,7 +53,7 @@ class DefaultHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <a
-          style={{ marginLeft: "2rem"}}
+          style={{ marginLeft: "2rem" }}
           id="colegioLogo"
           href="http://www.cfsf2.org.ar/"
           target="_blank"
@@ -66,6 +70,7 @@ class DefaultHeader extends Component {
           <p style={{ margin: "0 5px", padding: "10px" }}>
             {user_display_name}
           </p>
+          {IS_FARMACIA && <BotonWhatsapp />}
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
               <i className="icon-user"></i>

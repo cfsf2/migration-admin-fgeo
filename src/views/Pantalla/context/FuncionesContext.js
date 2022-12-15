@@ -50,11 +50,21 @@ export const FuncionesProvider = (props) => {
   const { PantallaDispatch, pantalla } = useContext(PantallaContext);
 
   const pedirConfirmacion = async (props) => {
+    const { cab, data } = props;
+
+    const mensaje = (() => {
+      if (data && data[cab.id_a + "_alerta_confirmar_texto"]) {
+        return data[cab.id_a + "_alerta_confirmar_texto"];
+      }
+      if (cab.alerta_confirmar_texto) {
+        return cab.alerta_confirmar_texto;
+      }
+      return "";
+    })();
+
     return ALERT({
-      title: "Confirmar",
-      text: `Desea confirmar la accion?
-      ${props?.advertencia ? props.advertencia : ""}
-      `,
+      title: "Desea confirmar la accion?",
+      text: mensaje,
       icon: "question",
       denyButtonText: "Cancelar",
       confirmButtonText: "Confirmar",
@@ -150,7 +160,6 @@ export const FuncionesProvider = (props) => {
           cab.refrescarConfiguracion &&
           cab.refrescarConfiguracion.trim() !== ""
         ) {
-          console.log(cab.refrescarConfiguracion, "guardarSinConfirmar");
           refrescarConfiguracion({ cab });
         }
         return res;
@@ -163,7 +172,9 @@ export const FuncionesProvider = (props) => {
   };
 
   const guardarConConfirmacion = async (props) => {
-    return pedirConfirmacion().then(async (result) => {
+    const { data, cab } = props;
+
+    return pedirConfirmacion({ data, cab }).then(async (result) => {
       if (!result.isConfirmed) {
         props.handleCancelar();
         throw result;
@@ -208,7 +219,9 @@ export const FuncionesProvider = (props) => {
   };
 
   const insertarConConfirmacion = async (props) => {
-    return pedirConfirmacion().then(async (result) => {
+    const { data, cab } = props;
+
+    return pedirConfirmacion({ data, cab }).then(async (result) => {
       if (!result.isConfirmed) {
         props.handleCancelar();
         throw result;
@@ -360,7 +373,7 @@ export const FuncionesProvider = (props) => {
       let confirmado = true;
 
       if (alerta_confirmar)
-        confirmado = (await pedirConfirmacion(opciones)).isConfirmed;
+        confirmado = (await pedirConfirmacion({ cab: opciones })).isConfirmed;
 
       if (!confirmado) throw new Error({ message: "Cancelado" });
 
@@ -419,9 +432,10 @@ export const FuncionesProvider = (props) => {
   const eliminarRegistro = async (props) => {
     const { data, cab, indiceData } = props;
 
-    const result = await pedirConfirmacion({
-      advertencia: "Esta accion no se puede deshacer",
-    });
+    cab.alerta_confirmar_texto =
+      cab.alerta_confirmar_texto ?? "Esta acción no se puede deshacer.";
+
+    const result = await pedirConfirmacion({ data, cab });
 
     if (!result.isConfirmed) {
       props.handleCancelar();
