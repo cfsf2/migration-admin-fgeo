@@ -5,6 +5,7 @@ import ConfigListado from "../Listado/components/ConfigListado";
 import Vista from "../Vista/Vista";
 import ABMProvider from "../ABM/ABMProvider";
 import ABM from "../ABM/ABM";
+import { Redirect } from "react-router";
 
 //cabeceras data opciones
 const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
@@ -59,7 +60,17 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
             <ABM />
           </ABMProvider>
         );
-
+      case 11:
+        const { enlace, target } = configuracion.opciones;
+        console.log(enlace);
+        return (
+          <Redirect
+            to={{
+              pathname: enlace,
+              target,
+            }}
+          />
+        );
       default:
         return <></>;
     }

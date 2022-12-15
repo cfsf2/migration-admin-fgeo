@@ -490,6 +490,7 @@ export const FuncionesProvider = (props) => {
         superSubmit,
         ABMSubmit,
         subirArchivo,
+        checkID_A,
       }}
     >
       {props.children}
