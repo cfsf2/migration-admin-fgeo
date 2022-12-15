@@ -99,7 +99,7 @@ function DefaultLayout(props) {
 
   function convertMenu(menuCriollo) {
     const m = JSON.stringify(menuCriollo);
-    console.log("menu desde db", menuCriollo);
+
     const nuevoMenu = JSON.parse(m, function (k, v) {
       if (k === "nombre") this.name = v;
       if (k === "nombre") {
@@ -132,7 +132,7 @@ function DefaultLayout(props) {
         this.url = "/Pantalla/" + v;
       } else return v;
     });
-    console.log(nuevoMenu);
+
     return nuevoMenu;
   }
 
