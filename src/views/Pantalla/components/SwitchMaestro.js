@@ -62,7 +62,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
         );
       case 11:
         const { enlace } = configuracion.opciones;
-
+        //
         return (
           <Redirect
             to={{
