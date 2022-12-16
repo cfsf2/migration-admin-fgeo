@@ -51,7 +51,7 @@ const Debugger = () => {
   if (sql.length === 0) return <></>;
 
   const element = (
-    <Draggable top="100px" left="250px">
+    <Draggable top="100px" left="80vw">
       <button
         onClick={() => {
           setDisplaysql((s) => !s);

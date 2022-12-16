@@ -1,9 +1,10 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Redirect, useHistory } from "react-router";
 import { farmageo_api } from "../../../config";
 import axios from "axios";
 import AlertasContext from "./AlertaContext";
 import PantallaContext from "./PantallaContext";
+import Modal from "../components/Modal";
 const S = require("sweetalert2");
 
 const FuncionesContext = createContext();
@@ -472,6 +473,16 @@ export const FuncionesProvider = (props) => {
     }
   };
 
+  const EscupirModal = (props) => {
+    const [open, setOpen] = useState(true);
+
+    return (
+      <Modal open={open} handleClose={() => setOpen((s) => !s)}>
+        Hola Soy modal
+      </Modal>
+    );
+  };
+
   return (
     <FuncionesContext.Provider
       value={{
@@ -491,6 +502,7 @@ export const FuncionesProvider = (props) => {
         ABMSubmit,
         subirArchivo,
         checkID_A,
+        EscupirModal,
       }}
     >
       {props.children}

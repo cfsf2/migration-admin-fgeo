@@ -7,6 +7,8 @@ export default function Modal({
   handleClose,
   children,
   modalContainerStyle,
+  zIndex,
+  data,
 }) {
   const d = open ? "block" : "none";
   modalContainerStyle.display = d;
@@ -16,7 +18,7 @@ export default function Modal({
       <div
         className="pantalla-fondo-modal"
         onClick={() => handleClose(false)}
-        style={{ display: d }}
+        style={{ display: d, zIndex }}
       ></div>
       <div className="pantalla-modal-container" style={modalContainerStyle}>
         {children}

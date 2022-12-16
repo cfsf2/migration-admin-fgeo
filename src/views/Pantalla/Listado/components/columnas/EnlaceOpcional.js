@@ -51,7 +51,7 @@ const EnlaceOpcional = ({ data, cab, id, campokey, hijos }) => {
 
     return parametros;
   })();
-
+  console.log(cab.id_a);
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div className="vista_dato">
