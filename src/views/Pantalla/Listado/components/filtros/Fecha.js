@@ -15,6 +15,11 @@ const useStyle = makeStyles({
       padding: "16.5px 14px",
     },
   },
+  inputDate: {
+    "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
+      height: "49px",
+    },
+  },
 });
 
 function parseISOString(s) {
@@ -59,6 +64,7 @@ const Fecha = (props) => {
 
   const styles = {
     gridColumn: grid_span,
+    height: "82.3px",
   };
 
   const classes = useStyle();
@@ -114,12 +120,14 @@ const Fecha = (props) => {
             endDate={filtrosAAplicar[id_a] ? endDate : null}
             customInput={
               <TextField
-                style={{ marginBottom: "8px" }}
+                // style={{ marginBottom: "8px" }}
                 className={
-                  error[id_a]
+                  (error[id_a]
                     ? `filtro_fecha_input_error`
-                    : classes.dateComponent
+                    : classes.dateComponent,
+                  classes.inputDate)
                 }
+                style={{ marginTop: "6.1px" }}
                 label="Desde"
               />
             }
@@ -162,10 +170,12 @@ const Fecha = (props) => {
                 <TextField
                   label="Hasta"
                   className={
-                    error[id_a]
+                    (error[id_a]
                       ? `filtro_fecha_input_error`
-                      : classes.dateComponent
+                      : classes.dateComponent,
+                    classes.inputDate)
                   }
+                  style={{ marginTop: "6.1px" }}
                 />
               }
               isClearable
