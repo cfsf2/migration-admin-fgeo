@@ -1,10 +1,10 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ModalesContext from "../../../context/ModalContext";
 
 const Enlace = ({ data, cab, hijos, campokey }) => {
-  const { abrirModal } = useContext(ModalesContext);
+  const { abrirModal, dispatch } = useContext(ModalesContext);
 
   const e = cab.enlace
     ? cab.enlace_alias
@@ -46,9 +46,19 @@ const Enlace = ({ data, cab, hijos, campokey }) => {
   //   return process.env.PUBLIC_URL + e + id_a + parametros;
   // }
   console.log("Enlace de Listado", cab.id_a);
+  // Si abre en Modal
+
+  useEffect(() => {}, []);
+
   return (
     <div
-      onClick={() => abrirModal("UN_MODAL", paramObj)}
+      onClick={() =>
+        //abrirModal(cab.enlace_id_a, paramObj)
+        dispatch({
+          type: "ADD_MODAL",
+          payload: { id_a: cab.enlace_id_a, open: true, data: paramObj },
+        })
+      }
       id="Listado_Switch_Enlace"
     >
       {cab.boton_texto_alias ? data[cab.boton_texto_alias] : cab.boton_texto}

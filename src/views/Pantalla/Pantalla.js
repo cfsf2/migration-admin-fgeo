@@ -15,16 +15,21 @@ import { ModalProvider, GestorModales } from "./context/ModalContext";
 
 import Debugger from "./components/Debugger";
 
-const Pantalla = () => {
+const Pantalla = ({ p, i }) => {
   const [state, dispatch] = useReducer(PantallaReducer, initialState);
 
-  const { pantalla } = useParams();
+  let { pantalla } = useParams();
   const { search, state: locationState } = useLocation();
 
   const [loadingPantalla, setLoadingPantalla] = useState(true);
 
   const params = new URLSearchParams(search);
-  const id = params.get("id");
+  let id = params.get("id");
+
+  if (p) {
+    pantalla = p;
+    id = i;
+  }
 
   useEffect(() => {
     setLoadingPantalla(true);

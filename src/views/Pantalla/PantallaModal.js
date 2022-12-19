@@ -1,133 +1,46 @@
-import React, { useState, useEffect, useReducer, useContext } from "react";
-import axios from "axios";
-
-import { farmageo_api } from "../../config";
+import React, { useState, useEffect, useContext, useRef } from "react";
 
 import PantallaContext from "./context/PantallaContext";
-import { requestErrorHandler } from "./context/FuncionesContext";
-import { FuncionesProvider } from "./context/FuncionesContext";
-import PantallaReducer, { initialState } from "./context/PantallaReducer";
-import { useParams, useLocation } from "react-router";
+import FuncionesContext from "./context/FuncionesContext";
+import { v4 as uuidv4 } from "uuid";
+
 import SwitchMaestro from "./components/SwitchMaestro";
-import { AlertasProvider } from "./context/AlertaContext";
-import HeaderConf from "./components/HeaderConf";
-import { ModalProvider, GestorModales } from "./context/ModalContext";
 
-import Debugger from "./components/Debugger";
+const PantallaModal = ({ pantalla: id_a, id }) => {
+  const { configuraciones_ref, PantallaDispatch } = useContext(PantallaContext);
+  const { getConfiguracion, requestErrorHandler } =
+    useContext(FuncionesContext);
 
-const Pantalla = () => {
-  const [state, dispatch] = useReducer(PantallaReducer, initialState);
-
-  const { pantalla } = useParams();
-  const { search, state: locationState } = useLocation();
-
-  const [loadingPantalla, setLoadingPantalla] = useState(true);
-
-  const params = new URLSearchParams(search);
-  const id = params.get("id");
+  console.log("Pantalla Modal", id_a, id);
 
   useEffect(() => {
-    setLoadingPantalla(true);
-    axios
-      .post(
-        farmageo_api + "/pantalla/" + pantalla,
-        {
-          id: id,
-        },
-        { params: locationState?.filtros }
-      )
-      .then((response) => {
-        if (response.status >= 400) {
-          requestErrorHandler(response);
+    //useEffect para actualizar datos a control
+    if (configuraciones_ref[id_a] === 1) return;
 
-          return response;
-          if (!response.data.error?.continuar) return response;
-        }
-        dispatch({
-          type: "SET_CONFIGURACIONES_REF",
-          payload: response.data,
-        });
-        dispatch({
-          type: "SET_CONFIGURACIONES",
-          payload: response.data.configuraciones,
-        });
-        dispatch({
-          type: "SET_OPCIONES_DE_PANTALLA",
-          payload: response.data.opciones,
-        });
-        dispatch({
-          type: "SET_PANTALLA",
-          payload: pantalla,
-        });
-        dispatch({
-          type: "SET_PANTALLA_ID",
-          payload: id,
-        });
+    (async () => {
+      await getConfiguracion(id_a, id, {})
+        .then((response) => {
+          if (response.status >= 400) {
+            requestErrorHandler(response);
+          }
+          // PantallaDispatch({
+          //   type: "SET_DATOS_CONF",
+          //   payload: { configuracion: response.data, idx: uuidv4() },
+          // });
 
-        setLoadingPantalla(false);
-        return response;
-      })
-      .then((response) => {
-        dispatch({
-          type: "ADD_SQL",
-          payload: response.data.sql,
+          // PantallaDispatch({
+          //   type: "ADD_SQL",
+          //   payload: response.data.sql,
+          // });
+        })
+
+        .catch((error) => {
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-        return;
-      });
-  }, [pantalla, id]);
+    })();
+  }, [configuraciones_ref[id_a]]);
 
-  //configuraciones opciones orden
-
-  return (
-    <PantallaContext.Provider
-      value={{
-        configuraciones: state.configuraciones,
-        opciones_de_pantalla: state.opciones_de_pantalla,
-        pantalla: state.pantalla,
-        pantalla_id: state.pantalla_id,
-        configuraciones_ref: state.configuraciones_ref,
-        configuraciones_ids: state.configuraciones_ids,
-        filtrosAplicados: state.filtrosAplicados,
-        PantallaDispatch: dispatch,
-        loadingPantalla,
-        sql: state.sql,
-      }}
-    >
-      <AlertasProvider>
-        <FuncionesProvider>
-          <Debugger />
-          <HeaderConf
-            opciones={state.opciones_de_pantalla}
-            className="configuracion_pantalla_titulo_principal"
-          />
-          <ModalProvider>
-            <div id={pantalla}>
-              {loadingPantalla ? (
-                <div style={{ width: "100%", textAlign: "center" }}>
-                  Cargando...
-                </div>
-              ) : (
-                state.configuraciones
-                  .sort((a, b) => a.opciones.orden - b.opciones.orden)
-                  .map((item, idx) => (
-                    <SwitchMaestro
-                      key={item.id_a}
-                      configuracion={item}
-                      id={id}
-                      idx={idx}
-                    />
-                  ))
-              )}
-            </div>
-            <GestorModales />
-          </ModalProvider>
-        </FuncionesProvider>
-      </AlertasProvider>
-    </PantallaContext.Provider>
-  );
+  return <></>;
 };
 
-export default Pantalla;
+export default PantallaModal;

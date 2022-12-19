@@ -352,7 +352,12 @@ export const FuncionesProvider = (props) => {
 
   const getConfiguracion = async (id_a, id, params) => {
     params.pantalla = id_a;
-    return axios.post(farmageo_api + "/config/" + pantalla, { id }, { params });
+    return axios
+      .post(farmageo_api + "/config/" + pantalla, { id }, { params })
+      .then((res) => {
+        console.log(res);
+        return res;
+      });
   };
 
   const checkID_A = (string) => {

@@ -1,8 +1,11 @@
-import React, { useReducer, useContext, createContext } from "react";
+import React, { useReducer, useContext, createContext, useMemo } from "react";
 import Modal from "../components/Modal";
+import PantallaModal from "../PantallaModal";
+import { v4 as uuidv4 } from "uuid";
+import Pantalla from "../Pantalla";
 
 const initialState = {
-  modales: [{ id_a: "UN_MODAL", open: false, data: {} }],
+  modales: [], // ejemplo : [{ id_a: "UN_MODAL", open: false, data: {} }],
   zIndex: 1000,
 };
 
@@ -22,7 +25,15 @@ export const ModalProvider = (props) => {
 
   return (
     <ModalesContext.Provider
-      value={{ state, abrirModal, modales: state.modales, cerrarModal }}
+      value={useMemo(() => {
+        return {
+          state,
+          abrirModal,
+          modales: state.modales,
+          cerrarModal,
+          dispatch,
+        };
+      }, [state])}
     >
       {props.children}
     </ModalesContext.Provider>
@@ -50,16 +61,13 @@ const ModalReducer = (state, action) => {
       return {
         ...state,
         modales: ns,
-        zIndex: state.zIndex + 1,
       };
 
     case "CLOSE_MODAL":
-      modal.open = false;
-      ns[mindex] = modal;
+      ns.splice(mindex, 1);
       return {
         ...state,
         modales: ns,
-        zIndex: state.zIndex - 1,
       };
     default:
       return state;
@@ -72,12 +80,16 @@ export const GestorModales = () => {
   return modales.map((m, i) => {
     return (
       <Modal
+        key={uuidv4()}
         open={m.open}
         modalContainerStyle={{}}
         zIndex={zIndex + i}
         handleClose={() => cerrarModal(m.id_a)}
         data={m.data}
-      ></Modal>
+      >
+        <Pantalla p={m.id_a} i={m.data.id} />
+        {/* <PantallaModal pantalla={m.id_a} id={m.data.id} /> */}
+      </Modal>
     );
   });
 };
