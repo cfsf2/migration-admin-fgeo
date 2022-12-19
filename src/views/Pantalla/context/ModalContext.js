@@ -1,15 +1,15 @@
 import React, { useReducer, useContext, createContext, useMemo } from "react";
 import Modal from "../components/Modal";
-import PantallaModal from "../PantallaModal";
 import { v4 as uuidv4 } from "uuid";
 import Pantalla from "../Pantalla";
+import PantallaModal from "../PantallaModal";
 
-const initialState = {
-  modales: [], // ejemplo : [{ id_a: "UN_MODAL", open: false, data: {} }],
-  zIndex: 1000,
+export const initialState = {
+  modales: [], // ejemplo : [{ id_a: "UN_MODAL", open: false, data: {}, zIndex }],
+  zIndex: 8000,
 };
 
-const ModalesContext = createContext();
+export const ModalesContext = createContext();
 export default ModalesContext;
 
 export const ModalProvider = (props) => {
@@ -23,6 +23,25 @@ export const ModalProvider = (props) => {
     dispatch({ type: "CLOSE_MODAL", payload: { id_a } });
   };
 
+  const addModal = (id_a) => {
+    dispatch({
+      type: "ADD_MODAL",
+      payload: {
+        id_a,
+        open: true,
+        data: {},
+        zIndex: state.modales.length + state.zIndex,
+      },
+    });
+  };
+
+  const getModal = (id_a) => {
+    const modal = state.modales.find((m) => m.id_a === id_a);
+
+    if (!modal) return {};
+    return modal;
+  };
+
   return (
     <ModalesContext.Provider
       value={useMemo(() => {
@@ -31,6 +50,8 @@ export const ModalProvider = (props) => {
           abrirModal,
           modales: state.modales,
           cerrarModal,
+          addModal,
+          getModal,
           dispatch,
         };
       }, [state])}
@@ -40,9 +61,9 @@ export const ModalProvider = (props) => {
   );
 };
 
-const ModalReducer = (state, action) => {
+export const ModalReducer = (state, action) => {
   const ns = state.modales;
-  let modal = ns.find((m) => m.id_a === action.payload.id_a);
+  let modal = {}; //ns.find((m) => m.id_a === action.payload.id_a);
   let mindex = ns.findIndex((m) => m.id_a === action.payload.id_a);
 
   switch (action.type) {
@@ -69,6 +90,7 @@ const ModalReducer = (state, action) => {
         ...state,
         modales: ns,
       };
+
     default:
       return state;
   }
@@ -87,8 +109,7 @@ export const GestorModales = () => {
         handleClose={() => cerrarModal(m.id_a)}
         data={m.data}
       >
-        <Pantalla p={m.id_a} i={m.data.id} />
-        {/* <PantallaModal pantalla={m.id_a} id={m.data.id} /> */}
+        <PantallaModal pantalla={m.id_a} id={m.data.id} />
       </Modal>
     );
   });

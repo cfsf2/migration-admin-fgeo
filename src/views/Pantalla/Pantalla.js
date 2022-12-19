@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer, useContext } from "react";
 import axios from "axios";
 
 import { farmageo_api } from "../../config";
+import { v4 as uuidv4 } from "uuid";
 
 import PantallaContext from "./context/PantallaContext";
 import { requestErrorHandler } from "./context/FuncionesContext";
@@ -25,11 +26,6 @@ const Pantalla = ({ p, i }) => {
 
   const params = new URLSearchParams(search);
   let id = params.get("id");
-
-  if (p) {
-    pantalla = p;
-    id = i;
-  }
 
   useEffect(() => {
     setLoadingPantalla(true);
@@ -102,13 +98,13 @@ const Pantalla = ({ p, i }) => {
       }}
     >
       <AlertasProvider>
-        <FuncionesProvider>
-          <Debugger />
-          <HeaderConf
-            opciones={state.opciones_de_pantalla}
-            className="configuracion_pantalla_titulo_principal"
-          />
-          <ModalProvider>
+        <ModalProvider>
+          <FuncionesProvider>
+            <Debugger />
+            <HeaderConf
+              opciones={state.opciones_de_pantalla}
+              className="configuracion_pantalla_titulo_principal"
+            />
             <div id={pantalla}>
               {loadingPantalla ? (
                 <div style={{ width: "100%", textAlign: "center" }}>
@@ -120,6 +116,7 @@ const Pantalla = ({ p, i }) => {
                   .map((item, idx) => (
                     <SwitchMaestro
                       key={item.id_a}
+                      _key={item.id_a}
                       configuracion={item}
                       id={id}
                       idx={idx}
@@ -127,9 +124,8 @@ const Pantalla = ({ p, i }) => {
                   ))
               )}
             </div>
-            <GestorModales />
-          </ModalProvider>
-        </FuncionesProvider>
+          </FuncionesProvider>
+        </ModalProvider>
       </AlertasProvider>
     </PantallaContext.Provider>
   );

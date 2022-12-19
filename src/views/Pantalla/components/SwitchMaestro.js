@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import SubPantalla from "../SubPantalla/SubPantalla";
 import { ListadoProvider } from "../Listado/Listado";
 import ConfigListado from "../Listado/components/ConfigListado";
@@ -6,12 +6,16 @@ import Vista from "../Vista/Vista";
 import ABMProvider from "../ABM/ABMProvider";
 import ABM from "../ABM/ABM";
 import { Redirect } from "react-router";
+import Modal from "./Modal";
+import ModalesContext from "../context/ModalContext";
+import PantallaContext from "../context/PantallaContext";
 
 //cabeceras data opciones
 const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
+  const modalContext = useContext(ModalesContext);
+  const pantallaContext = useContext(PantallaContext);
   const Componente = (() => {
-    // console.log("opciones", configuracion.opciones);
-
+    // console.log("opciones",configuracion.opciones    );
     switch (configuracion.opciones.tipo.id) {
       //Listado
       case 2:
@@ -48,6 +52,17 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
           />
         );
 
+      case 1:
+        return (
+          <SubPantalla
+            key={_key}
+            configuracion={configuracion}
+            id={id}
+            nollamar={true}
+            idx={idx}
+          />
+        );
+
       case 9:
         return (
           <ABMProvider
@@ -74,6 +89,28 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
         return <></>;
     }
   })();
+
+  if (configuracion.opciones.modal) {
+    const { getModal, cerrarModal } = modalContext;
+    const { PantallaDispatch } = pantallaContext;
+    const modal = getModal(configuracion.opciones.id_a);
+    return (
+      <Modal
+        open={modal.open}
+        modalContainerStyle={{}}
+        zIndex={1000}
+        handleClose={() => {
+          PantallaDispatch({
+            type: "KILL_CONFIGURACION",
+            payload: configuracion.opciones.id_a,
+          });
+          cerrarModal(configuracion.opciones.id_a);
+        }}
+      >
+        {Componente}
+      </Modal>
+    );
+  }
 
   return Componente;
 };

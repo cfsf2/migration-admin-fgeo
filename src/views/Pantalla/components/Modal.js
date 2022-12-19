@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import "../components/Pantalla.scss";
+import ModalesContext from "../context/ModalContext";
 
 export default function Modal({
   open,
@@ -10,6 +11,7 @@ export default function Modal({
   zIndex,
   data,
 }) {
+  const modalContext = useContext(ModalesContext);
   const d = open ? "block" : "none";
   modalContainerStyle.display = d;
 

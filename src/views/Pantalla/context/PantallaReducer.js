@@ -6,6 +6,24 @@ export default function PantallaReducer(state, action) {
         configuraciones: action.payload,
       };
 
+    case "ADD_CONFIGURACION":
+      let nc = state.configuraciones;
+      nc.push(action.payload);
+      return {
+        ...state,
+        configuraciones: nc,
+      };
+
+    case "KILL_CONFIGURACION":
+      let ncc = state.configuraciones;
+      let cindx = ncc.findIndex((c) => c.opciones.id_a === action.payload);
+      ncc.splice(cindx, 1);
+
+      return {
+        ...state,
+        configuraciones: ncc,
+      };
+
     case "SET_OPCIONES_DE_PANTALLA":
       return {
         ...state,

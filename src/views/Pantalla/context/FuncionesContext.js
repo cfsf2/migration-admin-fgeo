@@ -5,6 +5,7 @@ import axios from "axios";
 import AlertasContext from "./AlertaContext";
 import PantallaContext from "./PantallaContext";
 import Modal from "../components/Modal";
+import ModalesContext from "./ModalContext";
 const S = require("sweetalert2");
 
 const FuncionesContext = createContext();
@@ -49,6 +50,7 @@ export const FuncionesProvider = (props) => {
   const history = useHistory();
   const { ALERT } = useContext(AlertasContext);
   const { PantallaDispatch, pantalla } = useContext(PantallaContext);
+  const modalContext = useContext(ModalesContext);
 
   const pedirConfirmacion = async (props) => {
     const { cab, data } = props;
@@ -360,6 +362,16 @@ export const FuncionesProvider = (props) => {
       });
   };
 
+  const getPantalla = async (id_a, id, params) => {
+    params.pantalla = id_a;
+
+    return axios
+      .post(farmageo_api + "/pantalla/" + id_a, { id }, { params })
+      .then((res) => {
+        return res;
+      });
+  };
+
   const checkID_A = (string) => {
     const regex = new RegExp("(^[A-Z]+(_[A-Z]+)*)$", "g");
 
@@ -478,14 +490,12 @@ export const FuncionesProvider = (props) => {
     }
   };
 
-  const EscupirModal = (props) => {
-    const [open, setOpen] = useState(true);
-
-    return (
-      <Modal open={open} handleClose={() => setOpen((s) => !s)}>
-        Hola Soy modal
-      </Modal>
-    );
+  const escupirModal = async (id_a, data) => {
+    const conf = await getPantalla(id_a, data.id, data);
+    const { addModal } = modalContext;
+    conf.data.opciones.modal = true;
+    addModal(id_a);
+    PantallaDispatch({ type: "ADD_CONFIGURACION", payload: conf.data });
   };
 
   return (
@@ -507,7 +517,7 @@ export const FuncionesProvider = (props) => {
         ABMSubmit,
         subirArchivo,
         checkID_A,
-        EscupirModal,
+        escupirModal,
       }}
     >
       {props.children}
