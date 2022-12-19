@@ -115,7 +115,7 @@ const Pantalla = ({ p, i }) => {
                   .sort((a, b) => a.opciones.orden - b.opciones.orden)
                   .map((item, idx) => (
                     <SwitchMaestro
-                      key={item.id_a}
+                      key={item.opciones.id_a}
                       _key={item.id_a}
                       configuracion={item}
                       id={id}

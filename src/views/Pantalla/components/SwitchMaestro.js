@@ -97,7 +97,16 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
     return (
       <Modal
         open={modal.open}
-        modalContainerStyle={{}}
+        modalContainerStyle={{
+          top: "150px",
+          left: "250px",
+          width: "max-content",
+          maxWidth: "calc(100% - 400px)",
+          margin: "0 calc((100% - 400px)/20)",
+          padding: "0",
+          border: "2px white solid",
+          transform: "translate(0%, 0%)",
+        }}
         zIndex={1000}
         handleClose={() => {
           PantallaDispatch({

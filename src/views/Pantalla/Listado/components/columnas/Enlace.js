@@ -55,14 +55,7 @@ const Enlace = ({ data, cab, hijos, campokey }) => {
   if (cab.target === "modal") {
     return (
       <div
-        onClick={() =>
-          //  abrirModal(cab.enlace_id_a, paramObj)
-          //   dispatch({
-          //     type: "ADD_MODAL",
-          //     payload: { id_a: cab.enlace_id_a, open: true, data: paramObj },
-          //   })
-          escupirModal(cab.enlace_id_a, paramObj)
-        }
+        onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
         id="Listado_Switch_Enlace"
       >
         {cab.boton_texto_alias ? data[cab.boton_texto_alias] : cab.boton_texto}
