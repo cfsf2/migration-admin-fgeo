@@ -63,6 +63,41 @@ const Enlace = ({ data, cab, hijos, campokey }) => {
     );
   }
 
+  if (cab.target === "_blank") {
+    return (
+      <div id="Listado_Switch_Enlace">
+        <a
+          target="_blank"
+          href={process.env.PUBLIC_URL + "/#" + e + id_a + parametros}
+          rel="noopener noreferrer"
+        >
+          <div
+            style={{
+              textAlign: "center",
+            }}
+          >
+            {cab.imagen_url ? (
+              <img
+                style={{ cursor: "pointer" }}
+                height={"40px"}
+                src={cab.imagen_url}
+                alt="imagen"
+              />
+            ) : (
+              <>
+                {cab.boton_texto_alias
+                  ? data[cab.boton_texto_alias]
+                  : cab.boton_texto}
+              </>
+            )}
+
+            {hijos}
+          </div>
+        </a>
+      </div>
+    );
+  }
+
   return (
     <div id="Listado_Switch_Enlace">
       <Link
