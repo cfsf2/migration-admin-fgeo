@@ -60,6 +60,7 @@ const SwitchFiltros = (props) => {
           componente === "like" || componente === "autocompletar"
             ? "center"
             : "start",
+            gridArea: props.grid_area ?? "auto / auto"
       }}
     >
       <div style={{ gridColumn: props.grid_span ? props.grid_span : "1 / -1" }}>
