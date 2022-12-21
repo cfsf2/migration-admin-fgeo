@@ -20,7 +20,28 @@ export default function Modal({
         onClick={() => handleClose(false)}
         style={{ display: d, zIndex }}
       ></div>
+
       <div className="pantalla-modal-container" style={modalContainerStyle}>
+        <div
+          style={{
+            background: "white",
+            padding: "0.3rem 0 ",
+            display: "flex",
+            flexDirection: "row-reverse",
+          }}
+        >
+          <span
+            style={{
+              background: "lightgray",
+              fontSize: "14px",
+              padding: "0.3rem 0.6rem",
+              cursor: "pointer",
+            }}
+            onClick={() => handleClose(false)}
+          >
+            X
+          </span>
+        </div>
         {children}
       </div>
     </>,

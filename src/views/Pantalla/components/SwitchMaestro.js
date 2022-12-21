@@ -103,8 +103,9 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
           width: "max-content",
           maxWidth: "calc(100% - 400px)",
           margin: "0 calc((100% - 400px)/20)",
-          padding: "0",
-          border: "2px white solid",
+          padding: "5px",
+          background: "white",
+          borderRadius: "15px",
           transform: "translate(0%, 0%)",
         }}
         zIndex={1000}

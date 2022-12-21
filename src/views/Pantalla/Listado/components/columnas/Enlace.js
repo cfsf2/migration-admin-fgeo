@@ -1,11 +1,9 @@
 import React from "react";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ModalesContext from "../../../context/ModalContext";
 import FuncionesContext from "../../../context/FuncionesContext";
 
 const Enlace = ({ data, cab, hijos, campokey }) => {
-  const { abrirModal, dispatch } = useContext(ModalesContext);
   const { escupirModal } = useContext(FuncionesContext);
 
   const e = cab.enlace
@@ -58,7 +56,20 @@ const Enlace = ({ data, cab, hijos, campokey }) => {
         onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
         id="Listado_Switch_Enlace"
       >
-        {cab.boton_texto_alias ? data[cab.boton_texto_alias] : cab.boton_texto}
+        {cab.imagen_url ? (
+          <img
+            style={{ cursor: "pointer" }}
+            height={"40px"}
+            src={cab.imagen_url}
+            alt="imagen"
+          />
+        ) : (
+          <>
+            {cab.boton_texto_alias
+              ? data[cab.boton_texto_alias]
+              : cab.boton_texto}
+          </>
+        )}
       </div>
     );
   }
