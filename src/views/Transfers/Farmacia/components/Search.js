@@ -13,7 +13,7 @@ export default function Search(props) {
     let filteredProds = [];
 
     const startsWithProducts = allproducts.filter((prod) =>
-      prod.nombre.toLowerCase().startsWith(searchTerm)
+      prod.nombre.toLowerCase().includes(searchTerm) || prod.codigo.toLowerCase().includes(searchTerm)
     );
     ordenar(startsWithProducts, "nombre", 1);
     let includesProducts = [];
