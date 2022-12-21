@@ -42,12 +42,6 @@ const Enlace = ({ data, cab, hijos, campokey }) => {
     });
   }
 
-  // if (cab.enlace_id_a) {
-  //   return process.env.PUBLIC_URL + e + id_a + parametros;
-  // }
-  console.log("Enlace de Listado", cab.id_a);
-  // Si abre en Modal
-
   useEffect(() => {}, []);
 
   if (cab.target === "modal") {

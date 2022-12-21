@@ -2,7 +2,6 @@ import React, { useReducer, useContext, createContext, useMemo } from "react";
 import Modal from "../components/Modal";
 import { v4 as uuidv4 } from "uuid";
 import Pantalla from "../Pantalla";
-import PantallaModal from "../PantallaModal";
 
 export const initialState = {
   modales: [], // ejemplo : [{ id_a: "UN_MODAL", open: false, data: {}, zIndex }],
@@ -109,7 +108,7 @@ export const GestorModales = () => {
         handleClose={() => cerrarModal(m.id_a)}
         data={m.data}
       >
-        <PantallaModal pantalla={m.id_a} id={m.data.id} />
+        {/* <PantallaModal pantalla={m.id_a} id={m.data.id} /> */}
       </Modal>
     );
   });
