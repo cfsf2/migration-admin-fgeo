@@ -8,7 +8,7 @@ export default function Modal({
   children,
   modalContainerStyle,
   zIndex,
-  data,
+  data = { opciones: { id_a: "" } },
 }) {
   const d = open ? "block" : "none";
   modalContainerStyle.display = d;
