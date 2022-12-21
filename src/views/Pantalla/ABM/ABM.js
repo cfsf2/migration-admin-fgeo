@@ -154,11 +154,15 @@ const ABM = () => {
   };
 
   const gridcolumns = () => {
-    if (datos.length === 1) return "span 12";
+    if (datos.length === 1 || !!datos) return "span 12";
     return undefined;
   };
   return (
-    <Card id={opciones?.id_a} className="abm" style={{ gridColumn: "1/-1" }}>
+    <Card
+      id={opciones?.id_a}
+      className="abm"
+      style={{ gridColumn: gridcolumns() }}
+    >
       {opciones.titulo ? (
         <HeaderConf
           opciones={opciones}
