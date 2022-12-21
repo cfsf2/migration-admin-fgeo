@@ -158,7 +158,7 @@ const ABM = () => {
     return undefined;
   };
   return (
-    <Card id={opciones?.id_a} className="abm">
+    <Card id={opciones?.id_a} className="abm" style={{ gridColumn: "1/-1" }}>
       {opciones.titulo ? (
         <HeaderConf
           opciones={opciones}
