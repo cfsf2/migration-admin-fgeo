@@ -8,8 +8,9 @@ export default function Modal({
   children,
   modalContainerStyle,
   zIndex,
-  data = { opciones: { id_a: "" } },
+  data, //= { opciones: { id_a: "" } },
 }) {
+  console.log(open, handleClose, children, modalContainerStyle, zIndex, data);
   const d = open ? "block" : "none";
   modalContainerStyle.display = d;
 
@@ -40,6 +41,7 @@ export default function Modal({
             padding: "0.3rem 0 ",
             display: "flex",
             flexDirection: "row-reverse",
+            width: "100%",
           }}
         >
           <span

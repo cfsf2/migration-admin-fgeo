@@ -95,6 +95,10 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
     configuracion.opciones.modal ||
     getModal(configuracion.opciones.id_a).id_a
   ) {
+    console.log(
+      configuracion.opciones.modal,
+      getModal(configuracion.opciones.id_a)
+    );
     const { getModal, cerrarModal, zIndex } = modalContext;
     const { PantallaDispatch } = pantallaContext;
     const modal = getModal(configuracion.opciones.id_a);
