@@ -7,11 +7,52 @@ export default function PantallaReducer(state, action) {
       };
 
     case "ADD_CONFIGURACION":
+      // aniade conf para funcion de renderizado
       let nc = state.configuraciones;
       nc.push(action.payload);
+
+      // aniade conf para funcion refrescar
+      let nrc = { ...state.configuraciones_ref };
+      let nri = { ...state.configuraciones_ids };
+      (() => {
+        const data = action.payload;
+
+        nrc[data.opciones.id_a] = Number(1);
+        nri[data.opciones.id_a] = data.opciones.id;
+
+        const goConf = (cab) => {
+          if (!cab.sc_hijos) return;
+          return cab.sc_hijos?.forEach((sc) => {
+            nrc[sc.id_a] = Number(1);
+            nri[sc.id_a] = sc.id;
+            goConf(sc.sc_hijos);
+          });
+        };
+
+        data.configuraciones.forEach((c) => {
+          nrc[c.opciones.id_a] = Number(1);
+          nri[c.opciones.id_a] = c.opciones.id;
+
+          // eslint-disable-next-line no-unused-expressions
+          c.configuraciones?.forEach((sc) => {
+            nrc[sc.opciones.id_a] = Number(1);
+            nri[sc.opciones.id_a] = sc.opciones.id;
+            // eslint-disable-next-line no-unused-expressions
+            sc.cabeceras?.forEach((scc) => {
+              nrc[scc.id_a] = Number(1);
+              nri[scc.id_a] = scc.id;
+              goConf(scc);
+            });
+          });
+          return;
+        });
+      })();
+
       return {
         ...state,
         configuraciones: nc,
+        configuraciones_ref: nrc,
+        configuraciones_ids: nri,
       };
 
     case "KILL_CONFIGURACION":
@@ -111,8 +152,11 @@ export default function PantallaReducer(state, action) {
         ...state,
         filtrosAplicados: nuevosFiltros,
       };
+
     case "SET_DATOS_CONF":
       const newState = { ...state };
+
+      console.log(action);
 
       newState.configuraciones[action.payload.idx] =
         action.payload.configuracion;
@@ -137,6 +181,7 @@ export const initialState = {
   configuraciones: [],
   opciones_de_pantalla: {},
   configuraciones_ref: {},
+  configuraciones_ids: {},
   filtrosAplicados: {},
   sql: [],
 };

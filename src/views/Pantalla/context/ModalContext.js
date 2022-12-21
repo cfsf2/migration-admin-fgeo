@@ -22,13 +22,14 @@ export const ModalProvider = (props) => {
     dispatch({ type: "CLOSE_MODAL", payload: { id_a } });
   };
 
-  const addModal = (id_a) => {
+  const addModal = ({ id_a, data, parametro_id }) => {
     dispatch({
       type: "ADD_MODAL",
       payload: {
         id_a,
         open: true,
-        data: {},
+        data,
+        parametro_id,
         zIndex: state.modales.length + state.zIndex,
       },
     });
@@ -46,8 +47,9 @@ export const ModalProvider = (props) => {
       value={useMemo(() => {
         return {
           state,
-          abrirModal,
           modales: state.modales,
+          zIndex: state.zIndex,
+          abrirModal,
           cerrarModal,
           addModal,
           getModal,
@@ -81,6 +83,7 @@ export const ModalReducer = (state, action) => {
       return {
         ...state,
         modales: ns,
+        zIndex: state.zIndex + state.modales.length,
       };
 
     case "CLOSE_MODAL":

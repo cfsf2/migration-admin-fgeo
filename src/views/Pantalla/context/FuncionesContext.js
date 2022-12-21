@@ -49,7 +49,8 @@ export const requestErrorHandler = async (res) => {
 export const FuncionesProvider = (props) => {
   const history = useHistory();
   const { ALERT } = useContext(AlertasContext);
-  const { PantallaDispatch, pantalla } = useContext(PantallaContext);
+  const { PantallaDispatch, pantalla, configuraciones } =
+    useContext(PantallaContext);
   const modalContext = useContext(ModalesContext);
 
   const pedirConfirmacion = async (props) => {
@@ -357,7 +358,7 @@ export const FuncionesProvider = (props) => {
     return axios
       .post(farmageo_api + "/config/" + pantalla, { id }, { params })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         return res;
       });
   };
@@ -494,7 +495,12 @@ export const FuncionesProvider = (props) => {
     const conf = await getPantalla(id_a, data.id, data);
     const { addModal } = modalContext;
     conf.data.opciones.modal = true;
-    addModal(id_a);
+    addModal({
+      id_a,
+      data,
+      parametro_id: data.id,
+      idx: configuraciones.length,
+    });
     PantallaDispatch({ type: "ADD_CONFIGURACION", payload: conf.data });
   };
 

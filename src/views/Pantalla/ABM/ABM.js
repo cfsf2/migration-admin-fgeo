@@ -170,16 +170,13 @@ const ABM = () => {
       <Card className="abm_campos" style={{ display: "grid" }}>
         {datos.length === 0
           ? cabeceras.map((cab, i) => (
-              <div key={JSON.stringify(cab)} className="abm_campos_inputs_grid">
-                {" "}
-                <SwitchABM
-                  data={{}}
-                  cab={cab}
-                  error={error}
-                  setError={setError}
-                  key={cab.id_a + i}
-                />
-              </div>
+              <SwitchABM
+                data={{}}
+                cab={cab}
+                error={error}
+                setError={setError}
+                key={cab.id_a + i}
+              />
             ))
           : datos.map((dato, indiceData) => (
               <div

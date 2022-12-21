@@ -13,9 +13,10 @@ import PantallaContext from "../context/PantallaContext";
 //cabeceras data opciones
 const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
   const modalContext = useContext(ModalesContext);
+  const { getModal } = modalContext;
+
   const pantallaContext = useContext(PantallaContext);
-  const Componente = (() => {
-    // console.log("opciones",configuracion.opciones    );
+  const calcComponente = ({ configuracion, id, _key, nollamar, idx }) => {
     switch (configuracion.opciones.tipo.id) {
       //Listado
       case 2:
@@ -58,7 +59,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
             key={_key}
             configuracion={configuracion}
             id={id}
-            nollamar={true}
+            nollamar={nollamar}
             idx={idx}
           />
         );
@@ -88,12 +89,26 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
       default:
         return <></>;
     }
-  })();
+  };
 
-  if (configuracion.opciones.modal) {
-    const { getModal, cerrarModal } = modalContext;
+  if (
+    configuracion.opciones.modal ||
+    getModal(configuracion.opciones.id_a).id_a
+  ) {
+    const { getModal, cerrarModal, zIndex } = modalContext;
     const { PantallaDispatch } = pantallaContext;
     const modal = getModal(configuracion.opciones.id_a);
+
+    const cfg = configuracion;
+    cfg.opciones.modal = false;
+
+    const ComponenteParaModal = calcComponente({
+      configuracion,
+      id: modal.parametro_id,
+      _key: "modal" + zIndex,
+      nollamar,
+    });
+
     return (
       <Modal
         open={modal.open}
@@ -116,12 +131,13 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
           });
           cerrarModal(configuracion.opciones.id_a);
         }}
+        data={configuracion}
       >
-        {Componente}
+        {ComponenteParaModal}
       </Modal>
     );
   }
-
+  const Componente = calcComponente({ configuracion, id, _key, nollamar, idx });
   return Componente;
 };
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "../components/Pantalla.scss";
 
@@ -13,6 +13,14 @@ export default function Modal({
   const d = open ? "block" : "none";
   modalContainerStyle.display = d;
 
+  useEffect(() => {
+    const M = document.getElementById(data.opciones.id_a);
+
+    if (M) {
+      M.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [data.opciones.id_a]);
+
   return ReactDOM.createPortal(
     <>
       <div
@@ -21,7 +29,11 @@ export default function Modal({
         style={{ display: d, zIndex }}
       ></div>
 
-      <div className="pantalla-modal-container" style={modalContainerStyle}>
+      <div
+        id={data.opciones.id_a}
+        className="pantalla-modal-container"
+        style={modalContainerStyle}
+      >
         <div
           style={{
             background: "white",

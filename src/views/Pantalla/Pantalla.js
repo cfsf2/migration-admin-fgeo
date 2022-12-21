@@ -16,7 +16,7 @@ import { ModalProvider, GestorModales } from "./context/ModalContext";
 
 import Debugger from "./components/Debugger";
 
-const Pantalla = ({ p, i }) => {
+const Pantalla = () => {
   const [state, dispatch] = useReducer(PantallaReducer, initialState);
 
   let { pantalla } = useParams();
@@ -113,15 +113,17 @@ const Pantalla = ({ p, i }) => {
               ) : (
                 state.configuraciones
                   .sort((a, b) => a.opciones.orden - b.opciones.orden)
-                  .map((item, idx) => (
-                    <SwitchMaestro
-                      key={item.opciones.id_a}
-                      _key={item.id_a}
-                      configuracion={item}
-                      id={id}
-                      idx={idx}
-                    />
-                  ))
+                  .map((item, idx) => {
+                    return (
+                      <SwitchMaestro
+                        key={item.opciones.id_a}
+                        _key={item.id_a}
+                        configuracion={item}
+                        id={id}
+                        idx={idx}
+                      />
+                    );
+                  })
               )}
             </div>
           </FuncionesProvider>
