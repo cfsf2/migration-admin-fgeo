@@ -60,7 +60,7 @@ const ABM = () => {
 
   let { urlParams: parametros, ui } = getUrlParamsToObject(useLocation);
 
-  if (getModal(id_a)) {
+  if (getModal(id_a).id_a) {
     parametros = params;
   }
 
