@@ -17,7 +17,8 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   myComponent: {
     "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
-      top: "-3px",
+      top: "-4px",
+      bottom: "-1px",
     },
   },
 });
