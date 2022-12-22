@@ -60,8 +60,10 @@ const ABM = () => {
 
   let { urlParams: parametros, ui } = getUrlParamsToObject(useLocation);
 
-  if (getModal(id_a).id_a) {
-    parametros = params;
+  if (params) {
+    Object.keys(params).forEach((k) => {
+      parametros[k] = params[k];
+    });
   }
 
   useEffect(() => {
