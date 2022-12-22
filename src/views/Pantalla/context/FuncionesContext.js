@@ -495,6 +495,7 @@ export const FuncionesProvider = (props) => {
     const conf = await getPantalla(id_a, data.id, data);
     const { addModal } = modalContext;
     conf.data.opciones.modal = true;
+
     addModal({
       id_a,
       data,

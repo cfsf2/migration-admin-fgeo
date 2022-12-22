@@ -8,6 +8,7 @@ import SwitchMaestro from "../components/SwitchMaestro";
 
 import { Card } from "reactstrap";
 import HeaderConf from "../components/HeaderConf";
+import ModalesContext from "../context/ModalContext";
 
 const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
   const id_a = configuracion.opciones.id_a;
@@ -15,6 +16,7 @@ const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
   const { configuraciones_ref, PantallaDispatch } = useContext(PantallaContext);
   const { getConfiguracion, requestErrorHandler } =
     useContext(FuncionesContext);
+  const { getModal } = useContext(ModalesContext);
 
   const [loadingPantalla, setLoadingPantalla] = useState(false);
 
@@ -58,14 +60,17 @@ const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
 
   const ConfiguracionesComponentes = subPantallaConfs.configuraciones
     .sort((a, b) => a.opciones.orden - b.opciones.orden)
-    .map((item) => (
-      <SwitchMaestro
-        key={id_a}
-        configuracion={item}
-        id={id}
-        nollamar={nollamar}
-      />
-    ));
+    .map((item) => {
+      return (
+        <SwitchMaestro
+          key={id_a}
+          configuracion={item}
+          id={id}
+          nollamar={nollamar}
+          params={getModal(id_a).data}
+        />
+      );
+    });
 
   if (subPantallaConfs.opciones.display_container !== "s") {
     return <></>;

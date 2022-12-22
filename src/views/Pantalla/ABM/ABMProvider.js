@@ -4,11 +4,13 @@ import ABMContext from "./context/ABMContext";
 import ABMReducer, { initialState } from "./context/ABMReducer";
 import PantallaContext from "../context/PantallaContext";
 import FuncionesContext from "../context/FuncionesContext";
+import ModalesContext from "../context/ModalContext";
 
-const ABMProvider = ({ configuracion, id, children, nollamar }) => {
+const ABMProvider = ({ configuracion, id, children, nollamar, params }) => {
   const { configuraciones_ref, loadingPantalla } = useContext(PantallaContext);
   const { getConfiguracion, ABMSubmit, requestErrorHandler } =
     useContext(FuncionesContext);
+  const { getModal } = useContext(ModalesContext);
 
   const [state, dispatch] = useReducer(ABMReducer, initialState);
   const [load, setLoad] = useState(true);
@@ -126,6 +128,8 @@ const ABMProvider = ({ configuracion, id, children, nollamar }) => {
         state,
         id,
         loading: state.loading,
+        params,
+        id_a,
         ABMDispatch: dispatch,
         Dispatch: dispatch,
         callAPI,

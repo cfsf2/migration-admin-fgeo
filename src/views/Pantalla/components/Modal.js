@@ -10,7 +10,6 @@ export default function Modal({
   zIndex,
   data, //= { opciones: { id_a: "" } },
 }) {
-  console.log(open, handleClose, children, modalContainerStyle, zIndex, data);
   const d = open ? "block" : "none";
   modalContainerStyle.display = d;
 

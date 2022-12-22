@@ -8,6 +8,7 @@ import { useLocation } from "react-router";
 
 import { Card } from "react-bootstrap";
 import "./abm.scss";
+import ModalesContext from "../context/ModalContext";
 
 const hashCode = function (string) {
   var hash = 0,
@@ -49,12 +50,19 @@ const ABM = () => {
     id,
     opciones,
     Dispatch,
+    id_a,
+    params,
   } = useContext(ABMContext);
+  const { getModal } = useContext(ModalesContext);
 
   const [requeridos, setRequeridos] = useState([]);
   const [error, setError] = useState({});
 
-  const { urlParams: parametros, ui } = getUrlParamsToObject(useLocation);
+  let { urlParams: parametros, ui } = getUrlParamsToObject(useLocation);
+
+  if (getModal(id_a)) {
+    parametros = params;
+  }
 
   useEffect(() => {
     cabeceras

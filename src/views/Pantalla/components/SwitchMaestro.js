@@ -5,18 +5,25 @@ import ConfigListado from "../Listado/components/ConfigListado";
 import Vista from "../Vista/Vista";
 import ABMProvider from "../ABM/ABMProvider";
 import ABM from "../ABM/ABM";
-import { Redirect } from "react-router";
+import { Redirect, useLocation } from "react-router";
 import Modal from "./Modal";
 import ModalesContext from "../context/ModalContext";
 import PantallaContext from "../context/PantallaContext";
 
 //cabeceras data opciones
-const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
+const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx, params }) => {
   const modalContext = useContext(ModalesContext);
   const { getModal } = modalContext;
 
   const pantallaContext = useContext(PantallaContext);
-  const calcComponente = ({ configuracion, id, _key, nollamar, idx }) => {
+  const calcComponente = ({
+    configuracion,
+    id,
+    _key,
+    nollamar,
+    idx,
+    params,
+  }) => {
     switch (configuracion.opciones.tipo.id) {
       //Listado
       case 2:
@@ -27,6 +34,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
             id={id}
             nollamar={nollamar}
             idx={idx}
+            params={params}
           >
             <ConfigListado />
           </ListadoProvider>
@@ -40,6 +48,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
             id={id}
             nollamar={nollamar}
             idx={idx}
+            params={params}
           />
         );
       case 7:
@@ -50,6 +59,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
             id={id}
             nollamar={nollamar}
             idx={idx}
+            params={params}
           />
         );
 
@@ -61,6 +71,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
             id={id}
             nollamar={nollamar}
             idx={idx}
+            params={params}
           />
         );
 
@@ -72,6 +83,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
             id={id}
             nollamar={nollamar}
             idx={idx}
+            params={params}
           >
             <ABM />
           </ABMProvider>
@@ -95,22 +107,19 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
     configuracion.opciones.modal ||
     getModal(configuracion.opciones.id_a).id_a
   ) {
-    console.log(
-      configuracion.opciones.modal,
-      getModal(configuracion.opciones.id_a)
-    );
     const { getModal, cerrarModal, zIndex } = modalContext;
     const { PantallaDispatch } = pantallaContext;
     const modal = getModal(configuracion.opciones.id_a);
 
-    const cfg = configuracion;
-    cfg.opciones.modal = false;
+    // const cfg = configuracion;
+    // cfg.opciones.modal = false;
 
     const ComponenteParaModal = calcComponente({
       configuracion,
       id: modal.parametro_id,
       _key: "modal" + zIndex,
       nollamar,
+      params: modal.data,
     });
 
     return (
@@ -141,7 +150,14 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx }) => {
       </Modal>
     );
   }
-  const Componente = calcComponente({ configuracion, id, _key, nollamar, idx });
+  const Componente = calcComponente({
+    configuracion,
+    id,
+    _key,
+    nollamar,
+    idx,
+    params,
+  });
   return Componente;
 };
 

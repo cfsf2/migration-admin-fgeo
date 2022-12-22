@@ -42,9 +42,10 @@ const Enlace = ({ data, cab, hijos, campokey }) => {
     });
   }
 
-  useEffect(() => {}, []);
-
   if (cab.target === "modal") {
+    if (cab.id_a === "PAL_L_BOTON_NUEVO_APM") {
+      // console.log("Comp, Enlace:", paramObj, cab.id_a);
+    }
     return (
       <div
         onClick={() => escupirModal(cab.enlace_id_a, paramObj)}

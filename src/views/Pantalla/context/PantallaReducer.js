@@ -156,8 +156,6 @@ export default function PantallaReducer(state, action) {
     case "SET_DATOS_CONF":
       const newState = { ...state };
 
-      console.log(action);
-
       newState.configuraciones[action.payload.idx] =
         action.payload.configuracion;
 
