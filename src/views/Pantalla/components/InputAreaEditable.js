@@ -83,7 +83,7 @@ const InputAreaEditable = ({
 
   return (
     <div className="tarjeta_grid_item_label_item">
-      <div className="vista_label">{nombre}:</div>
+      {nombre ? <div className="vista_label">{nombre}:</div> : <></>}
       {type === "number" ? (
         <TextField
           id={cab.id_a}

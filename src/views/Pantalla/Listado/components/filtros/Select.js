@@ -25,7 +25,7 @@ export const SelectF = (props) => {
           permite_null={props.permite_null}
         />
         <Select
-          style={{ width: "95%"}}
+          style={{ width: "95%", height: "49px" }}
           defaultValue={props.default}
           variant="standard"
           onChange={(e) => {

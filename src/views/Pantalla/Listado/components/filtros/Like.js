@@ -40,11 +40,11 @@ const Like = (props) => {
 
   return (
     <div>
-      {/* <Label
+      <Label
         label={props.label}
         opcionales_null={props.opcionales_null}
         permite_null={props.permite_null}
-      /> */}
+      />
       <TextField
         id={id}
         type="text"

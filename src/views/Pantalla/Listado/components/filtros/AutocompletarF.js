@@ -12,6 +12,17 @@ import { useTheme, styled } from "@mui/material/styles";
 import { VariableSizeList } from "react-window";
 import Typography from "@mui/material/Typography";
 
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  myComponent: {
+    "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+      top: "-4px",
+      bottom: "-1px",
+    },
+  },
+});
+
 const LISTBOX_PADDING = 8; // px
 
 function renderRow(props) {
@@ -136,6 +147,8 @@ export default function Virtualize(props) {
     placeholder: props.placeholder,
   };
 
+  const classes = useStyles();
+
   return (
     <>
       {/* <Label
@@ -145,7 +158,7 @@ export default function Virtualize(props) {
       /> */}
       <Autocomplete
         id="virtualize-demo"
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", marginTop: "25.1px" }}
         disableListWrap
         //disableClearable
         PopperComponent={StyledPopper}
@@ -157,7 +170,11 @@ export default function Virtualize(props) {
           return option.label[0].toUpperCase();
         }}
         renderInput={(params) => (
-          <TextField {...params} label={cab.placeholder} />
+          <TextField
+            {...params}
+            label={cab.placeholder}
+            className={classes.myComponent}
+          />
         )}
         renderOption={(props, option) => [props, option.label]}
         // TODO: Post React 18 update - validate this conversion, look like a hidden bug
