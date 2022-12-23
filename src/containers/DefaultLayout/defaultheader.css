@@ -13,8 +13,27 @@
   right: 30px;
 }
 
+.ca-whatsapp > a {
+  color: white;
+}
+
 .icon-wp {
   position: relative;
   top: 5px;
   left: 1.25px;
+}
+
+.style-background-alt-img {
+  position: fixed;
+  height: 50px;
+  bottom: -5px;
+  z-index: 100;
+  right: 20px;
+}
+
+.atl-img {
+  width: 15rem;
+  position: absolute;
+  bottom: -10px;
+  right: -5px;
 }

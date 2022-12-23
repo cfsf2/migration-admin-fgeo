@@ -70,7 +70,7 @@ class DefaultHeader extends Component {
           <p style={{ margin: "0 5px", padding: "10px" }}>
             {user_display_name}
           </p>
-          {IS_FARMACIA && <BotonWhatsapp />}
+          {IS_FARMACIA && <BotonWhatsapp nroContacto='3412104056' />}
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
               <i className="icon-user"></i>
