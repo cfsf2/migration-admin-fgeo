@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "../components/Pantalla.scss";
 
@@ -7,18 +7,54 @@ export default function Modal({
   handleClose,
   children,
   modalContainerStyle,
+  zIndex,
+  data, //= { opciones: { id_a: "" } },
 }) {
   const d = open ? "block" : "none";
   modalContainerStyle.display = d;
+
+  useEffect(() => {
+    const M = document.getElementById(data.opciones.id_a);
+
+    if (M) {
+      M.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [data.opciones.id_a]);
 
   return ReactDOM.createPortal(
     <>
       <div
         className="pantalla-fondo-modal"
         onClick={() => handleClose(false)}
-        style={{ display: d }}
+        style={{ display: d, zIndex }}
       ></div>
-      <div className="pantalla-modal-container" style={modalContainerStyle}>
+
+      <div
+        id={data.opciones.id_a}
+        className="pantalla-modal-container"
+        style={modalContainerStyle}
+      >
+        <div
+          style={{
+            background: "white",
+            padding: "0.3rem 0 ",
+            display: "flex",
+            flexDirection: "row-reverse",
+            width: "100%",
+          }}
+        >
+          <span
+            style={{
+              background: "lightgray",
+              fontSize: "14px",
+              padding: "0.3rem 0.6rem",
+              cursor: "pointer",
+            }}
+            onClick={() => handleClose(false)}
+          >
+            X
+          </span>
+        </div>
         {children}
       </div>
     </>,

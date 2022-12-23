@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import FuncionesContext from "../../../context/FuncionesContext";
 
 const Enlace = ({ data, cab, hijos, campokey }) => {
+  const { escupirModal } = useContext(FuncionesContext);
   const e = cab.enlace
     ? cab.enlace_alias
       ? data[cab.enlace_alias]
@@ -29,16 +31,77 @@ const Enlace = ({ data, cab, hijos, campokey }) => {
     : "";
 
   let parametros = "";
+  let paramObj = {};
   if (parametros_valores && en) {
     parametros = "?";
     parametros_valores.forEach((qP, i) => {
       parametros = parametros.concat("&" + en[i] + "=" + qP);
+      paramObj[en[i]] = qP;
     });
   }
 
   // if (cab.enlace_id_a) {
   //   return process.env.PUBLIC_URL + e + id_a + parametros;
   // }
+
+  if (cab.target === "modal") {
+    return (
+      <div
+        onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
+        id="Listado_Switch_Enlace"
+      >
+        {cab.imagen_url ? (
+          <img
+            style={{ cursor: "pointer" }}
+            height={"40px"}
+            src={cab.imagen_url}
+            alt="imagen"
+          />
+        ) : (
+          <>
+            {cab.boton_texto_alias
+              ? data[cab.boton_texto_alias]
+              : cab.boton_texto}
+          </>
+        )}
+      </div>
+    );
+  }
+
+  if (cab.target === "_blank") {
+    return (
+      <div id="Listado_Switch_Enlace">
+        <a
+          target="_blank"
+          href={process.env.PUBLIC_URL + "/#" + e + id_a + parametros}
+          rel="noopener noreferrer"
+        >
+          <div
+            style={{
+              textAlign: "center",
+            }}
+          >
+            {cab.imagen_url ? (
+              <img
+                style={{ cursor: "pointer" }}
+                height={"40px"}
+                src={cab.imagen_url}
+                alt="imagen"
+              />
+            ) : (
+              <>
+                {cab.boton_texto_alias
+                  ? data[cab.boton_texto_alias]
+                  : cab.boton_texto}
+              </>
+            )}
+
+            {hijos}
+          </div>
+        </a>
+      </div>
+    );
+  }
 
   return (
     <div id="Vista_Switch_Enlace">

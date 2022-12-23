@@ -1,20 +1,22 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import PantallaContext from "../context/PantallaContext";
 import FuncionesContext from "../context/FuncionesContext";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 
 import SwitchMaestro from "../components/SwitchMaestro";
 
 import { Card } from "reactstrap";
 import HeaderConf from "../components/HeaderConf";
+import ModalesContext from "../context/ModalContext";
 
-const SubPantalla = ({ configuracion, id, nollamar, idx, key }) => {
+const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
   const id_a = configuracion.opciones.id_a;
-  const uuid = useRef(uuidv4());
+
   const { configuraciones_ref, PantallaDispatch } = useContext(PantallaContext);
   const { getConfiguracion, requestErrorHandler } =
     useContext(FuncionesContext);
+  const { getModal } = useContext(ModalesContext);
 
   const [loadingPantalla, setLoadingPantalla] = useState(false);
 
@@ -33,6 +35,7 @@ const SubPantalla = ({ configuracion, id, nollamar, idx, key }) => {
           if (response.status >= 400) {
             requestErrorHandler(response);
           }
+
           PantallaDispatch({
             type: "SET_DATOS_CONF",
             payload: { configuracion: response.data, idx },
@@ -57,32 +60,35 @@ const SubPantalla = ({ configuracion, id, nollamar, idx, key }) => {
 
   const ConfiguracionesComponentes = subPantallaConfs.configuraciones
     .sort((a, b) => a.opciones.orden - b.opciones.orden)
-    .map((item) => (
-      <SwitchMaestro
-        _key={id_a}
-        configuracion={item}
-        id={id}
-        nollamar={nollamar}
-      />
-    ));
+    .map((item) => {
+      return (
+        <SwitchMaestro
+          key={id_a}
+          configuracion={item}
+          id={id}
+          nollamar={nollamar}
+          params={getModal(id_a).data}
+        />
+      );
+    });
 
-  if (configuracion.opciones.display_container !== "s") {
+  if (subPantallaConfs.opciones.display_container !== "s") {
     return <></>;
   }
 
   return (
     <Card
       id={id_a}
-      key={key}
       className={id_a + "_CONTENEDOR"}
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(12, 1fr)",
+        gridColumn: subPantallaConfs.opciones.gridSpan ?? "1/-1",
         border: "none",
       }}
     >
       <HeaderConf
-        opciones={configuracion.opciones}
+        opciones={subPantallaConfs.opciones}
         className="configuracion_pantalla_titulo_secundario"
       />
 

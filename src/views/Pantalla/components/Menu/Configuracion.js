@@ -39,7 +39,8 @@ const Configuracion = ({ opciones }) => {
       <MemoizedModal
         open={mostrarConfiguracion}
         handleClose={setMostrarConfiguracion}
-        modalContainerStyle={{ top: "55px" }}
+        modalContainerStyle={{ top: "100px" }}
+        data={{ opciones: Contenedor }}
       >
         <MenuConfDeUsuario contenedor={Contenedor} />
       </MemoizedModal>

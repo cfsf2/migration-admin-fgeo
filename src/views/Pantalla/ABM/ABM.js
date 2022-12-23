@@ -8,6 +8,7 @@ import { useLocation } from "react-router";
 
 import { Card } from "react-bootstrap";
 import "./abm.scss";
+import ModalesContext from "../context/ModalContext";
 
 const hashCode = function (string) {
   var hash = 0,
@@ -49,12 +50,21 @@ const ABM = () => {
     id,
     opciones,
     Dispatch,
+    id_a,
+    params,
   } = useContext(ABMContext);
+  const { getModal } = useContext(ModalesContext);
 
   const [requeridos, setRequeridos] = useState([]);
   const [error, setError] = useState({});
 
-  const { urlParams: parametros, ui } = getUrlParamsToObject(useLocation);
+  let { urlParams: parametros, ui } = getUrlParamsToObject(useLocation);
+
+  if (params) {
+    Object.keys(params).forEach((k) => {
+      parametros[k] = params[k];
+    });
+  }
 
   useEffect(() => {
     cabeceras
@@ -154,11 +164,15 @@ const ABM = () => {
   };
 
   const gridcolumns = () => {
-    if (datos.length === 1) return "span 12";
+    if (datos.length === 1 || !!datos) return "span 12";
     return undefined;
   };
   return (
-    <Card id={opciones?.id_a} className="abm">
+    <Card
+      id={opciones?.id_a}
+      className="abm"
+      style={{ gridColumn: gridcolumns() }}
+    >
       {opciones.titulo ? (
         <HeaderConf
           opciones={opciones}
@@ -170,16 +184,13 @@ const ABM = () => {
       <Card className="abm_campos" style={{ display: "grid" }}>
         {datos.length === 0
           ? cabeceras.map((cab, i) => (
-              <div key={JSON.stringify(cab)} className="abm_campos_inputs_grid">
-                {" "}
-                <SwitchABM
-                  data={{}}
-                  cab={cab}
-                  error={error}
-                  setError={setError}
-                  key={cab.id_a + i}
-                />
-              </div>
+              <SwitchABM
+                data={{}}
+                cab={cab}
+                error={error}
+                setError={setError}
+                key={cab.id_a + i}
+              />
             ))
           : datos.map((dato, indiceData) => (
               <div

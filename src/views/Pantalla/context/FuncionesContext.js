@@ -1,9 +1,11 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Redirect, useHistory } from "react-router";
 import { farmageo_api } from "../../../config";
 import axios from "axios";
 import AlertasContext from "./AlertaContext";
 import PantallaContext from "./PantallaContext";
+import Modal from "../components/Modal";
+import ModalesContext from "./ModalContext";
 const S = require("sweetalert2");
 
 const FuncionesContext = createContext();
@@ -47,7 +49,9 @@ export const requestErrorHandler = async (res) => {
 export const FuncionesProvider = (props) => {
   const history = useHistory();
   const { ALERT } = useContext(AlertasContext);
-  const { PantallaDispatch, pantalla } = useContext(PantallaContext);
+  const { PantallaDispatch, pantalla, configuraciones } =
+    useContext(PantallaContext);
+  const modalContext = useContext(ModalesContext);
 
   const pedirConfirmacion = async (props) => {
     const { cab, data } = props;
@@ -351,7 +355,22 @@ export const FuncionesProvider = (props) => {
 
   const getConfiguracion = async (id_a, id, params) => {
     params.pantalla = id_a;
-    return axios.post(farmageo_api + "/config/" + pantalla, { id }, { params });
+    return axios
+      .post(farmageo_api + "/config/" + pantalla, { id }, { params })
+      .then((res) => {
+        //console.log(res);
+        return res;
+      });
+  };
+
+  const getPantalla = async (id_a, id, params) => {
+    params.pantalla = id_a;
+
+    return axios
+      .post(farmageo_api + "/pantalla/" + id_a, { id }, { params })
+      .then((res) => {
+        return res;
+      });
   };
 
   const checkID_A = (string) => {
@@ -472,6 +491,20 @@ export const FuncionesProvider = (props) => {
     }
   };
 
+  const escupirModal = async (id_a, data) => {
+    const conf = await getPantalla(id_a, data.id, data);
+    const { addModal } = modalContext;
+    conf.data.opciones.modal = true;
+
+    addModal({
+      id_a,
+      data,
+      parametro_id: data.id,
+      idx: configuraciones.length,
+    });
+    PantallaDispatch({ type: "ADD_CONFIGURACION", payload: conf.data });
+  };
+
   return (
     <FuncionesContext.Provider
       value={{
@@ -490,6 +523,8 @@ export const FuncionesProvider = (props) => {
         superSubmit,
         ABMSubmit,
         subirArchivo,
+        checkID_A,
+        escupirModal,
       }}
     >
       {props.children}

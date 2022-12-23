@@ -11,6 +11,8 @@ import ReactDOM from "react-dom";
 import PantallaContext from "../context/PantallaContext";
 import { Link } from "react-router-dom";
 
+import { v4 as uuidv4 } from "uuid";
+
 import Draggable from "./Draggable";
 
 const Debugger = () => {
@@ -51,7 +53,7 @@ const Debugger = () => {
   if (sql.length === 0) return <></>;
 
   const element = (
-    <Draggable top="100px" left="250px">
+    <Draggable top="100px" left="80vw">
       <button
         onClick={() => {
           setDisplaysql((s) => !s);
@@ -98,18 +100,21 @@ const Debugger = () => {
         id={id}
         ref={ref}
       >
-        <code style={{ display: displaysql ? "inherit" : "none" }}>
+        <code
+          key={uuidv4()}
+          style={{ display: displaysql ? "inherit" : "none" }}
+        >
           {sql.map((s) => {
             if (!s) return <></>;
             if (s.conf === "Separador")
               return (
-                <div style={{ marginTop: "0.8rem" }}>
+                <div key={uuidv4()} style={{ marginTop: "0.8rem" }}>
                   <hr />
                   <h5>{s.sql}</h5>
                 </div>
               );
             return (
-              <div style={{ fontSize: "1rem" }}>
+              <div key={uuidv4()} style={{ fontSize: "1rem" }}>
                 <Link
                   to={{
                     pathname: "Vista/PANTALLA_VISTA_CONFIGURACION",
@@ -127,6 +132,7 @@ const Debugger = () => {
           })}
         </code>
         <code
+          key={uuidv4()}
           style={{
             display: displayarbol ? "inherit" : "none",
             marginTop: "0.8rem",
@@ -135,7 +141,7 @@ const Debugger = () => {
           {configuraciones_ids ? (
             Object.keys(configuraciones_ids).map((k) => {
               return (
-                <div style={{ fontSize: "0.8rem" }}>
+                <div key={uuidv4()} style={{ fontSize: "0.8rem" }}>
                   <Link
                     to={{
                       pathname: "Vista/PANTALLA_VISTA_CONFIGURACION",

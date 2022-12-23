@@ -127,6 +127,9 @@ function DefaultLayout(props) {
         if (v.id_a === "TITLE") {
           this.title = true;
         }
+      } else if (k === "id_a_conf") {
+        if (!v) return;
+        this.url = "/Pantalla/" + v;
       } else return v;
     });
 

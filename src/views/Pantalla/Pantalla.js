@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer, useContext } from "react";
 import axios from "axios";
 
 import { farmageo_api } from "../../config";
+import { v4 as uuidv4 } from "uuid";
 
 import PantallaContext from "./context/PantallaContext";
 import { requestErrorHandler } from "./context/FuncionesContext";
@@ -11,19 +12,20 @@ import { useParams, useLocation } from "react-router";
 import SwitchMaestro from "./components/SwitchMaestro";
 import { AlertasProvider } from "./context/AlertaContext";
 import HeaderConf from "./components/HeaderConf";
+import { ModalProvider, GestorModales } from "./context/ModalContext";
 
 import Debugger from "./components/Debugger";
 
 const Pantalla = () => {
   const [state, dispatch] = useReducer(PantallaReducer, initialState);
 
-  const { pantalla } = useParams();
+  let { pantalla } = useParams();
   const { search, state: locationState } = useLocation();
 
   const [loadingPantalla, setLoadingPantalla] = useState(true);
 
   const params = new URLSearchParams(search);
-  const id = params.get("id");
+  let id = params.get("id");
 
   useEffect(() => {
     setLoadingPantalla(true);
@@ -96,31 +98,36 @@ const Pantalla = () => {
       }}
     >
       <AlertasProvider>
-        <FuncionesProvider>
-          <Debugger />
-          <HeaderConf
-            opciones={state.opciones_de_pantalla}
-            className="configuracion_pantalla_titulo_principal"
-          />
-          <div id={pantalla}>
-            {loadingPantalla ? (
-              <div style={{ width: "100%", textAlign: "center" }}>
-                Cargando...
-              </div>
-            ) : (
-              state.configuraciones
-                .sort((a, b) => a.opciones.orden - b.opciones.orden)
-                .map((item, idx) => (
-                  <SwitchMaestro
-                    key={item.id_a}
-                    configuracion={item}
-                    id={id}
-                    idx={idx}
-                  />
-                ))
-            )}
-          </div>
-        </FuncionesProvider>
+        <ModalProvider>
+          <FuncionesProvider>
+            <Debugger />
+            <HeaderConf
+              opciones={state.opciones_de_pantalla}
+              className="configuracion_pantalla_titulo_principal"
+            />
+            <div id={pantalla}>
+              {loadingPantalla ? (
+                <div style={{ width: "100%", textAlign: "center" }}>
+                  Cargando...
+                </div>
+              ) : (
+                state.configuraciones
+                  .sort((a, b) => a.opciones.orden - b.opciones.orden)
+                  .map((item, idx) => {
+                    return (
+                      <SwitchMaestro
+                        key={item.opciones.id_a}
+                        _key={item.id_a}
+                        configuracion={item}
+                        id={id}
+                        idx={idx}
+                      />
+                    );
+                  })
+              )}
+            </div>
+          </FuncionesProvider>
+        </ModalProvider>
       </AlertasProvider>
     </PantallaContext.Provider>
   );

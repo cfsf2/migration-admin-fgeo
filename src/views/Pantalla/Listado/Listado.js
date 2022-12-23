@@ -26,7 +26,6 @@ import ListadoReducer, { initialState } from "./context/ListadoReducer";
 // };
 
 const objetoQueryFiltrosdeF = (filtros, filtrosAAplicar, pantalla) => {
-  console.log(filtros);
   let queryfiltros = {
     pantalla: pantalla,
   };
@@ -137,7 +136,7 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
 
       const res = await axios.post(
         farmageo_api + "/config/" + PPantalla,
-        { id: state.id_global ? state.id_global : id },
+        { id: state.id_global ?? id },
         { params: queryfiltros }
       );
       if (res.status >= 400) {
@@ -175,7 +174,6 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
   useEffect(() => {
     if (configuraciones_ref[pantalla] === 1) return; //useEffect para actualizar Listado a comando
     if (nollamar) return;
-
     // dispatch({ type: "SET_LOADING_PANTALLA", payload: true });
 
     callMF({
