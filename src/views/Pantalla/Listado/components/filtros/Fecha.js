@@ -17,7 +17,7 @@ const useStyle = makeStyles({
   },
   inputDate: {
     "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-      height: "49px",
+      height: "55.5px",
     },
   },
 });
@@ -120,14 +120,13 @@ const Fecha = (props) => {
             endDate={filtrosAAplicar[id_a] ? endDate : null}
             customInput={
               <TextField
-                // style={{ marginBottom: "8px" }}
                 className={
                   (error[id_a]
                     ? `filtro_fecha_input_error`
                     : classes.dateComponent,
                   classes.inputDate)
                 }
-                style={{ marginTop: "6.1px" }}
+                //style={{ marginTop: props.label ? "6.1px" : "0px" }}
                 label="Desde"
               />
             }
@@ -175,7 +174,7 @@ const Fecha = (props) => {
                       : classes.dateComponent,
                     classes.inputDate)
                   }
-                  style={{ marginTop: "6.1px" }}
+                  //style={{ marginTop: "6.1px" }}
                 />
               }
               isClearable
