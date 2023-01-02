@@ -3,54 +3,24 @@ import { TextField } from "@mui/material";
 import Label from "./LabelF";
 
 const InputText = ({ setValor, valor, cab, error, setError, data }) => {
-  const {
-    id,
-    id_a,
-    margin_bottom_abm,
-    pass_minimo,
-    pass_maximo,
-    pass_req_mayuscula,
-    pass_req_numero,
-    pass_confirmar,
-  } = cab;
-
-  const [valueConfirmar, setValueConfirmar] = useState("");
+  const { id, id_a, margin_bottom_abm, pass_minimo } = cab;
 
   const handleInput = (e) => {
     let { value } = e.target;
 
-    const requiereMayusc = /(?=.*[A-Z])/;
-    const requiereNum = /(?=.*\d)/;
+    setValor(value);
 
-    if (
-      value.length < pass_minimo ||
-      (pass_maximo && value.length > pass_maximo) ||
-      (pass_req_mayuscula === "s" && !requiereMayusc.test(value)) ||
-      (pass_req_numero === "s" && !requiereNum.test(value))
-    ) {
-      setError((e) => {
-        return { ...e, [id_a]: true };
-      });
+    if (pass_minimo) {
+      if (value.length < pass_minimo) {
+        return setError((e) => {
+          return { ...e, [id_a]: true };
+        });
+      }
     }
 
-    // if (pass_confirmar === "s") {
-    //   if (valueConfirmar.trim() === "" || valueConfirmar !== value) {
-    //     //console.log("fijate la passConfirmar amigo: ", valueConfirmar);
-    //     setError((e) => {
-    //       return { ...e, [id_a]: true };
-    //     });
-    //   }
-    // }
-
-    setValor(value);
     setError((e) => {
       return { ...e, [id_a]: false };
     });
-  };
-
-  const handleInputConfirmar = (e) => {
-    const valorConfirmar = e.target.value;
-    setValueConfirmar(valorConfirmar);
   };
 
   const style_input_abm = {
@@ -78,28 +48,17 @@ const InputText = ({ setValor, valor, cab, error, setError, data }) => {
         label={cab.nombre}
         value={valor ? valor : ""}
         error={error[id_a]}
-        InputProps={{
-          style: {
-            textTransform: cab.solo_mayus === "s" ? "uppercase" : "inherit",
-          },
-        }}
+        helperText={
+          error[id_a] ? (
+            <p>
+              La contraseña debe tener {pass_minimo} caracteres mínimo &#9940;
+            </p>
+          ) : (
+            ""
+          )
+        }
         style={style_input_abm}
       />
-      {/* {pass_confirmar === "s" && (
-        <>
-          <Label>Confirme su Contraseña</Label>
-          <TextField
-            type="password"
-            value={valueConfirmar}
-            onChange={handleInputConfirmar}
-          />
-        </>
-      )}
-      {error ? (
-        <p style={{ color: "white", backgroundColor: "red" }}>
-          tene' algo mal maestro...
-        </p>
-      ) : null} */}
     </>
   );
 };
