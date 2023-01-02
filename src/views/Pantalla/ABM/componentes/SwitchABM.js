@@ -7,6 +7,7 @@ import InputCheckbox from "./inputs/InputCheckbox";
 import InputRadio from "./inputs/RadioButton";
 import InputFile from "../../components/InputFile";
 import AutocompletarABM from "./inputs/AutocompletarABM";
+import InputPassword from "./inputs/InputPassword";
 
 const SwitchABM = (props) => {
   const { ABMDispatch, valorFormulario } = useContext(ABMContext);
@@ -51,6 +52,14 @@ const SwitchABM = (props) => {
             setValor={setFormularioValor}
             valor={valorFormulario[id_a]}
             number
+          />
+        );
+      case "password":
+        return (
+          <InputPassword
+            {...props}
+            setValor={setFormularioValor}
+            valor={valorFormulario[id_a]}
           />
         );
       case "fecha":
