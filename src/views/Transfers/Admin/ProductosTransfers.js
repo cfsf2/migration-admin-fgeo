@@ -119,13 +119,15 @@ class ProductosTransfers extends Component {
                           }
                           onChange={this.handleFilter}
                         >
-                          <option value={null}>Laboratorio...</option>
+                          <option>Laboratorio...</option>
                           {laboratorios.map((lab, index) => {
-                            return (
-                              <option value={lab.id} key={index}>
-                                {lab.nombre}
-                              </option>
-                            );
+                            if (lab.transfer_farmageo === "s") {
+                              return (
+                                <option value={lab.id} key={index}>
+                                  {lab.nombre}
+                                </option>
+                              );
+                            }
                           })}
                         </Input>
                       </Col>
