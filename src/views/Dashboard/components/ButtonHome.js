@@ -1,6 +1,6 @@
 import { CompassCalibrationOutlined } from "@material-ui/icons";
 import React, { Component, Fragment } from "react";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -13,19 +13,23 @@ import {
 } from "reactstrap";
 
 const ButtonHome = (props) => {
-  const history = useHistory()
-  const pushHandler = ()=>{
-    if(props.to)
-    history.push(props.to)
-  }
+  const history = useHistory();
+
+  const pushHandler = () => {
+    if (props.to) {
+      if (props.target) {
+        return window.open("/#/" + props.to, props.target);
+      }
+      history.push(props.to);
+    }
+  };
   return (
     <div>
-
       <a
         onClick={pushHandler}
         className="btn"
         href={props.href}
-        target={props.simple ? "" : "_blank"}
+        target={props.target}
         style={{
           width: "100%",
           backgroundColor: "#ffffff",
@@ -75,7 +79,6 @@ const ButtonHome = (props) => {
       </a>
     </div>
   );
-}
-
+};
 
 export default ButtonHome;

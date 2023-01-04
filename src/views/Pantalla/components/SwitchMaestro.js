@@ -5,8 +5,9 @@ import ConfigListado from "../Listado/components/ConfigListado";
 import Vista from "../Vista/Vista";
 import ABMProvider from "../ABM/ABMProvider";
 import ABM from "../ABM/ABM";
-import { Redirect, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import Modal from "./Modal";
+import RedirectP from "./RedirectP";
 import ModalesContext from "../context/ModalContext";
 import PantallaContext from "../context/PantallaContext";
 
@@ -89,15 +90,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx, params }) => {
           </ABMProvider>
         );
       case 11:
-        const { enlace } = configuracion.opciones;
-
-        return (
-          <Redirect
-            to={{
-              pathname: enlace,
-            }}
-          />
-        );
+        return <RedirectP configuracion={configuracion} />;
       default:
         return <></>;
     }

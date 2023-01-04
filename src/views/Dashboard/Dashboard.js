@@ -180,7 +180,7 @@ class Dashboard extends Component {
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="12" style={{ height: 50 }}>
                         <ButtonHome
-                          to="/videosInstitucional"
+                          to="/pantalla/PANTALLA_ART_VIDEOS_INST"
                           titulo="VIDEOS INSTITUCIONALES"
                           subtitulo={<br />}
                           align="left"
@@ -193,7 +193,7 @@ class Dashboard extends Component {
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
-                          to="/debitosPami"
+                          to="/pantalla/PANTALLA_ART_DEBITOS_PAMI"
                           titulo="DEBITOS PAMI"
                           subtitulo="Consultar aquí"
                           align="left"
@@ -202,7 +202,7 @@ class Dashboard extends Component {
                       </Col>
                       <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
-                          to="/reporteObras"
+                          to="/pantalla/PANTALLA_ART_RESUMEN"
                           titulo="RESUMEN DE NORMATIVAS OOSS"
                           subtitulo="Obras Sociales"
                           align="left"
@@ -214,7 +214,7 @@ class Dashboard extends Component {
                       <Col md="6" style={{ height: 50 }} align="center">
                         <Link
                           to={{
-                            pathname: "/tableropami",
+                            pathname: "/pantalla/PANTALLA_ART_CRONOGRAMA",
                           }}
                         >
                           <ButtonHome
@@ -238,7 +238,8 @@ class Dashboard extends Component {
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }}>
                         <ButtonHome
-                          href="https://farma.pami.org.ar/seguridad/iniciar-sesion"
+                          to="pantalla/PANTALLA_ART_FARMAPAMI"
+                          target="_blank"
                           titulo="FARMAPAMI"
                           subtitulo={<br />}
                           align="left"
