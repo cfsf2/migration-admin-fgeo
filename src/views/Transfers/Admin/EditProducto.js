@@ -225,7 +225,7 @@ export function EditProducto(props) {
                       <option value={null}>Seleccionar...</option>
                       {laboratorios.map((lab, index) => {
                         return (
-                          <option value={lab._id} key={index}>
+                          <option value={lab.id} key={index}>
                             {lab.nombre}
                           </option>
                         );
