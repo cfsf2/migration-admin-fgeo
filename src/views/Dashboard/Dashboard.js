@@ -167,7 +167,7 @@ class Dashboard extends Component {
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="12" style={{ height: 50 }}>
                         <ButtonHome
-                          href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
+                          to="/pantalla/PANTALLA_ART_NUEVO_TRANSFER"
                           titulo="TRANSFERS FARMACIAS"
                           subtitulo={<br />}
                           align="left"
@@ -227,7 +227,8 @@ class Dashboard extends Component {
                       </Col>
                       <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
-                          href="https://campus.farmacursos.org.ar/archivos.cgi?wAccion=vergrupo&wIdGrupo=3320&id_curso=70"
+                          to="pantalla/PANTALLA_ART_EXT_NORMATIVA"
+                          target="_blank"
                           titulo="NORMATIVAS DE OBRAS SOCIALES"
                           subtitulo="del D.O.S"
                           align="left"
@@ -249,7 +250,8 @@ class Dashboard extends Component {
 
                       <Col md="6" style={{ height: 50 }}>
                         <ButtonHome
-                          href="https://api.whatsapp.com/send?phone=5493413871962&text=%C2%A1Hola!%20Quiero%20realizar%20una%20consulta"
+                          to="pantalla/PANTALLA_ART_EXT_MESAAYUDA"
+                          target="_blank"
                           titulo="MESA DE AYUDA"
                           subtitulo="Estamos cerca tuyo"
                           align="left"
@@ -260,7 +262,8 @@ class Dashboard extends Component {
                     <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
-                          href="http://www.cfsf2.org.ar/faltante-de-medicamentos/"
+                          to="pantalla/PANTALLA_ART_EXT_FALTANTES"
+                          target="_blank"
                           titulo="FALTANTES DE MEDICAMENTOS"
                           subtitulo="según ANMAT"
                           align="left"
@@ -269,7 +272,8 @@ class Dashboard extends Component {
                       </Col>
                       <Col md="6" style={{ height: 50 }} align="center">
                         <ButtonHome
-                          href="http://cfsf2.e-ducativa.com/index.cgi?mod=contentFront&accion=get&comando=article&_wf=true&articleId=432&skin=extranet&currentPage=0&currentActionPager=0&orderBy=&orderMode=DESC&force_publish="
+                          to="pantalla/PANTALLA_ART_EXT_PRECIOS_SUG"
+                          target="_blank"
                           titulo="PRECIOS SUGERIDOS"
                           subtitulo="de medicamentos hospitalarios y accesorios"
                           align="left"
