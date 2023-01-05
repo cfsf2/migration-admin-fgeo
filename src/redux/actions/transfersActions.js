@@ -153,7 +153,7 @@ export const ADD_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
           console.log("ERROR", productosTransfers.id);
         }
 
-        // dispatch(GET_PRODUCTOS_TRANSFERS());
+        dispatch(GET_PRODUCTOS_TRANSFERS());
         // dispatch(ALERT("Exito", "Producto Transfer Creado", "success", "OK"));
         return response;
       })

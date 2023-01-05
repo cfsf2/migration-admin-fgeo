@@ -88,13 +88,17 @@ class LineaImportTransfer extends Component {
       precio,
     } = this.props;
 
+    const descuentoConvertido = parseFloat(
+      descuento_porcentaje.replace(",", ".")
+    ).toFixed(2);
+
     return (
       <tr>
         <td>{codigo}</td>
         <td>{laboratorioNombre}</td>
         <td>{nombre + " / " + presentacion}</td>
         <td>{cantidad_minima}</td>
-        <td>{descuento_porcentaje}</td>
+        <td>{descuentoConvertido}</td>
         <td>{precio}</td>
         <td>{habilitado}</td>
         <td
