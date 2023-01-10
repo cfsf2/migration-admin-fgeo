@@ -44,8 +44,10 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
     return;
   };
 
+  const id = JSON.stringify(data) + JSON.stringify(cab) + indiceData;
+
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div id={id} style={{ display: "flex", justifyContent: "center" }}>
       <div style={botonStyle} onClick={handleClick}>
         {cab.imagen_url ? (
           <img

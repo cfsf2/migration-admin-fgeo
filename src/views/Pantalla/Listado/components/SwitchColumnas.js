@@ -18,6 +18,7 @@ import Autocompletar from "../../components/Autocompletar";
 import InputTextEditable from "../../Vista/components/columnas/InputTextEditable";
 
 import ListadoContext from "../context/ListadoContext";
+import { withTools } from "../../helper/withTools";
 
 const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
@@ -223,7 +224,6 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
     }
   })();
 
-  return Componente;
-};
-
-export default SwitchColumnas;
+  return Componente
+}
+export default withTools(SwitchColumnas)

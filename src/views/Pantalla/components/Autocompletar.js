@@ -195,6 +195,10 @@ export default function Virtualize({
 
   const classes = useStyles();
 
+  const id = JSON.stringify(data)+JSON.stringify(cab)+indiceData
+ 
+ 
+
   return (
     <>
       <div className="vista_label">
@@ -204,7 +208,7 @@ export default function Virtualize({
       </div>
       <Autocomplete
         value={value}
-        id="virtualize-demo"
+        id={id}
         sx={{ width: "100%" }}
         disableListWrap
         disableClearable

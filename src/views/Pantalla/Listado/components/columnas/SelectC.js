@@ -51,9 +51,10 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData }) => {
         console.log("Cancelado ", err);
       });
   };
+  const id = JSON.stringify(data) + JSON.stringify(cab) + indiceData;
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div id={id} style={{ textAlign: "center" }}>
       <Select
         nombre={nombre}
         opciones={cab.opciones ? cab.opciones : []}

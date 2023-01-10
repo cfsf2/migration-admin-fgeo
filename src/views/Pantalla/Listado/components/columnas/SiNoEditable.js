@@ -70,8 +70,10 @@ const SiNoEditable = ({ data, cab, campokey, key, indiceData }) => {
     setUpdate_id(data[cab.update_id_alias]);
   }, [configuraciones_ref[cab.id_a]]);
 
+  const id = JSON.stringify(data) + JSON.stringify(cab) + indiceData;
+
   return (
-    <div key={key} className="tarjeta_grid_item_label_item">
+    <div id={id} key={key} className="tarjeta_grid_item_label_item">
       <div className="vista_label" style={{ fontWeight: "bold" }}>
         {nombre}:
       </div>

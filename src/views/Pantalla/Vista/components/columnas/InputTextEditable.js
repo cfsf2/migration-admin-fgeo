@@ -69,8 +69,10 @@ const InputTextEditable = ({
       });
   };
 
+  const id = JSON.stringify(data) + JSON.stringify(cab) + indiceData;
+
   return (
-    <div className="tarjeta_grid_item_label_item">
+    <div id={id} className="tarjeta_grid_item_label_item">
       {opciones.tipo.id === 6 ? (
         <div className="vista_label">
           <p

@@ -102,6 +102,8 @@ const InputAreaEditable = ({
     ));
   }
 
+  
+
   return <div className="tarjeta_grid_item_label_item">{Componente}</div>;
 };
 

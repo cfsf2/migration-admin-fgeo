@@ -3,7 +3,7 @@ import FuncionesContext from "../../../context/FuncionesContext";
 import { Link } from "react-router-dom";
 import Default from "./Default";
 
-const EnlaceOpcional = ({ data, cab, id, campokey, hijos }) => {
+const EnlaceOpcional = ({ data, cab, campokey, hijos, indiceData }) => {
   const { escupirModal } = useContext(FuncionesContext);
   if (!cab.enlace_id_a) {
     return (
@@ -59,7 +59,7 @@ const EnlaceOpcional = ({ data, cab, id, campokey, hijos }) => {
     return (
       <div
         onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
-        id="Listado_Switch_Enlace"
+        id="Listado_Switch_Enlace" className="Listado_Switch_Enlace"
       >
         {cab.imagen_url ? (
           <img
@@ -81,7 +81,7 @@ const EnlaceOpcional = ({ data, cab, id, campokey, hijos }) => {
 
   if (cab.target === "_blank") {
     return (
-      <div id="Listado_Switch_Enlace">
+      <div id="Listado_Switch_Enlace" className="Listado_Switch_Enlace">
         <a
           target="_blank"
           href={
@@ -120,8 +120,10 @@ const EnlaceOpcional = ({ data, cab, id, campokey, hijos }) => {
     );
   }
 
+  const id = JSON.stringify(data) + JSON.stringify(cab) + indiceData;
+
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div id={id} style={{ display: "flex", justifyContent: "center" }} className="Listado_Switch_Enlace">
       <div className="vista_dato">
         <Link
           to={{

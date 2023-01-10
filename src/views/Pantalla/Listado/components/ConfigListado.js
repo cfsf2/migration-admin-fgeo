@@ -5,6 +5,7 @@ import SwitchColumnas from "./SwitchColumnas";
 
 import ListadoContext from "../context/ListadoContext";
 import { style } from "@mui/system";
+import { withTools } from "../../helper/withTools";
 
 const enviarWS = (data, e) => {
   const texto = data.atributos.find((a) => a.codigo === "mensaje_texto").valor;
