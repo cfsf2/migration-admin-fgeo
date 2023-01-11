@@ -12,7 +12,7 @@ function parseISOString(s) {
   return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
 }
 
-const InputDate = ({ data, cab, campokey, indiceData }) => {
+const InputDate = ({ data, cab, campokey, indiceData, id_elemento }) => {
   const {
     guardarSinConfirmar,
     guardarConConfirmacion,
@@ -147,8 +147,8 @@ const InputDate = ({ data, cab, campokey, indiceData }) => {
   };
 
   return (
-    <div className="tarjeta_grid_item_label_item">
-      <label className="vista_label">{nombre}:</label>
+    <div id={id_elemento} className="tarjeta_grid_item_label_item">
+      {nombre ? <label className="vista_label">{nombre}:</label> : <></>}
       <DatePicker
         selected={value}
         onChange={handleGuardar}

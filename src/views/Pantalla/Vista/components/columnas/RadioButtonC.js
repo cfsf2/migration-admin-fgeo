@@ -4,7 +4,7 @@ import { FormControl, Radio, RadioGroup } from "@mui/material";
 import FuncionesContext from "../../../context/FuncionesContext";
 import PantallaContext from "../../../context/PantallaContext";
 
-const RadioButtonC = ({ data, cab, campokey }) => {
+const RadioButtonC = ({ data, cab, campokey, id_elemento }) => {
   const { superSubmit } = useContext(FuncionesContext);
   const { configuraciones_ref } = useContext(PantallaContext);
 
@@ -49,11 +49,16 @@ const RadioButtonC = ({ data, cab, campokey }) => {
   return (
     <FormControl>
       <div
+        id={id_elemento}
         style={{
           display: "flex",
         }}
       >
-        <div className="vista_label vista_label_fuente">{nombre}:</div>
+        {nombre ? (
+          <div className="vista_label vista_label_fuente">{nombre}:</div>
+        ) : (
+          <></>
+        )}
         <div style={{ marginLeft: "10px" }}>
           <RadioGroup value={value} onChange={handleChange} row>
             {cab.radio_opciones.map((opcion) => {

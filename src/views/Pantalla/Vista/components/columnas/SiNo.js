@@ -1,6 +1,6 @@
 import React from "react";
 
-const SiNo = ({ data, cab, campokey }) => {
+const SiNo = ({ data, cab, campokey, id_elemento }) => {
   const nombre = (() => {
     if (cab.nombre_alias) {
       return data[cab.nombre_alias];
@@ -9,8 +9,12 @@ const SiNo = ({ data, cab, campokey }) => {
   })();
 
   return (
-    <div className="tarjeta_grid_item_label_item">
-      <div className="vista_label vista_label_fuente">{nombre}:</div>
+    <div id={id_elemento} className="tarjeta_grid_item_label_item">
+      {nombre ? (
+        <div className="vista_label vista_label_fuente">{nombre}:</div>
+      ) : (
+        <></>
+      )}
       <div
         className={`${cab.class} vista_dato`}
         //style={{ textAlign: "center" }}
