@@ -1,8 +1,10 @@
 import React from "react";
 
-const SiNo = ({ data, campokey }) => {
+const SiNo = ({ data, campokey, indiceData, cab,id_elemento }) => {
+  
+
   return (
-    <div style={{ textAlign: "center" }}>
+    <div id={id_elemento} style={{ textAlign: "center" }}>
       {data[campokey] === "s" ? "SI" : "NO"}
     </div>
   );
