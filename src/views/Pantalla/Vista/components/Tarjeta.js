@@ -66,7 +66,7 @@ const Tarjeta = () => {
                       key={cab.id_a + i}
                       indiceData={i}
                       Context={VistaContext}
-                      id_elemento = {cab.id_a+i}
+                      id_elemento={cab.id_a + i}
                     />
                   </div>
                 );
@@ -95,11 +95,12 @@ const Tarjeta = () => {
                       }}
                     >
                       <SwitchCampos
-                        key={cab.id_a + i}
+                        key={cab.id_a}
                         indiceData={indiceData}
                         data={dato}
                         cab={cab}
                         Context={VistaContext}
+                        id_elemento={cab.id_a + indiceData}
                       />
                     </div>
                   ))}

@@ -14,6 +14,44 @@
   }
 }
 
+
+span.Ftooltip {
+  &::after,
+  &::before {
+    z-index: 90;
+    content: " ";
+    position: absolute;
+    bottom: 100%; /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgba(90, 90, 90, 1) transparent;
+  }
+  display: block;
+  position: absolute;
+  background-color: rgba(90, 90, 90, 1);
+  color: white;
+  padding: 0.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  border-radius: 15px;
+  margin-top: 6.5px;
+  &_okey {
+    &::after,
+    &::before {
+      border-color: transparent transparent limegreen transparent;
+    }
+  }
+  &_danger {
+    &::after,
+    &::before {
+      border-color: transparent transparent tomato transparent;
+    }
+  }
+}
+
 div[id$="menu_vista"] {
   .flex_acciones_vista {
     display: flex;

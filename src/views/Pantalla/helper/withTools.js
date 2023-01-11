@@ -7,6 +7,7 @@ export const withTools = (Componente) => (props) => {
 
   useEffect(() => {
     const g = document.getElementById(id_elemento)?.parentNode;
+    console.log(g, id_elemento)
     if (g) {
       if (cab.tooltip_texto) {
        
@@ -17,8 +18,8 @@ export const withTools = (Componente) => (props) => {
         tooltip.appendChild(
           document.createTextNode(`${data[cab.id_a + "_tooltip_texto"] ?? cab.tooltip_texto}`)
         );
-        tooltip.classList.add("Ftooltip") // listado.scss
 
+        tooltip.classList.add("Ftooltip"); // Pantalla.scss
         g.style.position = "relative";
         g.addEventListener("mouseenter", (e) => {
           e.stopPropagation();
