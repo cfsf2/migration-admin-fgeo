@@ -83,6 +83,26 @@
   }
 }
 
+.MuiTableRow-root:hover{
+  opacity: 1 !important;  // el opacity original me rompe el tooltip 
+  background-color: rgba(240,248,255,0.9);
+}
+
+span.Ftooltip{
+  &::after, &::before{
+    z-index: 90;
+  }
+  display:block;
+  position:absolute;
+  background-color: rgba(90,90,90,1);
+  color:white;
+  padding:0.8rem;
+  left:50%;
+  transform:translateX(-50%);
+  z-index: 100;
+  border-radius: 15px;
+}
+
 .Listado_Switch_Enlace {
   padding: 0.5rem 0.8rem;
   border-radius: 15px;

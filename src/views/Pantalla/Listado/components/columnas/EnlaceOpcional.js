@@ -81,7 +81,7 @@ const EnlaceOpcional = ({ data, cab, campokey, hijos, indiceData }) => {
 
   if (cab.target === "_blank") {
     return (
-      <div id="Listado_Switch_Enlace" className="Listado_Switch_Enlace">
+      <div id="Listado_Switch_Enlace" >
         <a
           target="_blank"
           href={
@@ -123,7 +123,7 @@ const EnlaceOpcional = ({ data, cab, campokey, hijos, indiceData }) => {
   const id = JSON.stringify(data) + JSON.stringify(cab) + indiceData;
 
   return (
-    <div id={id} style={{ display: "flex", justifyContent: "center" }} className="Listado_Switch_Enlace">
+    <div id={id} style={{ display: "flex", justifyContent: "center" }} >
       <div className="vista_dato">
         <Link
           to={{

@@ -50,7 +50,7 @@ const Enlace = ({ data, cab, hijos, campokey, indiceData }) => {
     return (
       <div
         onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
-       // id={id}
+        id={id}
         className="Listado_Switch_Enlace"
       >
         {cab.imagen_url ? (

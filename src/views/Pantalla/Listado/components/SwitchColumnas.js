@@ -218,7 +218,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
       case "null":
         return <></>;
       case "div":
-        return <div>{hijos?.map((hijo) => hijo)}</div>;
+        return <div id={JSON.stringify(data)+JSON.stringify(cab)+indiceData}>{hijos?.map((hijo) => hijo)}</div>;
       default:
         return <>{hijos?.map((hijo) => hijo)}</>;
     }
