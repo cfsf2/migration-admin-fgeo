@@ -1,6 +1,6 @@
 import React from "react";
 
-const Default = ({ data, cab, hijos, campokey }) => {
+const Default = ({ data, cab, hijos, campokey, id_elemento }) => {
   const nombre = (() => {
     if (cab.nombre_alias) {
       return data[cab.nombre_alias];
@@ -21,8 +21,12 @@ const Default = ({ data, cab, hijos, campokey }) => {
 
   return (
     <>
-      <div className="tarjeta_grid_item_label_item">
-        <div className="vista_label vista_label_fuente">{nombre}:</div>
+      <div id={id_elemento} className="tarjeta_grid_item_label_item">
+        {nombre ? (
+          <div className="vista_label vista_label_fuente">{nombre}:</div>
+        ) : (
+          <></>
+        )}
         <div
           className={data[cab.id_a + "_className"]}
           // style={{ position: "relative", left: "-13px" }}

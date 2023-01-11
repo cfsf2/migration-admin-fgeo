@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import FuncionesContext from "../../../context/FuncionesContext";
 
-const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
+const Boton = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
   const f = useContext(FuncionesContext);
 
   const {
@@ -45,7 +45,7 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div id={id_elemento} style={{ width: "100%" }}>
       <div style={botonStyle} onClick={handleClick}>
         {cab.imagen_url ? (
           <img

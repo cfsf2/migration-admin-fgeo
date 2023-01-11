@@ -3,7 +3,14 @@ import FuncionesContext from "../../../context/FuncionesContext";
 import PantallaContext from "../../../context/PantallaContext";
 import VistaContext from "../../context/VistaContext";
 
-const SiNoEditable = ({ data, cab, campokey, key, indiceData }) => {
+const SiNoEditable = ({
+  data,
+  cab,
+  campokey,
+  key,
+  indiceData,
+  id_elemento,
+}) => {
   const { superSubmit } = useContext(FuncionesContext);
 
   const { configuraciones_ref } = useContext(PantallaContext);
@@ -46,8 +53,12 @@ const SiNoEditable = ({ data, cab, campokey, key, indiceData }) => {
   }, [configuraciones_ref[cab.id_a]]);
 
   return (
-    <div key={key} className="tarjeta_grid_item_label_item">
-      <div className="vista_label vista_label_fuente">{nombre}:</div>
+    <div id={id_elemento} key={key} className="tarjeta_grid_item_label_item">
+      {nombre ? (
+        <div className="vista_label vista_label_fuente">{nombre}:</div>
+      ) : (
+        <></>
+      )}
       <select
         onChange={handleChange}
         value={value === null ? "null" : value === "s" ? "s" : "n"}

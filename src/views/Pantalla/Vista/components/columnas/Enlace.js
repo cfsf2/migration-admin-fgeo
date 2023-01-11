@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import FuncionesContext from "../../../context/FuncionesContext";
 
-const Enlace = ({ data, cab, hijos, campokey }) => {
+const Enlace = ({ data, cab, hijos, campokey, id_elemento }) => {
   const { escupirModal } = useContext(FuncionesContext);
   const e = cab.enlace
     ? cab.enlace_alias
@@ -48,7 +48,8 @@ const Enlace = ({ data, cab, hijos, campokey }) => {
     return (
       <div
         onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
-        id="Listado_Switch_Enlace"
+        id={id_elemento}
+        className="Listado_Switch_Enlace"
       >
         {cab.imagen_url ? (
           <img
@@ -70,7 +71,7 @@ const Enlace = ({ data, cab, hijos, campokey }) => {
 
   if (cab.target === "_blank") {
     return (
-      <div id="Listado_Switch_Enlace">
+      <div id={id_elemento} className="Listado_Switch_Enlace">
         <a
           target="_blank"
           href={process.env.PUBLIC_URL + "/#" + e + id_a + parametros}
@@ -104,7 +105,7 @@ const Enlace = ({ data, cab, hijos, campokey }) => {
   }
 
   return (
-    <div id="Vista_Switch_Enlace">
+    <div id={id_elemento} className="Vista_Switch_Enlace">
       <Link to={{ pathname: `${e + id_a}`, search: parametros }}>
         <div
           style={{

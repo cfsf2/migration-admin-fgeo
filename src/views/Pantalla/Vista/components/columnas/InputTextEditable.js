@@ -96,6 +96,7 @@ const InputTextEditable = ({
         setValue={setValue}
         onEnter={handleGuardar}
         maxCaracteres={parseInt(cab.maximo_caracteres)}
+        id={id_elemento}
       />
     </div>
   );

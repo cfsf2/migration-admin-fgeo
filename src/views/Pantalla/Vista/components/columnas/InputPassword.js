@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import FuncionesContext from "../../../context/FuncionesContext";
 import VistaContext from "../../context/VistaContext";
 
-const InputPassword = ({ data, cab, hijos, campokey }) => {
+const InputPassword = ({ data, cab, hijos, campokey, id_elemento }) => {
   const { guardarSinConfirmar, guardarConConfirmacion } =
     useContext(FuncionesContext);
 
@@ -106,8 +106,12 @@ const InputPassword = ({ data, cab, hijos, campokey }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="tarjeta_grid_item_label_item">
-      <label className="vista_label">{nombre}:</label>
+    <form
+      id={id_elemento}
+      onSubmit={handleSubmit}
+      className="tarjeta_grid_item_label_item"
+    >
+      {nombre ? <label className="vista_label">{nombre}:</label> : <></>}
       <input type="password" value={value} onChange={handleInput} />
       {pass_confirmar === "s" && (
         <>
