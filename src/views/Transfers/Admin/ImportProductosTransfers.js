@@ -13,7 +13,7 @@ import {
 import { connect } from "react-redux";
 import ImportarCsv from "../../../components/ImportarCsv";
 import {
-  ADD_PRODUCTO_TRANSFER,
+  ADD_PRODUCTO_TRANSFER_BULK,
   GET_LABORATORIOS_ADMIN,
   GET_PRODUCTOS_TRANSFERS,
 } from "../../../redux/actions/transfersActions";
@@ -49,7 +49,7 @@ class ImportProductosTransfers extends Component {
         if (!p) return;
 
         return this.props
-          .ADD_PRODUCTO_TRANSFER(p, this.state.instituciones)
+          .ADD_PRODUCTO_TRANSFER_BULK(p, this.state.instituciones)
           .then((res) => {
             if (res.status < 300) {
               const newP = p;
@@ -282,7 +282,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  ADD_PRODUCTO_TRANSFER,
+  ADD_PRODUCTO_TRANSFER_BULK,
   GET_LABORATORIOS_ADMIN,
   GET_PRODUCTOS_TRANSFERS,
 };

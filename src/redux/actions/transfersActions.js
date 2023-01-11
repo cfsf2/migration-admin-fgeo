@@ -145,7 +145,7 @@ export const ADD_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
         presentacion: productosTransfers.presentacion,
         imagen: productosTransfers.imagen,
         cantidad_minima: parseInt(productosTransfers.cantidad_minima),
-        descuento_porcentaje: parseInt(productosTransfers.descuento_porcentaje),
+        descuento_porcentaje: productosTransfers.descuento_porcentaje,
         instituciones: instituciones,
       })
       .then(function (response) {
@@ -164,6 +164,37 @@ export const ADD_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
       });
   };
 };
+
+export const ADD_PRODUCTO_TRANSFER_BULK = (productosTransfers, instituciones) => {
+  return (dispatch) => {
+    return axios
+      .post(farmageo_api + "/productosTransfers", {
+        codigo: productosTransfers.codigo,
+        laboratorioid: productosTransfers.laboratorioid,
+        nombre: productosTransfers.nombre,
+        presentacion: productosTransfers.presentacion,
+        imagen: productosTransfers.imagen,
+        cantidad_minima: parseInt(productosTransfers.cantidad_minima),
+        descuento_porcentaje: productosTransfers.descuento_porcentaje,
+        instituciones: instituciones,
+      })
+      .then(function (response) {
+        if (response.status >= 400) {
+          console.log("ERROR", productosTransfers.id);
+        }
+
+        //dispatch(GET_PRODUCTOS_TRANSFERS());
+        // dispatch(ALERT("Exito", "Producto Transfer Creado", "success", "OK"));
+        return response;
+      })
+      .catch(function (error) {
+        ALERT("Error", "Ha ocurrido un error", "error", ":(");
+        console.log(error);
+        return error;
+      });
+  };
+};
+
 
 export const GET_PRODUCTOS_TRANSFERS = () => {
   return (dispatch) => {
