@@ -57,6 +57,7 @@ const ConfigListado = () => {
                   cab={cab}
                   indiceData={data.tableData.id}
                   Context={ListadoContext}
+                  id_elemento={cab.id_a+data.tableData.id}
                 />
               );
             },

@@ -3,18 +3,14 @@ import React, {
 } from "react";
 
 export const withTools = (Componente) => (props) => {
-  const { data, cab, indiceData } = props;
-
-
-  const id_componente = cab.id_a+indiceData  //JSON.stringify(data) + JSON.stringify(cab) + indiceData;
+  const { data, cab, indiceData, id_elemento } = props;
 
   useEffect(() => {
-    const g = document.getElementById(id_componente)?.parentNode;
+    const g = document.getElementById(id_elemento)?.parentNode;
     if (g) {
       if (cab.tooltip_texto) {
        
-        const id_tooltip =
-          JSON.stringify(data) + JSON.stringify(cab) + "_tooltip" + indiceData;
+        const id_tooltip = id_elemento + "_tooltip" + indiceData;
 
         const tooltip = document.createElement("span");
         tooltip.id = id_tooltip;
@@ -27,8 +23,6 @@ export const withTools = (Componente) => (props) => {
         g.addEventListener("mouseenter", (e) => {
           e.stopPropagation();
           g.appendChild(tooltip);
-          document.getElementById(id_tooltip).cssText =
-            'display: "block";position: "absolute";top: "3rem";background-color: "gray";color: "white";padding: "0.5rem";z-index: "100" ';
         });
 
         g.addEventListener("mouseleave", (e) => {

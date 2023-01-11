@@ -20,11 +20,11 @@ import InputTextEditable from "../../Vista/components/columnas/InputTextEditable
 import ListadoContext from "../context/ListadoContext";
 import { withTools } from "../../helper/withTools";
 
-const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
+const SwitchColumnas = ({ data, cab, padre, indiceData, Context, id_elemento }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   if (!cab) return <></>;
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
-  const id_elemento = cab.id_a+indiceData // JSON.stringify(data) + JSON.stringify(cab) + indiceData;
+
 
   const hijos =
     cab.sc_hijos.length > 0
