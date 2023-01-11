@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import FuncionesContext from "../../../context/FuncionesContext";
 
-const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
+const Boton = ({ data, cab, hijos, campokey, indiceData,id_elemento }) => {
   const f = useContext(FuncionesContext);
 
   const {
@@ -44,10 +44,9 @@ const Boton = ({ data, cab, hijos, campokey, indiceData }) => {
     return;
   };
 
-  const id = JSON.stringify(data) + JSON.stringify(cab) + indiceData;
 
   return (
-    <div id={id} style={{ display: "flex", justifyContent: "center" }}>
+    <div id={id_elemento} style={{ display: "flex", justifyContent: "center" }}>
       <div style={botonStyle} onClick={handleClick}>
         {cab.imagen_url ? (
           <img

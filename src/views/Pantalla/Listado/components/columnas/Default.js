@@ -1,13 +1,11 @@
 import React from "react";
 
-const Default = ({ data, cab, hijos, campokey, indiceData }) => {
+const Default = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
   const condcionBadge = cab.id_a === "T_COL_ID_TRANSFER" && "0.9em";
 
-  const id = JSON.stringify(data)+JSON.stringify(cab)+indiceData
- 
   return (
     <div
-      id={id}
+      id={id_elemento}
       className={data[cab.id_a + "_className"]}
       style={{ textAlign: "center", fontSize: condcionBadge }}
     >
@@ -19,12 +17,11 @@ const Default = ({ data, cab, hijos, campokey, indiceData }) => {
 
 export default Default;
 
-export const Code = ({ data, cab, hijos, campokey, indiceData }) => {
-  const id = JSON.stringify(data)+JSON.stringify(cab)+indiceData
+export const Code = ({ data, cab, hijos, campokey, indiceData,id_elemento }) => {
  
   return (
     <code
-      id={id}
+      id={id_elemento}
       className={data[cab.id_a + "_className"]}
       style={{ textAlign: "center", color: "red" }}
     >

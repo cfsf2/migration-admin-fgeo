@@ -157,6 +157,7 @@ export default function Virtualize({
   context,
   indiceData,
   campokey,
+  id_elemento
 }) {
   const { superSubmit } = useContext(FuncionesContext);
 
@@ -195,10 +196,7 @@ export default function Virtualize({
 
   const classes = useStyles();
 
-  const id = JSON.stringify(data)+JSON.stringify(cab)+indiceData
  
- 
-
   return (
     <>
       <div className="vista_label">
@@ -208,7 +206,7 @@ export default function Virtualize({
       </div>
       <Autocomplete
         value={value}
-        id={id}
+        id={ id_elemento}
         sx={{ width: "100%" }}
         disableListWrap
         disableClearable

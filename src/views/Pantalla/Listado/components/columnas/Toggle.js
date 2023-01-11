@@ -4,7 +4,7 @@ import PantallaContext from "../../../context/PantallaContext";
 import ListadoContext from "../../context/ListadoContext";
 import { Switch } from "@material-ui/core";
 
-const Toggle = ({ data, cab, campokey, key, indiceData }) => {
+const Toggle = ({ data, cab, campokey, key, indiceData, id_elemento }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
   const { configuraciones_ref } = useContext(PantallaContext);
@@ -72,11 +72,10 @@ const Toggle = ({ data, cab, campokey, key, indiceData }) => {
     setUpdate_id(data[cab.update_id_alias]);
   }, [configuraciones_ref[cab.id_a]]);
 
-  const id = JSON.stringify(data) + JSON.stringify(cab) + indiceData;
 
   return (
     <div
-      id={id}
+      id={id_elemento}
       key={key}
       className="tarjeta_grid_item_label_item"
       style={{ justifyContent: "center" }}

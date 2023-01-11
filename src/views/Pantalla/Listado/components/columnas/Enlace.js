@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import FuncionesContext from "../../../context/FuncionesContext";
 
-const Enlace = ({ data, cab, hijos, campokey, indiceData }) => {
+const Enlace = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
   const { escupirModal } = useContext(FuncionesContext);
 
   const e = cab.enlace
@@ -41,7 +41,7 @@ const Enlace = ({ data, cab, hijos, campokey, indiceData }) => {
       paramObj[en[i]] = qP;
     });
   }
-  const id = JSON.stringify(data)+JSON.stringify(cab)+indiceData
+
 
   if (cab.target === "modal") {
     if (cab.id_a === "PAL_L_BOTON_NUEVO_APM") {
@@ -50,7 +50,7 @@ const Enlace = ({ data, cab, hijos, campokey, indiceData }) => {
     return (
       <div
         onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
-        id={id}
+        id={id_elemento}
         className="Listado_Switch_Enlace"
       >
         {cab.imagen_url ? (
@@ -73,7 +73,7 @@ const Enlace = ({ data, cab, hijos, campokey, indiceData }) => {
 
   if (cab.target === "_blank") {
     return (
-      <div id={id} className="Listado_Switch_Enlace">
+      <div id={id_elemento} className="Listado_Switch_Enlace">
         <a
           target="_blank"
           href={process.env.PUBLIC_URL + "/#" + e + id_a + parametros}
@@ -109,7 +109,7 @@ const Enlace = ({ data, cab, hijos, campokey, indiceData }) => {
  
   return (
     <div
-    id={id}
+    id={id_elemento}
     className="Listado_Switch_Enlace">
       <Link
         to={{ pathname: `${e + id_a}`, search: parametros, target: cab.target }}

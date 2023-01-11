@@ -1,15 +1,12 @@
 import React, {
-  Children,
-  useLayoutEffect,
   useEffect,
-  createElement,
 } from "react";
-import {} from "react";
 
 export const withTools = (Componente) => (props) => {
   const { data, cab, indiceData } = props;
 
-  const id_componente = JSON.stringify(data) + JSON.stringify(cab) + indiceData;
+
+  const id_componente = cab.id_a+indiceData  //JSON.stringify(data) + JSON.stringify(cab) + indiceData;
 
   useEffect(() => {
     const g = document.getElementById(id_componente)?.parentNode;

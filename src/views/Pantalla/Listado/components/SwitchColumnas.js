@@ -24,6 +24,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   if (!cab) return <></>;
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
+  const id_elemento = cab.id_a+indiceData // JSON.stringify(data) + JSON.stringify(cab) + indiceData;
 
   const hijos =
     cab.sc_hijos.length > 0
@@ -43,6 +44,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "" || "columna_simple":
@@ -54,6 +56,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "select":
@@ -65,6 +68,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "fecha":
@@ -76,6 +80,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
 
@@ -88,6 +93,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "si_no_editable":
@@ -99,6 +105,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "toggle":
@@ -110,6 +117,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "imagen":
@@ -121,6 +129,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "boton":
@@ -132,6 +141,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
 
@@ -144,6 +154,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "enlace_opcional":
@@ -155,6 +166,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "input_editable":
@@ -166,6 +178,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "input_text_editable":
@@ -178,6 +191,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             campokey={campokey}
             indiceData={indiceData}
             Context={Context}
+            id_elemento={id_elemento}
           />
         );
       case "input_number_editable":
@@ -190,6 +204,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             campokey={campokey}
             indiceData={indiceData}
             type="number"
+            id_elemento={id_elemento}
           />
         );
       case "code":
@@ -201,6 +216,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "autocompletar":
@@ -213,17 +229,22 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context }) => {
             campokey={campokey}
             indiceData={indiceData}
             context={ListadoContext}
+            id_elemento={id_elemento}
           />
         );
       case "null":
         return <></>;
       case "div":
-        return <div id={JSON.stringify(data)+JSON.stringify(cab)+indiceData}>{hijos?.map((hijo) => hijo)}</div>;
+        return (
+          <div id={id_elemento}>
+            {hijos?.map((hijo) => hijo)}
+          </div>
+        );
       default:
         return <>{hijos?.map((hijo) => hijo)}</>;
     }
   })();
 
-  return Componente
-}
-export default withTools(SwitchColumnas)
+  return Componente;
+};
+export default withTools(SwitchColumnas);

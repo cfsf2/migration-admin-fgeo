@@ -1,10 +1,10 @@
 import React from "react";
 
-const SiNo = ({ data, campokey, indiceData, cab }) => {
-  const id = JSON.stringify(data) + JSON.stringify(cab) + indiceData;
+const SiNo = ({ data, campokey, indiceData, cab,id_elemento }) => {
+  
 
   return (
-    <div id={id} style={{ textAlign: "center" }}>
+    <div id={id_elemento} style={{ textAlign: "center" }}>
       {data[campokey] === "s" ? "SI" : "NO"}
     </div>
   );
