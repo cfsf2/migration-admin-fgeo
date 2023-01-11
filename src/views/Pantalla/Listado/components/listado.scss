@@ -83,7 +83,49 @@
   }
 }
 
-#Listado_Switch_Enlace {
+.MuiTableRow-root:hover {
+  opacity: 1 !important; // el opacity original me rompe el tooltip
+  background-color: rgba(240, 248, 255, 0.9);
+}
+
+span.Ftooltip {
+  &::after,
+  &::before {
+    z-index: 90;
+    content: " ";
+    position: absolute;
+    bottom: 100%; /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgba(90, 90, 90, 1) transparent;
+  }
+  display: block;
+  position: absolute;
+  background-color: rgba(90, 90, 90, 1);
+  color: white;
+  padding: 0.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  border-radius: 15px;
+  margin-top: 6.5px;
+  &_okey {
+    &::after,
+    &::before {
+      border-color: transparent transparent limegreen transparent;
+    }
+  }
+  &_danger {
+    &::after,
+    &::before {
+      border-color: transparent transparent tomato transparent;
+    }
+  }
+}
+
+.Listado_Switch_Enlace {
   padding: 0.5rem 0.8rem;
   border-radius: 15px;
   margin: 0.2rem;

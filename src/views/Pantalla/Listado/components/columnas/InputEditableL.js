@@ -11,6 +11,7 @@ const InputAreaEditable = ({
   campokey,
   indiceData,
   type,
+  id_elemento
 }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
@@ -87,13 +88,14 @@ const InputAreaEditable = ({
       setValue={setValue}
       onEnter={handleGuardar}
       style={style}
+      id={id_elemento}
     />
   );
 
   if (type === "number") {
     return (Componente = (
       <TextField
-        id={cab.id_a}
+        id={id_elemento}
         type="number"
         onBlur={handleGuardar}
         defaultValue={value}
@@ -101,6 +103,8 @@ const InputAreaEditable = ({
       />
     ));
   }
+
+  
 
   return <div className="tarjeta_grid_item_label_item">{Componente}</div>;
 };

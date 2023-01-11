@@ -3,7 +3,7 @@ import Select from "../../../components/Select";
 import FuncionesContext from "../../../context/FuncionesContext";
 import ListadoContext from "../../context/ListadoContext";
 
-const SelectC = ({ data, cab, hijos, campokey, indiceData }) => {
+const SelectC = ({ data, cab, hijos, campokey, indiceData,id_elemento }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
   const { ListadoDispatch } = useContext(ListadoContext);
@@ -52,8 +52,9 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData }) => {
       });
   };
 
+
   return (
-    <div style={{ textAlign: "center" }}>
+    <div id={id_elemento} style={{ textAlign: "center" }}>
       <Select
         nombre={nombre}
         opciones={cab.opciones ? cab.opciones : []}
