@@ -205,6 +205,7 @@ export default function Virtualize({
         </p>
       </div>
       <Autocomplete
+       
         value={value}
         id={ id_elemento}
         sx={{ width: "100%" }}

@@ -194,8 +194,10 @@ const Filtros = () => {
               <div className="filtro_grid_inputs_grid">
                 {filtros
                   ?.sort((a, b) => a.orden - b.orden)
-                  .map((f) => (
-                    <SwitchFiltros
+                  .map((f) => 
+                    {
+                   
+                      return <SwitchFiltros
                       {...f}
                       key={f.id_a}
                       filtrosAAplicar={filtrosAAplicar}
@@ -204,8 +206,8 @@ const Filtros = () => {
                       setRequeridos={setRequeridos}
                       error={error}
                       setError={setError}
-                    />
-                  ))}
+                    />}
+                  )}
               </div>
             </div>
             {hayObligatorios ? (

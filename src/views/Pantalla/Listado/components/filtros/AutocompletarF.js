@@ -179,8 +179,14 @@ export default function Virtualize(props) {
         renderOption={(props, option) => [props, option.label]}
         // TODO: Post React 18 update - validate this conversion, look like a hidden bug
         renderGroup={(params) => params}
+        isOptionEqualToValue={(option, value) => {
+          return option.value === value;
+        }}
+        getOptionLabel={(option) => {
+          
+          return cab.opciones.find(o=>o.value === option)?.label
+        }}
         onChange={(e, nv) => {
-          console.log(nv);
           setFiltrosAAplicar((prevState) => {
             if (nv === null) return {};
             return { ...prevState, [id_a]: nv.value };
