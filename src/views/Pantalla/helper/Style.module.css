@@ -1,0 +1,11 @@
+/* BACKGROUND COLORS ALERTS */
+.bg_verde {
+  background-color: limegreen !important;
+  color: white !important;
+}
+.bg_amarillo {
+  background-color: yellow lighten-1 !important;
+}
+.bg_rojo {
+  background-color: tomato !important;
+}

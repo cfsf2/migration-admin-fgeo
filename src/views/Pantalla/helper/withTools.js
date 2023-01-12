@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styles from "../helper/Style.module.css";
 
 export const withTools = (Componente) => (props) => {
   const { data, cab, indiceData, id_elemento } = props;
@@ -20,17 +21,21 @@ export const withTools = (Componente) => (props) => {
         tooltip.classList.add("Ftooltip"); // listado.scss
         g.style.position = "relative";
 
-        if (cab.tooltip_class === "okey") {
-          tooltip.style.backgroundColor = "limegreen";
-          tooltip.style.borderBottomColor = "limegreen";
-          tooltip.classList.add("Ftooltip_okey");
+        if (
+          data[cab.id_a + "_tooltip_class"] === "verde" ||
+          cab.tooltip_class === "verde"
+        ) {
+          tooltip.classList.add(styles.bg_verde);
+          tooltip.classList.add("Ftooltip_verde");
         }
 
-        if (cab.tooltip_class === "danger") {
-          tooltip.style.backgroundColor = "tomato";
-          tooltip.style.borderBottomColor = "tomato";
-          tooltip.style.color = "black";
-          tooltip.classList.add("Ftooltip_danger");
+        if (
+          data[cab.id_a + "_tooltip_class"] === "rojo" ||
+          cab.tooltip_class === "rojo"
+        ) {
+          //tooltip.style.color = "black";
+          tooltip.classList.add(styles.bg_rojo);
+          tooltip.classList.add("Ftooltip_rojo");
         }
 
         g.addEventListener("mouseenter", (e) => {
