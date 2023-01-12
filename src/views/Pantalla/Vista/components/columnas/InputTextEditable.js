@@ -10,6 +10,7 @@ const InputTextEditable = ({
   campokey,
   indiceData,
   Context,
+  id_elemento
 }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
@@ -69,8 +70,10 @@ const InputTextEditable = ({
       });
   };
 
+ 
+
   return (
-    <div className="tarjeta_grid_item_label_item">
+    <div id={id_elemento} className="tarjeta_grid_item_label_item">
       {opciones.tipo.id === 6 ? (
         <div className="vista_label">
           <p

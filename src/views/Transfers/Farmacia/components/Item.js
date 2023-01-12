@@ -113,6 +113,10 @@ export function Item(props) {
     return setObservaciones("");
   };
 
+  const descuentoConvertido = parseFloat(producto.descuento_porcentaje).toFixed(
+    2
+  );
+
   return (
     <>
       {producto.nombre !== undefined ? (
@@ -123,7 +127,7 @@ export function Item(props) {
             {producto.presentacion}
           </div>
           <div className="transfer_lista_items_descuento">
-            {producto.descuento_porcentaje}
+            {descuentoConvertido}
           </div>
           <div className="transfer_lista_items_minimo">
             {producto.cantidad_minima}
