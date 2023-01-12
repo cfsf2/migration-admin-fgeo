@@ -13,7 +13,7 @@ import Tarjeta from "./components/Tarjeta";
 import { useCallback } from "react";
 import { useMemo } from "react";
 
-const VistaProvider = ({ configuracion, id, children, nollamar, key }) => {
+const VistaProvider = ({ configuracion, id, children, nollamar }) => {
   const {
     configuraciones_ref,
     loadingPantalla,
@@ -138,6 +138,7 @@ const VistaProvider = ({ configuracion, id, children, nollamar, key }) => {
     <VistaContext.Provider
       value={useMemo(() => {
         return {
+          state,
           datos: state.datos,
           cabeceras: state.cabeceras,
           opciones: state.opciones,
@@ -155,6 +156,7 @@ const VistaProvider = ({ configuracion, id, children, nollamar, key }) => {
         state.cabeceras,
         state.datos,
         state.opciones,
+        state
       ])}
     >
       {loading || loadingPantalla ? (
@@ -175,10 +177,10 @@ const VistaProvider = ({ configuracion, id, children, nollamar, key }) => {
   );
 };
 
-const Vista = ({ configuracion, id, nollamar, key }) => {
+const Vista = ({ configuracion, id, nollamar }) => {
   return (
     <VistaProvider configuracion={configuracion} id={id} nollamar={nollamar}>
-      <Tarjeta key={key} />
+      <Tarjeta  />
     </VistaProvider>
   );
 };
