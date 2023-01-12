@@ -37,7 +37,7 @@ const SwitchCampos = ({
 }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
-  console.log(id_elemento)
+ 
   const hijos =
     cab.sc_hijos?.length > 0
       ? cab.sc_hijos.map((s, i) => (

@@ -62,7 +62,7 @@ const SiNoEditable = ({
       <select
         onChange={handleChange}
         value={value === null ? "null" : value === "s" ? "s" : "n"}
-        style={{ marginLeft: "10px" }}
+        style={{ marginLeft: "3px", marginRight: "3px" }}
       >
         <option value="s" disabled={data[cab.update_id_alias] ? false : true}>
           SI
