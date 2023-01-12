@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef } from "react";
 import FuncionesContext from "../context/FuncionesContext";
 
-const InputFile = ({ data, cab, campokey, indiceData }) => {
+const InputFile = ({ data, cab, campokey, indiceData, id_elemento }) => {
   const { subirArchivo } = useContext(FuncionesContext);
   const [imagenOnClick, setImagenOnClick] = useState();
   const [valor, setValor] = useState();
@@ -21,7 +21,7 @@ const InputFile = ({ data, cab, campokey, indiceData }) => {
   return (
     <>
       {
-        <div style={{ width: "100%", textAlign: cab.align }}>
+        <div id={id_elemento} style={{ width: "100%", textAlign: cab.align }}>
           <input
             type="file"
             multiple

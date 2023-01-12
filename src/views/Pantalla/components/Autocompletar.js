@@ -157,7 +157,7 @@ export default function Virtualize({
   context,
   indiceData,
   campokey,
-  id_elemento
+  id_elemento,
 }) {
   const { superSubmit } = useContext(FuncionesContext);
 
@@ -196,17 +196,22 @@ export default function Virtualize({
 
   const classes = useStyles();
 
- 
   return (
     <>
       <div className="vista_label">
-        <p style={{ position: "relative", top: "3.5px", width: "max-content" }}>
-          {cab.nombre}:
-        </p>
+        {cab.nombre ? (
+          <p
+            style={{ position: "relative", top: "3.5px", width: "max-content" }}
+          >
+            {cab.nombre}:
+          </p>
+        ) : (
+          <></>
+        )}
       </div>
       <Autocomplete
         value={value}
-        id={ id_elemento}
+        id={id_elemento}
         sx={{ width: "100%" }}
         disableListWrap
         disableClearable

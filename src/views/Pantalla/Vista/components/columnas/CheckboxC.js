@@ -4,7 +4,7 @@ import { Checkbox } from "@mui/material";
 import FuncionesContext from "../../../context/FuncionesContext";
 import PantallaContext from "../../../context/PantallaContext";
 
-const CheckboxC = ({ data, cab, campokey }) => {
+const CheckboxC = ({ data, cab, campokey, id_elemento }) => {
   const { superSubmit } = useContext(FuncionesContext);
   const { configuraciones_ref } = useContext(PantallaContext);
 
@@ -49,7 +49,7 @@ const CheckboxC = ({ data, cab, campokey }) => {
   }, [configuraciones_ref[cab.id_a]]);
 
   return (
-    <div style={{ marginLeft: "14px" }}>
+    <div id={id_elemento} style={{ marginLeft: "14px" }}>
       <FormControlLabel
         control={
           <Checkbox

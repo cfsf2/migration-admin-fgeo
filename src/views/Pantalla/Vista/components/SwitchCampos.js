@@ -23,22 +23,31 @@ import InputText from "../../components/InputText";
 import InputFile from "../../components/InputFile";
 import Autocompletar from "../../components/Autocompletar";
 import InputTextEditable from "./columnas/InputTextEditable";
+import { withTools } from "../../helper/withTools";
 
 import VistaContext from "../context/VistaContext";
 
-const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
+const SwitchCampos = ({
+  data,
+  cab,
+  padre,
+  indiceData,
+  Context,
+  id_elemento,
+}) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
 
   const hijos =
     cab.sc_hijos?.length > 0
-      ? cab.sc_hijos.map((s) => (
+      ? cab.sc_hijos.map((s, i) => (
           <SwitchCampos
             key={s.id_a}
             data={data}
-            indiceData={indiceData}
+            indiceData={i}
             cab={s}
             padre={cab}
+            id_elemento={s.id_a + i}
           />
         ))
       : null;
@@ -53,6 +62,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             cab={cab}
             hijos={hijos}
             campokey={campokey}
+            id_elemento={id_elemento}
           />
         );
       case "select":
@@ -65,6 +75,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             campokey={campokey}
             indiceData={indiceData}
             context={Context}
+            id_elemento={id_elemento}
           />
         );
       case "fecha":
@@ -75,6 +86,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             cab={cab}
             hijos={hijos}
             campokey={campokey}
+            id_elemento={id_elemento}
           />
         );
 
@@ -86,6 +98,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             cab={cab}
             hijos={hijos}
             campokey={campokey}
+            id_elemento={id_elemento}
           />
         );
       case "si_no_editable":
@@ -97,6 +110,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "toggle":
@@ -108,6 +122,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "imagen":
@@ -118,6 +133,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             cab={cab}
             hijos={hijos}
             campokey={campokey}
+            id_elemento={id_elemento}
           />
         );
       case "boton":
@@ -128,6 +144,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             cab={cab}
             hijos={hijos}
             campokey={campokey}
+            id_elemento={id_elemento}
           />
         );
 
@@ -139,6 +156,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             cab={cab}
             hijos={hijos}
             campokey={campokey}
+            id_elemento={id_elemento}
           />
         );
       case "enlace_opcional":
@@ -149,6 +167,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             cab={cab}
             hijos={hijos}
             campokey={campokey}
+            id_elemento={id_elemento}
           />
         );
       case "input_editable":
@@ -161,6 +180,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             campokey={campokey}
             indiceData={indiceData}
             context={VistaContext}
+            id_elemento={id_elemento}
           />
         );
       case "input_number_editable":
@@ -174,6 +194,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             indiceData={indiceData}
             type="number"
             context={VistaContext}
+            id_elemento={id_elemento}
           />
         );
       case "input_text_editable":
@@ -186,6 +207,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             campokey={campokey}
             indiceData={indiceData}
             Context={Context}
+            id_elemento={id_elemento}
           />
         );
       case "radio_button":
@@ -197,6 +219,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "checkbox":
@@ -208,6 +231,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "input_fecha":
@@ -219,6 +243,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "password":
@@ -230,6 +255,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "input_text_number":
@@ -241,6 +267,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "input_file":
@@ -252,6 +279,7 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             hijos={hijos}
             campokey={campokey}
             indiceData={indiceData}
+            id_elemento={id_elemento}
           />
         );
       case "autocompletar":
@@ -264,16 +292,24 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
             campokey={campokey}
             indiceData={indiceData}
             context={VistaContext}
+            id_elemento={id_elemento}
           />
         );
       case "null":
         return <></>;
       case "botonera":
         return (
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <div className="vista_label" style={{ fontWeight: "bold" }}>
-              {cab.nombre}:
-            </div>
+          <div
+            id={id_elemento}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            {cab.nombre ? (
+              <div className="vista_label" style={{ fontWeight: "bold" }}>
+                {cab.nombre}:
+              </div>
+            ) : (
+              <></>
+            )}
             {hijos?.map((hijo) => hijo)}
           </div>
         );
@@ -289,4 +325,4 @@ const SwitchCampos = ({ data, cab, padre, indiceData, Context }) => {
   );
 };
 
-export default SwitchCampos;
+export default withTools(SwitchCampos);

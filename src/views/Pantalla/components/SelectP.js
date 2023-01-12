@@ -10,6 +10,7 @@ const Select_Enlazable = ({
   campokey,
   indiceData,
   context,
+  id_elemento,
 }) => {
   const { superSubmit, refrescarConfiguracion } = useContext(FuncionesContext);
 
@@ -83,12 +84,16 @@ const Select_Enlazable = ({
 
   return (
     //<div style={{ textAlign: "center"}}>
-    <div style={{ flex: "1 0 100%" }}>
+    <div id={id_elemento} style={{ flex: "1 0 100%" }}>
       <div
         className="vista_label_select"
         //style={{ fontWeight: "bold", display: "flex", width: "100%" }}
       >
-        <p style={{ flexShrink: 0, flexWrap: "wrap" }}>{cab.nombre}:</p>
+        {cab.nombre ? (
+          <p style={{ flexShrink: 0, flexWrap: "wrap" }}>{cab.nombre}:</p>
+        ) : (
+          <></>
+        )}
         <Select
           id={cab.id_a}
           nombre={nombre}

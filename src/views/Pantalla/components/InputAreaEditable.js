@@ -11,6 +11,7 @@ const InputAreaEditable = ({
   indiceData,
   type,
   context,
+  id_elemento
 }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
@@ -82,7 +83,7 @@ const InputAreaEditable = ({
   })();
 
   return (
-    <div className="tarjeta_grid_item_label_item">
+    <div id={id_elemento} className="tarjeta_grid_item_label_item">
       {nombre ? <div className="vista_label">{nombre}:</div> : <></>}
       {type === "number" ? (
         <TextField
@@ -105,6 +106,7 @@ const InputAreaEditable = ({
           setValue={setValue}
           onEnter={handleGuardar}
           style={style}
+          id={id_elemento}
         />
       )}
     </div>

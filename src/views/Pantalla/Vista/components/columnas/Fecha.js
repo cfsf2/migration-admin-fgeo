@@ -1,7 +1,7 @@
 import React from "react";
 import { lightFormat, parseJSON } from "date-fns";
 
-const FechaC = ({ data, cab, hijos, campokey }) => {
+const FechaC = ({ data, cab, hijos, campokey, id_elemento }) => {
   const nombre = (() => {
     if (cab.nombre_alias) {
       return data[cab.nombre_alias];
@@ -9,10 +9,14 @@ const FechaC = ({ data, cab, hijos, campokey }) => {
     return cab.nombre;
   })();
   return (
-    <div className="tarjeta_grid_item_label_item">
-      <div className="vista_label" style={{ fontWeight: "bold" }}>
-        {nombre}:{" "}
-      </div>
+    <div id={id_elemento} className="tarjeta_grid_item_label_item">
+      {nombre ? (
+        <div className="vista_label" style={{ fontWeight: "bold" }}>
+          {nombre}:{" "}
+        </div>
+      ) : (
+        <></>
+      )}
       <div
         className="vista_dato"
         style={{

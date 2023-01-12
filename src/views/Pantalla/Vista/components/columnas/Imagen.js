@@ -1,7 +1,7 @@
 import React from "react";
 import { image_path_server } from "../../../../../config";
 
-const Imagen = ({ data, cab, hijos, campokey }) => {
+const Imagen = ({ data, cab, hijos, campokey, id_elemento }) => {
   const nombre = (() => {
     if (cab.nombre_alias) {
       return data[cab.nombre_alias];
@@ -9,10 +9,14 @@ const Imagen = ({ data, cab, hijos, campokey }) => {
     return cab.nombre;
   })();
   return (
-    <div style={{ width: "100%", textAlign: cab.align }}>
-      <div className="vista_label" style={{ fontWeight: "bold" }}>
-        {nombre}:
-      </div>
+    <div id={id_elemento} style={{ width: "100%", textAlign: cab.align }}>
+      {nombre ? (
+        <div className="vista_label" style={{ fontWeight: "bold" }}>
+          {nombre}:
+        </div>
+      ) : (
+        <></>
+      )}
       <img
         src={image_path_server + data[campokey]}
         style={{ textAlign: cab.align }}

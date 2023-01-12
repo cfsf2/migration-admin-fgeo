@@ -4,7 +4,7 @@ import PantallaContext from "../../../context/PantallaContext";
 import VistaContext from "../../context/VistaContext";
 import { Switch } from "@material-ui/core";
 
-const Toggle = ({ data, cab, campokey, key, indiceData }) => {
+const Toggle = ({ data, cab, campokey, key, indiceData, id_elemento }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
   const { configuraciones_ref } = useContext(PantallaContext);
@@ -73,16 +73,21 @@ const Toggle = ({ data, cab, campokey, key, indiceData }) => {
 
   return (
     <div
+      id={id_elemento}
       key={key}
       className="tarjeta_grid_item_label_item"
       style={{ justifyContent: cab.align }}
     >
-      <div
-        className="vista_label"
-        style={{ fontWeight: "bold", margin: "6px 0" }}
-      >
-        {nombre}:
-      </div>
+      {nombre ? (
+        <div
+          className="vista_label"
+          style={{ fontWeight: "bold", margin: "6px 0" }}
+        >
+          {nombre}:
+        </div>
+      ) : (
+        <></>
+      )}
       <Switch
         color="primary"
         checked={value === null ? false : value === "s" ? true : false}
