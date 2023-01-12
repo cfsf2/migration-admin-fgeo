@@ -11,6 +11,8 @@ const Default = ({ data, cab, hijos, campokey, id_elemento }) => {
   const style = (() => {
     if (data[campokey]) {
       return {
+        textAlign: cab.align,
+        width:"100%",
         borderColor: "green",
       };
     }
@@ -29,9 +31,9 @@ const Default = ({ data, cab, hijos, campokey, id_elemento }) => {
         )}
         <div
           className={data[cab.id_a + "_className"]}
-          // style={{ position: "relative", left: "-13px" }}
+          style={style}
         >
-          <div style={style}>{data[campokey]}</div>
+          <div >{data[campokey]}</div>
         </div>
       </div>
       {hijos?.map((hijo) => hijo)}

@@ -5,6 +5,7 @@ export const withTools = (Componente) => (props) => {
 
   useEffect(() => {
     const g = document.getElementById(id_elemento)?.parentNode;
+    console.log(g, id_elemento)
     if (g) {
       if (cab.tooltip_texto) {
         const id_tooltip = id_elemento + "_tooltip" + indiceData;
@@ -17,7 +18,7 @@ export const withTools = (Componente) => (props) => {
           )
         );
 
-        tooltip.classList.add("Ftooltip"); // listado.scss
+        tooltip.classList.add("Ftooltip"); // Pantalla.scss
         g.style.position = "relative";
 
         if (cab.tooltip_class === "okey") {

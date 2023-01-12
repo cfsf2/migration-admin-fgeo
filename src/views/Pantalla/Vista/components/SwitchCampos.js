@@ -37,7 +37,7 @@ const SwitchCampos = ({
 }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
-
+ 
   const hijos =
     cab.sc_hijos?.length > 0
       ? cab.sc_hijos.map((s, i) => (
@@ -319,7 +319,7 @@ const SwitchCampos = ({
   };
 
   return (
-    <div id={cab.id_a} className="tarjeta_grid_item_componente_campo">
+    <div id={"_"+id_elemento} className="tarjeta_grid_item_componente_campo">
       {Componente()}
     </div>
   );
