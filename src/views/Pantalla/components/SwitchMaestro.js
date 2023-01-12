@@ -44,7 +44,7 @@ const SwitchMaestro = ({ configuracion, id, _key, nollamar, idx, params }) => {
       case 6:
         return (
           <Vista
-            key={_key}
+           // key={_key}
             configuracion={configuracion}
             id={id}
             nollamar={nollamar}
