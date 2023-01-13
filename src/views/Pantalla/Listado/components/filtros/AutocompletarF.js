@@ -183,7 +183,6 @@ export default function Virtualize(props) {
           return option.value === value;
         }}
         getOptionLabel={(option) => {
-          console.log(option)
           if (typeof option.value === "number" || typeof option.value === "string") {
             return cab.opciones.find((o) => o.value === option.value)?.label;
           }

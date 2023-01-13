@@ -4,6 +4,7 @@ import FormLabel from "@mui/material/FormLabel";
 import { FormControl, Radio, RadioGroup } from "@mui/material";
 import Label from "./LabelF";
 import { makeStyles } from "@material-ui/styles";
+import { useEffect } from "react";
 
 const useStyles = makeStyles({
   myRadioButton: {
@@ -28,15 +29,21 @@ const RadioF = (props) => {
     setFiltrosAAplicar((prevState) => {
       if (!e.target.value.trim()) {
         const newState = { ...prevState };
-        delete newState[id_a];
+        newState[id_a] = undefined
+        console.log(e.target.value, prevState, newState)
         return newState;
       }
+    
       return {
         ...prevState,
         [id_a]: e.target.value,
       };
     });
   };
+
+  useEffect(()=>{
+    console.log(filtrosAAplicar, id_a)
+  },[])
 
   const styles = {
     gridColumn: grid_span,
@@ -53,8 +60,8 @@ const RadioF = (props) => {
       />
       <div className="filtro_grid_radio_button">
         <RadioGroup
-          value={filtrosAAplicar[id_a] ? filtrosAAplicar[id_a] : " "}
-          onChange={handleRadio}
+          value={filtrosAAplicar[id_a] ?? ""}
+          onChange={(e)=>handleRadio(e)}
           row
         >
           {radio_opciones.map((item) => {
@@ -68,7 +75,8 @@ const RadioF = (props) => {
             );
           })}
           <FormControlLabel
-            value={" "}
+            key="Todas"
+            value={""}
             control={<Radio className={classes.myRadioButton} />}
             label={"Todas"}
             checked={!filtrosAAplicar[id_a]}

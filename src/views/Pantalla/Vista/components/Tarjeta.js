@@ -92,6 +92,7 @@ const Tarjeta = () => {
                             ? "none"
                             : "inherit",
                       }}
+                      key={cab.id_a + i}
                     >
                       <SwitchCampos
                         key={cab.id_a + i}
