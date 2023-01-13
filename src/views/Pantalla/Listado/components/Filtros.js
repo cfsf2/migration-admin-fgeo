@@ -144,7 +144,7 @@ const Filtros = () => {
       }
       setExpanded((s) => false);
 
-      aplicarFiltros({ filtrosAAplicar, funcion: "Boton Submit Filtro" });
+      aplicarFiltros({ filtrosAAplicar, quienLlama: "Boton Submit Filtro" });
 
       return;
     }
@@ -196,7 +196,6 @@ const Filtros = () => {
                   ?.sort((a, b) => a.orden - b.orden)
                   .map((f) => 
                     {
-                   
                       return <SwitchFiltros
                       {...f}
                       key={f.id_a}

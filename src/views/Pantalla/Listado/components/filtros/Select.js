@@ -66,19 +66,3 @@ export const SelectF = (props) => {
 
 export default SelectF;
 
-SelectF.propTypes = {
-  label: PropTypes.string.isRequired,
-  campo: PropTypes.string.isRequired,
-  filter: PropTypes.shape({
-    habilitado: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    instituciones: PropTypes.string,
-    vigencia: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    titulo: PropTypes.string,
-  }).isRequired,
-  setFilter: PropTypes.func.isRequired,
-  opciones: PropTypes.shape({
-    nombre: PropTypes.string,
-    value: PropTypes.any,
-    default: PropTypes.bool,
-  }),
-};

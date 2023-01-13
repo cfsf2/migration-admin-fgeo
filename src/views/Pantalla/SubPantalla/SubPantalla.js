@@ -63,7 +63,7 @@ const SubPantalla = ({ configuracion, id, nollamar, idx }) => {
     .map((item) => {
       return (
         <SwitchMaestro
-          key={id_a}
+          key={item.opciones.id_a}
           configuracion={item}
           id={id}
           nollamar={nollamar}

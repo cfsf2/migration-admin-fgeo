@@ -22,7 +22,7 @@ const Botonera = ({
       )}
       {cancelar ? <Cancelar handleCancelar={handleCancelar} /> : <></>}
       {acciones?.map((accion) => (
-        <SwitchColumnas cab={accion} data={{}} />
+        <SwitchColumnas key={JSON.stringify(accion)} cab={accion} data={{}} />
       ))}
     </div>
   );

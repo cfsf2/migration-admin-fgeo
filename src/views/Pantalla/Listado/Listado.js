@@ -25,7 +25,12 @@ import ListadoReducer, { initialState } from "./context/ListadoReducer";
 //   return queryfiltros;
 // };
 
-const objetoQueryFiltrosdeF = (filtros, filtrosAAplicar, pantalla) => {
+const objetoQueryFiltrosdeF = (
+  filtros,
+  filtrosAAplicar,
+  pantalla,
+  quienLlama
+) => {
   let queryfiltros = {
     pantalla: pantalla,
   };
@@ -36,21 +41,31 @@ const objetoQueryFiltrosdeF = (filtros, filtrosAAplicar, pantalla) => {
 
   if (!filtrosAAplicar) return queryfiltros;
 
+
   filtros.forEach((f) => {
     if (filtrosAAplicar[f.id_a] || filtrosAAplicar[f.id_a] === "") {
-      queryfiltros[f.id_a] = filtrosAAplicar[f.id_a]?.toString()?.trim();
+      if (typeof filtrosAAplicar[f.id_a] === "number") {
+        queryfiltros[f.id_a] = filtrosAAplicar[f.id_a];
+      }
+
+      if (typeof filtrosAAplicar[f.id_a] === "string") {
+        queryfiltros[f.id_a] = filtrosAAplicar[f.id_a]?.toString()?.trim();
+      }
     }
+
     if (f.componente === "hidden") {
       queryfiltros[f.id_a] = filtrosAAplicar[f.id_a] ?? "mandatory";
     }
+
     if (
       !queryfiltros[f.id_a] ||
       queryfiltros[f.id_a] === null ||
       queryfiltros[f.id_a]?.toString()?.trim() === "" // esto sobreescribe los valores de string vacio y los convierte en undefined *** REVISAR
     )
-      queryfiltros[f.id_a] = undefined;
+    queryfiltros[f.id_a] = undefined;
   });
 
+  
   return queryfiltros;
 };
 
@@ -105,7 +120,6 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
       configuracion.opciones.configuracionDeUsuario?.iniciar_activo === "s"
     ) {
       if (nollamar) return;
-
       callMF({
         filtrosAAplicar: filtrosUsuario,
         _filtros: configuracion.filtros,
@@ -123,7 +137,8 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
       let queryfiltros = objetoQueryFiltrosdeF(
         _filtros,
         filtrosAAplicar,
-        pantalla
+        pantalla,
+        "llama callMF"
       );
 
       dispatch({
@@ -219,7 +234,8 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
           filtros: objetoQueryFiltrosdeF(
             configuracion.filtros,
             state.filtroActivo,
-            pantalla
+            pantalla,
+            "useEffect de Listado sin dependencias"
           ),
           funcion: `useEffect Listado PPantalla ${PPantalla}`,
         },

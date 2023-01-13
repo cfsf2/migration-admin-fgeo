@@ -84,7 +84,7 @@ const InputAreaEditable = ({
 
   let Componente = (
     <TextArea
-      value={value}
+      value={value ?? ""}
       setValue={setValue}
       onEnter={handleGuardar}
       style={style}
