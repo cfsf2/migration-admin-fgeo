@@ -183,12 +183,15 @@ export default function Virtualize(props) {
           return option.value === value;
         }}
         getOptionLabel={(option) => {
-          
-          return cab.opciones.find(o=>o.value === option)?.label
+          console.log(option)
+          if (typeof option.value === "number" || typeof option.value === "string") {
+            return cab.opciones.find((o) => o.value === option.value)?.label;
+          }
+          return cab.opciones.find((o) => o.value === option)?.label ?? ""
         }}
         onChange={(e, nv) => {
           setFiltrosAAplicar((prevState) => {
-            if (nv === null) return {};
+            if (nv === null) return { ...prevState, [id_a]: "" };
             return { ...prevState, [id_a]: nv.value };
           });
         }}
