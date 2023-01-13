@@ -6,7 +6,7 @@ export const withTools = (Componente) => (props) => {
 
   useEffect(() => {
     const g = document.getElementById(id_elemento)?.parentNode;
-    console.log(g, id_elemento)
+  
     if (g) {
       if (cab.tooltip_texto) {
         const id_tooltip = id_elemento + "_tooltip" + indiceData;

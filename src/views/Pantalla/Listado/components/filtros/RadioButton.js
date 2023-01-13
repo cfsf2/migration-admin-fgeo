@@ -30,7 +30,7 @@ const RadioF = (props) => {
       if (!e.target.value.trim()) {
         const newState = { ...prevState };
         newState[id_a] = undefined
-        console.log(e.target.value, prevState, newState)
+        
         return newState;
       }
     
@@ -41,9 +41,6 @@ const RadioF = (props) => {
     });
   };
 
-  useEffect(()=>{
-    console.log(filtrosAAplicar, id_a)
-  },[])
 
   const styles = {
     gridColumn: grid_span,
