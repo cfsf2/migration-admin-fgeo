@@ -129,7 +129,7 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
 
   const callMF = useCallback(
     async ({ filtrosAAplicar, _filtros, quienLlama }) => {
-      console.log("desde CallMF => filtros A Aplicar", filtrosAAplicar);
+
       if (!_filtros) _filtros = filtros;
       setLoading(true);
       // setQueryFilter(filtrosAAplicar);
@@ -140,8 +140,6 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
         pantalla,
         "callMF"
       );
-
-      console.log("desde callMF => queryFiltros ->", queryfiltros);
 
       dispatch({
         type: "SET_FILTRO_ACTIVO",
