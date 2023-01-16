@@ -41,7 +41,6 @@ const objetoQueryFiltrosdeF = (
 
   if (!filtrosAAplicar) return queryfiltros;
 
-
   filtros.forEach((f) => {
     if (filtrosAAplicar[f.id_a] || filtrosAAplicar[f.id_a] === "") {
       if (typeof filtrosAAplicar[f.id_a] === "number") {
@@ -60,12 +59,12 @@ const objetoQueryFiltrosdeF = (
     if (
       !queryfiltros[f.id_a] ||
       queryfiltros[f.id_a] === null ||
-      queryfiltros[f.id_a]?.toString()?.trim() === "" // esto sobreescribe los valores de string vacio y los convierte en undefined *** REVISAR
-    )
-    queryfiltros[f.id_a] = undefined;
+      queryfiltros[f.id_a]?.toString()?.trim() === "" || // esto sobreescribe los valores de string vacio y los convierte en undefined *** REVISAR
+      filtrosAAplicar[f.id_a] === null
+    ) {
+      queryfiltros[f.id_a] = undefined;
+    }
   });
-
-  
   return queryfiltros;
 };
 
@@ -130,6 +129,7 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
 
   const callMF = useCallback(
     async ({ filtrosAAplicar, _filtros, quienLlama }) => {
+      console.log("desde CallMF => filtros A Aplicar", filtrosAAplicar);
       if (!_filtros) _filtros = filtros;
       setLoading(true);
       // setQueryFilter(filtrosAAplicar);
@@ -138,8 +138,10 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
         _filtros,
         filtrosAAplicar,
         pantalla,
-        "llama callMF"
+        "callMF"
       );
+
+      console.log("desde callMF => queryFiltros ->", queryfiltros);
 
       dispatch({
         type: "SET_FILTRO_ACTIVO",
@@ -157,6 +159,7 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
       if (res.status >= 400) {
         requestErrorHandler(res);
       }
+
       dispatch({
         type: "SET_DATOS",
         payload: res.data?.datos?.meta ? res.data.datos.data : res.data.datos,
@@ -235,7 +238,7 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
             configuracion.filtros,
             state.filtroActivo,
             pantalla,
-            "useEffect de Listado sin dependencias"
+            "SET FILTRO ACTIVO"
           ),
           funcion: `useEffect Listado PPantalla ${PPantalla}`,
         },
@@ -244,7 +247,7 @@ export const ListadoProvider = ({ configuracion, id, nollamar, children }) => {
       firstRender.current = false;
       return;
     }
-  }, []);
+  }, [1]);
 
   return (
     <>

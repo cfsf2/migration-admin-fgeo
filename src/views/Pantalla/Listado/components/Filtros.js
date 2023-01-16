@@ -66,6 +66,7 @@ const Filtros = () => {
 
   useEffect(() => {
     setFiltrosAAplicar(() => filtroActivo);
+    // console.log("filtros activos en filtros", filtroActivo) // ACA HAY UN ERROR DE LOGICA REACT Radio Button Loco viene por aca?
   }, [filtroActivo]);
 
   const validar = () => {
@@ -118,7 +119,7 @@ const Filtros = () => {
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit =async () => {
     if (loading) return;
 
     if (validar()) {
@@ -131,7 +132,7 @@ const Filtros = () => {
             (c) => c.opciones.tipo.id === 6
           );
 
-        insertar({
+       await insertar({
           valor: filtrosAAplicar,
           id_a: SISTEMA_GUARDAR_FILTROS,
           insert_ids: (() => {
@@ -143,7 +144,6 @@ const Filtros = () => {
         });
       }
       setExpanded((s) => false);
-
       aplicarFiltros({ filtrosAAplicar, quienLlama: "Boton Submit Filtro" });
 
       return;

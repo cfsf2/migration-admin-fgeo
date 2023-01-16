@@ -29,8 +29,8 @@ const RadioF = (props) => {
     setFiltrosAAplicar((prevState) => {
       if (!e.target.value.trim()) {
         const newState = { ...prevState };
-        newState[id_a] = undefined
-        
+        newState[id_a] = null
+       
         return newState;
       }
     
@@ -40,7 +40,6 @@ const RadioF = (props) => {
       };
     });
   };
-
 
   const styles = {
     gridColumn: grid_span,
@@ -73,10 +72,10 @@ const RadioF = (props) => {
           })}
           <FormControlLabel
             key="Todas"
-            value={""}
+            value={null}
             control={<Radio className={classes.myRadioButton} />}
             label={"Todas"}
-            checked={!filtrosAAplicar[id_a]}
+            checked={filtrosAAplicar[id_a]===null || !filtrosAAplicar[id_a]}
           />
         </RadioGroup>
       </div>
