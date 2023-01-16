@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useReducer, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useContext,
+  useRef,
+} from "react";
 import axios from "axios";
 
 import { farmageo_api } from "../../config";
@@ -12,9 +18,11 @@ import { useParams, useLocation } from "react-router";
 import SwitchMaestro from "./components/SwitchMaestro";
 import { AlertasProvider } from "./context/AlertaContext";
 import HeaderConf from "./components/HeaderConf";
-import { ModalProvider, GestorModales } from "./context/ModalContext";
+import { ModalProvider } from "./context/ModalContext";
 
 import Debugger from "./components/Debugger";
+
+const CancelToken = axios.CancelToken;
 
 const Pantalla = () => {
   const [state, dispatch] = useReducer(PantallaReducer, initialState);
@@ -27,15 +35,23 @@ const Pantalla = () => {
   const params = new URLSearchParams(search);
   let id = params.get("id");
 
+  const cancelSource = useRef(null);
+
   useEffect(() => {
     setLoadingPantalla(true);
+
+    cancelSource.current = CancelToken.source();
+
     axios
       .post(
         farmageo_api + "/pantalla/" + pantalla,
         {
           id: id,
         },
-        { params: locationState?.filtros }
+        {
+          params: locationState?.filtros,
+          cancelToken: cancelSource.current.token
+        }
       )
       .then((response) => {
         if (response.status >= 400) {
@@ -68,6 +84,9 @@ const Pantalla = () => {
         setLoadingPantalla(false);
         return response;
       })
+      .catch((err) => {
+        console.log("cancel request...", err);
+      })
       .then((response) => {
         dispatch({
           type: "ADD_SQL",
@@ -78,6 +97,9 @@ const Pantalla = () => {
         console.log(error);
         return;
       });
+    return () => {
+      cancelSource.current.cancel();
+    };
   }, [pantalla, id]);
 
   //configuraciones opciones orden
