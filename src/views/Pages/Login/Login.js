@@ -11,14 +11,9 @@ import { Input, Divider, Form2 } from "./style";
 import { Button } from "reactstrap";
 import {
   LOGIN,
-  LOADPROFILE,
   RESET_ERROR,
   TRYREGISTER,
-  CHECK_TOKEN,
-  LOGOUT,
 } from "../../../redux/actions/authActions";
-import { Redirect } from "react-router-dom";
-import { GET_SESSION } from "../../../redux/actions/authActions";
 import "./login.scss";
 
 const backgroundStyle = {
@@ -183,29 +178,36 @@ const Login = (props) => {
             </div>
             <div className="d-flex mt-auto flex-column ">
               <div style={lineStyle}></div>
-              <div style={whiteStyle} className="my-2">
-                <img src={iEmail} style={{ widht: "25px", height: "22px" }} />{" "}
+              <div style={whiteStyle} className="d-flex my-2">
+                <i
+                  class="fa fa-envelope-o fa-2x flex-iconos"
+                  aria-hidden="true"
+                ></i>
                 <a
-                  style={{
-                    fontSize: "18px",
-                    marginRight: "10px",
-                    ...whiteStyle,
-                  }}
-                  href="mailto:coordinador@farmageo.com.ar"
+                  className="flex-iconos_text"
+                  href="mailto:soportefarmageo@cfsf2.org.ar"
                 >
-                  coordinador@farmageo.com.ar
+                  soportefarmageo@cfsf2.org.ar
                 </a>
                 {window.innerWidth > 769 ? null : <br />}
-                <img
-                  src={iLocation}
-                  style={{ widht: "25px", height: "22px" }}
-                />{" "}
+                <i
+                  class="fa fa-map-marker fa-2x flex-iconos"
+                  aria-hidden="true"
+                ></i>
                 <a
-                  style={{ fontSize: "18px", ...whiteStyle }}
+                  className="flex-iconos_text"
                   target="_blank"
                   href="https://www.google.com/maps/place/Buenos+Aires+1262,+S2000+Rosario,+Santa+Fe/data=!4m2!3m1!1s0x95b7ab04a721ba5d:0x1080c44b44f427bf?sa=X&ved=2ahUKEwi36ryKmczxAhXnqJUCHdvjCToQ8gEwAHoECAYQAQ"
                 >
                   Buenos aires 1262, Rosario
+                </a>
+                <i class="fa fa-whatsapp fa-2x flex-iconos"></i>
+                <a
+                  href="https://wa.me/543412104056"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <p className="flex-iconos_text">341 2104056</p>
                 </a>
               </div>
             </div>
@@ -235,7 +237,7 @@ const Login = (props) => {
               type="text"
               inputColor="white"
               onChange={handleChangeUsername}
-              placeholder="Usuario o correo electrónico"
+              placeholder="Usuario"
               autoComplete="username"
             />
             <Input
