@@ -48,13 +48,8 @@ class Soporte extends Component {
                     </Row>
                     <Row>
                       <Col>
-                        <a
-                          href="https://www.farmageo.com.ar/novedades/terminos-y-condiciones/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Términos y condiciones
-                        </a>
+                      <Link to="/Terminos-y-Condiciones" target="_blank" style={{ fontSize: 10 }} rel="noopener noreferrer">
+                        Acepto los términos y condiciones</Link>
                       </Col>
                     </Row>
                   </Col>

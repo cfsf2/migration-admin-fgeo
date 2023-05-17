@@ -11,6 +11,8 @@ import { LOGOUT } from "./redux/actions/authActions";
 import { ALERT } from "./redux/actions/alertActions";
 import axios from "axios";
 
+import Terminos from "./views/Pages/Terminos";
+
 axios.interceptors.request.use((request) => {
   request.headers.authorization = `Bearer ${window.localStorage.getItem(
     "token"
@@ -120,6 +122,12 @@ function App() {
             path="/register"
             name="Register Page"
             render={(props) => <Register {...props} />}
+          />
+          <Route
+            exact
+            path="/Terminos-y-Condiciones"
+            name="Terminos y condiciones"
+            render={() => <Terminos />}
           />
           <AuthProvider>
             <Route

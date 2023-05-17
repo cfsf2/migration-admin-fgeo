@@ -15,6 +15,7 @@ import {
   TRYREGISTER,
 } from "../../../redux/actions/authActions";
 import "./login.scss";
+import { Link } from "react-router-dom";
 
 const backgroundStyle = {
   backgroundImage: `url(${bgImage})`,
@@ -254,14 +255,8 @@ const Login = (props) => {
                 style={{ marginRight: 10 }}
                 checked={terminos}
               />
-              <a
-                href="https://www.farmageo.com.ar/novedades/terminos-y-condiciones/"
-                target="_blank"
-                style={{ fontSize: 10 }}
-                rel="noopener noreferrer"
-              >
-                Acepto los términos y condiciones
-              </a>
+              <Link to="/Terminos-y-Condiciones" target="_blank" style={{ fontSize: 10 }} rel="noopener noreferrer">
+                Acepto los términos y condiciones</Link>
             </div>
             <div>
               <Button
