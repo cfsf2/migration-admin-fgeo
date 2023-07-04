@@ -92,16 +92,6 @@ const SelectNroCuenta = ({
             />
           </FormGroup>
         </Col>{" "}
-        <Col md="4" xs="12">
-          <FormGroup>
-            <Label>Laboratorio elegido</Label>
-            <Input
-              type="text"
-              value={laboratorio != null ? laboratorio.nombre : undefined}
-              disabled
-            />
-          </FormGroup>
-        </Col>
       </Row>
       <Row>
         <Col>

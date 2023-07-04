@@ -1,0 +1,56 @@
+.transfer_condiciones_comerciales {
+  color: "black";
+  font-size: 16;
+  background-color: "#FFFFFF";
+  border-radius: 8px;
+  padding-left: 30px;
+  padding-right: 30px;
+  // padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  border-bottom-width: 0;
+  border-top-width: 10px;
+  border-right-width: 0;
+  border-color: #000000;
+  border-left-width: 0;
+  white-space: pre-wrap;
+  width: 100%;
+  text-align: justify;
+}
+.transfer_alert {
+  display: flex;
+  flex-direction: column;
+  &_block {
+    .tit {
+      margin-bottom: 15px;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    font-size: 1rem;
+  }
+}
+.transfer_tit {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  .transfer_tit_bloque {
+    display: flex;
+    padding: 0.5rem 0;
+    // width: 40%;
+    // justify-content: space-around;
+    align-items: center;
+    .transfer_tit_imagen {
+      max-width: 200px;
+      max-height: 30px;
+    }
+    .transfer_tit_tit {
+      font-size: 46px;
+      padding: 0;
+      margin: 0;
+      white-space: nowrap;
+      margin-left: 20px;
+      font-size: 2rem;
+    }
+  }
+}

@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 
-import {
-  Button,
-  Card,
-  CardBody,
-  Col,
-  Row,
-  FormGroup,
-  Input,
-  Label,
-} from "reactstrap";
+import { Button, Card, CardBody, Col, Row } from "reactstrap";
 import axios from "axios";
 import { farmageo_api } from "../../../config";
+
+import { image_path_server } from "../../../config";
+import S from "sweetalert2";
 
 import { connect } from "react-redux";
 
@@ -26,6 +20,16 @@ import { LOADPROFILE } from "../../../redux/actions/authActions";
 
 import TransferCart from "./TransferCart";
 import SelectNroCuenta from "./components/SelectNroCuenta";
+import "./transfer.scss";
+
+function Novedades(result) {
+  const novedades = `<div class="transfer_alert_block nove"><p class="tit">Novedades</p><p class="transfer_condiciones_comerciales">${result.data.novedades.trim()}</p></div>`;
+  const condcom = `<div class="transfer_alert_block condi"><p class="tit">Condiciones Comerciales</p><p class="transfer_condiciones_comerciales">${result.data.condiciones_comerciales.trim()}</p></div>`;
+  return `<div class="transfer_alert">
+      ${novedades}
+      ${condcom}
+    </div>`;
+}
 
 class FinalizarTransfer extends Component {
   constructor(props) {
@@ -44,24 +48,7 @@ class FinalizarTransfer extends Component {
   }
 
   handleInputNroCuenta(e) {
-    // if (this.state.lab_selected.modalidad_entrega.id_a === "TODAS_DROGUERIAS") {
-    //   const nro_cuenta_drogueria =
-    //     this.props.farmaciaReducer.farmacia.nro_cuenta_drogueria.find(
-    //       (cta) => cta.id_drogueria.toString() === e.target.value.toString()
-    //     );
-
-    //   this.setState({
-    //     transfer: {
-    //       ...this.state.transfer,
-    //       [e.target.name]: e.target.value,
-    //       nro_cuenta_drogueria: nro_cuenta_drogueria
-    //         ? nro_cuenta_drogueria.nro_cuenta
-    //         : "",
-    //     },
-    //   });
-    // }
     if (this.state.lab_selected.modalidad_entrega.id_a === "DIRECTO") {
-      console.log(e.target.value);
       return this.setState({
         transfer: { ...this.state.transfer, [e.target.name]: e.target.value },
       });
@@ -111,6 +98,14 @@ class FinalizarTransfer extends Component {
         if (result.data) {
           this.setState({ lab_selected: result.data });
           this.props.SET_LABORATORIO_SELECTED(result.data);
+
+          S.fire({
+            html: Novedades(result),
+            showCloseButton: true,
+            timer: 50000,
+            showConfirmButton: true,
+            confirmButtonText: "Aceptar",
+          });
         }
       } catch (error) {
         this.setState({ lab_selected: null });
@@ -132,8 +127,8 @@ class FinalizarTransfer extends Component {
       <div className="animated fadeIn" style={{ whiteSpace: "pre-wrap" }}>
         {/* <ModalStep /> */}
 
-        <Row>
-          <Col md="3" xs="12">
+        <Row style={{ display: "flex", alignItems: "center" }}>
+          <Col md="4" xs="12">
             <Button
               href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
               className="btn"
@@ -158,69 +153,20 @@ class FinalizarTransfer extends Component {
               <b>Volver a elegir un Laboratorio</b>
             </Button>
           </Col>
+          <Col md="4" xs="12">
+            <div className="transfer_tit">
+              <div className="transfer_tit_bloque">
+                <img
+                  className="transfer_tit_imagen"
+                  src={image_path_server + lab_selected.imagen}
+                  alt="loguito"
+                ></img>
+                <p className="transfer_tit_tit">{lab_selected.nombre}</p>
+              </div>
+            </div>
+          </Col>
+          <Col md="4"></Col>
         </Row>
-        {lab_selected.novedades ? (
-          <Row>
-            <Col md="12" xs="12">
-              <div
-                style={{
-                  color: "black",
-                  fontSize: 14,
-                  backgroundColor: "#FFFFFF",
-                  borderRadius: 8,
-                  paddingLeft: 30,
-                  paddingRight: 30,
-                  paddingTop: 20,
-                  paddingBottom: 20,
-                  marginBottom: 10,
-                  borderBottomWidth: 0,
-                  borderTopWidth: 10,
-                  borderRightWidth: 0,
-                  borderColor: "#000000",
-                  borderLeftWidth: 0,
-                  fontWeight: "bold",
-                }}
-              >
-                <p>{lab_selected.novedades}</p>
-              </div>
-            </Col>
-          </Row>
-        ) : (
-          <></>
-        )}
-        {lab_selected.condiciones_comerciales ? (
-          <Row>
-            <Col md="12" xs="12">
-              <div
-                style={{
-                  color: "black",
-                  fontSize: 16,
-                  backgroundColor: "#FFFFFF",
-                  borderRadius: 8,
-                  paddingLeft: 30,
-                  paddingRight: 30,
-                  paddingTop: 20,
-                  paddingBottom: 20,
-                  marginBottom: 10,
-                  borderBottomWidth: 0,
-                  borderTopWidth: 10,
-                  borderRightWidth: 0,
-                  borderColor: "#000000",
-                  borderLeftWidth: 0,
-                }}
-              >
-                <p>
-                  <b>Condiciones comerciales: </b>
-                  {/* strig literal para que acepte saltos de linea desde css con pre-wrap */}
-                  {`${lab_selected.condiciones_comerciales}`}
-                </p>
-              </div>
-            </Col>
-          </Row>
-        ) : (
-          <></>
-        )}
-
         <Card>
           <CardBody>
             <SelectNroCuenta
