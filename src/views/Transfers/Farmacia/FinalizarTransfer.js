@@ -134,7 +134,10 @@ class FinalizarTransfer extends Component {
     if (this.props.farmaciaReducer.load === false)
       return <p>Cargando farmacia</p>;
     return (
-      <div className="animated fadeIn" style={{ whiteSpace: "pre-wrap" }}>
+      <div
+        className="animated fadeIn"
+        style={{ whiteSpace: "pre-wrap", marginBottom: "2.5rem" }}
+      >
         {/* <ModalStep /> */}
 
         <Row style={{ display: "flex", alignItems: "center" }}>
@@ -178,10 +181,15 @@ class FinalizarTransfer extends Component {
           <Col md="4"></Col>
         </Row>
         <Card>
-          <CardBody>
+          <CardBody style={{ paddingTop: "0.5rem" }}>
             {(this.state.lab_selected.condiciones_comerciales ||
               this.state.lab_selected.novedades) && (
-              <div className="finalizar_transfer_condiciones" onClick={() => this.handleCondiciones()}>Condiciones</div>
+              <div
+                className="finalizar_transfer_condiciones"
+                onClick={() => this.handleCondiciones()}
+              >
+                Condiciones
+              </div>
             )}
             <SelectNroCuenta
               transfer={this.state.transfer}
@@ -189,7 +197,7 @@ class FinalizarTransfer extends Component {
               farmacia={this.props.farmaciaReducer.farmacia}
               laboratorio={lab_selected}
             />
-            <hr />
+
             <TransferCart
               transfer={this.state.transfer}
               history={this.props.history}

@@ -58,9 +58,14 @@
 .finalizar_transfer_condiciones {
   float: right;
   color: rgb(32, 168, 216);
+  font-size: 0.8rem;
   &:hover {
     cursor: pointer;
     color: #167495;
     text-decoration: underline;
   }
+}
+
+.select_cuenta_label {
+  font-size: 1rem;
 }

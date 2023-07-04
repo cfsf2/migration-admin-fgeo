@@ -86,12 +86,7 @@ export default function Barra(props) {
           <div className={`no-enviando ${enviando ? "enviando" : ""}`}></div>
         </button>
       </div>
-      <a
-        href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
-        className="btn btn-labs"
-      >
-        <b>Elegir Otro Laboratorio</b>
-      </a>
+
       <div style={{ width: "100%" }} className="transfer_lista_footer">
         <div className="transfer_lista_footer_paginacion">
           <button onClick={handlePreviousPage}>Pagina Anterior</button>

@@ -51,13 +51,14 @@ const SelectNroCuenta = ({
         {laboratorio.modalidad_entrega.id_a !== "DIRECTO" ? (
           <Col md="4" xs="12">
             <FormGroup>
-              <Label>Elegir Cuenta</Label>
+              <Label className="select_cuenta_label">Elegir Cuenta</Label>
 
               <Input
                 type="select"
                 name="id_drogueria"
                 value={transfer ? transfer.drogueria_nombre : undefined}
                 onChange={handleInputNroCuenta}
+                style={{ padding: 0 }}
               >
                 <option value={undefined}>seleccionar...</option>
 
@@ -72,7 +73,7 @@ const SelectNroCuenta = ({
             </FormGroup>
 
             <Link to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA">
-              <p style={{ fontSize: "1rem" }}>
+              <p style={{ fontSize: "0.8rem" }}>
                 Para agregar otras cuentas haga click aqui.{" "}
               </p>
             </Link>
@@ -82,13 +83,14 @@ const SelectNroCuenta = ({
         )}
         <Col md="3" xs="12">
           <FormGroup>
-            <Label>N° de cuenta</Label>
+            <Label className="select_cuenta_label">N° de cuenta</Label>
             <Input
               type="text"
               name="nro_cuenta_drogueria"
               onChange={handleInputNroCuenta}
               value={transfer.nro_cuenta_drogueria}
               disabled={laboratorio.modalidad_entrega.id_a !== "DIRECTO"}
+              bsSize="small"
             />
           </FormGroup>
         </Col>{" "}

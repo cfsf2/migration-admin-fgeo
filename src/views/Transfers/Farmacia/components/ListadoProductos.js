@@ -152,12 +152,12 @@ export function ListadoProductos(props) {
             //***** Linea de Listado ****/
             <div key={producto._id} className="transfer_lista_item">
               <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}
+                // style={{
+                //   display: "flex",
+                //   flexDirection: "column",
+                //   alignItems: "center",
+                //   marginBottom: "10px",
+                // }}
               >
                 {laboratorios.filter((lab) => {
                   // return lab._id === producto.laboratorioid;
