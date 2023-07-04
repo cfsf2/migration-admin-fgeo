@@ -54,3 +54,13 @@
     }
   }
 }
+
+.finalizar_transfer_condiciones {
+  float: right;
+  color: rgb(32, 168, 216);
+  &:hover {
+    cursor: pointer;
+    color: #167495;
+    text-decoration: underline;
+  }
+}

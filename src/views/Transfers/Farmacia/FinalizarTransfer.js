@@ -26,9 +26,19 @@ function Novedades(result) {
   const novedades = `<div class="transfer_alert_block nove"><p class="tit">Novedades</p><p class="transfer_condiciones_comerciales">${result.data.novedades.trim()}</p></div>`;
   const condcom = `<div class="transfer_alert_block condi"><p class="tit">Condiciones Comerciales</p><p class="transfer_condiciones_comerciales">${result.data.condiciones_comerciales.trim()}</p></div>`;
   return `<div class="transfer_alert">
-      ${novedades}
-      ${condcom}
+      ${result.data.novedades.trim() ? novedades : ""}
+      ${result.data.condiciones_comerciales.trim() ? condcom : ""}
     </div>`;
+}
+
+function showNovedades(result) {
+  S.fire({
+    html: Novedades(result),
+    showCloseButton: true,
+    timer: 50000,
+    showConfirmButton: true,
+    confirmButtonText: "Aceptar",
+  });
 }
 
 class FinalizarTransfer extends Component {
@@ -45,6 +55,7 @@ class FinalizarTransfer extends Component {
 
     this.handlequery = this.handlequery.bind(this);
     this.handleInputNroCuenta = this.handleInputNroCuenta.bind(this);
+    this.handleCondiciones = this.handleCondiciones.bind(this);
   }
 
   handleInputNroCuenta(e) {
@@ -98,14 +109,9 @@ class FinalizarTransfer extends Component {
         if (result.data) {
           this.setState({ lab_selected: result.data });
           this.props.SET_LABORATORIO_SELECTED(result.data);
-
-          S.fire({
-            html: Novedades(result),
-            showCloseButton: true,
-            timer: 50000,
-            showConfirmButton: true,
-            confirmButtonText: "Aceptar",
-          });
+          if (result.data.condiciones_comerciales || result.data.novedades) {
+            showNovedades(result);
+          }
         }
       } catch (error) {
         this.setState({ lab_selected: null });
@@ -116,6 +122,10 @@ class FinalizarTransfer extends Component {
     if (this.props.tranfersReducer.laboratorios.length === 0) {
       this.props.GET_LABORATORIOS();
     }
+  }
+
+  handleCondiciones() {
+    showNovedades({ data: this.state.lab_selected });
   }
 
   render() {
@@ -169,13 +179,16 @@ class FinalizarTransfer extends Component {
         </Row>
         <Card>
           <CardBody>
+            {(this.state.lab_selected.condiciones_comerciales ||
+              this.state.lab_selected.novedades) && (
+              <div className="finalizar_transfer_condiciones" onClick={() => this.handleCondiciones()}>Condiciones</div>
+            )}
             <SelectNroCuenta
               transfer={this.state.transfer}
               handleInputNroCuenta={this.handleInputNroCuenta}
               farmacia={this.props.farmaciaReducer.farmacia}
               laboratorio={lab_selected}
             />
-
             <hr />
             <TransferCart
               transfer={this.state.transfer}
