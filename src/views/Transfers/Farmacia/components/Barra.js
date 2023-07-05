@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Barra(props) {
   const {
@@ -67,7 +67,15 @@ export default function Barra(props) {
           }, 0)
           .toFixed(2)
       : 0;
+  const [isHovered, setIsHovered] = useState(false);
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
   return (
     <div className="transfer_barra">
       <div
@@ -110,7 +118,25 @@ export default function Barra(props) {
             : "Revisar Pedido"}
           <div className={`no-enviando ${enviando ? "enviando" : ""}`}></div>
         </button>
-        {calcularPrecio === "s" ? <div>Total: {total}</div> : <></>}
+
+        {calcularPrecio === "s" ? (
+          <div
+            style={{ position: "relative" }}
+            className="transfer_total_numero"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            
+            <div>Total: {total}</div>
+            <div className={isHovered ? "mensaje_flotante" : "d-none"}>
+              El precio es solo una aproximacion.
+              El costo real se vera
+              reflejado en la factura
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
 
       <div style={{ width: "100%" }} className="transfer_lista_footer">
