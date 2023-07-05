@@ -21,6 +21,8 @@ export function Checkout(props) {
     paginas,
     setPage,
     setProdsPerPage,
+    descuentoDrogueria,
+    calcularPrecio
   } = props;
   const [allproducts, setAllProducts] = React.useState(pedido);
   const history = useHistory();
@@ -40,6 +42,7 @@ export function Checkout(props) {
           paginas={paginas}
           setPage={setPage}
           setProdsPerPage={setProdsPerPage}
+          descuentoDrogueria={descuentoDrogueria}
         />
       </div>
       {nobar ? null : (
@@ -48,6 +51,7 @@ export function Checkout(props) {
           setStage={() => history.replace("/ConfirmacionPedido")}
           productos={productos}
           {...props}
+          calcularPrecio={calcularPrecio}
         />
       )}
     </>

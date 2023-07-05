@@ -3,8 +3,8 @@ import { SET_PEDIDO } from "../../../../redux/actions/transfersActions";
 import { connect } from "react-redux";
 
 export function Item(props) {
-  const pedido = props.tranfersReducer.pedido;
-  const { producto } = props;
+  const { pedido, lab_selected } = props.tranfersReducer;
+  const { producto, descuentoDrogueria } = props;
 
   const [cantidad, setCantidad] = React.useState(() => {
     const cantidadEnPedido = pedido.find(
@@ -129,6 +129,25 @@ export function Item(props) {
           <div className="transfer_lista_items_descuento">
             {descuentoConvertido}
           </div>
+
+          {lab_selected.calcular_precio === "s" ? (
+            <>
+              <div className="transfer_lista_items_codigo">
+                {producto?.producto?.precio}
+              </div>
+              <div className="transfer_lista_items_codigo">
+                {(
+                  producto?.producto?.precio *
+                  cantidad *
+                  (1 - descuentoDrogueria / 100) *
+                  (1 - producto.descuento_porcentaje / 100)
+                ).toFixed(2)}
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+
           <div className="transfer_lista_items_minimo">
             {producto.cantidad_minima}
           </div>
@@ -164,15 +183,7 @@ export function Item(props) {
           ></textarea>
         </>
       ) : (
-        <>
-          <div className="transfer_lista_items_vacio"></div>
-          <div className="transfer_lista_items_vacio"></div>
-          <div className="transfer_lista_items_vacio"></div>
-          <div className="transfer_lista_items_vacio"></div>
-          <div className="transfer_lista_items_vacio"></div>
-          <div className="transfer_lista_items_vacio"></div>
-          <div className="transfer_lista_items_vacio"></div>
-        </>
+        <></>
       )}
     </>
   );

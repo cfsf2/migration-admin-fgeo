@@ -29,8 +29,8 @@ export const ordenar = (array, key, direccion) => {
 };
 
 export function ListadoProductos(props) {
-  const { loading, productos, page, prodPerPage, paginas, setPage } = props;
-  const { laboratorios } = props.tranfersReducer;
+  const { loading, productos, page, prodPerPage, paginas, setPage, descuentoDrogueria } = props;
+  const { laboratorios, lab_selected } = props.tranfersReducer;
 
   const [direccion, setDireccion] = React.useState(1);
   const [sortType, setSortType] = React.useState("nombre");
@@ -85,16 +85,25 @@ export function ListadoProductos(props) {
     }
   }, [sortType, direccion, page, productos, prodPerPage, paginas, setPage]);
 
+  const $table = "1fr";
+  const $table2 =
+    lab_selected.calcular_precio === "s"
+      ? "minmax(20px, 1fr) 2fr 3fr 2fr 1fr 1fr 1fr 1fr 2fr 2fr"
+      : "minmax(20px, 1fr) 2fr 3fr 3fr 1fr 1fr 2fr 2fr";
+
   return (
     <div className="transfer_lista">
-      <div className="transfer_lista_header">
+      <div
+        className="transfer_lista_header"
+        style={{ gridTemplateColumns: $table2 }}
+      >
         <div
           id="laboratorioid"
           className="transfer_lista_header_titulo"
           style={{ paddingLeft: "7.5px" }}
           onClick={handleSort}
         >
-          Laboratorio
+          {/*Laboratorio*/}
         </div>
         <div
           id="codigo"
@@ -123,8 +132,31 @@ export function ListadoProductos(props) {
           onClick={handleSort}
           style={{ paddingRight: "0.55rem" }}
         >
-          %
+          % Dto
         </div>
+        {lab_selected.calcular_precio === "s" ? (
+          <>
+            {" "}
+            <div
+              id="descuento_porcentaje"
+              className="transfer_lista_header_titulo"
+              onClick={handleSort}
+              style={{ paddingRight: "0.55rem" }}
+            >
+              Precio
+            </div>
+            <div
+              id="descuento_porcentaje"
+              className="transfer_lista_header_titulo"
+              onClick={handleSort}
+              style={{ paddingRight: "0.55rem" }}
+            >
+              Importe
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
         <div
           id="cantidad_minima"
           className="transfer_lista_header_titulo"
@@ -139,7 +171,10 @@ export function ListadoProductos(props) {
           Observaciones
         </div>
       </div>
-      <div className="transfer_lista_items">
+      <div
+        className="transfer_lista_items"
+        style={{ gridTemplateColumns: $table }}
+      >
         {loading ? (
           <div>Cargando</div>
         ) : showProducts?.length === 0 ? (
@@ -150,14 +185,18 @@ export function ListadoProductos(props) {
         {showProducts.map((producto) => {
           return (
             //***** Linea de Listado ****/
-            <div key={producto._id} className="transfer_lista_item">
+            <div
+              key={producto._id}
+              className="transfer_lista_item"
+              style={{ gridTemplateColumns: $table2 }}
+            >
               <div
-                // style={{
-                //   display: "flex",
-                //   flexDirection: "column",
-                //   alignItems: "center",
-                //   marginBottom: "10px",
-                // }}
+              // style={{
+              //   display: "flex",
+              //   flexDirection: "column",
+              //   alignItems: "center",
+              //   marginBottom: "10px",
+              // }}
               >
                 {laboratorios.filter((lab) => {
                   // return lab._id === producto.laboratorioid;
@@ -184,7 +223,7 @@ export function ListadoProductos(props) {
                   }
                 </p>
               </div>
-              <Item key={producto.id} producto={producto} />
+              <Item key={producto.id} producto={producto} descuentoDrogueria={descuentoDrogueria} />
             </div>
           );
         })}

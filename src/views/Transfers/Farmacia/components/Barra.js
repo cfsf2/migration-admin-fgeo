@@ -13,6 +13,9 @@ export default function Barra(props) {
     paginas,
     setProdsPerPage,
     productos,
+    pedido,
+    descuentoDrogueria,
+    calcularPrecio,
   } = props;
 
   const [confirm, setConfirm] = React.useState(false);
@@ -50,9 +53,31 @@ export default function Barra(props) {
     }, 10000);
   };
 
+  const total =
+    calcularPrecio === "s"
+      ? pedido
+          ?.reduce((accumulator, p) => {
+            return (
+              accumulator +
+              p.producto.precio *
+                p.cantidad *
+                (1 - descuentoDrogueria / 100) *
+                (1 - p.descuento_porcentaje / 100)
+            );
+          }, 0)
+          .toFixed(2)
+      : 0;
+
   return (
     <div className="transfer_barra">
-      <div className="transfer_barra_nav">
+      <div
+        className="transfer_barra_nav"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "90%",
+        }}
+      >
         {stage !== 0 ? (
           <button
             className="btn volver"
@@ -85,6 +110,7 @@ export default function Barra(props) {
             : "Revisar Pedido"}
           <div className={`no-enviando ${enviando ? "enviando" : ""}`}></div>
         </button>
+        {calcularPrecio === "s" ? <div>Total: {total}</div> : <></>}
       </div>
 
       <div style={{ width: "100%" }} className="transfer_lista_footer">

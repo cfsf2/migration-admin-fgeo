@@ -1,5 +1,5 @@
 $table: 1fr;
-$table2: 1fr 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
+$table2: 1fr 2fr 3fr 3fr 1fr 1fr 2fr 2fr;
 
 .transfer {
   &_cart {
@@ -108,6 +108,7 @@ $table2: 1fr 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
     background: #ffff;
     margin-top: 1rem;
     border-radius: 15px 15px 0 0;
+    display:grid;
 
     &_sinresultados {
       width: 100%;
@@ -147,7 +148,7 @@ $table2: 1fr 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
     &_header {
       display: grid;
       //padding: 0 1rem;
-      grid-template-columns: $table2;
+     // grid-template-columns: $table2;
       & > div {
         padding: 0.5rem 0;
         font-weight: 400;
@@ -181,7 +182,7 @@ $table2: 1fr 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
       //row-gap: 20px;
       background: #ffff;
       font-size:0.8rem;
-      grid-template-columns: $table;
+     // grid-template-columns: $table;
       text-align: center;
       align-self: baseline;
       //min-height: 2rem;
@@ -190,7 +191,7 @@ $table2: 1fr 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
 
       .transfer_lista_item {
         display: grid;
-        grid-template-columns: $table2;
+       // grid-template-columns: $table2;
         column-gap: 10px;
 
         &_imagen {
@@ -281,7 +282,7 @@ $table2: 1fr 1fr 3fr 3fr 1fr 1fr 2fr 2fr;
         }
         input {
           border: none;
-          width: 10%;
+          width: 20%;
           text-align: center;
           font-size: 1rem;
           margin:0 10px;

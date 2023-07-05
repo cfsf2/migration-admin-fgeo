@@ -51,6 +51,7 @@ class FinalizarTransfer extends Component {
       vistaprevia: false,
       submitting: false,
       lab_selected: {},
+      descuento_drogueria: 0,
     };
 
     this.handlequery = this.handlequery.bind(this);
@@ -71,6 +72,9 @@ class FinalizarTransfer extends Component {
       );
 
     this.setState({
+      descuento_drogueria: nro_cuenta_drogueria
+        ? nro_cuenta_drogueria.descuento
+        : 0,
       transfer: {
         ...this.state.transfer,
         [e.target.name]: e.target.value,
@@ -129,8 +133,9 @@ class FinalizarTransfer extends Component {
   }
 
   render() {
-    const { lab_selected } = this.state;
+    const { lab_selected, calcular_precio } = this.state;
     const { comunicadoTransfers } = this.props.publicidadesReducer;
+
     if (this.props.farmaciaReducer.load === false)
       return <p>Cargando farmacia</p>;
     return (
@@ -196,10 +201,12 @@ class FinalizarTransfer extends Component {
               handleInputNroCuenta={this.handleInputNroCuenta}
               farmacia={this.props.farmaciaReducer.farmacia}
               laboratorio={lab_selected}
+              descuento={this.state.descuento_drogueria}
             />
-
             <TransferCart
               transfer={this.state.transfer}
+              descuentoDrogueria={this.state.descuento_drogueria}
+              calcularPrecio={this.state.lab_selected.calcular_precio}
               history={this.props.history}
             />
           </CardBody>

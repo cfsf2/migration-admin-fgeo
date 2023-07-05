@@ -31,6 +31,8 @@ const Cart = (props) => {
     paginas,
     setPage,
     setProdsPerPage,
+    descuentoDrogueria,
+    calcularPrecio
   } = props;
 
   switch (stage) {
@@ -53,6 +55,7 @@ const Cart = (props) => {
                   paginas={paginas}
                   setPage={setPage}
                   setProdsPerPage={setProdsPerPage}
+                  descuentoDrogueria={descuentoDrogueria}
                 />
               ) : (
                 <div className="transfer_cart_spinner">
@@ -79,6 +82,8 @@ const Cart = (props) => {
                 setPage={setPage}
                 setProdsPerPage={setProdsPerPage}
                 productos={productos}
+                descuentoDrogueria={descuentoDrogueria}
+                calcularPrecio={calcularPrecio}
               />
             </CardBody>
           </Card>
@@ -91,7 +96,8 @@ const Cart = (props) => {
 };
 
 function TransferCart(props) {
-  let { transfer, history } = props;
+  let { transfer, history, descuentoDrogueria, calcularPrecio } = props;
+  
   const [stage, setStage] = useState(props.stage ? props.stage : 0);
   const [productos, setProductos] = useState([]);
   const [allproducts, setAllProducts] = useState([]);
@@ -178,6 +184,8 @@ function TransferCart(props) {
         paginas={paginas}
         setPage={setPage}
         setProdsPerPage={setProdsPerPage}
+        descuentoDrogueria={descuentoDrogueria}
+        calcularPrecio={calcularPrecio}
       />
       <Barra
         stage={stage}
@@ -192,6 +200,9 @@ function TransferCart(props) {
         setPage={setPage}
         setProdsPerPage={setProdsPerPage}
         productos={stage === 0 ? productos : pedido}
+        pedido={pedido}
+        descuentoDrogueria={props.descuentoDrogueria}
+        calcularPrecio={calcularPrecio}
       />
     </>
   );

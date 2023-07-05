@@ -13,6 +13,7 @@ const SelectNroCuenta = ({
   handleInputNroCuenta,
   farmacia,
   laboratorio,
+  descuento,
 }) => {
   const [cuentas, setCuentas] = useState([]);
   useEffect(() => {
@@ -38,10 +39,6 @@ const SelectNroCuenta = ({
         });
     }
   }, [farmacia.id, laboratorio.id]);
-
-  React.useEffect(() => {
-    console.log(transfer.nro_cuenta_drogueria, cuentas.nro_cuenta);
-  }, [transfer.nro_cuenta_drogueria]);
 
   if (!laboratorio.id) return <></>;
 
@@ -92,6 +89,14 @@ const SelectNroCuenta = ({
               disabled={laboratorio.modalidad_entrega.id_a !== "DIRECTO"}
               bsSize="small"
             />
+          </FormGroup>
+        </Col>{" "}
+        <Col md="3" xs="12">
+          <FormGroup>
+            <Label className="select_cuenta_label">
+              Descuento por Drogueria
+            </Label>
+            {descuento}
           </FormGroup>
         </Col>{" "}
       </Row>
