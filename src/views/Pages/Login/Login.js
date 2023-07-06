@@ -16,6 +16,7 @@ import {
 } from "../../../redux/actions/authActions";
 import "./login.scss";
 import { Link } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 
 const backgroundStyle = {
   backgroundImage: `url(${bgImage})`,
@@ -136,6 +137,10 @@ const Login = (props) => {
 
   const handleChangeTerminos = (event) => {
     setTerminos(event.target.checked);
+  };
+
+  const handleRedirect = () => {
+    window.location.href = `${process.env.REACT_APP_WEB_URL}/#/registrarfarmacia`;
   };
 
   return (
@@ -269,6 +274,15 @@ const Login = (props) => {
                 Iniciar Sesión
               </Button>
             </div>
+            <a
+              href={`${process.env.REACT_APP_WEB_URL}/#/registrarfarmacia`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 12, margin: '0 0 10px 0'}}
+            >
+              Registrá tu Farmacia
+            </a>
+
           </form>
           <Divider className="my-3 d-none" />
           <Form2
