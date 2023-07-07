@@ -14,6 +14,7 @@ const SelectNroCuenta = ({
   farmacia,
   laboratorio,
   descuento,
+  calcularPrecio,
 }) => {
   const [cuentas, setCuentas] = useState([]);
   useEffect(() => {
@@ -48,7 +49,7 @@ const SelectNroCuenta = ({
         {laboratorio.modalidad_entrega.id_a !== "DIRECTO" ? (
           <Col md="4" xs="12">
             <FormGroup>
-              <Label className="select_cuenta_label">Elegir Cuenta</Label>
+              <Label className="select_cuenta_label">Cuenta</Label>
 
               <Input
                 type="select"
@@ -91,13 +92,17 @@ const SelectNroCuenta = ({
             />
           </FormGroup>
         </Col>{" "}
-        <Col md="3" xs="12">
-          <FormGroup>
-            <Label className="select_cuenta_label">
-              Descuento por Drogueria
-            </Label>
-            {descuento}
-          </FormGroup>
+        <Col md="4" xs="12">
+          {calcularPrecio === "s" ? (
+            <FormGroup style={{ display: "flex", flexDirection: "column" }}>
+              <Label className="select_cuenta_label">
+                Descuento promedio Droguería
+              </Label>
+              {descuento}
+            </FormGroup>
+          ) : (
+            <></>
+          )}
         </Col>{" "}
       </Row>
       <Row>

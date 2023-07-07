@@ -29,7 +29,15 @@ export const ordenar = (array, key, direccion) => {
 };
 
 export function ListadoProductos(props) {
-  const { loading, productos, page, prodPerPage, paginas, setPage, descuentoDrogueria } = props;
+  const {
+    loading,
+    productos,
+    page,
+    prodPerPage,
+    paginas,
+    setPage,
+    descuentoDrogueria,
+  } = props;
   const { laboratorios, lab_selected } = props.tranfersReducer;
 
   const [direccion, setDireccion] = React.useState(1);
@@ -143,7 +151,7 @@ export function ListadoProductos(props) {
               onClick={handleSort}
               style={{ paddingRight: "0.55rem" }}
             >
-              Precio
+              PVP
             </div>
             <div
               id="descuento_porcentaje"
@@ -223,7 +231,11 @@ export function ListadoProductos(props) {
                   }
                 </p>
               </div>
-              <Item key={producto.id} producto={producto} descuentoDrogueria={descuentoDrogueria} />
+              <Item
+                key={producto.id}
+                producto={producto}
+                descuentoDrogueria={descuentoDrogueria}
+              />
             </div>
           );
         })}

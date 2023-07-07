@@ -117,6 +117,8 @@ export function Item(props) {
     2
   );
 
+  console.log()
+
   return (
     <>
       {producto.nombre !== undefined ? (
@@ -133,7 +135,7 @@ export function Item(props) {
           {lab_selected.calcular_precio === "s" ? (
             <>
               <div className="transfer_lista_items_codigo">
-                {producto?.producto?.precio}
+                {producto?.producto?.precio.toFixed(2)}
               </div>
               <div className="transfer_lista_items_codigo">
                 {(

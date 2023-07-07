@@ -51,7 +51,7 @@ class FinalizarTransfer extends Component {
       vistaprevia: false,
       submitting: false,
       lab_selected: {},
-      descuento_drogueria: 0,
+      descuento_drogueria: 31.03,
     };
 
     this.handlequery = this.handlequery.bind(this);
@@ -146,44 +146,14 @@ class FinalizarTransfer extends Component {
         {/* <ModalStep /> */}
 
         <Row style={{ display: "flex", alignItems: "center" }}>
-          <Col md="4" xs="12">
-            <Button
-              href={process.env.PUBLIC_URL + "/#/NuevoTransfer"}
-              className="btn"
-              style={{
-                color: "black",
-                fontSize: 10,
-                backgroundColor: "#FFFFFF",
-                borderRadius: 10,
-                paddingLeft: 15,
-                paddingRight: 15,
-                paddingTop: 8,
-                paddingBottom: 8,
-                marginBottom: 10,
-                borderLeftWidth: 10,
-                borderColor: "#000000",
-                borderBottomWidth: 0,
-                borderTopWidth: 0,
-                borderRightWidth: 0,
-              }}
-            >
-              <b style={{ fontSize: 15 }}>{"<   "}</b>
-              <b>Volver a elegir un Laboratorio</b>
-            </Button>
-          </Col>
-          <Col md="4" xs="12">
+          <Col md="12" xs="12">
             <div className="transfer_tit">
               <div className="transfer_tit_bloque">
-                <img
-                  className="transfer_tit_imagen"
-                  src={image_path_server + lab_selected.imagen}
-                  alt="loguito"
-                ></img>
                 <p className="transfer_tit_tit">{lab_selected.nombre}</p>
               </div>
             </div>
           </Col>
-          <Col md="4"></Col>
+         
         </Row>
         <Card>
           <CardBody style={{ paddingTop: "0.5rem" }}>
@@ -193,7 +163,7 @@ class FinalizarTransfer extends Component {
                 className="finalizar_transfer_condiciones"
                 onClick={() => this.handleCondiciones()}
               >
-                Condiciones
+                Ver condiciones comerciales
               </div>
             )}
             <SelectNroCuenta
@@ -202,6 +172,7 @@ class FinalizarTransfer extends Component {
               farmacia={this.props.farmaciaReducer.farmacia}
               laboratorio={lab_selected}
               descuento={this.state.descuento_drogueria}
+              calcularPrecio={this.state.lab_selected.calcular_precio}
             />
             <TransferCart
               transfer={this.state.transfer}
