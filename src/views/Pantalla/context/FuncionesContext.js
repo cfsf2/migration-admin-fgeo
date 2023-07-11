@@ -198,7 +198,7 @@ export const FuncionesProvider = (props) => {
       cab,
       data,
       indiceData,
-      insert_ids: data[cab.insert_ids_alias],
+      insert_ids: data[cab.insert_ids_alias] ?? cab.insert_ids,
     })
       .then((res) => {
         if (res.status >= 400) {
