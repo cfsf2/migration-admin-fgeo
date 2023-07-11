@@ -95,7 +95,7 @@ const Enlace = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
               <>
                 {cab.boton_texto_alias
                   ? data[cab.boton_texto_alias]
-                  : cab.boton_texto}
+                  : cab.boton_texto ?? data[cab.id_a]}
               </>
             )}
 
