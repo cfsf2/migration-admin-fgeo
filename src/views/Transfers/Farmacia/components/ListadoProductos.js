@@ -134,6 +134,19 @@ export function ListadoProductos(props) {
         >
           Presentacion
         </div>
+
+        {lab_selected.calcular_precio === "s" ? (
+          <div
+            id="descuento_porcentaje"
+            className="transfer_lista_header_titulo"
+            onClick={handleSort}
+            style={{ paddingRight: "0.55rem" }}
+          >
+            PVP
+          </div>
+        ) : (
+          <></>
+        )}
         <div
           id="descuento_porcentaje"
           className="transfer_lista_header_titulo"
@@ -143,28 +156,18 @@ export function ListadoProductos(props) {
           % Dto
         </div>
         {lab_selected.calcular_precio === "s" ? (
-          <>
-            {" "}
-            <div
-              id="descuento_porcentaje"
-              className="transfer_lista_header_titulo"
-              onClick={handleSort}
-              style={{ paddingRight: "0.55rem" }}
-            >
-              PVP
-            </div>
-            <div
-              id="descuento_porcentaje"
-              className="transfer_lista_header_titulo"
-              onClick={handleSort}
-              style={{ paddingRight: "0.55rem" }}
-            >
-              Importe
-            </div>
-          </>
+          <div
+            id="descuento_porcentaje"
+            className="transfer_lista_header_titulo"
+            onClick={handleSort}
+            style={{ paddingRight: "0.55rem" }}
+          >
+            Importe
+          </div>
         ) : (
           <></>
         )}
+
         <div
           id="cantidad_minima"
           className="transfer_lista_header_titulo"

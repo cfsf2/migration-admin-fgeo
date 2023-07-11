@@ -81,8 +81,6 @@ export default function Barra(props) {
       <div
         className="transfer_barra_nav"
         style={{
-          display: "flex",
-          justifyContent: "space-between",
           width: "90%",
         }}
       >
@@ -126,11 +124,9 @@ export default function Barra(props) {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            
-            <div>Total: {total}</div>
+            <div className="transfer_cart_barra_total">Total: {total}</div>
             <div className={isHovered ? "mensaje_flotante" : "d-none"}>
-              El precio es solo una aproximacion.
-              El costo real se vera
+              El precio es solo una aproximacion. El costo real se vera
               reflejado en la factura
             </div>
           </div>

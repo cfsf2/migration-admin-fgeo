@@ -117,35 +117,37 @@ export function Item(props) {
     2
   );
 
-  console.log()
-
   return (
     <>
       {producto.nombre !== undefined ? (
         <>
           <div className="transfer_lista_items_codigo">{producto.codigo}</div>
-          <div className="transfer_lista_items_nombre">{producto.nombre}</div>
-          <div className="transfer_lista_items_presentacion">
-            {producto.presentacion}
+          <div className="transfer_lista_items_nombre">
+            {producto.producto?.nombre ?? producto.nombre}
           </div>
-          <div className="transfer_lista_items_descuento">
-            {descuentoConvertido}
+          <div className="transfer_lista_items_presentacion">
+            {producto.producto?.presentacion ?? producto.presentacion}
           </div>
 
           {lab_selected.calcular_precio === "s" ? (
-            <>
-              <div className="transfer_lista_items_codigo">
-                {producto?.producto?.precio.toFixed(2)}
-              </div>
-              <div className="transfer_lista_items_codigo">
-                {(
-                  producto?.producto?.precio *
-                  cantidad *
-                  (1 - descuentoDrogueria / 100) *
-                  (1 - producto.descuento_porcentaje / 100)
-                ).toFixed(2)}
-              </div>
-            </>
+            <div className="transfer_lista_items_codigo">
+              {producto?.producto?.precio.toFixed(2)}
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className="transfer_lista_items_descuento">
+            {descuentoConvertido}
+          </div>
+          {lab_selected.calcular_precio === "s" ? (
+            <div className="transfer_lista_items_codigo">
+              {(
+                producto?.producto?.precio *
+                cantidad *
+                (1 - descuentoDrogueria / 100) *
+                (1 - producto.descuento_porcentaje / 100)
+              ).toFixed(2)}
+            </div>
           ) : (
             <></>
           )}

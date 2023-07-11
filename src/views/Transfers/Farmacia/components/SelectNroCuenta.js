@@ -96,9 +96,9 @@ const SelectNroCuenta = ({
           {calcularPrecio === "s" ? (
             <FormGroup style={{ display: "flex", flexDirection: "column" }}>
               <Label className="select_cuenta_label">
-                Descuento promedio Droguería
+                Descuento Droguería
               </Label>
-              {descuento}
+              {descuento} %
             </FormGroup>
           ) : (
             <></>

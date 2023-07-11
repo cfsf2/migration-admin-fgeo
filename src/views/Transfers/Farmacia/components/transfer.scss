@@ -352,6 +352,15 @@ $table2: 1fr 2fr 3fr 3fr 1fr 1fr 2fr 2fr;
   cursor: help;
 }
 
+.transfer_barra_nav {
+  display: grid;
+  grid-template-columns: minmax(20px, 1fr) 2fr 2fr 2fr 1fr 1fr 1fr 1fr 2fr 1fr;
+}
+
+.transfer_total_numero {
+  grid-column: 8/-1;
+}
+
 .mensaje_flotante {
   display: block;
   position: absolute;
@@ -364,4 +373,8 @@ $table2: 1fr 2fr 3fr 3fr 1fr 1fr 2fr 2fr;
   top: -200%;
   left: -100%;
   border-radius: 5px;
+}
+
+.transfer_cart_barra_total {
+  position: absolute;
 }

@@ -4,6 +4,7 @@ import React, {
   useReducer,
   useContext,
   useRef,
+  useCallback,
 } from "react";
 import axios from "axios";
 
@@ -37,12 +38,12 @@ const Pantalla = () => {
 
   const cancelSource = useRef(null);
 
-  useEffect(() => {
+  const fetchPantalla = useCallback(async () => {
     setLoadingPantalla(true);
 
-    cancelSource.current = CancelToken.source();
+    const cancelTokenSource = axios.CancelToken.source();
 
-    axios
+    return axios
       .post(
         farmageo_api + "/pantalla/" + pantalla,
         {
@@ -50,7 +51,7 @@ const Pantalla = () => {
         },
         {
           params: locationState?.filtros,
-          cancelToken: cancelSource.current.token
+          cancelToken: cancelSource.current.token,
         }
       )
       .then((response) => {
@@ -97,8 +98,16 @@ const Pantalla = () => {
         console.log(error);
         return;
       });
+  }, [pantalla, id, locationState?.filtros]);
+
+  useEffect(() => {
+    const cancelTokenSource = axios.CancelToken.source();
+    cancelSource.current = cancelTokenSource;
+
+    fetchPantalla();
+
     return () => {
-      cancelSource.current.cancel();
+      cancelTokenSource.cancel();
     };
   }, [pantalla, id]);
 
@@ -129,8 +138,19 @@ const Pantalla = () => {
             />
             <div id={pantalla}>
               {loadingPantalla ? (
-                <div style={{ width: "100%", textAlign: "center" }}>
-                  Cargando...
+                <div
+                  style={{
+                    width: "100%",
+                    textAlign: "center",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                >
+                  <p>Cargando...</p>
+                  <div id="progress-bar">
+                    <div id="progress-bar-fill"></div>
+                  </div>
                 </div>
               ) : (
                 state.configuraciones
