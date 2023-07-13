@@ -116,9 +116,6 @@ export function Item(props) {
   const descuentoConvertido = parseFloat(producto.descuento_porcentaje).toFixed(
     2
   );
-
-  console.log(producto)
-
   return (
     <>
       {producto.nombre !== undefined ? (
