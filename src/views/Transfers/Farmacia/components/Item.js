@@ -117,6 +117,8 @@ export function Item(props) {
     2
   );
 
+  console.log(producto)
+
   return (
     <>
       {producto.nombre !== undefined ? (
