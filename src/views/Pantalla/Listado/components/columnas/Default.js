@@ -7,7 +7,7 @@ const Default = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
     <div
       id={id_elemento}
       className={data[cab.id_a + "_className"]}
-      style={{ textAlign: "center", fontSize: condcionBadge }}
+      style={{ textAlign: cab.align ?? "center", fontSize: condcionBadge }}
     >
       {data[campokey]}
       {hijos}
@@ -17,8 +17,14 @@ const Default = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
 
 export default Default;
 
-export const Code = ({ data, cab, hijos, campokey, indiceData,id_elemento }) => {
- 
+export const Code = ({
+  data,
+  cab,
+  hijos,
+  campokey,
+  indiceData,
+  id_elemento,
+}) => {
   return (
     <code
       id={id_elemento}
