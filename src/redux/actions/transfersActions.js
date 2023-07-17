@@ -165,7 +165,10 @@ export const ADD_PRODUCTO_TRANSFER = (productosTransfers, instituciones) => {
   };
 };
 
-export const ADD_PRODUCTO_TRANSFER_BULK = (productosTransfers, instituciones) => {
+export const ADD_PRODUCTO_TRANSFER_BULK = (
+  productosTransfers,
+  instituciones
+) => {
   return (dispatch) => {
     return axios
       .post(farmageo_api + "/productosTransfers", {
@@ -194,7 +197,6 @@ export const ADD_PRODUCTO_TRANSFER_BULK = (productosTransfers, instituciones) =>
       });
   };
 };
-
 
 export const GET_PRODUCTOS_TRANSFERS = () => {
   return (dispatch) => {
@@ -313,20 +315,31 @@ export const DELETE_PRODUCTO_TRANSFER_BY_LAB = (id) => {
 
 //********************** TRANSFERS ******************************* */
 export const ADD_TRANSFER = (transfer, history) => {
+
+console.log(transfer)
   return (dispatch) => {
-    axios
-      .post(farmageo_api + "/transfers", {
-        ...transfer,
-        version: "2",
-      })
-      .then(function (response) {
-        if (response.status == 200) {
-          history.push("/ConfirmacionPedido");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // axios
+    //   .post(farmageo_api + "/transfers", {
+    //     ...transfer,
+    //     version: "2",
+    //   })
+    //   .then(function (response) {
+    //     if (response.status == 200) {
+    //       history.push("/ConfirmacionPedido");
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+  };
+};
+
+export const SET_TOTAL_AHORRO = ({ total, ahorro }) => {
+  return (dispatch) => {
+    dispatch({
+      type: "SET_TOTAL_AHORRO",
+      payload: { total, ahorro },
+    });
   };
 };
 

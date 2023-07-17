@@ -1,5 +1,5 @@
 $table: 1fr;
-$table2: 1fr 2fr 3fr 3fr 1fr 1fr 2fr 2fr;
+$table2: 2fr 3fr 3fr 1fr 1fr 2fr 2fr;
 
 .transfer {
   &_cart {
@@ -355,11 +355,11 @@ $table2: 1fr 2fr 3fr 3fr 1fr 1fr 2fr 2fr;
 
 .transfer_barra_nav {
   display: grid;
-  grid-template-columns: minmax(20px, 1fr) 2fr 2fr 2fr 1fr 1fr 1fr 1fr 2fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr 2fr 2fr 3fr;
 }
 
 .transfer_total_numero {
-  grid-column: 8/-1;
+  grid-column: 8/9;
 }
 
 .mensaje_flotante {

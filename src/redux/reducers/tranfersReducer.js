@@ -53,7 +53,15 @@ export default (state = defaultState, action) => {
         ...state,
         pedido: action.payload,
       };
-
+    case "SET_TOTAL_AHORRO":
+      return {
+        ...state,
+        transfer: {
+          ...state.transfer,
+          total: action.payload.total,
+          ahorro: action.payload.ahorro,
+        },
+      };
     default:
       return state;
   }

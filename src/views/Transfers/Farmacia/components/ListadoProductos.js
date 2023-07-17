@@ -96,8 +96,8 @@ export function ListadoProductos(props) {
   const $table = "1fr";
   const $table2 =
     lab_selected.calcular_precio === "s"
-      ? "minmax(20px, 1fr) 2fr 3fr 2fr 1fr 1fr 1fr 1fr 2fr 2fr"
-      : "minmax(20px, 1fr) 2fr 3fr 3fr 1fr 1fr 2fr 2fr";
+      ? "2fr 3fr 2fr 1fr 1fr 1fr 1fr 2fr 2fr"
+      : "2fr 3fr 3fr 1fr 1fr 2fr 2fr";
 
   return (
     <div className="transfer_lista">
@@ -105,14 +105,6 @@ export function ListadoProductos(props) {
         className="transfer_lista_header"
         style={{ gridTemplateColumns: $table2 }}
       >
-        <div
-          id="laboratorioid"
-          className="transfer_lista_header_titulo"
-          style={{ paddingLeft: "7.5px" }}
-          onClick={handleSort}
-        >
-          {/*Laboratorio*/}
-        </div>
         <div
           id="codigo"
           className="transfer_lista_header_titulo"
@@ -201,7 +193,7 @@ export function ListadoProductos(props) {
               className="transfer_lista_item"
               style={{ gridTemplateColumns: $table2 }}
             >
-              <div
+              {/* <div
               // style={{
               //   display: "flex",
               //   flexDirection: "column",
@@ -233,7 +225,7 @@ export function ListadoProductos(props) {
                     )[0]?.nombre
                   }
                 </p>
-              </div>
+              </div> */}
               <Item
                 key={producto.id}
                 producto={producto}

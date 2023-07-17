@@ -117,13 +117,15 @@ export function Item(props) {
     2
   );
   const pvp = producto?.producto?.precio.toFixed(2);
-  const importe = (
-    pvp *
-    cantidad *
-    (1 - descuentoDrogueria / 100) *
-    (1 - producto.descuento_porcentaje / 100)
-  ).toFixed(2);
-  
+  const importe = pvp
+    ? (
+        pvp *
+        cantidad *
+        (1 - descuentoDrogueria / 100) *
+        (1 - producto.descuento_porcentaje / 100)
+      ).toFixed(2)
+    : (0).toFixed(2);
+
   return (
     <>
       {producto.nombre !== undefined ? (

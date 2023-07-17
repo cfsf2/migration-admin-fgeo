@@ -9,6 +9,7 @@ import {
   ADD_TRANSFER,
   SUBMITTING,
   RESET_PEDIDO,
+  SET_TOTAL_AHORRO,
 } from "../../../redux/actions/transfersActions";
 
 import { Button, Card, CardBody, Spinner } from "reactstrap";
@@ -33,6 +34,7 @@ const Cart = (props) => {
     setProdsPerPage,
     descuentoDrogueria,
     calcularPrecio,
+    setTotalAhorro,
   } = props;
 
   switch (stage) {
@@ -84,6 +86,7 @@ const Cart = (props) => {
                 productos={productos}
                 descuentoDrogueria={descuentoDrogueria}
                 calcularPrecio={calcularPrecio}
+                setTotalAhorro={setTotalAhorro}
               />
             </CardBody>
           </Card>
@@ -121,15 +124,16 @@ function TransferCart(props) {
   };
 
   const handleSubmit = async () => {
-    const { lab_selected, pedido } = props.tranfersReducer;
+    const { lab_selected, pedido, transfer: t } = props.tranfersReducer;
 
     transfer = {
       ...transfer,
       productos_solicitados: pedido,
       laboratorio_id: lab_selected.nombre,
       id_laboratorio: lab_selected.id,
+      total: t.total,
+      ahorro: t.ahorro,
     };
-
     props.ADD_TRANSFER(transfer, history);
   };
 
@@ -168,6 +172,10 @@ function TransferCart(props) {
     }
   }, [prodPerPage, stage, productos.length, pedido.length]);
 
+  const setTotalAhorro = ({ total, ahorro }) => {
+    return props.SET_TOTAL_AHORRO({ total, ahorro });
+  };
+
   return (
     <>
       <Cart
@@ -186,6 +194,7 @@ function TransferCart(props) {
         setProdsPerPage={setProdsPerPage}
         descuentoDrogueria={descuentoDrogueria}
         calcularPrecio={calcularPrecio}
+        setTotalAhorro={setTotalAhorro}
       />
       <Barra
         stage={stage}
@@ -203,6 +212,7 @@ function TransferCart(props) {
         pedido={pedido}
         descuentoDrogueria={props.descuentoDrogueria}
         calcularPrecio={calcularPrecio}
+        setTotalAhorro={setTotalAhorro}
       />
     </>
   );
@@ -220,6 +230,7 @@ const mapDispatchToProps = {
   ADD_TRANSFER,
   SUBMITTING,
   RESET_PEDIDO,
+  SET_TOTAL_AHORRO,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransferCart);

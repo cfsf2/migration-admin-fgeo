@@ -16,6 +16,7 @@ export default function Barra(props) {
     pedido,
     descuentoDrogueria,
     calcularPrecio,
+    setTotalAhorro,
   } = props;
 
   const [confirm, setConfirm] = React.useState(false);
@@ -57,13 +58,35 @@ export default function Barra(props) {
     calcularPrecio === "s"
       ? pedido
           ?.reduce((accumulator, p) => {
-            return (
-              accumulator +
-              p.producto.precio *
-                p.cantidad *
+            const pvp = p.producto.precio;
+
+            const descuento =
+              pvp *
+              (1 -
                 (1 - descuentoDrogueria / 100) *
-                (1 - p.descuento_porcentaje / 100)
-            );
+                  (1 - p.descuento_porcentaje / 100));
+
+            const precioFinal = pvp - descuento;
+            return accumulator + p.cantidad * precioFinal;
+          }, 0)
+          .toFixed(2)
+      : 0;
+
+  const ahorroAprox =
+    calcularPrecio === "s"
+      ? pedido
+          ?.reduce((accumulator, p) => {
+            const pvp = p.producto.precio;
+
+            const descuento =
+              pvp *
+              (1 -
+                (1 - descuentoDrogueria / 100) *
+                  (1 - p.descuento_porcentaje / 100));
+
+            //  const precioFinal = pvp - descuento;
+
+            return accumulator + p.cantidad * descuento;
           }, 0)
           .toFixed(2)
       : 0;
@@ -76,6 +99,11 @@ export default function Barra(props) {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
+  useEffect(() => {
+    if (total && ahorroAprox) setTotalAhorro({ total, ahorro: ahorroAprox });
+  }, [total, ahorroAprox]);
+
   return (
     <div className="transfer_barra">
       <div
@@ -118,18 +146,22 @@ export default function Barra(props) {
         </button>
 
         {calcularPrecio === "s" ? (
-          <div
-            style={{ position: "relative" }}
-            className="transfer_total_numero"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <div className="transfer_cart_barra_total">Total: {total}</div>
-            <div className={isHovered ? "mensaje_flotante" : "d-none"}>
-              El precio es solo una aproximacion. El costo real se vera
-              reflejado en la factura
+          <>
+            <div
+              style={{ position: "relative" }}
+              className="transfer_total_numero"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <div className="transfer_cart_barra_total">Total: {total}</div>
+
+              <div className={isHovered ? "mensaje_flotante" : "d-none"}>
+                El precio es solo una aproximacion. El costo real se vera
+                reflejado en la factura
+              </div>
             </div>
-          </div>
+            <div>Ahorro Aproximado: {ahorroAprox}</div>
+          </>
         ) : (
           <></>
         )}
