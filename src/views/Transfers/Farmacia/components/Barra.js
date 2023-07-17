@@ -155,18 +155,19 @@ export default function Barra(props) {
           </p>
         </div>
         <div className="transfer_lista_footer_resultados">
-          <p style={{ marginRight: "1rem" }}>Resultados por Pagina</p>
           <select
             value={prodPerPage}
             onChange={(e) => {
               setProdsPerPage(Number(e.target.value));
             }}
           >
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={15}>15</option>
             <option value={20}>20</option>
+            <option value={40}>40</option>
+            <option value={60}>60</option>
           </select>
+          <p style={{ marginLeft: "1rem", marginRight: "1rem" }}>
+            Resultados por Pagina
+          </p>
         </div>
       </div>
     </div>

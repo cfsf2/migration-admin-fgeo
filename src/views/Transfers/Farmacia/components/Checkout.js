@@ -22,7 +22,7 @@ export function Checkout(props) {
     setPage,
     setProdsPerPage,
     descuentoDrogueria,
-    calcularPrecio
+    calcularPrecio,
   } = props;
   const [allproducts, setAllProducts] = React.useState(pedido);
   const history = useHistory();

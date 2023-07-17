@@ -116,6 +116,14 @@ export function Item(props) {
   const descuentoConvertido = parseFloat(producto.descuento_porcentaje).toFixed(
     2
   );
+  const pvp = producto?.producto?.precio.toFixed(2);
+  const importe = (
+    pvp *
+    cantidad *
+    (1 - descuentoDrogueria / 100) *
+    (1 - producto.descuento_porcentaje / 100)
+  ).toFixed(2);
+  
   return (
     <>
       {producto.nombre !== undefined ? (
@@ -129,9 +137,7 @@ export function Item(props) {
           </div>
 
           {lab_selected.calcular_precio === "s" ? (
-            <div className="transfer_lista_items_codigo">
-              {producto?.producto?.precio.toFixed(2)}
-            </div>
+            <div className="transfer_lista_items_codigo">{pvp}</div>
           ) : (
             <></>
           )}
@@ -139,14 +145,7 @@ export function Item(props) {
             {descuentoConvertido}
           </div>
           {lab_selected.calcular_precio === "s" ? (
-            <div className="transfer_lista_items_codigo">
-              {(
-                producto?.producto?.precio *
-                cantidad *
-                (1 - descuentoDrogueria / 100) *
-                (1 - producto.descuento_porcentaje / 100)
-              ).toFixed(2)}
-            </div>
+            <div className="transfer_lista_items_codigo">{importe}</div>
           ) : (
             <></>
           )}

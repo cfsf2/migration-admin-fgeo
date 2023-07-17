@@ -32,7 +32,7 @@ const Cart = (props) => {
     setPage,
     setProdsPerPage,
     descuentoDrogueria,
-    calcularPrecio
+    calcularPrecio,
   } = props;
 
   switch (stage) {
@@ -97,7 +97,7 @@ const Cart = (props) => {
 
 function TransferCart(props) {
   let { transfer, history, descuentoDrogueria, calcularPrecio } = props;
-  
+
   const [stage, setStage] = useState(props.stage ? props.stage : 0);
   const [productos, setProductos] = useState([]);
   const [allproducts, setAllProducts] = useState([]);
@@ -109,7 +109,7 @@ function TransferCart(props) {
   const [loading, setLoading] = useState(true);
 
   const [page, setPage] = React.useState(0);
-  const [prodPerPage, setProdsPerPage] = React.useState(20);
+  const [prodPerPage, setProdsPerPage] = React.useState(40);
 
   const handleNextPage = (e) => {
     if (page >= paginas) return;
