@@ -316,21 +316,20 @@ export const DELETE_PRODUCTO_TRANSFER_BY_LAB = (id) => {
 //********************** TRANSFERS ******************************* */
 export const ADD_TRANSFER = (transfer, history) => {
 
-console.log(transfer)
   return (dispatch) => {
-    // axios
-    //   .post(farmageo_api + "/transfers", {
-    //     ...transfer,
-    //     version: "2",
-    //   })
-    //   .then(function (response) {
-    //     if (response.status == 200) {
-    //       history.push("/ConfirmacionPedido");
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    axios
+      .post(farmageo_api + "/transfers", {
+        ...transfer,
+        version: "2",
+      })
+      .then(function (response) {
+        if (response.status == 200) {
+          history.push("/ConfirmacionPedido");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 };
 
