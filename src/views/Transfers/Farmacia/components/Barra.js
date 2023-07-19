@@ -58,6 +58,7 @@ export default function Barra(props) {
     calcularPrecio === "s"
       ? pedido
           ?.reduce((accumulator, p) => {
+            if (!p.producto) return accumulator;
             const pvp = p.producto.precio;
 
             const descuento =
@@ -76,13 +77,13 @@ export default function Barra(props) {
     calcularPrecio === "s"
       ? pedido
           ?.reduce((accumulator, p) => {
+            if (!p.producto) return accumulator;
             const pvp = p.producto.precio;
 
             const descuento =
               pvp *
-              (1 -
-                (1 - descuentoDrogueria / 100) *
-                  (1 - p.descuento_porcentaje / 100));
+              (1 - descuentoDrogueria / 100) *
+              (p.descuento_porcentaje / 100);
 
             //  const precioFinal = pvp - descuento;
 
