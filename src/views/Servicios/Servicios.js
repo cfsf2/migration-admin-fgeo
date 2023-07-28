@@ -94,7 +94,7 @@ class Servicios extends Component {
                             style={{ width: 50 }}
                           />
                           <p style={{ marginTop: 10 }}>
-                            Campaña AntiGripal 2022
+                            Campaña AntiGripal
                           </p>
                           <input
                             type="checkbox"
@@ -256,6 +256,24 @@ class Servicios extends Component {
                           />
                         </div>
                       </Col>
+
+                      <Col className="my-3" xs="6" md="3">
+                        <div align="center">
+                          <img
+                            src={require("../../assets/images/corazon.jpg")}
+                            style={{ width: 50 }}
+                          />
+                          <p style={{ marginTop: 10 }}>Farmacia Solidaria</p>
+                          <input
+                            type="checkbox"
+                            id="farmaciasolidaria"
+                            name="farmaciasolidaria"
+                            onChange={this.handleInputChange}
+                            checked={this.checkServicios("farmaciasolidaria")}
+                          />
+                        </div>
+                      </Col>
+
                     </Row>
                   </Col>
                 </Row>
