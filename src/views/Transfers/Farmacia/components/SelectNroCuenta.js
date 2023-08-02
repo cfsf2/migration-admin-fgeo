@@ -72,7 +72,7 @@ const SelectNroCuenta = ({
 
             <Link to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA">
               <p style={{ fontSize: "0.8rem" }}>
-                Para agregar otras cuentas haga click aqui.{" "}
+                Para agregar otras cuentas haga click aquí.{" "}
               </p>
             </Link>
           </Col>

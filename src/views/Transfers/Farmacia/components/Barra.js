@@ -157,7 +157,7 @@ export default function Barra(props) {
               <div className="transfer_cart_barra_total">Total: {total}</div>
 
               <div className={isHovered ? "mensaje_flotante" : "d-none"}>
-                El precio es solo una aproximacion. El costo real se vera
+                El precio es solo una aproximación. El costo real se verá
                 reflejado en la factura
               </div>
             </div>
@@ -170,11 +170,11 @@ export default function Barra(props) {
 
       <div style={{ width: "100%" }} className="transfer_lista_footer">
         <div className="transfer_lista_footer_paginacion">
-          <button onClick={handlePreviousPage}>Pagina Anterior</button>
+          <button onClick={handlePreviousPage}>Página Anterior</button>
 
-          <button onClick={handleNextPage}>Pagina Siguiente</button>
+          <button onClick={handleNextPage}>Página Siguiente</button>
           <p>
-            Pagina {page + 1} de {paginas + 1}
+            Página {page + 1} de {paginas + 1}
           </p>
         </div>
 
@@ -199,7 +199,7 @@ export default function Barra(props) {
             <option value={60}>60</option>
           </select>
           <p style={{ marginLeft: "1rem", marginRight: "1rem" }}>
-            Resultados por Pagina
+            Resultados por Página
           </p>
         </div>
       </div>

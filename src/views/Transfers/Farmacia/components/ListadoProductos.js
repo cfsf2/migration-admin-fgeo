@@ -110,7 +110,7 @@ export function ListadoProductos(props) {
           className="transfer_lista_header_titulo"
           onClick={handleSort}
         >
-          Codigo
+          Código
         </div>
         <div
           id="nombre"
@@ -124,7 +124,7 @@ export function ListadoProductos(props) {
           className="transfer_lista_header_titulo"
           onClick={handleSort}
         >
-          Presentacion
+          Presentación
         </div>
 
         {lab_selected.calcular_precio === "s" ? (
@@ -165,7 +165,7 @@ export function ListadoProductos(props) {
           className="transfer_lista_header_titulo"
           onClick={handleSort}
         >
-          Minimo
+          Mínimo
         </div>
         <div id="cantidad" className="transfer_lista_header_titulo">
           Cantidad
