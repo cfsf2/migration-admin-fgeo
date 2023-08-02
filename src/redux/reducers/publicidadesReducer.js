@@ -1,6 +1,6 @@
 const defaultState = {
   publicidades: [],
-  comunicadoTransfers: "{...}",
+  comunicadoTransfers: null,
   novedades: [],
   editable: {},
   filtrando: false,

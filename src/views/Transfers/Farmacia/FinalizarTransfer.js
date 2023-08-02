@@ -16,6 +16,8 @@ import {
   SUBMITTING,
 } from "../../../redux/actions/transfersActions";
 
+import { GET_PUBLICIDADES } from "../../../redux/actions/publicidadesActions";
+
 import { LOADPROFILE } from "../../../redux/actions/authActions";
 
 import TransferCart from "./TransferCart";
@@ -23,9 +25,11 @@ import SelectNroCuenta from "./components/SelectNroCuenta";
 import "./transfer.scss";
 
 function Novedades(result) {
+  const comunicado = result.comunicado;
   const novedades = `<div class="transfer_alert_block nove"><p class="tit">Novedades</p><p class="transfer_condiciones_comerciales">${result.data.novedades.trim()}</p></div>`;
   const condcom = `<div class="transfer_alert_block condi"><p class="tit">Condiciones Comerciales</p><p class="transfer_condiciones_comerciales">${result.data.condiciones_comerciales.trim()}</p></div>`;
   return `<div class="transfer_alert">
+      ${comunicado ?? ""}
       ${result.data.novedades.trim() ? novedades : ""}
       ${result.data.condiciones_comerciales.trim() ? condcom : ""}
     </div>`;
@@ -97,6 +101,9 @@ class FinalizarTransfer extends Component {
     if (this.props.tranfersReducer.laboratorios.length === 0) {
       this.props.GET_LABORATORIOS();
     }
+    if (this.props.publicidadesReducer.comunicadoTransfers === null) {
+      this.props.GET_PUBLICIDADES();
+    }
 
     if (laboratorio) {
       const lab_local = this.props.tranfersReducer.laboratorios.find(
@@ -114,6 +121,8 @@ class FinalizarTransfer extends Component {
           this.setState({ lab_selected: result.data });
           this.props.SET_LABORATORIO_SELECTED(result.data);
           if (result.data.condiciones_comerciales || result.data.novedades) {
+            result.comunicado =
+              this.props.publicidadesReducer.comunicadoTransfers;
             showNovedades(result);
           }
         }
@@ -129,7 +138,10 @@ class FinalizarTransfer extends Component {
   }
 
   handleCondiciones() {
-    showNovedades({ data: this.state.lab_selected });
+    showNovedades({
+      data: this.state.lab_selected,
+      comunicado: this.props.publicidadesReducer.comunicadoTransfers,
+    });
   }
 
   render() {
@@ -153,7 +165,6 @@ class FinalizarTransfer extends Component {
               </div>
             </div>
           </Col>
-         
         </Row>
         <Card>
           <CardBody style={{ paddingTop: "0.5rem" }}>
@@ -201,6 +212,7 @@ const mapDispatchToProps = {
   GET_LABORATORIOS,
   SET_LABORATORIO_SELECTED,
   LOADPROFILE,
+  GET_PUBLICIDADES,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinalizarTransfer);
