@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Checkout from "./components/Checkout";
 import ListadoProductos from "./components/ListadoProductos";
+
 import Search from "./components/Search";
 import Barra from "./components/Barra";
 import {
@@ -12,7 +13,7 @@ import {
   SET_TOTAL_AHORRO,
 } from "../../../redux/actions/transfersActions";
 
-import { Button, Card, CardBody, Spinner } from "reactstrap";
+import { Button, Card, CardBody, Spinner, Row, Col } from "reactstrap";
 
 import axios from "axios";
 import { farmageo_api } from "../../../config";
@@ -98,8 +99,48 @@ const Cart = (props) => {
   }
 };
 
+const SinLabSelected = (props) => {
+  const [mensaje, setMensaje] = useState("");
+  const [lab, setLab] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    axios
+      .get(farmageo_api + "/laboratorio_des/" + props.laboratorio_id)
+      .then((res) => {
+        setMensaje(res.data.mensaje);
+        setLab(res.data.lab);
+        setLoading(false);
+      });
+  }, [props.laboratorio_id]);
+  return (
+    <>
+      {loading || !lab ? (
+        <Spinner />
+      ) : (
+        <CardBody style={{ padding: "0", paddingTop: "1rem" }}>
+          <Row style={{ display: "flex", alignItems: "center" }}>
+            <Col md="12" xs="12">
+              <div className="transfer_tit">
+                <div className="transfer_tit_bloque">
+                  <p className="transfer_tit_tit">{lab.nombre}</p>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div style={{ textAlign: "center" }}>{mensaje.valor}</div>
+            </Col>
+          </Row>
+        </CardBody>
+      )}
+    </>
+  );
+};
+
 function TransferCart(props) {
   let { transfer, history, descuentoDrogueria, calcularPrecio } = props;
+  const { lab_selected } = props.tranfersReducer;
 
   const [stage, setStage] = useState(props.stage ? props.stage : 0);
   const [productos, setProductos] = useState([]);
@@ -113,6 +154,9 @@ function TransferCart(props) {
 
   const [page, setPage] = React.useState(0);
   const [prodPerPage, setProdsPerPage] = React.useState(40);
+  const laboratorio = new URLSearchParams(
+    window.location.hash.split("?")[1]
+  ).get("l");
 
   const handleNextPage = (e) => {
     if (page >= paginas) return;
@@ -138,9 +182,6 @@ function TransferCart(props) {
   };
 
   useEffect(() => {
-    const laboratorio = new URLSearchParams(
-      window.location.hash.split("?")[1]
-    ).get("l");
     if (loading) {
       props.RESET_PEDIDO();
 
@@ -175,6 +216,10 @@ function TransferCart(props) {
   const setTotalAhorro = ({ total, ahorro }) => {
     return props.SET_TOTAL_AHORRO({ total, ahorro });
   };
+
+  if (!lab_selected?.id) {
+    return <SinLabSelected {...props} laboratorio_id={laboratorio} />;
+  }
 
   return (
     <>
