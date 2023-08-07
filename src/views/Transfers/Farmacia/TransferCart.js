@@ -175,8 +175,8 @@ function TransferCart(props) {
       productos_solicitados: pedido,
       laboratorio_id: lab_selected.nombre,
       id_laboratorio: lab_selected.id,
-      total: t.total,
-      ahorro: t.ahorro,
+      total: t?.total,
+      ahorro: t?.ahorro,
     };
     props.ADD_TRANSFER(transfer, history);
   };

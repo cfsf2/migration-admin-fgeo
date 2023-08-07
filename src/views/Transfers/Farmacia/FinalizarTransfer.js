@@ -14,6 +14,7 @@ import {
   GET_LABORATORIOS,
   SET_LABORATORIO_SELECTED,
   SUBMITTING,
+  SET_TOTAL_AHORRO,
 } from "../../../redux/actions/transfersActions";
 
 import { GET_PUBLICIDADES } from "../../../redux/actions/publicidadesActions";
@@ -110,6 +111,7 @@ class FinalizarTransfer extends Component {
         (l) => l.id.toString() === laboratorio.toString()
       );
       this.props.SET_LABORATORIO_SELECTED(lab_local);
+      this.props.SET_TOTAL_AHORRO({ total: 0, ahorro: 0 });
     }
 
     if (laboratorio) {
@@ -213,6 +215,7 @@ const mapDispatchToProps = {
   SET_LABORATORIO_SELECTED,
   LOADPROFILE,
   GET_PUBLICIDADES,
+  SET_TOTAL_AHORRO,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinalizarTransfer);
