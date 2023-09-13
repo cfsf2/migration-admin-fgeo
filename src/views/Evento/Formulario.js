@@ -6,7 +6,11 @@ import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Switch from "@mui/material/Switch";
-import { Paper, Select } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
 
 const darkTheme = createTheme({
   palette: {
@@ -87,20 +91,21 @@ export function Formulario({
               <div>
                 Confirmar Asistencia
                 <Switch
+                  size="small"
                   label="Confirmar Asistencia"
                   onChange={confirmarAsistencia}
                   checked={confirmoAsistencia}
                 />{" "}
               </div>
               <div>
-                Metodo de Pago
-                <Select>
+                Forma de Pago
+                <select value={titular.id_evento_forma_pago}>
                   {evento.formaPago?.map((fp) => {
                     return <option value={fp.id}>{fp.nombre}</option>;
                   })}
-                </Select>
+                </select>
               </div>
-              <div>Total a Pagar: {total}</div>
+              <div>Total a Pagar: ${total}</div>
             </Paper>
           </>
         ) : (

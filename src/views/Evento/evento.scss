@@ -22,7 +22,8 @@
   display: flex;
   width: 50%;
   img {
-    // margin: 10px;
+    margin: 1.5rem 0.75rem;
+    // padding: 20px;
     width: 100%;
     height: auto;
   }
@@ -57,12 +58,27 @@
   width: calc(100% - 3rem);
 }
 
-.evento_delete, .evento_aniadir {
+.evento_delete,
+.evento_aniadir {
   color: rgb(114, 116, 113);
-  transition: all 0.3s ease-in-out; 
+  transition: all 0.3s ease-in-out;
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
-    color:rgb(52, 52, 52);
+    color: rgb(52, 52, 52);
+  }
+}
+
+.evento_detalles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  > div {
+    margin-top: 5px;
+    width: 100%;
+    flex-direction: column;
+  }
+  select {
+    width: 100%;
   }
 }
