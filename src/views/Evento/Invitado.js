@@ -10,7 +10,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import Switch from "@mui/material/Switch";
 
 import { AddInvitado } from "./AddInvitado";
 

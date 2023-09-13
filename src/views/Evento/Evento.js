@@ -21,6 +21,7 @@ export default function Evento(props) {
   const [confirmoAsistencia, setConfirmoAsistencia] = useState(false);
   const [titular, setTitular] = useState({});
   const [evento, setEvento] = useState({});
+  const [total, setTotal] = useState({});
 
   const handleAddInvitados = (invitado) => {
     Axios.post(farmageo_api + "/usuario_invitado/add", {
@@ -56,6 +57,16 @@ export default function Evento(props) {
     }).then((res) => {
       setFarmacia(res.data);
       setInvitados(res.data.invitados);
+      if (res.data.invitados.length > 0) {
+        const _total = res.data.invitados.reduce((acc, i) => {
+          return acc + i.costo;
+        }, 0);
+        setTotal(_total);
+      }
+      const _titular = res.data.invitados
+        .filter((i) => i.titular === "s")
+        .pop();
+      setTitular(_titular);
     });
     // Aquí puedes manejar la lógica del formulario, como enviar los datos al servidor.
   };
@@ -74,10 +85,7 @@ export default function Evento(props) {
           matricula: res.data.matricula,
         });
         setInvitados(res.data.invitados);
-        const titular = res.data.invitados
-          .filter((i) => i.titular === "s")
-          .pop();
-        setTitular(titular);
+
         setConfirmoAsistencia(titular.confirmo_asistencia === "s");
       }),
     [urlParams]
@@ -119,6 +127,9 @@ export default function Evento(props) {
           handleSubmit={handleForm}
           confirmarAsistencia={confirmarAsistencia}
           confirmoAsistencia={confirmoAsistencia}
+          titular={titular}
+          evento={evento}
+          total={total}
         />
         {invitados?.length > 0 ? (
           <div className="evento_body">
