@@ -1,0 +1,68 @@
+.fondo_evento {
+  height: 100vh;
+  background-image: url("./bk_ga.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center;
+  background-clip: content-box;
+  transform: scaleY(-1);
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1000;
+  filter: brightness(0.3);
+}
+.main_evento {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.header_evento {
+  display: flex;
+  width: 50%;
+  img {
+    // margin: 10px;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.formulario_evento {
+  padding: 20px;
+  margin: 1.5rem;
+  background-color: rgba(207, 239, 234, 0.576);
+  width: calc(50% - 3rem);
+}
+
+@media screen and (width < 1000px) {
+  .header_evento {
+    width: 100%;
+  }
+  .formulario_evento {
+    width: calc(100% - 3rem);
+  }
+  .main_evento {
+    flex-direction: column;
+  }
+}
+
+.evento_textfield {
+  color: white !important;
+}
+.evento_body {
+  padding: 20px;
+  margin: 1.5rem;
+  background-color: rgba(207, 239, 234, 0.576);
+  width: calc(100% - 3rem);
+}
+
+.evento_delete, .evento_aniadir {
+  color: rgb(114, 116, 113);
+  transition: all 0.3s ease-in-out; 
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    color:rgb(52, 52, 52);
+  }
+}
