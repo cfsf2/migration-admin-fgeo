@@ -5,6 +5,8 @@ import Axios from "axios";
 import { farmageo_api } from "../../config";
 import { useLocation } from "react-router-dom";
 
+import Swal from "sweetalert2";
+
 import { Invitados } from "./Invitado";
 import { Formulario } from "./Formulario";
 
@@ -12,6 +14,7 @@ export default function Evento(props) {
   const [usuarioInvitado, setUsuarioInvitado] = useState({
     cuit: "",
     matricula: "",
+    id_evento_forma_pago: "",
   });
   const location = useLocation();
   const [farmacia, setFarmacia] = useState({});
@@ -31,6 +34,7 @@ export default function Evento(props) {
       setInvitados((s) => {
         const ns = [...s];
         ns.push(res.data);
+        calcularTotal(ns);
         return ns;
       })
     );
@@ -40,6 +44,7 @@ export default function Evento(props) {
     setInvitados((s) => {
       const ns = [...s];
       const ons = ns.filter((n) => n.token !== uuid);
+      calcularTotal(ons);
       return ons;
     });
 
@@ -47,6 +52,13 @@ export default function Evento(props) {
       usuario: { token: uuid },
       farmacia,
     }).then((res) => console.log(res));
+  };
+
+  const calcularTotal = (invitados) => {
+    const _total = invitados.reduce((acc, i) => {
+      return acc + i.costo;
+    }, 0);
+    setTotal(_total);
   };
 
   const handleForm = (e) => {
@@ -58,10 +70,7 @@ export default function Evento(props) {
       setFarmacia(res.data);
       setInvitados(res.data.invitados);
       if (res.data.invitados.length > 0) {
-        const _total = res.data.invitados.reduce((acc, i) => {
-          return acc + i.costo;
-        }, 0);
-        setTotal(_total);
+        calcularTotal(res.data.invitados);
       }
       const _titular = res.data.invitados
         .filter((i) => i.titular === "s")
@@ -80,13 +89,23 @@ export default function Evento(props) {
         },
       }).then((res) => {
         setFarmacia(res.data);
+
+        setInvitados(res.data.invitados);
+        if (res.data.invitados.length > 0) {
+          calcularTotal(res.data.invitados);
+        }
+        const _titular = res.data.invitados
+          .filter((i) => i.titular === "s")
+          .pop();
+        setTitular(_titular);
         setUsuarioInvitado({
+          ...usuarioInvitado,
           cuit: res.data.cuit,
           matricula: res.data.matricula,
+          id_evento_forma_pago: _titular.id_evento_forma_pago ?? "",
         });
-        setInvitados(res.data.invitados);
 
-        setConfirmoAsistencia(titular.confirmo_asistencia === "s");
+        setConfirmoAsistencia(_titular.confirmo_asistencia === "s");
       }),
     [urlParams]
   );
@@ -105,6 +124,29 @@ export default function Evento(props) {
     });
     Axios.post(farmageo_api + "/usuario_invitado", {
       usuario: { id: titular.id, confirmo_asistencia: checked ? "s" : "n" },
+    }).then((res) => {
+      if (checked) {
+        Swal.fire({
+          title: "Gracias por confirmar su asistencia al evento!",
+          icon: "success",
+          timer: 3000,
+        });
+      }
+    });
+  };
+
+  const handleConfirmarPago = () => {
+    Axios.post(farmageo_api + "/usuario_invitado", {
+      usuario: {
+        id: titular.id,
+        id_evento_forma_pago: usuarioInvitado.id_evento_forma_pago,
+      },
+    }).then((res) => {
+      Swal.fire({
+        title: "El metodo de pago ha sido confirmado",
+        icon: "success",
+        timer: 3000,
+      });
     });
   };
 
@@ -113,38 +155,51 @@ export default function Evento(props) {
     if (urlParams.get("token")) {
       getInvitados();
     }
+    setTimeout(() => {
+      // Obtener una referencia al elemento con la clase "formulario_evento"
+      const formularioEvento = document.querySelector('.formulario_evento');
+
+      if (formularioEvento) {
+        // Desplazarse hacia el elemento utilizando scrollIntoView
+        formularioEvento.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 1000);
   }, []);
 
   return (
     <>
       {" "}
-      <div className="fondo_evento"></div>
-      <div className="main_evento">
-        <Header />
-        <Formulario
-          usuarioInvitado={usuarioInvitado}
-          setUsuarioInvitado={setUsuarioInvitado}
-          handleSubmit={handleForm}
-          confirmarAsistencia={confirmarAsistencia}
-          confirmoAsistencia={confirmoAsistencia}
-          titular={titular}
-          evento={evento}
-          total={total}
-        />
-        {invitados?.length > 0 ? (
-          <div className="evento_body">
-            <Invitados
-              invitados={invitados}
-              addInvitado={handleAddInvitados}
-              eliminarInvitado={handleEliminarInvitado}
-              confirmoAsistencia={confirmoAsistencia}
-              confirmarAsistencia={confirmarAsistencia}
-              setConfirmoAsistencia={setConfirmoAsistencia}
-            />
-          </div>
-        ) : (
-          <></>
-        )}
+      <div className="fondo_evento">
+        <div className="main_evento">
+          <Header />
+          <Formulario
+            usuarioInvitado={usuarioInvitado}
+            setUsuarioInvitado={setUsuarioInvitado}
+            handleSubmit={handleForm}
+            confirmarAsistencia={confirmarAsistencia}
+            confirmoAsistencia={confirmoAsistencia}
+            titular={titular}
+            evento={evento}
+            total={total}
+            invitados={invitados}
+            addInvitado={handleAddInvitados}
+            handleConfirmarPago={handleConfirmarPago}
+          />
+          {invitados?.length > 0 ? (
+            <div className="evento_body">
+              <Invitados
+                invitados={invitados}
+                addInvitado={handleAddInvitados}
+                eliminarInvitado={handleEliminarInvitado}
+                confirmoAsistencia={confirmoAsistencia}
+                confirmarAsistencia={confirmarAsistencia}
+                setConfirmoAsistencia={setConfirmoAsistencia}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </>
   );

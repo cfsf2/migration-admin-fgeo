@@ -29,6 +29,7 @@ export const Invitados = ({
             <TableRow>
               <TableCell>Nombre Completo</TableCell>
               <TableCell>Documento</TableCell>
+              <TableCell>Es Menor</TableCell>
               <TableCell>Costo</TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -51,11 +52,6 @@ export const Invitados = ({
           </TableBody>
         </Table>
       </TableContainer>
-      {confirmoAsistencia ? (
-        <AddInvitado invitados={invitados} addInvitado={addInvitado} />
-      ) : (
-        <></>
-      )}
     </>
   );
 };
@@ -82,18 +78,14 @@ export const Invitado = ({
         {invitado.documento}
       </TableCell>
       <TableCell component="th" scope="row">
+        {invitado.menor === 's' ? 'Si' : 'No'}
+      </TableCell>
+      <TableCell component="th" scope="row">
         <Costo invitado={invitado} />
       </TableCell>
       <TableCell>
         {invitado.titular === "s" ? (
-          <>
-            {/* <Switch
-              label="Confirmar Asistencia"
-              onChange={confirmarAsistencia}
-              checked={confirmoAsistencia}
-            />{" "}
-            "Confirmar Asistencia" */}
-          </>
+          <></>
         ) : (
           <DeleteIcon
             className="evento_delete"
