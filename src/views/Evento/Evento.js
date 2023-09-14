@@ -112,7 +112,17 @@ export default function Evento(props) {
   const getEvento = useCallback(
     () =>
       Axios.post(farmageo_api + "/usuario_invitado/evento").then((res) => {
-        setEvento(res.data);
+        const fecha_inicio = new Date(res.data.evento.fecha_inicio_campana);
+        const fecha_fin = new Date(res.data.evento.fecha_fin_campana);
+        const hoy = new Date(Date.now());
+
+        // Verificar si la fecha3 está entre fecha1 y fecha2
+        if (hoy >= fecha_inicio && hoy <= fecha_fin) {
+          setEvento(res.data);
+          return;
+        } else {
+          window.location.href = "#/login";
+        }
       }),
     [urlParams]
   );
@@ -157,50 +167,53 @@ export default function Evento(props) {
     }
     setTimeout(() => {
       // Obtener una referencia al elemento con la clase "formulario_evento"
-      const formularioEvento = document.querySelector('.formulario_evento');
+      const formularioEvento = document.querySelector(".formulario_evento");
 
       if (formularioEvento) {
         // Desplazarse hacia el elemento utilizando scrollIntoView
-        formularioEvento.scrollIntoView({ behavior: 'smooth' });
+        formularioEvento.scrollIntoView({ behavior: "smooth" });
       }
     }, 1000);
   }, []);
 
   return (
     <>
-      {" "}
-      <div className="fondo_evento">
-        <div className="main_evento">
-          <Header />
-          <Formulario
-            usuarioInvitado={usuarioInvitado}
-            setUsuarioInvitado={setUsuarioInvitado}
-            handleSubmit={handleForm}
-            confirmarAsistencia={confirmarAsistencia}
-            confirmoAsistencia={confirmoAsistencia}
-            titular={titular}
-            evento={evento}
-            total={total}
-            invitados={invitados}
-            addInvitado={handleAddInvitados}
-            handleConfirmarPago={handleConfirmarPago}
-          />
-          {invitados?.length > 0 ? (
-            <div className="evento_body">
-              <Invitados
-                invitados={invitados}
-                addInvitado={handleAddInvitados}
-                eliminarInvitado={handleEliminarInvitado}
-                confirmoAsistencia={confirmoAsistencia}
-                confirmarAsistencia={confirmarAsistencia}
-                setConfirmoAsistencia={setConfirmoAsistencia}
-              />
-            </div>
-          ) : (
-            <></>
-          )}
+      {evento.evento?.id ? (
+        <div className="fondo_evento">
+          <div className="main_evento">
+            <Header />
+            <Formulario
+              usuarioInvitado={usuarioInvitado}
+              setUsuarioInvitado={setUsuarioInvitado}
+              handleSubmit={handleForm}
+              confirmarAsistencia={confirmarAsistencia}
+              confirmoAsistencia={confirmoAsistencia}
+              titular={titular}
+              evento={evento}
+              total={total}
+              invitados={invitados}
+              addInvitado={handleAddInvitados}
+              handleConfirmarPago={handleConfirmarPago}
+            />
+            {invitados?.length > 0 ? (
+              <div className="evento_body">
+                <Invitados
+                  invitados={invitados}
+                  addInvitado={handleAddInvitados}
+                  eliminarInvitado={handleEliminarInvitado}
+                  confirmoAsistencia={confirmoAsistencia}
+                  confirmarAsistencia={confirmarAsistencia}
+                  setConfirmoAsistencia={setConfirmoAsistencia}
+                />
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="fondo_evento"></div>
+      )}
     </>
   );
 }
