@@ -5,6 +5,8 @@ import { v4 } from "uuid";
 import Paper from "@mui/material/Paper";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+
+import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { TextField } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
@@ -75,6 +77,7 @@ export const AddInvitado = ({ addInvitado }) => {
             display: "flex",
             justifyContent: "space-between",
           }}
+          className="evento_addInvitado_agregar"
         >
           <FormControlLabel
             control={
@@ -86,7 +89,7 @@ export const AddInvitado = ({ addInvitado }) => {
             }
             label="Es Menor"
           />
-          <AddCircleIcon className="evento_aniadir" onClick={handleOnClick} />
+          <Button size="small" variant="contained" color="success" className="evento_aniadir_button" onClick={handleOnClick} >Agregar</Button>
         </div>
       </form>
     </Paper>

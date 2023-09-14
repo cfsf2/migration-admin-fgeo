@@ -50,12 +50,19 @@
 .evento_aniadir {
   color: rgb(114, 116, 113);
   transition: all 0.3s ease-in-out;
-  height: 95px;
+  font-size: 1rem !important;
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
     color: rgb(11, 55, 24);
   }
+  &_boton {
+    height: 15px !important;
+  }
+}
+
+.evento_addInvitado_agregar {
+  height: 1.5rem;
 }
 
 .evento_detalles {
