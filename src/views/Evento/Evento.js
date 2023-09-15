@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 
 import { Invitados } from "./Invitado";
 import { Formulario } from "./Formulario";
+import { BloquePago } from "./BloquePago";
 
 export default function Evento(props) {
   const [usuarioInvitado, setUsuarioInvitado] = useState({
@@ -22,9 +23,10 @@ export default function Evento(props) {
   const [invitados, setInvitados] = useState([]);
 
   const [confirmoAsistencia, setConfirmoAsistencia] = useState(false);
+  const [confirmoTelefono, setConfirmoTelefono] = useState(false);
   const [titular, setTitular] = useState({});
   const [evento, setEvento] = useState({});
-  const [total, setTotal] = useState({});
+  const [total, setTotal] = useState(0);
 
   const handleAddInvitados = (invitado) => {
     Axios.post(farmageo_api + "/usuario_invitado/add", {
@@ -67,6 +69,13 @@ export default function Evento(props) {
     Axios.post(farmageo_api + "/usuario_invitado", {
       usuario: usuarioInvitado,
     }).then((res) => {
+      if(res.status > 400){
+        return Swal.fire({
+          text: res.data.message,
+          icon: "error",
+          timer: 3000,
+        });
+      }
       setFarmacia(res.data);
       setInvitados(res.data.invitados);
       if (res.data.invitados.length > 0) {
@@ -77,7 +86,6 @@ export default function Evento(props) {
         .pop();
       setTitular(_titular);
     });
-    // Aquí puedes manejar la lógica del formulario, como enviar los datos al servidor.
   };
   const urlParams = new URLSearchParams(location.search);
 
@@ -103,6 +111,7 @@ export default function Evento(props) {
           cuit: res.data.cuit,
           matricula: res.data.matricula,
           id_evento_forma_pago: _titular.id_evento_forma_pago ?? "",
+          token: _titular.token,
         });
 
         setConfirmoAsistencia(_titular.confirmo_asistencia === "s");
@@ -143,6 +152,38 @@ export default function Evento(props) {
         });
       }
     });
+  };
+
+  const confirmarTelefono = (telefono) => {
+    const patron = /^\d{10}$/;
+    const esCelular = patron.test(telefono);
+
+    if (!esCelular) {
+      return Swal.fire({
+        title: "El numero debe tener 10 digitos exactos.",
+        icon: "error",
+        timer: 3000,
+      });
+    }
+    setConfirmoTelefono((s) => true);
+    Axios.post(farmageo_api + "/usuario_invitado", {
+      usuario: { id: titular.id, telefono: telefono },
+    }).then((res) => {
+      if(res.status >400){
+        return    Swal.fire({
+          title: "Ocurrio un Error",
+          text: res.data.message,
+          icon: "Error",
+          timer: 3000,
+        });
+      }
+      Swal.fire({
+        title: "Su numero de telefono fue actualizado",
+        icon: "success",
+        timer: 3000,
+      });
+    })
+    
   };
 
   const handleConfirmarPago = () => {
@@ -189,13 +230,17 @@ export default function Evento(props) {
               confirmarAsistencia={confirmarAsistencia}
               confirmoAsistencia={confirmoAsistencia}
               titular={titular}
+              setTitular={setTitular}
               evento={evento}
               total={total}
               invitados={invitados}
               addInvitado={handleAddInvitados}
               handleConfirmarPago={handleConfirmarPago}
+              confirmoTelefono={confirmoTelefono}
+              setConfirmoTelefono={setConfirmoTelefono}
+              confirmarTelefono={confirmarTelefono}
             />
-            {invitados?.length > 0 ? (
+            {confirmoTelefono && invitados?.length > 0 ? (
               <div className="evento_body">
                 <Invitados
                   invitados={invitados}
@@ -204,6 +249,19 @@ export default function Evento(props) {
                   confirmoAsistencia={confirmoAsistencia}
                   confirmarAsistencia={confirmarAsistencia}
                   setConfirmoAsistencia={setConfirmoAsistencia}
+                />
+              </div>
+            ) : (
+              <></>
+            )}
+            {confirmoTelefono && confirmoAsistencia ? (
+              <div style={{ padding: 0 }} className="cont_bloque_pago">
+                <BloquePago
+                  usuarioInvitado={usuarioInvitado}
+                  setUsuarioInvitado={setUsuarioInvitado}
+                  evento={evento}
+                  total={total}
+                  handleConfirmarPago={handleConfirmarPago}
                 />
               </div>
             ) : (

@@ -9,6 +9,8 @@ import Switch from "@mui/material/Switch";
 import { Paper } from "@material-ui/core";
 
 import { AddInvitado } from "./AddInvitado";
+import { Telefono } from "./Telefono";
+import { Titular } from "./Titular";
 
 const darkTheme = createTheme({
   palette: {
@@ -19,15 +21,17 @@ const darkTheme = createTheme({
 export function Formulario({
   usuarioInvitado,
   setUsuarioInvitado,
+  confirmoTelefono,
+  setConfirmoTelefono,
   handleSubmit,
   confirmarAsistencia,
   confirmoAsistencia,
   titular,
   evento,
-  total,
   invitados,
   addInvitado,
-  handleConfirmarPago,
+  setTitular,
+  confirmarTelefono,
 }) {
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -46,48 +50,29 @@ export function Formulario({
               style={{ marginTop: "1rem", padding: "1rem" }}
               className="evento_detalles"
             >
-              <div>
-                Confirmar Asistencia
-                <Switch
-                  size="small"
-                  label="Confirmar Asistencia"
-                  onChange={confirmarAsistencia}
-                  checked={confirmoAsistencia}
-                />{" "}
-              </div>
-              <div>Total a Pagar: ${total}</div>
-              <div>
-                Forma de Pago
-                <div>
-                  <select
-                    style={{ width: "50%" }}
-                    value={usuarioInvitado.id_evento_forma_pago}
-                    name="id_evento_forma_pago"
-                    onChange={handleChange}
-                  >
-                    {evento.formaPago.map((fp) => {
-                      return <option value={fp.id}>{fp.nombre}</option>;
-                    })}
-                    <option value="" disabled>
-                      Seleccione un Metodo
-                    </option>
-                  </select>
-                  <Button
-                    style={{
-                      marginLeft: "0.2rem",
-                      width: "calc(50% - 0.4rem)",
-                    }}
-                    variant="contained"
-                    color="success"
+              <Titular titular={titular} />
+              <Telefono
+                confirmoTelefono={confirmoTelefono}
+                setConfirmoTelefono={setConfirmoTelefono}
+                confirmarTelefono={confirmarTelefono}
+                usuarioInvitado={usuarioInvitado}
+                setUsuarioInvitado={setUsuarioInvitado}
+                titular={titular}
+                setTitular={setTitular}
+              />
+              {confirmoTelefono && (
+                <div className="evento_container_confirmar_asistencia">
+                  Confirmar Asistencia
+                  <Switch
                     size="small"
-                    onClick={handleConfirmarPago}
-                  >
-                    Confirmar Metodo de Pago
-                  </Button>
+                    label="Confirmar Asistencia"
+                    onChange={confirmarAsistencia}
+                    checked={confirmoAsistencia}
+                  />{" "}
                 </div>
-              </div>
+              )}
             </Paper>
-            {confirmoAsistencia ? (
+            {confirmoTelefono && confirmoAsistencia ? (
               <AddInvitado invitados={invitados} addInvitado={addInvitado} />
             ) : (
               <></>

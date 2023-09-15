@@ -76,6 +76,7 @@ export const AddInvitado = ({ addInvitado }) => {
             width: "100%",
             display: "flex",
             justifyContent: "space-between",
+            alignContent:"center"
           }}
           className="evento_addInvitado_agregar"
         >
@@ -88,8 +89,21 @@ export const AddInvitado = ({ addInvitado }) => {
               />
             }
             label="Es Menor (3 a 11 años)"
+            className="evento_es_menor_checkbox"
           />
-          <Button size="small" variant="contained" color="success" className="evento_aniadir_button" onClick={handleOnClick} >Agregar</Button>
+          <Button
+            size="small"
+            variant="contained"
+            color="success"
+            className="evento_aniadir_button"
+            onClick={handleOnClick}
+          >
+            Agregar
+          </Button>
+        </div>
+
+        <div className="evento_addInvitado_letraChica">
+          Costo Tarjeta: $45.000 - Menores (3 a 11 años) - $22.5000
         </div>
       </form>
     </Paper>
