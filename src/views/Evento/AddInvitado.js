@@ -87,7 +87,7 @@ export const AddInvitado = ({ addInvitado }) => {
                 checked={invitado.menor === "s"}
               />
             }
-            label="Es Menor"
+            label="Es Menor (3 a 11 años)"
           />
           <Button size="small" variant="contained" color="success" className="evento_aniadir_button" onClick={handleOnClick} >Agregar</Button>
         </div>
