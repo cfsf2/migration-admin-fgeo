@@ -69,7 +69,7 @@ export default function Evento(props) {
     Axios.post(farmageo_api + "/usuario_invitado", {
       usuario: usuarioInvitado,
     }).then((res) => {
-      if(res.status > 400){
+      if (res.status > 400) {
         return Swal.fire({
           text: res.data.message,
           icon: "error",
@@ -169,8 +169,8 @@ export default function Evento(props) {
     Axios.post(farmageo_api + "/usuario_invitado", {
       usuario: { id: titular.id, telefono: telefono },
     }).then((res) => {
-      if(res.status >400){
-        return    Swal.fire({
+      if (res.status > 400) {
+        return Swal.fire({
           title: "Ocurrio un Error",
           text: res.data.message,
           icon: "Error",
@@ -182,11 +182,17 @@ export default function Evento(props) {
         icon: "success",
         timer: 3000,
       });
-    })
-    
+    });
   };
 
   const handleConfirmarPago = () => {
+    if (!usuarioInvitado.id_evento_forma_pago) {
+      return Swal.fire({
+        title: "Debe seleccionar una forma de Pago",
+        icon: "error",
+        timer: 3000,
+      });
+    }
     Axios.post(farmageo_api + "/usuario_invitado", {
       usuario: {
         id: titular.id,
