@@ -26,13 +26,25 @@ import SelectNroCuenta from "./components/SelectNroCuenta";
 import "./transfer.scss";
 
 function Novedades(result) {
+  const novedades_message = result.data.novedades
+    ? result.data.novedades.trim()
+    : "";
+  const condcom_message = result.data.condiciones_comerciales
+    ? result.data.condiciones_comerciales.trim()
+    : "";
+
   const comunicado = result.comunicado;
-  const novedades = `<div class="transfer_alert_block nove"><p class="tit">Novedades</p><p class="transfer_condiciones_comerciales">${result.data.novedades.trim()}</p></div>`;
-  const condcom = `<div class="transfer_alert_block condi"><p class="tit">Condiciones Comerciales</p><p class="transfer_condiciones_comerciales">${result.data.condiciones_comerciales.trim()}</p></div>`;
+  const novedades = `<div class="transfer_alert_block nove"><p class="tit">Novedades</p><p class="transfer_condiciones_comerciales">${novedades_message}</p></div>`;
+  const condcom = `<div class="transfer_alert_block condi"><p class="tit">Condiciones Comerciales</p><p class="transfer_condiciones_comerciales">${condcom_message}</p></div>`;
   return `<div class="transfer_alert">
       ${comunicado ?? ""}
-      ${result.data.novedades.trim() ? novedades : ""}
-      ${result.data.condiciones_comerciales.trim() ? condcom : ""}
+      ${result.data.novedades && result.data.novedades.trim() ? novedades : ""}
+      ${
+        result.data.condiciones_comerciales &&
+        result.data.condiciones_comerciales.trim()
+          ? condcom
+          : ""
+      }
     </div>`;
 }
 
@@ -129,6 +141,7 @@ class FinalizarTransfer extends Component {
           }
         }
       } catch (error) {
+        console.log(error);
         this.setState({ lab_selected: null });
       }
     }
