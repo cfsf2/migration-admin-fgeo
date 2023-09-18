@@ -45,7 +45,7 @@ const SwitchABM = (props) => {
             textarea
           />
         );
-      case "input_number":
+      case "input_number_editable":
         return (
           <InputText
             {...props}
