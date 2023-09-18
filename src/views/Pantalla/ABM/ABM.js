@@ -193,10 +193,7 @@ const ABM = () => {
               />
             ))
           : datos.map((dato, indiceData) => (
-              <div
-                key={JSON.stringify(dato)}
-                className="abm_campos_inputs_grid"
-              >
+              <>
                 {cabeceras
                   .sort((a, b) => a.orden - b.orden)
                   .map((cab, i) => (
@@ -209,7 +206,7 @@ const ABM = () => {
                       setError={setError}
                     />
                   ))}
-              </div>
+              </>
             ))}
       </Card>
       <Botonera

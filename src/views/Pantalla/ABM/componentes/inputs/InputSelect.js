@@ -33,43 +33,45 @@ export const SelectInput = ({
   };
 
   return (
-    <div style={style_input_abm}>
-      <FormControl fullWidth>
-        <Label
-          label={label}
-          opcionales_null={opcionales_null}
-          permite_null={permite_null}
-        />
-        <Select
-          // style={{ width }}
-          defaultValue={cab.default}
-          variant="standard"
-          onChange={(e) => {
-            setValor(e.target.value);
+    <FormControl fullWidth>
+      <Label
+        label={label}
+        opcionales_null={opcionales_null}
+        permite_null={permite_null}
+      />
+      <Select
+        // style={{ width }}
+        defaultValue={cab.default}
+        variant="standard"
+        onChange={(e) => {
+          setValor(e.target.value);
 
-            setError((e) => {
-              const ne = { ...e };
-              ne[id_a] = false;
+          setError((e) => {
+            const ne = { ...e };
+            ne[id_a] = false;
 
-              return ne;
-            });
-          }}
-          value={/^[0-9]/.test(valor) ? Number(valor) : valor}
-          error={error[id_a]}
-        >
-          {opciones &&
-            opciones.map((opcion) => (
-              <MenuItem
-                style={{ width: "200px", textAlign: "center" }}
-                value={opcion.value}
-                key={opcion.value + opcion.label}
-              >
-                {opcion.default ? <em>{opcion.label}</em> : opcion.label}
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
-    </div>
+            return ne;
+          });
+        }}
+        value={/^[0-9]/.test(valor) ? Number(valor) : valor}
+        error={error[id_a]}
+      >
+        {opciones &&
+          opciones.map((opcion) => (
+            <MenuItem
+              style={{
+                width: "200px",
+                textAlign: "center",
+                fontSize: "0.8rem",
+              }}
+              value={opcion.value}
+              key={opcion.value + opcion.label}
+            >
+              {opcion.default ? <em>{opcion.label}</em> : opcion.label}
+            </MenuItem>
+          ))}
+      </Select>
+    </FormControl>
   );
 };
 

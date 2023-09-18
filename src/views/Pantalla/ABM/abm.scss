@@ -4,7 +4,7 @@
   }
   &_campos {
     display: grid;
-    grid-template-columns:  repeat(12, 1fr);
+    grid-template-columns: repeat(12, 1fr);
     gap: 5px;
     align-items: center;
     padding: 1.5rem 3rem;
@@ -14,5 +14,8 @@
       gap: 1.5rem;
       row-gap: 20px;
     }
+  }
+  .MuiSelect-select {
+    font-size: 0.8rem;
   }
 }
