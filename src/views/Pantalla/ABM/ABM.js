@@ -183,15 +183,17 @@ const ABM = () => {
       )}
       <Card className="abm_campos" style={{ display: "grid" }}>
         {datos.length === 0
-          ? cabeceras.map((cab, i) => (
-              <SwitchABM
-                data={{}}
-                cab={cab}
-                error={error}
-                setError={setError}
-                key={cab.id_a + i}
-              />
-            ))
+          ? cabeceras
+              .sort((a, b) => a.orden - b.orden)
+              .map((cab, i) => (
+                <SwitchABM
+                  data={{}}
+                  cab={cab}
+                  error={error}
+                  setError={setError}
+                  key={cab.id_a + i}
+                />
+              ))
           : datos.map((dato, indiceData) => (
               <>
                 {cabeceras
