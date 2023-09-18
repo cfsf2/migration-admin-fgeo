@@ -54,7 +54,7 @@ export const SelectInput = ({
               return ne;
             });
           }}
-          value={Number(valor)}
+          value={/^[0-9]/.test(valor) ? Number(valor) : valor}
           error={error[id_a]}
         >
           {opciones &&
