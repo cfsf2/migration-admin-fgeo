@@ -11,26 +11,9 @@ export const SelectInput = ({
   setError,
   data,
 }) => {
-  const {
-    id,
-    id_a,
-    label,
-    grid_span,
-    opcionales_null,
-    permite_null,
-    margin_bottom_abm,
-    width,
-    opciones,
-  } = cab;
+  const { id_a, label, opcionales_null, permite_null, opciones } = cab;
 
-  const styles = {
-    gridColumn: grid_span,
-  };
-
-  const style_input_abm = {
-    width: width,
-    marginBottom: margin_bottom_abm,
-  };
+  console.log(valor, cab.default, /^[0-9]/.test(valor) ? Number(valor) : valor);
 
   return (
     <FormControl fullWidth>
@@ -64,7 +47,11 @@ export const SelectInput = ({
                 textAlign: "center",
                 fontSize: "0.8rem",
               }}
-              value={opcion.value}
+              value={
+                /^[0-9]/.test(opcion.value)
+                  ? Number(opcion.value)
+                  : opcion.value
+              }
               key={opcion.value + opcion.label}
             >
               {opcion.default ? <em>{opcion.label}</em> : opcion.label}

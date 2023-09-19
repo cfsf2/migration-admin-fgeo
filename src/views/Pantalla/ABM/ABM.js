@@ -201,6 +201,7 @@ const ABM = () => {
                   .map((cab, i) => (
                     <SwitchABM
                       key={cab.id_a + i}
+                      _key={cab.id_a + i}
                       indiceData={indiceData}
                       data={dato}
                       cab={cab}

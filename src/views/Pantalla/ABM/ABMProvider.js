@@ -85,6 +85,14 @@ const ABMProvider = ({ configuracion, id, children, nollamar, params }) => {
         type: "SET_LOADING",
         payload: false,
       });
+      res.data.datos.forEach((dato) => {
+        res.data.cabeceras.forEach((cab) => {
+          return dispatch({
+            type: "SET_FORMULARIO_VALOR",
+            payload: { id_a: cab.id_a, valor: dato[cab.id_a] },
+          });
+        });
+      });
       setLoading(false);
     });
   };
@@ -114,7 +122,7 @@ const ABMProvider = ({ configuracion, id, children, nollamar, params }) => {
     if (configuraciones_ref[id_a] === 1) return;
 
     if (nollamar) return;
-    callAPI({});
+    callAPI({ params: {} });
   }, [configuraciones_ref[id_a]]);
 
   return (

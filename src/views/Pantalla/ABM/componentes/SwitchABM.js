@@ -12,7 +12,7 @@ import InputPassword from "./inputs/InputPassword";
 const SwitchABM = (props) => {
   const { ABMDispatch, valorFormulario } = useContext(ABMContext);
 
-  const { cab } = props;
+  const { cab, _key } = props;
 
   const id_a = cab.id_a;
 
@@ -104,9 +104,9 @@ const SwitchABM = (props) => {
         return <></>;
     }
   })();
-
+  
   return (
-    <div id={cab.id_a} style={{ gridColumn: cab.grid_span }}>
+    <div key={_key} id={cab.id_a} style={{ gridColumn: cab.grid_span }}>
       {Componente}
     </div>
   );
