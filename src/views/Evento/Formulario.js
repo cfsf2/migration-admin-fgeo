@@ -77,7 +77,9 @@ export function Formulario({
                 </div>
               )}
             </Paper>
-            {confirmoTelefono && confirmoAsistencia ? (
+            {titular.titular === "s" &&
+            confirmoTelefono &&
+            confirmoAsistencia ? (
               <AddInvitado invitados={invitados} addInvitado={addInvitado} />
             ) : (
               <></>
