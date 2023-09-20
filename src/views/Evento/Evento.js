@@ -21,6 +21,7 @@ export default function Evento(props) {
   const [farmacia, setFarmacia] = useState({});
 
   const [invitados, setInvitados] = useState([]);
+  const [error, setError] = useState(false);
 
   const [confirmoAsistencia, setConfirmoAsistencia] = useState(false);
   const [confirmoTelefono, setConfirmoTelefono] = useState(false);
@@ -65,6 +66,11 @@ export default function Evento(props) {
 
   const handleForm = (e) => {
     e.preventDefault();
+
+    if (usuarioInvitado.cuit.toString().length < 7) {
+      return setError(() => true);
+    }
+    setError(false);
 
     Axios.post(farmageo_api + "/usuario_invitado", {
       usuario: usuarioInvitado,
@@ -245,6 +251,8 @@ export default function Evento(props) {
               confirmoTelefono={confirmoTelefono}
               setConfirmoTelefono={setConfirmoTelefono}
               confirmarTelefono={confirmarTelefono}
+              error={error}
+              setError={setError}
             />
             {confirmoTelefono && invitados?.length > 0 ? (
               <div className="evento_body">
@@ -274,6 +282,7 @@ export default function Evento(props) {
               <></>
             )}
           </div>
+          <Footer />
         </div>
       ) : (
         <div className="fondo_evento"></div>
@@ -289,5 +298,23 @@ const Header = () => {
         <img alt="invitacion" src={c} />
       </div>
     </header>
+  );
+};
+
+const Footer = () => {
+  return (
+    <footer className="evento_footer">
+      Por cualquier inconveniente o consulta no dude en comunicarse al 
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://wa.me/543415010022"
+        style={{margin:"0 5px"}}
+      >
+        3415010022
+      </a>{" "}
+       de Lunes a viernes de 8 hs a 16 hs. Recuerde que desde este número de
+      celular le enviaremos por whatsapp los QR para el ingreso al evento
+    </footer>
   );
 };

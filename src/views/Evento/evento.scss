@@ -14,10 +14,12 @@
 .main_evento {
   display: flex;
   width: 100%;
+
   flex-wrap: wrap;
   .evento_detalles {
     width: 100%;
   }
+  margin-bottom: 2rem;
 }
 
 .header_evento {
@@ -29,6 +31,16 @@
     width: 100%;
     height: auto;
   }
+}
+.evento_footer {
+  width: calc(100% - 10px);
+  position: fixed;
+  bottom: 5px;
+  background-color: aliceblue;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0px 5px;
+  font-size: 0.8rem;
 }
 
 .formulario_evento {
@@ -135,7 +147,7 @@
     width: calc(100% - 3rem);
   }
   .main_evento {
-    flex-direction: column;
+    // flex-direction: column;
   }
 }
 

@@ -32,6 +32,8 @@ export function Formulario({
   addInvitado,
   setTitular,
   confirmarTelefono,
+  error,
+  setError,
 }) {
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -39,6 +41,9 @@ export function Formulario({
       ...usuarioInvitado,
       [name]: value,
     });
+    if (name === "cuit" && value.toString().length >= 7) {
+      setError(false);
+    }
   };
 
   return (
@@ -85,13 +90,15 @@ export function Formulario({
                 <Grid item xs={12} sm={12}>
                   <TextField
                     fullWidth
-                    label="CUIT"
+                    label="CUIT o Documento"
                     variant="outlined"
                     required
                     size="small"
                     value={usuarioInvitado.cuit}
                     onChange={handleChange}
                     name="cuit"
+                    helperText="Ingrese al menos 7 numeros"
+                    error={error}
                     // Aquí puedes agregar más propiedades según tus necesidades
                   />
                 </Grid>
