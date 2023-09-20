@@ -71,6 +71,7 @@ export function Evento({search}) {
 
   const calcularTotal = (invitados) => {
     const _total = invitados.reduce((acc, i) => {
+      if(i.pagado === 's') return acc
       return acc + i.costo;
     }, 0);
     setTotal(_total);

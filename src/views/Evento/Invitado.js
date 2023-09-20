@@ -29,6 +29,7 @@ export const Invitados = ({
               <TableCell>Documento</TableCell>
               <TableCell>Es Menor</TableCell>
               <TableCell>Costo</TableCell>
+              <TableCell>Pagado</TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
@@ -74,13 +75,13 @@ export const Invitado = ({
         {invitado.documento}
       </TableCell>
       <TableCell component="th" scope="row">
-        {invitado.menor === 's' ? 'Si' : 'No'}
+        {invitado.menor === "s" ? "Si" : "No"}
       </TableCell>
       <TableCell component="th" scope="row">
         <Costo invitado={invitado} />
       </TableCell>
       <TableCell>
-        {invitado.titular === "s" ? (
+        {invitado.titular === "s" || invitado.pagado === "s" ? (
           <></>
         ) : (
           <DeleteIcon
@@ -89,6 +90,7 @@ export const Invitado = ({
           />
         )}
       </TableCell>
+      <TableCell>{invitado.pagado === "s" ? "Si" : "No"}</TableCell>
     </>
   );
 };
