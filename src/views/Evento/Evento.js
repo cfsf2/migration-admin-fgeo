@@ -18,7 +18,6 @@ export default function Evento(props) {
     id_evento_forma_pago: "",
   });
   const location = useLocation();
-  const [farmacia, setFarmacia] = useState({});
 
   const [invitados, setInvitados] = useState([]);
   const [error, setError] = useState(false);
@@ -30,17 +29,21 @@ export default function Evento(props) {
   const [total, setTotal] = useState(0);
 
   const handleAddInvitados = (invitado) => {
-    Axios.post(farmageo_api + "/usuario_invitado/add", {
-      usuario: invitado,
-      farmacia,
-    }).then((res) =>
-      setInvitados((s) => {
-        const ns = [...s];
-        ns.push(res.data);
-        calcularTotal(ns);
-        return ns;
-      })
-    );
+    try {
+      Axios.post(farmageo_api + "/usuario_invitado/add", {
+        usuario: invitado,
+        titular,
+      }).then((res) =>
+        setInvitados((s) => {
+          const ns = [...s];
+          ns.push(res.data);
+          calcularTotal(ns);
+          return ns;
+        })
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleEliminarInvitado = (uuid) => {
@@ -53,7 +56,7 @@ export default function Evento(props) {
 
     Axios.post(farmageo_api + "/usuario_invitado/delete", {
       usuario: { token: uuid },
-      farmacia,
+      titular,
     }).then((res) => console.log(res));
   };
 
@@ -82,14 +85,19 @@ export default function Evento(props) {
           timer: 3000,
         });
       }
-      setFarmacia(res.data);
-      setInvitados(res.data.invitados);
-      if (res.data.invitados.length > 0) {
-        calcularTotal(res.data.invitados);
+
+      const invitados = res.data.invitados;
+      invitados.push(res.data);
+      if (invitados.length > 0) {
+        calcularTotal(invitados);
       }
-      const _titular = res.data.invitados
-        .filter((i) => i.titular === "s")
-        .pop();
+
+      const _titular = res.data;
+
+      setInvitados((s) => {
+        calcularTotal(invitados);
+        return invitados;
+      });
       setTitular(_titular);
     });
   };
@@ -102,16 +110,18 @@ export default function Evento(props) {
           token: urlParams.get("token"),
         },
       }).then((res) => {
-        setFarmacia(res.data);
-
         setInvitados(res.data.invitados);
         if (res.data.invitados.length > 0) {
           calcularTotal(res.data.invitados);
         }
-        const _titular = res.data.invitados
-          .filter((i) => i.titular === "s")
-          .pop();
+        const _titular = res.data;
         setTitular(_titular);
+        setInvitados((s) => {
+          const ns = [...s];
+          ns.push(res.data);
+          calcularTotal(ns);
+          return ns;
+        });
         setUsuarioInvitado({
           ...usuarioInvitado,
           cuit: res.data.cuit,
@@ -304,16 +314,16 @@ const Header = () => {
 const Footer = () => {
   return (
     <footer className="evento_footer">
-      Por cualquier inconveniente o consulta no dude en comunicarse al 
+      Por cualquier inconveniente o consulta no dude en comunicarse al
       <a
         target="_blank"
         rel="noopener noreferrer"
         href="https://wa.me/543415010022"
-        style={{margin:"0 5px"}}
+        style={{ margin: "0 5px" }}
       >
         3415010022
       </a>{" "}
-       de Lunes a viernes de 8 hs a 16 hs. Recuerde que desde este número de
+      de Lunes a viernes de 8 hs a 16 hs. Recuerde que desde este número de
       celular le enviaremos por whatsapp los QR para el ingreso al evento
     </footer>
   );

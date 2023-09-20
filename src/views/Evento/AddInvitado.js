@@ -4,8 +4,6 @@ import { v4 } from "uuid";
 
 import Paper from "@mui/material/Paper";
 
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { TextField } from "@mui/material";
@@ -34,8 +32,12 @@ export const AddInvitado = ({ addInvitado }) => {
       invitado.nombre !== "" &&
       invitado.docuemnto !== ""
     ) {
-      addInvitado(invitado);
-      setInvitado({ nombre: "", documento: "", token: v4(), menor: "n" });
+      try{
+        addInvitado(invitado);
+      }catch(err){
+        console.log(err)
+      }
+    //  setInvitado({ nombre: "", documento: "", token: v4(), menor: "n" });
       return setError(false);
     }
     return setError(true);

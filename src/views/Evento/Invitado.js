@@ -11,8 +11,6 @@ import Paper from "@mui/material/Paper";
 
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
-import { AddInvitado } from "./AddInvitado";
-
 export const Invitados = ({
   invitados,
   addInvitado,
@@ -59,9 +57,7 @@ export const Invitados = ({
 export const Invitado = ({
   invitado,
   setConfirmoAsistencia,
-  confirmoAsistencia,
   eliminarInvitado,
-  confirmarAsistencia,
 }) => {
   useEffect(() => {
     if (invitado.titular === "s") {
