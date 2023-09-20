@@ -3,7 +3,7 @@ import "./evento.scss";
 import c from "./fiesta_farmaceutica.jpeg";
 import Axios from "axios";
 import { farmageo_api } from "../../config";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
@@ -11,7 +11,7 @@ import { Invitados } from "./Invitado";
 import { Formulario } from "./Formulario";
 import { BloquePago } from "./BloquePago";
 
-export default function Evento(props) {
+export function Evento({search}) {
   const [usuarioInvitado, setUsuarioInvitado] = useState({
     cuit: "",
     matricula: "",
@@ -27,6 +27,20 @@ export default function Evento(props) {
   const [titular, setTitular] = useState({});
   const [evento, setEvento] = useState({});
   const [total, setTotal] = useState(0);
+
+  const cleanState = () => {
+    setUsuarioInvitado({
+      cuit: "",
+      matricula: "",
+      id_evento_forma_pago: "",
+    });
+    setInvitados({});
+    setError(false);
+    setConfirmoAsistencia(false);
+    setConfirmoTelefono(false);
+    setTitular({});
+    setTotal(0);
+  };
 
   const handleAddInvitados = (invitado) => {
     Axios.post(farmageo_api + "/usuario_invitado/add", {
@@ -196,29 +210,31 @@ export default function Evento(props) {
     });
   };
 
-  const handleConfirmarPago = () => {
-    if (!usuarioInvitado.id_evento_forma_pago) {
-      return Swal.fire({
-        title: "Debe seleccionar una forma de Pago",
-        icon: "error",
-        timer: 3000,
-      });
-    }
+  const handleConfirmarPago = (id_evento_forma_pago) => {
+    // if (!usuarioInvitado.id_evento_forma_pago) {
+    //   return Swal.fire({
+    //     title: "Debe seleccionar una forma de Pago",
+    //     icon: "error",
+    //     timer: 3000,
+    //   });
+    // }
     Axios.post(farmageo_api + "/usuario_invitado", {
       usuario: {
         id: titular.id,
-        id_evento_forma_pago: usuarioInvitado.id_evento_forma_pago,
+        id_evento_forma_pago: id_evento_forma_pago,
       },
-    }).then((res) => {
-      Swal.fire({
-        title: "El metodo de pago ha sido confirmado",
-        icon: "success",
-        timer: 3000,
-      });
     });
+    // .then((res) => {
+    //   Swal.fire({
+    //     title: "El metodo de pago ha sido confirmado",
+    //     icon: "success",
+    //     timer: 3000,
+    //   });
+    // });
   };
 
   useEffect(() => {
+    cleanState();
     getEvento();
     if (urlParams.get("token")) {
       getInvitados();
@@ -232,7 +248,7 @@ export default function Evento(props) {
         formularioEvento.scrollIntoView({ behavior: "smooth" });
       }
     }, 1000);
-  }, []);
+  }, [search]);
 
   return (
     <>
@@ -280,6 +296,7 @@ export default function Evento(props) {
                   setUsuarioInvitado={setUsuarioInvitado}
                   evento={evento}
                   total={total}
+                  cleanState={cleanState}
                   handleConfirmarPago={handleConfirmarPago}
                 />
               </div>
@@ -323,3 +340,8 @@ const Footer = () => {
     </footer>
   );
 };
+
+export default function Wrapper() {
+  const history = useHistory();
+  return <Evento search={history.location.search} />;
+}

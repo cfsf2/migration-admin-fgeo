@@ -1,21 +1,51 @@
 import React from "react";
 import "./evento.scss";
 import Button from "@mui/material/Button";
+import { useHistory } from "react-router-dom";
 import { Paper } from "@material-ui/core";
+
+import Swal from "sweetalert2";
 
 export const BloquePago = ({
   usuarioInvitado,
   setUsuarioInvitado,
   evento,
-  total,
+  total,cleanState,
   handleConfirmarPago,
 }) => {
+  const history = useHistory();
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUsuarioInvitado({
       ...usuarioInvitado,
       [name]: value,
     });
+
+    handleConfirmarPago(value);
+  };
+
+  const handleFinalizar = () => {
+    if (
+      usuarioInvitado.id_evento_forma_pago &&
+      usuarioInvitado.id_evento_forma_pago !== ""
+    ) {
+      Swal.fire({
+        title: "Debe confirmar un metodo de pago!",
+        icon: "warning",
+        timer: 3000,
+      });
+    }
+    if (usuarioInvitado.id_evento_forma_pago > 0) {
+      Swal.fire({
+        title:
+          "Sus datos han sido confirmados. Nos comunicaremos con usted a la brevedad. Gracias!",
+        icon: "success",
+        timer: 3000,
+      }).finally(() => {
+        history.push("/evento");
+        cleanState()
+      });
+    }
   };
 
   return (
@@ -36,7 +66,7 @@ export const BloquePago = ({
               Seleccione un Metodo
             </option>
           </select>
-          <Button
+          {/* <Button
             variant="contained"
             color="success"
             size="small"
@@ -44,6 +74,15 @@ export const BloquePago = ({
             className="evento_detalles_confirmar_metodo_pago"
           >
             Confirmar Metodo de Pago
+          </Button> */}
+          <Button
+            variant="contained"
+            color="success"
+            size="small"
+            onClick={handleFinalizar}
+            className="evento_detalles_confirmar_metodo_pago"
+          >
+            Finalizar
           </Button>
         </div>
         <div className="evento_detalles_total">Total a Pagar: ${total}</div>
