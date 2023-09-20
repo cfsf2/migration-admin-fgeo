@@ -29,21 +29,17 @@ export default function Evento(props) {
   const [total, setTotal] = useState(0);
 
   const handleAddInvitados = (invitado) => {
-    try {
-      Axios.post(farmageo_api + "/usuario_invitado/add", {
-        usuario: invitado,
-        titular,
-      }).then((res) =>
-        setInvitados((s) => {
-          const ns = [...s];
-          ns.push(res.data);
-          calcularTotal(ns);
-          return ns;
-        })
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    Axios.post(farmageo_api + "/usuario_invitado/add", {
+      usuario: invitado,
+      titular: { id: titular.id },
+    }).then((res) => {
+      setInvitados((s) => {
+        const ns = [...s];
+        ns.push(res.data);
+        calcularTotal(ns);
+        return ns;
+      });
+    });
   };
 
   const handleEliminarInvitado = (uuid) => {
@@ -56,7 +52,6 @@ export default function Evento(props) {
 
     Axios.post(farmageo_api + "/usuario_invitado/delete", {
       usuario: { token: uuid },
-      titular,
     }).then((res) => console.log(res));
   };
 
@@ -87,7 +82,7 @@ export default function Evento(props) {
       }
 
       const invitados = res.data.invitados;
-      invitados.push(res.data);
+      invitados.unshift(res.data);
       if (invitados.length > 0) {
         calcularTotal(invitados);
       }
@@ -118,7 +113,7 @@ export default function Evento(props) {
         setTitular(_titular);
         setInvitados((s) => {
           const ns = [...s];
-          ns.push(res.data);
+          ns.unshift(res.data);
           calcularTotal(ns);
           return ns;
         });
