@@ -32,12 +32,12 @@ export const AddInvitado = ({ addInvitado }) => {
       invitado.nombre !== "" &&
       invitado.docuemnto !== ""
     ) {
-      try{
+      try {
         addInvitado(invitado);
-      }catch(err){
-        console.log(err)
+      } catch (err) {
+        console.log(err);
       }
-    //  setInvitado({ nombre: "", documento: "", token: v4(), menor: "n" });
+      setInvitado({ nombre: "", documento: "", token: v4(), menor: "n" });
       return setError(false);
     }
     return setError(true);
@@ -78,7 +78,7 @@ export const AddInvitado = ({ addInvitado }) => {
             width: "100%",
             display: "flex",
             justifyContent: "space-between",
-            alignContent:"center"
+            alignContent: "center",
           }}
           className="evento_addInvitado_agregar"
         >
