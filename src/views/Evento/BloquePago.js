@@ -26,7 +26,6 @@ export const BloquePago = ({
   };
 
   const handleFinalizar = () => {
-    console.log(usuarioInvitado.id_evento_forma_pago)
     if (
       !usuarioInvitado.id_evento_forma_pago ||
       usuarioInvitado.id_evento_forma_pago === ""
