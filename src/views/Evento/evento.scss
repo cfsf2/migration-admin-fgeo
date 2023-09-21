@@ -20,6 +20,9 @@
     width: 100%;
   }
   margin-bottom: 2rem;
+  @media screen and (width < 450px) {
+    margin-bottom: 6rem;
+  }
 }
 
 .header_evento {
@@ -188,7 +191,7 @@
     margin-bottom: 0.5rem;
   }
   .evento_telefono_intput {
-    width: max-content;
+    // width: max-content;
   }
   .evento_telefono_confirmar {
     width: fit-content;
