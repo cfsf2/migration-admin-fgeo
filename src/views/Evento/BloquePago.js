@@ -27,8 +27,9 @@ export const BloquePago = ({
 
   const handleFinalizar = () => {
     if (
-      !usuarioInvitado.id_evento_forma_pago ||
-      usuarioInvitado.id_evento_forma_pago === ""
+      total !== 0 &&
+      (!usuarioInvitado.id_evento_forma_pago ||
+        usuarioInvitado.id_evento_forma_pago === "")
     ) {
       Swal.fire({
         title: "Debe confirmar una forma de pago!",
@@ -36,7 +37,7 @@ export const BloquePago = ({
         timer: 3000,
       });
     }
-    if (usuarioInvitado.id_evento_forma_pago > 0) {
+    if (usuarioInvitado.id_evento_forma_pago > 0 || total === 0) {
       Swal.fire({
         title:
           "Sus datos han sido confirmados. Nos comunicaremos con usted a la brevedad. Gracias!",

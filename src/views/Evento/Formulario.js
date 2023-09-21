@@ -65,18 +65,40 @@ export function Formulario({
                 titular={titular}
                 setTitular={setTitular}
               />
-              {confirmoTelefono && (
-                <div className="evento_container_confirmar_asistencia">
+            </Paper>
+
+            {confirmoTelefono && (
+              <Paper
+                style={{ marginTop: "1rem", padding: "1rem" }}
+                className="evento_detalles"
+              >
+                <div
+                  className="evento_container_confirmar_asistencia"
+                  onClick={(e) => {
+                    confirmarAsistencia({
+                      target: { checked: !confirmoAsistencia },
+                    });
+                  }}
+                >
                   Confirmar Asistencia
                   <Switch
                     size="small"
                     label="Confirmar Asistencia"
                     onChange={confirmarAsistencia}
+                    onClick={(e) => {
+                      confirmarAsistencia({
+                        target: { checked: !confirmoAsistencia },
+                      });
+                    }}
                     checked={confirmoAsistencia}
                   />{" "}
                 </div>
-              )}
-            </Paper>
+                <div style={{ display: confirmoAsistencia ? "none" : "block" }}>
+                  Aun no confirmaste tu asistencia!
+                </div>
+              </Paper>
+            )}
+
             {titular.titular === "s" &&
             confirmoTelefono &&
             confirmoAsistencia ? (
