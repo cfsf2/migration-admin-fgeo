@@ -38,7 +38,7 @@ export const SelectInput = ({
         }}
         value={/^[0-9]/.test(valor) ? Number(valor) : valor}
         error={error[id_a]}
-        disabled={data[cab.id_a + "_disabled"]}
+        disabled={data[cab.id_a + "_disabled"] === 's'}
       >
         {opciones &&
           opciones.map((opcion) => (
