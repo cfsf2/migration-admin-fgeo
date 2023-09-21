@@ -26,9 +26,10 @@ export const BloquePago = ({
   };
 
   const handleFinalizar = () => {
+    console.log(usuarioInvitado.id_evento_forma_pago)
     if (
-      usuarioInvitado.id_evento_forma_pago &&
-      usuarioInvitado.id_evento_forma_pago !== ""
+      !usuarioInvitado.id_evento_forma_pago ||
+      usuarioInvitado.id_evento_forma_pago === ""
     ) {
       Swal.fire({
         title: "Debe confirmar una forma de pago!",
@@ -78,15 +79,16 @@ export const BloquePago = ({
           </Button> */}
           <div className="evento_detalles_total">Total a Pagar: ${total}</div>
         </div>
-        <Button
-          variant="contained"
-          color="success"
-          size="small"
-          onClick={handleFinalizar}
-          className="evento_finalizar"
-        >
-          Finalizar
-        </Button>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={handleFinalizar}
+            className="evento_finalizar"
+          >
+            Finalizar
+          </Button>
+        </div>
       </div>
     </Paper>
   );
