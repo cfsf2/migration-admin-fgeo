@@ -10,7 +10,8 @@ export const BloquePago = ({
   usuarioInvitado,
   setUsuarioInvitado,
   evento,
-  total,cleanState,
+  total,
+  cleanState,
   handleConfirmarPago,
 }) => {
   const history = useHistory();
@@ -43,7 +44,7 @@ export const BloquePago = ({
         timer: 3000,
       }).finally(() => {
         history.push("/evento");
-        cleanState()
+        cleanState();
       });
     }
   };
@@ -75,17 +76,17 @@ export const BloquePago = ({
           >
             Confirmar Metodo de Pago
           </Button> */}
-          <Button
-            variant="contained"
-            color="success"
-            size="small"
-            onClick={handleFinalizar}
-            className="evento_detalles_confirmar_metodo_pago"
-          >
-            Finalizar
-          </Button>
+          <div className="evento_detalles_total">Total a Pagar: ${total}</div>
         </div>
-        <div className="evento_detalles_total">Total a Pagar: ${total}</div>
+        <Button
+          variant="contained"
+          color="success"
+          size="small"
+          onClick={handleFinalizar}
+          className="evento_finalizar"
+        >
+          Finalizar
+        </Button>
       </div>
     </Paper>
   );

@@ -90,7 +90,9 @@ export const Invitado = ({
           />
         )}
       </TableCell>
-      <TableCell>{invitado.pagado === "s" ? "Si" : "No"}</TableCell>
+      <TableCell>
+        {invitado.gratis === 's' || invitado.pagado === "s" ? "Si" : "No"}
+      </TableCell>
     </>
   );
 };
