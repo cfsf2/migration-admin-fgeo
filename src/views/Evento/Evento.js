@@ -11,7 +11,7 @@ import { Invitados } from "./Invitado";
 import { Formulario } from "./Formulario";
 import { BloquePago } from "./BloquePago";
 
-export function Evento({search}) {
+export function Evento({ search }) {
   const [usuarioInvitado, setUsuarioInvitado] = useState({
     cuit: "",
     matricula: "",
@@ -71,7 +71,7 @@ export function Evento({search}) {
 
   const calcularTotal = (invitados) => {
     const _total = invitados.reduce((acc, i) => {
-      if(i.pagado === 's') return acc
+      if (i.pagado === "s") return acc;
       return acc + i.costo;
     }, 0);
     setTotal(_total);
@@ -327,17 +327,20 @@ const Header = () => {
 const Footer = () => {
   return (
     <footer className="evento_footer">
-      Por cualquier inconveniente o consulta no dude en comunicarse al
+      Si tiene alguna pregunta o enfrenta algún inconveniente, no dude en
+      ponerse en contacto con nosotros al número
       <a
         target="_blank"
         rel="noopener noreferrer"
         href="https://wa.me/543415010022"
         style={{ margin: "0 5px" }}
       >
-        3415010022
-      </a>{" "}
-      de Lunes a viernes de 8 hs a 16 hs. Recuerde que desde este número de
-      celular le enviaremos por whatsapp los QR para el ingreso al evento
+        341-501-0022
+      </a>
+      . Nuestro horario de atención es de lunes a viernes de 8:00 a.m. a 4:00
+      p.m. Recuerde que desde este número de teléfono móvil le enviaremos los
+      códigos QR por WhatsApp para el ingreso al evento. ¡Esperamos verlo
+      pronto!
     </footer>
   );
 };

@@ -30,7 +30,7 @@ export const BloquePago = ({
       usuarioInvitado.id_evento_forma_pago !== ""
     ) {
       Swal.fire({
-        title: "Debe confirmar un metodo de pago!",
+        title: "Debe confirmar una forma de pago!",
         icon: "warning",
         timer: 3000,
       });
@@ -63,7 +63,7 @@ export const BloquePago = ({
               return <option value={fp.id}>{fp.nombre}</option>;
             })}
             <option value="" disabled>
-              Seleccione un Metodo
+              Seleccione una forma de pago
             </option>
           </select>
           {/* <Button

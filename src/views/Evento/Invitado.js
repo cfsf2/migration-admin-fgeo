@@ -28,7 +28,7 @@ export const Invitados = ({
               <TableCell>Nombre Completo</TableCell>
               <TableCell>Documento</TableCell>
               <TableCell>Es Menor</TableCell>
-              <TableCell>Costo</TableCell>
+              <TableCell>Importe</TableCell>
               <TableCell></TableCell>
               <TableCell>Pagado</TableCell>
             </TableRow>
@@ -98,7 +98,7 @@ export const Invitado = ({
 export const Costo = ({ invitado }) => {
   let costo_display = `$${invitado.costo}`;
   if (invitado.costo === 0) {
-    costo_display = "sin cargo";
+    costo_display = "Sin cargo";
   }
   if (invitado.bonificada === "s") {
     costo_display = `$${invitado.costo} (50% dto)`;
