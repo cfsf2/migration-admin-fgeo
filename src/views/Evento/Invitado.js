@@ -29,8 +29,8 @@ export const Invitados = ({
               <TableCell>Documento</TableCell>
               <TableCell>Es Menor</TableCell>
               <TableCell>Costo</TableCell>
-              <TableCell>Pagado</TableCell>
               <TableCell></TableCell>
+              <TableCell>Pagado</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
