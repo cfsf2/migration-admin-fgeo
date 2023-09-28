@@ -126,6 +126,8 @@ export function Item(props) {
       ).toFixed(2)
     : (0).toFixed(2);
 
+  const usaAlfaBeta = lab_selected.calcular_precio === "s";
+
   return (
     <>
       {producto.nombre !== undefined ? (
@@ -135,7 +137,7 @@ export function Item(props) {
             {producto.producto?.nombre ?? producto.nombre}
           </div>
           <div className="transfer_lista_items_presentacion">
-            {producto.producto?.presentacion ?? producto.presentacion}
+            {usaAlfaBeta ? producto.producto?.presentacion : producto.presentacion}
           </div>
 
           {lab_selected.calcular_precio === "s" ? (
