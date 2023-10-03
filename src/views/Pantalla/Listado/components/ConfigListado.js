@@ -35,6 +35,7 @@ const ConfigListado = () => {
       cabeceras
         .sort((a, b) => a.orden - b.orden)
         .filter((cab) => cab.componente !== "hidden")
+        .filter((cab) => cab.componente !== "excel")
         .filter((cab) => cab.mostrar !== "n")
         .map((cab, i) => {
           //console.log("cab:  ", cab);
