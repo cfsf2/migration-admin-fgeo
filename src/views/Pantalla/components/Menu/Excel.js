@@ -9,11 +9,17 @@ const Excel = ({ opciones }) => {
   const [loading, setLoading] = useState(false);
   const handleClick = () => {
     setLoading(true);
-    Axios.post(farmageo_api + "/excel", {
-      conf: opciones.id_a,
-      filtros: Object.assign(opciones.filtros, { pantalla: opciones.padre }),
-      id: opciones.id_global,
-    }).then((res) => {
+    const filtros = Object.assign(opciones.filtros, {
+      pantalla: opciones.padre,
+    });
+    Axios.post(
+      farmageo_api + "/excel",
+      {
+        conf: opciones.id_a,
+        id: opciones.id_global,
+      },
+      { params: filtros }
+    ).then((res) => {
       const excel = Buffer.from(res.data.excel.archivo, "base64");
       const blob = new Blob([excel], { type: "text/plain" });
       const url = URL.createObjectURL(blob);
