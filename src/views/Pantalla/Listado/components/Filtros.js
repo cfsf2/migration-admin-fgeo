@@ -28,7 +28,7 @@ const useStyle = makeStyles({
   },
 });
 
-const Filtros = () => {
+const Filtros = (props) => {
   const {
     filtros,
     setFilter: aplicarFiltros,
@@ -38,7 +38,10 @@ const Filtros = () => {
     listadoBotones,
     ListadoDispatch,
     filtrosUsuarioAlCargarPagina,
+    id_global,
   } = useContext(ListadoContext);
+
+  const { opciones } = props;
 
   const { insertar, refrescarConfiguracion } = useContext(FuncionesContext);
 
@@ -46,6 +49,10 @@ const Filtros = () => {
   const [expanded, setExpanded] = useState(false);
   const [requeridos, setRequeridos] = useState([]);
   const [error, setError] = useState({});
+
+  opciones.filtros = filtrosAAplicar;
+  opciones.dispatch = ListadoDispatch;
+  opciones.id_global = id_global;
 
   useEffect(() => {
     filtros
@@ -119,7 +126,7 @@ const Filtros = () => {
     );
   };
 
-  const handleSubmit =async () => {
+  const handleSubmit = async () => {
     if (loading) return;
 
     if (validar()) {
@@ -132,7 +139,7 @@ const Filtros = () => {
             (c) => c.opciones.tipo.id === 6
           );
 
-       await insertar({
+        await insertar({
           valor: filtrosAAplicar,
           id_a: SISTEMA_GUARDAR_FILTROS,
           insert_ids: (() => {
@@ -194,19 +201,20 @@ const Filtros = () => {
               <div className="filtro_grid_inputs_grid">
                 {filtros
                   ?.sort((a, b) => a.orden - b.orden)
-                  .map((f) => 
-                    {
-                      return <SwitchFiltros
-                      {...f}
-                      key={f.id_a}
-                      filtrosAAplicar={filtrosAAplicar}
-                      setFiltrosAAplicar={setFiltrosAAplicar}
-                      requeridos={requeridos}
-                      setRequeridos={setRequeridos}
-                      error={error}
-                      setError={setError}
-                    />}
-                  )}
+                  .map((f) => {
+                    return (
+                      <SwitchFiltros
+                        {...f}
+                        key={f.id_a}
+                        filtrosAAplicar={filtrosAAplicar}
+                        setFiltrosAAplicar={setFiltrosAAplicar}
+                        requeridos={requeridos}
+                        setRequeridos={setRequeridos}
+                        error={error}
+                        setError={setError}
+                      />
+                    );
+                  })}
               </div>
             </div>
             {hayObligatorios ? (

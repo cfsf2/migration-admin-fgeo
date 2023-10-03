@@ -97,7 +97,7 @@ export const Listado = (props) => {
 
         <CardBody style={{ padding: 0 }}>
           <ThemeProvider theme={theme}>
-            <Filtros />
+            <Filtros opciones={opcionesListado} />
             <MaterialTable
               renderSummaryRow={funTotal}
               tableRef={tableRef}
