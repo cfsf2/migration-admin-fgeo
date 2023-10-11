@@ -58,8 +58,8 @@ export default function Barra(props) {
     calcularPrecio === "s"
       ? pedido
           ?.reduce((accumulator, p) => {
-            if (!p.producto) return accumulator;
-            const pvp = p.producto.precio;
+            // if (!p.producto) return accumulator;
+            const pvp = p.producto?.precio ?? p.precio ?? 0;
 
             const descuento =
               pvp *
@@ -77,9 +77,9 @@ export default function Barra(props) {
     calcularPrecio === "s"
       ? pedido
           ?.reduce((accumulator, p) => {
-            if (!p.producto) return accumulator;
-            const pvp = p.producto.precio;
-
+            // if (!p.producto) return accumulator;
+            const pvp = p.producto?.precio ?? p.precio ?? 0;
+            
             const descuento =
               pvp *
               (1 - descuentoDrogueria / 100) *
@@ -91,6 +91,7 @@ export default function Barra(props) {
           }, 0)
           .toFixed(2)
       : 0;
+
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {

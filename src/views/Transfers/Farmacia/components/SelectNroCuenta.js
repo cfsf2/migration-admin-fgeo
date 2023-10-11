@@ -93,11 +93,9 @@ const SelectNroCuenta = ({
           </FormGroup>
         </Col>{" "}
         <Col md="4" xs="12">
-          {calcularPrecio === "s" ? (
+          {calcularPrecio === "s" || true ? (
             <FormGroup style={{ display: "flex", flexDirection: "column" }}>
-              <Label className="select_cuenta_label">
-                Descuento Droguería
-              </Label>
+              <Label className="select_cuenta_label">Descuento Droguería</Label>
               {descuento} %
             </FormGroup>
           ) : (

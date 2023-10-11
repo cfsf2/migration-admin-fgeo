@@ -169,6 +169,7 @@ export const ADD_PRODUCTO_TRANSFER_BULK = (
   productosTransfers,
   instituciones
 ) => {
+  console.log(productosTransfers);
   return (dispatch) => {
     return axios
       .post(farmageo_api + "/productosTransfers", {
@@ -180,6 +181,7 @@ export const ADD_PRODUCTO_TRANSFER_BULK = (
         cantidad_minima: parseInt(productosTransfers.cantidad_minima),
         descuento_porcentaje: productosTransfers.descuento_porcentaje,
         instituciones: instituciones,
+        precio: productosTransfers.precio,
       })
       .then(function (response) {
         if (response.status >= 400) {
@@ -315,7 +317,6 @@ export const DELETE_PRODUCTO_TRANSFER_BY_LAB = (id) => {
 
 //********************** TRANSFERS ******************************* */
 export const ADD_TRANSFER = (transfer, history) => {
-
   return (dispatch) => {
     axios
       .post(farmageo_api + "/transfers", {
