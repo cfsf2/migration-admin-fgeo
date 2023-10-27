@@ -68,7 +68,7 @@ const Fecha = (props) => {
   };
 
   const classes = useStyle();
-
+console.log(props.fecha_formato, "LALALAL")
   return (
     <div style={styles}>
       <div>
@@ -85,7 +85,7 @@ const Fecha = (props) => {
             }
             timeFormat="p"
             timeIntervals={15}
-            dateFormat={props.formato_fecha}
+            dateFormat={props.fecha_formato?.toString() ?? "dd/MM/yyyy"}
             locale="ar"
             placeholderText={" Desde"}
             selected={filtrosAAplicar[id_a] ? startDate : null}
