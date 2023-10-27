@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useCallback } from "react";
-import MaterialTable, { MTableBodyRow } from "@material-table/core";
+import MaterialTable, { MTableBodyRow, MTableBody } from "@material-table/core";
 import ListadoContext from "../context/ListadoContext";
 
 import { Card, CardBody, Col, Row, Spinner, CardTitle } from "reactstrap";
@@ -157,6 +157,9 @@ export const Listado = (props) => {
                 // tableLayout: "fixed",
               }}
               components={{
+                Body: (props) => {
+                  return <MTableBody {...props} />;
+                },
                 Row: (props) => (
                   <MTableBodyRow id={props.data._id} {...props} />
                 ),

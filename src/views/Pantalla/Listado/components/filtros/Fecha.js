@@ -68,7 +68,7 @@ const Fecha = (props) => {
   };
 
   const classes = useStyle();
-console.log(props.fecha_formato, "LALALAL")
+  
   return (
     <div style={styles}>
       <div>
