@@ -73,7 +73,7 @@ const Fecha = (props) => {
     <div style={styles}>
       <div>
         <Label
-          label={props.label}
+          label={props.nombre}
           opcionales_null={props.opcionales_null}
           permite_null={props.permite_null}
         />
@@ -131,7 +131,7 @@ const Fecha = (props) => {
               />
             }
             isClearable
-            label="Desde"
+            label={props.label ?? "Desde"}
             withPortal
           />
           {componente === "fecha_simple" ? null : (
