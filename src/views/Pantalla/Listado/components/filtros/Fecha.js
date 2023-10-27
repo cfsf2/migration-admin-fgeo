@@ -127,11 +127,10 @@ const Fecha = (props) => {
                   classes.inputDate)
                 }
                 //style={{ marginTop: props.label ? "6.1px" : "0px" }}
-                label="Desde"
+                label={props.label ?? "Desde"}
               />
             }
             isClearable
-            label={props.label ?? "Desde"}
             withPortal
           />
           {componente === "fecha_simple" ? null : (
