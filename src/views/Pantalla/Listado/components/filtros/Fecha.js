@@ -80,10 +80,12 @@ const Fecha = (props) => {
         <div className="filtro_grid_fecha">
           <DatePicker
             className="fecha_input"
-            showTimeSelect={operador !== "fecha"}
+            showTimeSelect={
+              operador !== "fecha" && /HH|mm|ss/.test(props.fecha_formato)
+            }
             timeFormat="p"
             timeIntervals={15}
-            dateFormat="Pp"
+            dateFormat={props.formato_fecha}
             locale="ar"
             placeholderText={" Desde"}
             selected={filtrosAAplicar[id_a] ? startDate : null}
