@@ -64,7 +64,7 @@ const Fecha = (props) => {
 
   const styles = {
     gridColumn: grid_span,
-    height: "82.3px",
+   // height: "82.3px",
   };
 
   const classes = useStyle();
