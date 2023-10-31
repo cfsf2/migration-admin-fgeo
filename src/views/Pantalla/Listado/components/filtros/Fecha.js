@@ -138,10 +138,12 @@ const Fecha = (props) => {
           {componente === "fecha_simple" ? null : (
             <DatePicker
               className="fecha_input"
-              showTimeSelect={operador === "fecha_hora"}
+              showTimeSelect={
+                operador !== "fecha" && /HH|mm|ss/.test(props.fecha_formato)
+              }
               timeFormat="p"
               timeIntervals={15}
-              dateFormat="Pp"
+              dateFormat={props.fecha_formato?.toString() ?? "dd/MM/yyyy"}
               locale="ar"
               placeholderText={" Hasta"}
               selected={filtrosAAplicar[id_a] ? endDate : null}
