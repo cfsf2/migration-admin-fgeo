@@ -24,7 +24,7 @@ const SelectNroCuenta = (props) => {
 
   const [cuentas, setCuentas] = useState([]);
   const labRef = useRef();
-  labRef.current = laboratorio
+  labRef.current = laboratorio;
   const getCuentas = (lid) => {
     axios
       .post(farmageo_api + "/farmacia/nro_cuenta", {
@@ -61,7 +61,7 @@ const SelectNroCuenta = (props) => {
     if (document.hidden) {
     } else {
       await props.GET_FARMACIA(farmacia.usuario);
-      const valor = labRef.current.id
+      const valor = labRef.current.id;
       getCuentas(valor);
     }
   };
@@ -103,11 +103,15 @@ const SelectNroCuenta = (props) => {
               </Input>
             </FormGroup>
 
-            <Link to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA" target="blank">
-              <p style={{ fontSize: "0.8rem" }}>
-                Para agregar otras cuentas haga click aquí.{" "}
-              </p>
-            </Link>
+            <p style={{ fontSize: "0.8rem" }}>
+              <Link to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA" target="blank">
+                Para agregar otras cuentas haga click aquí.
+              </Link>{" "}
+              Luego de agregar su número de cuenta actualice la pantalla.
+              <span style={{cursor:"pointer"}} className="actualizar_nro_cuenta" onClick={() => window.location.reload()}>
+                (Actualizar)
+              </span>{" "}
+            </p>
           </Col>
         ) : (
           <></>

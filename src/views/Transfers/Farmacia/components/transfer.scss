@@ -349,6 +349,13 @@ $table2: 2fr 3fr 3fr 1fr 1fr 2fr 2fr;
   }
 }
 
+.actualizar_nro_cuenta {
+  &:hover {
+    text-decoration: underline;
+    color:rgb(2, 116, 116)
+  }
+}
+
 .transfer_total_numero {
   cursor: help;
 }
