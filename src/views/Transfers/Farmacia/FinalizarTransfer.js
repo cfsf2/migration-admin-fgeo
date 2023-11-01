@@ -84,7 +84,7 @@ class FinalizarTransfer extends Component {
     }
 
     const nro_cuenta_drogueria =
-      this.props.farmaciaReducer.farmacia.nro_cuenta_drogueria.find(
+      this.props.farmaciaReducer.farmacia.nro_cuenta_drogueria.find( //  DE DONDE PIJA SALE ESTE FARMACIA.NRO_CUENTA_DROGUERIA
         (cta) => cta.id_drogueria.toString() === e.target.value.toString()
       );
 

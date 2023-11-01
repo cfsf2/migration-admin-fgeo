@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
@@ -8,38 +8,71 @@ import { farmageo_api } from "../../../../config";
 import { Col, FormGroup, Input, Label } from "reactstrap";
 import { Row } from "react-bootstrap";
 
-const SelectNroCuenta = ({
-  transfer,
-  handleInputNroCuenta,
-  farmacia,
-  laboratorio,
-  descuento,
-  calcularPrecio,
-}) => {
+import { connect } from "react-redux";
+
+import { GET_FARMACIA } from "../../../../redux/actions/farmaciaActions";
+
+const SelectNroCuenta = (props) => {
+  const {
+    transfer,
+    handleInputNroCuenta,
+    farmacia,
+    laboratorio,
+    descuento,
+    calcularPrecio,
+  } = props;
+
   const [cuentas, setCuentas] = useState([]);
+  const labRef = useRef();
+  labRef.current = laboratorio
+  const getCuentas = (lid) => {
+    axios
+      .post(farmageo_api + "/farmacia/nro_cuenta", {
+        id_farmacia: farmacia.id,
+        id_laboratorio: lid,
+      })
+      .then((res) => {
+        setCuentas(() => res.data);
+        if (
+          labRef.current.modalidad_entrega.id_a === "DIRECTO" &&
+          res.data.nro_cuenta
+        ) {
+          handleInputNroCuenta({
+            target: {
+              name: "nro_cuenta_drogueria",
+              value: res.data.nro_cuenta,
+            },
+          });
+        }
+      });
+  };
+
   useEffect(() => {
     if (laboratorio.id) {
-      axios
-        .post(farmageo_api + "/farmacia/nro_cuenta", {
-          id_farmacia: farmacia.id,
-          id_laboratorio: laboratorio.id,
-        })
-        .then((res) => {
-          setCuentas(() => res.data);
-          if (
-            laboratorio.modalidad_entrega.id_a === "DIRECTO" &&
-            res.data.nro_cuenta
-          ) {
-            handleInputNroCuenta({
-              target: {
-                name: "nro_cuenta_drogueria",
-                value: res.data.nro_cuenta,
-              },
-            });
-          }
-        });
+      getCuentas(laboratorio.id);
     }
   }, [farmacia.id, laboratorio.id]);
+
+  useEffect(() => {
+    props.GET_FARMACIA(farmacia.usuario);
+  }, []);
+
+  const handleVisibilityChange = async () => {
+    if (document.hidden) {
+    } else {
+      await props.GET_FARMACIA(farmacia.usuario);
+      const valor = labRef.current.id
+      getCuentas(valor);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   if (!laboratorio.id) return <></>;
 
@@ -70,7 +103,7 @@ const SelectNroCuenta = ({
               </Input>
             </FormGroup>
 
-            <Link to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA">
+            <Link to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA" target="blank">
               <p style={{ fontSize: "0.8rem" }}>
                 Para agregar otras cuentas haga click aquí.{" "}
               </p>
@@ -85,7 +118,6 @@ const SelectNroCuenta = ({
             <Input
               type="text"
               name="nro_cuenta_drogueria"
-              onChange={handleInputNroCuenta}
               value={transfer.nro_cuenta_drogueria}
               disabled={laboratorio.modalidad_entrega.id_a !== "DIRECTO"}
               bsSize="small"
@@ -125,4 +157,19 @@ const SelectNroCuenta = ({
   );
 };
 
-export default SelectNroCuenta;
+const mapStateToProps = (state) => {
+  return {
+    tranfersReducer: state.tranfersReducer,
+    authReducer: state.authReducer,
+    publicidadesReducer: state.publicidadesReducer,
+    farmaciaReducer: state.farmaciaReducer,
+  };
+};
+
+const mapDispatchToProps = {
+  GET_FARMACIA,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectNroCuenta);
+
+export { SelectNroCuenta };
