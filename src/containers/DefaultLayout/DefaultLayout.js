@@ -99,7 +99,6 @@ function DefaultLayout(props) {
 
   function convertMenu(menuCriollo) {
     const m = JSON.stringify(menuCriollo);
-
     const nuevoMenu = JSON.parse(m, function (k, v) {
       if (k === "nombre") this.name = v;
       if (k === "nombre") {

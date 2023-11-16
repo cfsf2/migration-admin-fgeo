@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import FuncionesContext from "../../../context/FuncionesContext";
 

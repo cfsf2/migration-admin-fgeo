@@ -505,6 +505,104 @@ export const FuncionesProvider = (props) => {
     PantallaDispatch({ type: "ADD_CONFIGURACION", payload: conf.data });
   };
 
+  const handleResponse = ({ response, cab, data }) => {
+    if (response.status >= 400) {
+      return requestErrorHandler(response);
+    }
+    const contentType = response.headers["content-type"];
+
+    if (contentType && contentType.startsWith("image")) {
+      // La respuesta es una imagen
+      const blob = new Blob([response.data], { type: contentType });
+      const url = URL.createObjectURL(blob);
+      let nombre = "archivo.png";
+      const contentDispositionHeader = response.headers["content-disposition"];
+      if (contentDispositionHeader) {
+        const match = contentDispositionHeader.match(/filename=([^;]+)/);
+
+        if (match && match[1]) {
+          nombre = match[1];
+        }
+      }
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = nombre;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    if (cab.alerta_exito === "s") {
+      alertarExito(response, cab, data);
+    }
+    if (response.data.message && response.data.message !== "") {
+      alertarMensaje(response.data.message);
+    }
+    if (
+      cab.refrescarConfiguracion &&
+      cab.refrescarConfiguracion.trim() !== ""
+    ) {
+      refrescarConfiguracion({ cab });
+    }
+    return response;
+  };
+
+  const alertarMensaje = async (mensaje) => {
+    return await S.fire({
+      position: "top-end",
+      icon: "info",
+      text: mensaje,
+      showConfirmButton: false,
+      timer: 5000,
+    });
+  };
+
+  async function endpoint(p) {
+    const { cab, data, sideData } = p;
+    const endpoint = data[cab.id_a + "_endpoint"] ?? cab.endpoint;
+
+    try {
+      if (data.length === 0)
+        // eslint-disable-next-line no-throw-literal
+        throw {
+          code: "NO HAY DATA SELECCIONADA",
+          msg: "No esta enviando ningun dato.",
+        };
+
+      if (cab.alerta_confirmar === "s") {
+        const confirmacion = await pedirConfirmacion({ cab, data });
+
+        if (!confirmacion.isConfirmed) {
+          return p.handleCancelar();
+        }
+      }
+      const params = new URLSearchParams(endpoint);
+
+      // Convertir los parámetros a un objeto
+      const queryParams = {};
+      for (const [key, value] of params) {
+        queryParams[key] = value;
+      }
+      const dataSend = Object.assign(data, queryParams);
+      axios
+        .post(
+          farmageo_api + endpoint,
+          { data: dataSend, sideData },
+          { responseType: "arraybuffer" }
+        )
+        .then((response) => {
+          return handleResponse({ response, cab, data });
+        });
+    } catch (err) {
+      console.log(err);
+      ALERT({
+        text: err.msg,
+        icon: "error",
+        confirmButtonText: "Aceptar",
+      });
+    }
+  }
+
   return (
     <FuncionesContext.Provider
       value={{
@@ -525,6 +623,7 @@ export const FuncionesProvider = (props) => {
         subirArchivo,
         checkID_A,
         escupirModal,
+        endpoint,
       }}
     >
       {props.children}

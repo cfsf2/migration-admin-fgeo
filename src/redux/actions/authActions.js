@@ -104,6 +104,7 @@ export const LOADPROFILE = (username, token) => {
         },
       })
       .then(function (response) {
+        
         if (response.data.usuario) {
           dispatch(GET_USUARIO(response.data.usuario));
         }
