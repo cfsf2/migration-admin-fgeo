@@ -3,7 +3,14 @@ import FuncionesContext from "../../../context/FuncionesContext";
 import PantallaContext from "../../../context/PantallaContext";
 import ListadoContext from "../../context/ListadoContext";
 
-const SiNoEditable = ({ data, cab, campokey, key, indiceData,id_elemento }) => {
+const SiNoEditable = ({
+  data,
+  cab,
+  campokey,
+  key,
+  indiceData,
+  id_elemento,
+}) => {
   const { guardarSinConfirmar, guardarConConfirmacion, superSubmit } =
     useContext(FuncionesContext);
 
@@ -70,11 +77,14 @@ const SiNoEditable = ({ data, cab, campokey, key, indiceData,id_elemento }) => {
     setUpdate_id(data[cab.update_id_alias]);
   }, [configuraciones_ref[cab.id_a]]);
 
-
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
 
   return (
     <div id={id_elemento} key={key} className="tarjeta_grid_item_label_item">
-      <div className="vista_label" style={{ fontWeight: "bold" }}>
+      <div
+        className={"vista_label " + classNames}
+        style={{ fontWeight: "bold" }}
+      >
         {nombre}:
       </div>
 

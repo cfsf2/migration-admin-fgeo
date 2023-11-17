@@ -6,11 +6,11 @@ const Default = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
   const valor = cab.round
     ? Number(data[campokey]).toFixed(cab.round)
     : data[campokey];
-
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
     <div
       id={id_elemento}
-      className={data[cab.id_a + "_className"]}
+      className={classNames}
       style={{ textAlign: cab.align ?? "center", fontSize: condcionBadge }}
     >
       {valor}

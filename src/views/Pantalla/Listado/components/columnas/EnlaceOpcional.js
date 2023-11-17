@@ -3,7 +3,14 @@ import FuncionesContext from "../../../context/FuncionesContext";
 import { Link } from "react-router-dom";
 import Default from "./Default";
 
-const EnlaceOpcional = ({ data, cab, campokey, hijos, indiceData, id_elemento }) => {
+const EnlaceOpcional = ({
+  data,
+  cab,
+  campokey,
+  hijos,
+  indiceData,
+  id_elemento,
+}) => {
   const { escupirModal } = useContext(FuncionesContext);
   if (!cab.enlace_id_a) {
     return (
@@ -56,11 +63,13 @@ const EnlaceOpcional = ({ data, cab, campokey, hijos, indiceData, id_elemento })
     return parametros;
   })();
 
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   if (cab.target === "modal") {
     return (
       <div
         onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
-        id={id_elemento} className="Listado_Switch_Enlace"
+        id={id_elemento}
+        className={"Listado_Switch_Enlace " + classNames}
       >
         {cab.imagen_url ? (
           <img
@@ -82,7 +91,7 @@ const EnlaceOpcional = ({ data, cab, campokey, hijos, indiceData, id_elemento })
 
   if (cab.target === "_blank") {
     return (
-      <div id={id_elemento} >
+      <div id={id_elemento} className={classNames}>
         <a
           target="_blank"
           href={
@@ -121,9 +130,12 @@ const EnlaceOpcional = ({ data, cab, campokey, hijos, indiceData, id_elemento })
     );
   }
 
-
   return (
-    <div id={id_elemento} style={{ display: "flex", justifyContent: "center" }} >
+    <div
+      id={id_elemento}
+      style={{ display: "flex", justifyContent: "center" }}
+      className={classNames}
+    >
       <div className="vista_dato">
         <Link
           to={{

@@ -11,7 +11,7 @@ const InputAreaEditable = ({
   campokey,
   indiceData,
   type,
-  id_elemento
+  id_elemento,
 }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
@@ -81,7 +81,7 @@ const InputAreaEditable = ({
       borderColor: "grey",
     };
   })();
-
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   let Componente = (
     <TextArea
       value={value ?? ""}
@@ -89,6 +89,7 @@ const InputAreaEditable = ({
       onEnter={handleGuardar}
       style={style}
       id={id_elemento}
+      className={classNames}
     />
   );
 
@@ -100,13 +101,16 @@ const InputAreaEditable = ({
         onBlur={handleGuardar}
         defaultValue={value}
         inputProps={{ style: { textAlign: "right" } }}
+        className={classNames}
       />
     ));
   }
 
-  
-
-  return <div className="tarjeta_grid_item_label_item">{Componente}</div>;
+  return (
+    <div className={"tarjeta_grid_item_label_item " + classNames}>
+      {Componente}
+    </div>
+  );
 };
 
 export default InputAreaEditable;

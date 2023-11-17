@@ -70,10 +70,10 @@ const InputTextEditable = ({
       });
   };
 
- 
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
 
   return (
-    <div id={id_elemento} className="tarjeta_grid_item_label_item">
+    <div id={id_elemento} className={"tarjeta_grid_item_label_item "+classNames}>
       {opciones.tipo.id === 6 ? (
         <div className="vista_label">
           <p

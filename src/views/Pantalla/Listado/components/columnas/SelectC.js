@@ -52,9 +52,9 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData,id_elemento }) => {
       });
   };
 
-
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
-    <div id={id_elemento} style={{ textAlign: "center" }}>
+    <div id={id_elemento} style={{ textAlign: "center" }} className={classNames}>
       <Select
         nombre={nombre}
         opciones={cab.opciones ? cab.opciones : []}
