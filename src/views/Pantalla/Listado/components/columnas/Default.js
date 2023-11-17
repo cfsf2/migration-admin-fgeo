@@ -7,6 +7,7 @@ const Default = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
     ? Number(data[campokey]).toFixed(cab.round)
     : data[campokey];
   const classNames = data[cab.id_a + "_className"] ?? cab.className;
+
   return (
     <div
       id={id_elemento}
