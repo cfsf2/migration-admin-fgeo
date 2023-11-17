@@ -29,10 +29,11 @@ export const Code = ({
   indiceData,
   id_elemento,
 }) => {
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
     <code
       id={id_elemento}
-      className={data[cab.id_a + "_className"]}
+      className={classNames}
       style={{ textAlign: "center", color: "red" }}
     >
       {data[campokey]}
