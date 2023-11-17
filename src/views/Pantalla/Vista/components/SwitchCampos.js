@@ -318,6 +318,7 @@ const SwitchCampos = ({
         );
       case "null":
         return <></>;
+        const classNames = data[cab.id_a + "_className"] ?? cab.className;
       case "botonera":
         return (
           <div
@@ -325,7 +326,10 @@ const SwitchCampos = ({
             style={{ display: "flex", alignItems: "center" }}
           >
             {cab.nombre ? (
-              <div className="vista_label" style={{ fontWeight: "bold" }}>
+              <div
+                className={"vista_label " + classNames}
+                style={{ fontWeight: "bold" }}
+              >
                 {cab.nombre}:
               </div>
             ) : (

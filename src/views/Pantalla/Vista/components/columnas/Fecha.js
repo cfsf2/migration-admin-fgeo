@@ -8,8 +8,13 @@ const FechaC = ({ data, cab, hijos, campokey, id_elemento }) => {
     }
     return cab.nombre;
   })();
+
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
-    <div id={id_elemento} className="tarjeta_grid_item_label_item">
+    <div
+      id={id_elemento}
+      className={"tarjeta_grid_item_label_item " + classNames}
+    >
       {nombre ? (
         <div className="vista_label" style={{ fontWeight: "bold" }}>
           {nombre}:{" "}

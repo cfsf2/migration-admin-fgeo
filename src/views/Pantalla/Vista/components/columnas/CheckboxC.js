@@ -47,9 +47,9 @@ const CheckboxC = ({ data, cab, campokey, id_elemento }) => {
     setValue(data[campokey]);
     setUpdate_id(data[cab.update_id_alias]);
   }, [configuraciones_ref[cab.id_a]]);
-
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
-    <div id={id_elemento} style={{ marginLeft: "14px" }}>
+    <div id={id_elemento} style={{ marginLeft: "14px" }} className={classNames}>
       <FormControlLabel
         control={
           <Checkbox

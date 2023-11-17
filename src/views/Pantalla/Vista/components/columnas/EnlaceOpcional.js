@@ -73,6 +73,8 @@ const EnlaceOpcional = ({
     return parametros;
   })();
 
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
+
   if (cab.target === "modal") {
     return (
       <div
@@ -84,7 +86,7 @@ const EnlaceOpcional = ({
             qsBody
           )
         }
-        className={cab.className}
+        className={classNames}
         id={id_elemento}
         title={cab.tooltip_texto}
         style={{ display: "flex" }}
@@ -112,7 +114,7 @@ const EnlaceOpcional = ({
     return (
       <div
         id={id_elemento}
-        className={cab.className}
+        className={classNames}
         style={{ display: "flex" }}
         title={data[cab.id_a + "_tooltip_texto"] ?? cab.tooltip_texto}
       >
@@ -162,7 +164,7 @@ const EnlaceOpcional = ({
       ) : (
         <></>
       )}
-      <div className="vista_dato">
+      <div className={"vista_dato " + classNames}>
         <Link
           to={{
             pathname: cab.enlace + enlace_id_a,

@@ -12,7 +12,7 @@ const Default = ({ data, cab, hijos, campokey, id_elemento }) => {
     if (data[campokey]) {
       return {
         textAlign: cab.align,
-        width:"100%",
+        width: "100%",
         borderColor: "green",
       };
     }
@@ -20,6 +20,8 @@ const Default = ({ data, cab, hijos, campokey, id_elemento }) => {
       borderColor: "grey",
     };
   })();
+
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
 
   return (
     <>
@@ -29,11 +31,8 @@ const Default = ({ data, cab, hijos, campokey, id_elemento }) => {
         ) : (
           <></>
         )}
-        <div
-          className={data[cab.id_a + "_className"]}
-          style={style}
-        >
-          <div >{data[campokey]}</div>
+        <div className={classNames} style={style}>
+          <div>{data[campokey]}</div>
         </div>
       </div>
       {hijos?.map((hijo) => hijo)}

@@ -81,12 +81,12 @@ const Select_Enlazable = ({
   useEffect(() => {
     //console.log(cab.id_a, "value", value);
   });
-
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
     //<div style={{ textAlign: "center"}}>
     <div id={id_elemento} style={{ flex: "1 0 100%" }}>
       <div
-        className="vista_label_select"
+        className={"vista_label_select " + classNames}
         //style={{ fontWeight: "bold", display: "flex", width: "100%" }}
       >
         {cab.nombre ? (

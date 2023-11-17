@@ -44,8 +44,10 @@ const Boton = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
     return;
   };
 
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
+
   return (
-    <div id={id_elemento} style={{ width: "100%" }}>
+    <div id={id_elemento} style={{ width: "100%" }} className={classNames}>
       <div style={botonStyle} onClick={handleClick}>
         {cab.imagen_url ? (
           <img

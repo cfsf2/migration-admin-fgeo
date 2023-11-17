@@ -18,10 +18,16 @@ const InputFile = ({ data, cab, campokey, indiceData, id_elemento }) => {
     });
   };
 
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
+
   return (
     <>
       {
-        <div id={id_elemento} style={{ width: "100%", textAlign: cab.align }}>
+        <div
+          id={id_elemento}
+          style={{ width: "100%", textAlign: cab.align }}
+          className={classNames}
+        >
           <input
             type="file"
             multiple

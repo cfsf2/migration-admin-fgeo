@@ -51,9 +51,13 @@ const SiNoEditable = ({
     setValue(data[campokey]);
     setUpdate_id(data[cab.update_id_alias]);
   }, [configuraciones_ref[cab.id_a]]);
-
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
-    <div id={id_elemento} key={key} className="tarjeta_grid_item_label_item">
+    <div
+      id={id_elemento}
+      key={key}
+      className={"tarjeta_grid_item_label_item " + classNames}
+    >
       {nombre ? (
         <div className="vista_label vista_label_fuente">{nombre}:</div>
       ) : (

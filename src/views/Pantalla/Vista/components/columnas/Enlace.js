@@ -44,12 +44,14 @@ const Enlace = ({ data, cab, hijos, campokey, id_elemento }) => {
   //   return process.env.PUBLIC_URL + e + id_a + parametros;
   // }
 
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
+
   if (cab.target === "modal") {
     return (
       <div
         onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
         id={id_elemento}
-        className="Listado_Switch_Enlace"
+        className={"Listado_Switch_Enlace " + classNames}
       >
         {cab.imagen_url ? (
           <img
@@ -71,7 +73,7 @@ const Enlace = ({ data, cab, hijos, campokey, id_elemento }) => {
 
   if (cab.target === "_blank") {
     return (
-      <div id={id_elemento} className="Listado_Switch_Enlace">
+      <div id={id_elemento} className={"Listado_Switch_Enlace " + classNames}>
         <a
           target="_blank"
           href={process.env.PUBLIC_URL + "/#" + e + id_a + parametros}
@@ -105,7 +107,7 @@ const Enlace = ({ data, cab, hijos, campokey, id_elemento }) => {
   }
 
   return (
-    <div id={id_elemento} className="Vista_Switch_Enlace">
+    <div id={id_elemento} className={"Vista_Switch_Enlace " + classNames}>
       <Link to={{ pathname: `${e + id_a}`, search: parametros }}>
         <div
           style={{

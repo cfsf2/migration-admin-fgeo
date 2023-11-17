@@ -8,8 +8,13 @@ const Imagen = ({ data, cab, hijos, campokey, id_elemento }) => {
     }
     return cab.nombre;
   })();
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
-    <div id={id_elemento} style={{ width: "100%", textAlign: cab.align }}>
+    <div
+      id={id_elemento}
+      style={{ width: "100%", textAlign: cab.align }}
+      className={classNames}
+    >
       {nombre ? (
         <div className="vista_label" style={{ fontWeight: "bold" }}>
           {nombre}:

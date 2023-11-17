@@ -46,6 +46,8 @@ const RadioButtonC = ({ data, cab, campokey, id_elemento }) => {
     setUpdate_id(data[cab.update_id_alias]);
   }, [configuraciones_ref[cab.id_a]]);
 
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
+
   return (
     <FormControl>
       <div
@@ -53,6 +55,7 @@ const RadioButtonC = ({ data, cab, campokey, id_elemento }) => {
         style={{
           display: "flex",
         }}
+        className={classNames}
       >
         {nombre ? (
           <div className="vista_label vista_label_fuente">{nombre}:</div>

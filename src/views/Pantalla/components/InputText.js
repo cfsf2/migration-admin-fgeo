@@ -8,7 +8,7 @@ const InputText = ({ data, cab, campokey, id_elemento }) => {
     const { value } = e.target;
     setValor(value);
   };
-
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
     <>
       <TextField
@@ -16,7 +16,7 @@ const InputText = ({ data, cab, campokey, id_elemento }) => {
         type={cab.input_number === "s" ? "number" : "text"}
         placeholder={cab.placeholder}
         onChange={handleInput}
-        className=""
+        className={classNames}
         inputProps={{
           maxLength:
             cab.maximo_caracteres !== "" ? parseInt(cab.maximo_caracteres) : 60,

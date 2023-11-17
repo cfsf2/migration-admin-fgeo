@@ -14,8 +14,11 @@ const BotonWhatsapp = ({
   const contacto = data[id_a + "_wsp_contacto"] ?? null;
   const texto = data[id_a + "_wsp_texto"] ?? wsp_texto;
   if (!contacto || contacto === "") return <></>;
+
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
+
   return (
-    <div className={` ${data[id_a + "_className"] ?? cab.className} wsp_div`}>
+    <div className={` ${classNames} wsp_div`}>
       <BtnWsp contacto={contacto} mostrar={mostrar} texto={texto} />
     </div>
   );
