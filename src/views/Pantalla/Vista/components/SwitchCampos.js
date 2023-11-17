@@ -9,7 +9,7 @@ import SiNo from "./columnas/SiNo";
 import Enlace from "./columnas/Enlace";
 import Imagen from "./columnas/Imagen";
 import Boton from "./columnas/Boton";
-import SelectC from "./columnas/SelectC";
+import BotonWhatsapp from "../../components/Btnwsp";
 import SelectEnlazable from "../../components/SelectP";
 import EnlaceOpcional from "./columnas/EnlaceOpcional";
 import InputAreaEditable from "../../components/InputAreaEditable";
@@ -37,7 +37,7 @@ const SwitchCampos = ({
 }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
- 
+
   const hijos =
     cab.sc_hijos?.length > 0
       ? cab.sc_hijos.map((s, i) => (
@@ -246,6 +246,27 @@ const SwitchCampos = ({
             id_elemento={id_elemento}
           />
         );
+      case "btn_wsp":
+        return (
+          <div id={id_elemento} className="tarjeta_grid_item_label_item">
+            {cab.nombre ? (
+              <div className="vista_label vista_label_fuente">
+                {cab.nombre}:
+              </div>
+            ) : (
+              <></>
+            )}
+            <BotonWhatsapp
+              key={cab.id_a}
+              data={data}
+              cab={cab}
+              hijos={hijos}
+              campokey={campokey}
+              indiceData={indiceData}
+              id_elemento={id_elemento}
+            />
+          </div>
+        );
       case "password":
         return (
           <InputPassword
@@ -319,7 +340,7 @@ const SwitchCampos = ({
   };
 
   return (
-    <div id={"_"+id_elemento} className="tarjeta_grid_item_componente_campo">
+    <div id={"_" + id_elemento} className="tarjeta_grid_item_componente_campo">
       {Componente()}
     </div>
   );
