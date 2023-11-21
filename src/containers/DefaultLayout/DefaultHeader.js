@@ -53,14 +53,13 @@ class DefaultHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <a
-          style={{ marginLeft: "2rem" }}
           id="colegioLogo"
           href="http://www.cfsf2.org.ar/"
           target="_blank"
         >
           <img
             src={require("../../assets/images/icons/logocfsf2-12.png")}
-            style={{ width: 110, marginRight: 30 }}
+            style={{ width: 110, marginRight: 20 }}
           />
         </a>
 
