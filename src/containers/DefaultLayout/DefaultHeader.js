@@ -65,8 +65,8 @@ class DefaultHeader extends Component {
 
         <img src={logo} style={{ width: 100 }} className="d-none d-sm-flex d-lg-none" />
 
-        <Nav className="ml-auto" navbar>
-          <p style={{ margin: "0 5px", padding: "10px" }}>
+        <Nav className="" navbar>
+          <p style={{ margin: "0 2px", padding: "10px" }}>
             {user_display_name}
           </p>
           {IS_FARMACIA && <BotonWhatsapp nroContacto='3412104056' />}
