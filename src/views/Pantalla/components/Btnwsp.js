@@ -43,10 +43,13 @@ export const BtnWsp = ({ contacto, mostrar, texto, className }) => {
         )}
       </div>
     );
+
+    const href1=`https://wa.me/54${numero_wsp}&text=${texto}`
+    const href2=`https://web.whatsapp.com/send?phone=+54${numero_wsp}&text=${texto}`
   return (
     <>
       <a
-        href={`https://wa.me/54${numero_wsp}?text=${texto}`}
+        href={href2}
         target="_blank"
         rel="noopener noreferrer"
         style={{ display: "flex", textDecoration: "none", color: "inherit" }}
