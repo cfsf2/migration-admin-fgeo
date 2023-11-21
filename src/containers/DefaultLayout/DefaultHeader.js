@@ -65,7 +65,7 @@ class DefaultHeader extends Component {
 
         <img src={logo} style={{ width: 100 }} className="d-none d-sm-flex d-lg-none" />
 
-        <Nav className="" navbar>
+        <Nav className="ml-auto" navbar>
           <p style={{ margin: "0 2px", padding: "10px" }}>
             {user_display_name}
           </p>
