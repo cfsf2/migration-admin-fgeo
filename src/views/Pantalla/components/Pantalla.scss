@@ -14,6 +14,9 @@
   }
 }
 
+.wsp_icon {
+  margin: 0 0.5rem;
+}
 
 span.Ftooltip {
   &::after,
@@ -28,7 +31,7 @@ span.Ftooltip {
     border-style: solid;
     border-color: transparent transparent rgba(90, 90, 90, 1) transparent;
   }
-  top:1rem;
+  top: 1rem;
   display: block;
   position: absolute;
   background-color: rgba(90, 90, 90, 1);
@@ -39,7 +42,7 @@ span.Ftooltip {
   z-index: 100;
   border-radius: 15px;
   margin-top: 6.5px;
-  min-width:200px;
+  min-width: 200px;
   text-align: center;
 
   &_okey {
@@ -132,7 +135,7 @@ div[id$="menu_vista"] {
   width: 100%;
   height: 5px;
   background-color: lightgray;
- 
+
   z-index: 9999;
 }
 

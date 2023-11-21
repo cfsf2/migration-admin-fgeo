@@ -57,7 +57,7 @@ export const BtnWsp = ({ contacto, mostrar, texto, className }) => {
         ) : (
           <></>
         )}
-        <div className="wsp_icon" style={{ color: "green" }}>
+        <div className="wsp_icon" style={{ color: "#25d366" }}>
           <i class="fa fa-whatsapp"></i>
         </div>
       </a>
