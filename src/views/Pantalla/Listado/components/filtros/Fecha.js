@@ -17,7 +17,6 @@ const useStyle = makeStyles({
   },
   inputDate: {
     "& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root": {
-      height: "55.5px",
     },
   },
 });
@@ -70,7 +69,6 @@ const Fecha = (props) => {
   const classes = useStyle();
   
   return (
-    <div style={styles}>
       <div>
         <Label
           label={props.nombre}
@@ -87,7 +85,6 @@ const Fecha = (props) => {
             timeIntervals={15}
             dateFormat={props.fecha_formato?.toString() ?? "dd/MM/yyyy"}
             locale="ar"
-            placeholderText={" Desde"}
             selected={filtrosAAplicar[id_a] ? startDate : null}
             onChange={(date) => {
               //setStartDate(date);
@@ -122,14 +119,9 @@ const Fecha = (props) => {
             endDate={filtrosAAplicar[id_a] ? endDate : null}
             customInput={
               <TextField
-                className={
-                  (error[id_a]
-                    ? `filtro_fecha_input_error`
-                    : classes.dateComponent,
-                  classes.inputDate)
-                }
+                className={`${classes.dateComponent} ${classes.inputDate}`}
                 //style={{ marginTop: props.label ? "6.1px" : "0px" }}
-                label={props.label ?? "Desde"}
+                label="Desde"
               />
             }
             isClearable
@@ -145,7 +137,6 @@ const Fecha = (props) => {
               timeIntervals={15}
               dateFormat={props.fecha_formato?.toString() ?? "dd/MM/yyyy"}
               locale="ar"
-              placeholderText={" Hasta"}
               selected={filtrosAAplicar[id_a] ? endDate : null}
               onChange={(date) => {
                 //setEndDate(date);
@@ -171,12 +162,7 @@ const Fecha = (props) => {
               customInput={
                 <TextField
                   label="Hasta"
-                  className={
-                    (error[id_a]
-                      ? `filtro_fecha_input_error`
-                      : classes.dateComponent,
-                    classes.inputDate)
-                  }
+                  className={`${classes.dateComponent} ${classes.inputDate}`}
                   //style={{ marginTop: "6.1px" }}
                 />
               }
@@ -186,7 +172,6 @@ const Fecha = (props) => {
           )}
         </div>
       </div>
-    </div>
   );
 };
 
