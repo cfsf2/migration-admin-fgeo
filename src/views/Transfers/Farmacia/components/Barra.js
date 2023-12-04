@@ -54,42 +54,58 @@ export default function Barra(props) {
     }, 10000);
   };
 
+  const calculaPrecio = (pedido, descuentoDrogueria, lab) => {
+
+    const dctDrogueria =
+      lab.calcular_porcentaje_descuento === "s" ? descuentoDrogueria : 0;
+
+    const total = pedido
+      ?.reduce((accumulator, p) => {
+        // if (!p.producto) return accumulator;
+        const pvp = p.producto?.precio ?? p.precio ?? 0;
+
+        const descuento =
+          pvp *
+          (1 - (1 - dctDrogueria / 100) * (1 - p.descuento_porcentaje / 100));
+
+        const precioFinal = pvp - descuento;
+        return accumulator + p.cantidad * precioFinal;
+      }, 0)
+      .toFixed(2);
+
+    const ahorro = pedido
+      ?.reduce((accumulator, p) => {
+        // if (!p.producto) return accumulator;
+        const pvp = p.producto?.precio ?? p.precio ?? 0;
+
+        const descuento =
+          pvp * (1 - dctDrogueria / 100) * (p.descuento_porcentaje / 100);
+
+        //  const precioFinal = pvp - descuento;
+
+        return accumulator + p.cantidad * descuento;
+      }, 0)
+      .toFixed(2);
+
+    return { total, ahorro };
+  };
+
   const total =
     calcularPrecio === "s"
-      ? pedido
-          ?.reduce((accumulator, p) => {
-            // if (!p.producto) return accumulator;
-            const pvp = p.producto?.precio ?? p.precio ?? 0;
-
-            const descuento =
-              pvp *
-              (1 -
-                (1 - descuentoDrogueria / 100) *
-                  (1 - p.descuento_porcentaje / 100));
-
-            const precioFinal = pvp - descuento;
-            return accumulator + p.cantidad * precioFinal;
-          }, 0)
-          .toFixed(2)
+      ? calculaPrecio(
+          pedido,
+          descuentoDrogueria,
+          props.tranfersReducer.lab_selected
+        ).total
       : 0;
 
   const ahorroAprox =
     calcularPrecio === "s"
-      ? pedido
-          ?.reduce((accumulator, p) => {
-            // if (!p.producto) return accumulator;
-            const pvp = p.producto?.precio ?? p.precio ?? 0;
-            
-            const descuento =
-              pvp *
-              (1 - descuentoDrogueria / 100) *
-              (p.descuento_porcentaje / 100);
-
-            //  const precioFinal = pvp - descuento;
-
-            return accumulator + p.cantidad * descuento;
-          }, 0)
-          .toFixed(2)
+      ? calculaPrecio(
+          pedido,
+          descuentoDrogueria,
+          props.tranfersReducer.lab_selected
+        ).ahorro
       : 0;
 
   const [isHovered, setIsHovered] = useState(false);

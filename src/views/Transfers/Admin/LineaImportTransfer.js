@@ -77,52 +77,56 @@ class LineaImportTransfer extends Component {
   }
 
   render() {
-    const {
-      codigo,
-      laboratorioNombre,
-      nombre,
-      presentacion,
-      cantidad_minima,
-      descuento_porcentaje,
-      habilitado,
-      precio,
-    } = this.props;
+    try {
+      const {
+        codigo,
+        laboratorioNombre,
+        nombre,
+        presentacion,
+        cantidad_minima,
+        descuento_porcentaje,
+        habilitado,
+        precio,
+      } = this.props;
 
-    const descuentoConvertido = parseFloat(
-      descuento_porcentaje.replace(",", ".")
-    ).toFixed(2);
+      const descuentoConvertido = parseFloat(
+        descuento_porcentaje.replace(",", ".")
+      ).toFixed(2);
 
-    return (
-      <tr>
-        <td>{codigo}</td>
-        <td>{laboratorioNombre}</td>
-        <td>{nombre + " / " + presentacion}</td>
-        <td>{cantidad_minima}</td>
-        <td>{descuentoConvertido}</td>
-        <td>{precio}</td>
-        <td>{habilitado}</td>
-        <td
-          style={
-            this.state.status === "ok"
-              ? {
-                  fontWeight: "bold",
-                  color: "green",
-                  textTransform: "uppercase",
-                }
-              : null
-          }
-        >
-          {this.state.status}
-        </td>
-        <td>
-          {this.state.status === "error" ? (
-            <button className="btn btn-success" onClick={this.handleSubmit}>
-              Reintentar
-            </button>
-          ) : null}
-        </td>
-      </tr>
-    );
+      return (
+        <tr>
+          <td>{codigo}</td>
+          <td>{laboratorioNombre}</td>
+          <td>{nombre + " / " + presentacion}</td>
+          <td>{cantidad_minima}</td>
+          <td>{descuentoConvertido}</td>
+          <td>{precio}</td>
+          <td>{habilitado}</td>
+          <td
+            style={
+              this.state.status === "ok"
+                ? {
+                    fontWeight: "bold",
+                    color: "green",
+                    textTransform: "uppercase",
+                  }
+                : null
+            }
+          >
+            {this.state.status}
+          </td>
+          <td>
+            {this.state.status === "error" ? (
+              <button className="btn btn-success" onClick={this.handleSubmit}>
+                Reintentar
+              </button>
+            ) : null}
+          </td>
+        </tr>
+      );
+    } catch (err) {
+      return <div>Algo Salio mal: {err.toString()}</div>;
+    }
   }
 }
 

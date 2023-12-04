@@ -75,7 +75,6 @@ const SelectNroCuenta = (props) => {
   }, []);
 
   if (!laboratorio.id) return <></>;
-
   return (
     <>
       <Row style={{ color: "#20a8d8", fontSize: 18 }}>
@@ -108,7 +107,11 @@ const SelectNroCuenta = (props) => {
                 Para agregar otras cuentas haga click aquí.
               </Link>{" "}
               Luego de agregar su número de cuenta actualice la pantalla.
-              <span style={{cursor:"pointer"}} className="actualizar_nro_cuenta" onClick={() => window.location.reload()}>
+              <span
+                style={{ cursor: "pointer" }}
+                className="actualizar_nro_cuenta"
+                onClick={() => window.location.reload()}
+              >
                 (Actualizar)
               </span>{" "}
             </p>
@@ -132,7 +135,10 @@ const SelectNroCuenta = (props) => {
           {calcularPrecio === "s" || true ? (
             <FormGroup style={{ display: "flex", flexDirection: "column" }}>
               <Label className="select_cuenta_label">Descuento Droguería</Label>
-              {descuento} %
+              {laboratorio.calcular_porcentaje_descuento === "s"
+                ? descuento
+                : 0}{" "}
+              %
             </FormGroup>
           ) : (
             <></>
