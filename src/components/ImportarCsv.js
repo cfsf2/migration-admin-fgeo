@@ -91,10 +91,7 @@ export default class ImportarCsv extends Component {
                 borderWidth: 1,
                 borderStyle: "solid",
                 borderColor: "#ccc",
-                // height: 45,
                 lineHeight: 2.5,
-                // marginTop: 5,
-                // marginBottom: 5,
                 paddingLeft: 13,
                 paddingTop: 3,
                 width: "60%",
@@ -102,19 +99,6 @@ export default class ImportarCsv extends Component {
             >
               {file && file.name}
             </div>
-            {/*<button
-              style={{
-                borderRadius: 0,
-                marginLeft: 0,
-                marginRight: 0,
-                paddingLeft: 20,
-                paddingRight: 20
-              }}
-              className="btn btn-danger"
-              onClick={this.handleRemoveFile}
-            >
-              Cancelar
-            </button>*/}
           </aside>
         )}
       </CSVReader>

@@ -125,6 +125,7 @@ class LineaImportTransfer extends Component {
         </tr>
       );
     } catch (err) {
+      console.log(err);
       return <div>Algo Salio mal: {err.toString()}</div>;
     }
   }
