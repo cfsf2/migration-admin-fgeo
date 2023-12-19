@@ -49,23 +49,43 @@ const SwitchFiltros = (props) => {
   })();
 
   if (componente === "hidden") return <></>;
+  if (componente === "grupo_filtros") return <></>;
+
+  function calcGridColumn(cab) {
+    const { grid_span, grid_area } = cab;
+
+    if (grid_area && grid_area !== "") {
+      return {
+        gridArea: grid_area,
+      };
+    }
+
+    if ((!grid_area || grid_area === "") && grid_span && grid_span !== "") {
+      return {
+        gridColumn: grid_span,
+      };
+    }
+
+    return { gridColumn: "span 5 / auto" };
+  }
+
+  const grids = calcGridColumn(props);
 
   return (
     <div
       id={props.id_a}
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(11, 1fr)",
-        alignSelf:
-          componente === "like" || componente === "autocompletar"
-            ? "center"
-            : "start",
-            gridArea: props.grid_area ?? "auto / auto"
-      }}
+      className="filtro_grid_int"
+      style={Object.assign(
+        {
+          alignSelf:
+            componente in ["like", "autocompletar", "filtro_buscador"]
+              ? "center"
+              : "start",
+        },
+        grids
+      )}
     >
-      <div style={{ gridColumn: props.grid_span ? props.grid_span : "1 / -1" }}>
-        {Componente}
-      </div>
+      {Componente}
     </div>
   );
 };
