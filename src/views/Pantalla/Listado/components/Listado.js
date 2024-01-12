@@ -259,7 +259,7 @@ export const Listado = (props) => {
                               textAlign: cab.align ?? "center",
                               // width: cab.width ?? "10%",
                               padding: padding,
-                              fontSize: "0.8em",
+                              fontSize: "0.8rem",
                               lineHeight: 1,
                               width: undefined,
                             },
