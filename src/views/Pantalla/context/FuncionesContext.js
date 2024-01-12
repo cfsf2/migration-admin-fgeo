@@ -560,7 +560,7 @@ export const FuncionesProvider = (props) => {
   async function endpoint(p) {
     const { cab, data, sideData } = p;
     const endpoint = data[cab.id_a + "_endpoint"] ?? cab.endpoint;
-
+console.log(sideData)
     try {
       if (data.length === 0)
         // eslint-disable-next-line no-throw-literal

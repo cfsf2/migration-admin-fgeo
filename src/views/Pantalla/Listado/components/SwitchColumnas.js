@@ -25,7 +25,7 @@ const SwitchColumnas = ({
   cab,
   padre,
   indiceData,
-  Context,
+  Context = ListadoContext,
   id_elemento,
 }) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
@@ -160,6 +160,7 @@ const SwitchColumnas = ({
             campokey={campokey}
             indiceData={indiceData}
             id_elemento={id_elemento}
+            context={Context}
           />
         );
 
