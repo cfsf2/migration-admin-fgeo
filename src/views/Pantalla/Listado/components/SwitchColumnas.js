@@ -20,11 +20,17 @@ import InputTextEditable from "../../Vista/components/columnas/InputTextEditable
 import ListadoContext from "../context/ListadoContext";
 import { withTools } from "../../helper/withTools";
 
-const SwitchColumnas = ({ data, cab, padre, indiceData, Context, id_elemento }) => {
+const SwitchColumnas = ({
+  data,
+  cab,
+  padre,
+  indiceData,
+  Context,
+  id_elemento,
+}) => {
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   if (!cab) return <></>;
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
-
 
   const hijos =
     cab.sc_hijos.length > 0
@@ -32,6 +38,18 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context, id_elemento }) 
           <SwitchColumnas key={s.id_a} data={data} cab={s} padre={cab} />
         ))
       : null;
+
+  if (data.TOTALES === 1) {
+    cab.componente = "columna_simple";
+  }
+  if (cab.round) {
+    if (!isNaN(parseFloat(data[cab.id_a]))) {
+      const val = Number.parseFloat(data[cab.id_a]).toFixed(
+        parseInt(data[cab.id_a + "_round"] ?? cab.round)
+      );
+      data[cab.id_a] = val;
+    }
+  }
 
   const Componente = (() => {
     switch (data[`${cab.id_a}_COMPONENTE`] ?? cab.componente) {
@@ -235,11 +253,7 @@ const SwitchColumnas = ({ data, cab, padre, indiceData, Context, id_elemento }) 
       case "null":
         return <></>;
       case "div":
-        return (
-          <div id={id_elemento}>
-            {hijos?.map((hijo) => hijo)}
-          </div>
-        );
+        return <div id={id_elemento}>{hijos?.map((hijo) => hijo)}</div>;
       default:
         return <>{hijos?.map((hijo) => hijo)}</>;
     }
