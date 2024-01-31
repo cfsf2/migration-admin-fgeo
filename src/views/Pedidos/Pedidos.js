@@ -164,9 +164,9 @@ class Pedidos extends Component {
                                 ) : null}
                               </td>
                               <td>
-                                {p.gruposproductos[0].precio != null
+                                {p.gruposproductos[0]?.productos[0]?.precio != null
                                   ? parseFloat(
-                                      p.gruposproductos[0].precio
+                                      p.gruposproductos[0].productos[0].precio
                                     ).toFixed(2)
                                   : "A confirmar"}
                               </td>
