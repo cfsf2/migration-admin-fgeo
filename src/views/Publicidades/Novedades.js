@@ -113,7 +113,10 @@ const Novedades = (props) => {
     props.GET_INSTITUCIONES(1000).then((instituciones) => {
       setInstituciones(instituciones);
       let optInsti = instituciones.map((institucion) => {
-        return { nombre: institucion.nombre, value: institucion._id };
+        return {
+          nombre: institucion.nombre,
+          value: institucion._id ?? institucion.id,
+        };
       });
       setOpcionesInstituciones(() => optInsti);
       props.GET_NOVEDADES().then((novedades) => {
@@ -164,7 +167,6 @@ const Novedades = (props) => {
                     id="novedades_materialtable"
                     hideSortIcon={false}
                     icons={tableIcons}
-                    options={{ filtering: false }}
                     localization={{
                       header: {
                         //actions: "Acciones",
@@ -420,6 +422,7 @@ const Novedades = (props) => {
                       tableLayout: "auto",
                       search: true,
                       searchFieldStyle: { top: "3px" },
+                      filtering: false,
                     }}
                     // style={{ minWidth: "1300px", overflowX: "auto" }}
                   />

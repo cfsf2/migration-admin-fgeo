@@ -2,7 +2,7 @@ import React from "react";
 
 import {
   GET_INSTITUCIONES,
-  SEARCH_INSTITUCIONES,
+  GET_INSTITUCIONES_USUARIO,
 } from "../../../redux/actions/institucionesAction";
 import { connect } from "react-redux";
 
@@ -75,7 +75,7 @@ function AsignarInstituciones(props) {
 
   React.useEffect(() => {
     if (instituciones.length === 0) {
-      props.SEARCH_INSTITUCIONES("", 1000, true).then((res) => {
+      props.GET_INSTITUCIONES_USUARIO("", 1000, true).then((res) => {
         setInstituciones(() => res);
       });
     }
@@ -190,7 +190,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   GET_INSTITUCIONES,
-  SEARCH_INSTITUCIONES,
+  GET_INSTITUCIONES_USUARIO,
 };
 
 export default connect(
