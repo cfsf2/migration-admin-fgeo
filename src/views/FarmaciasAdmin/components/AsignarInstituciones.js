@@ -98,6 +98,10 @@ function AsignarInstituciones(props) {
     //if (!obj) setObjInstituciones([]);
   }, [obj._id, obj.instituciones]);
 
+  // console.log("ALL", allinstituciones);
+  // console.log("USUARIO", instituciones);
+  // console.log("NOVE", objInstituciones);
+
   return (
     <Card
       className={` w-100 ${
@@ -129,6 +133,7 @@ function AsignarInstituciones(props) {
           >
             {instituciones &&
               instituciones.map((ins) => {
+                ins._id = ins.id.toString();
                 return (
                   <MenuItem
                     onClick={() => handleChange(ins._id)}
