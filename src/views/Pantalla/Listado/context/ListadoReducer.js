@@ -51,9 +51,9 @@ export default function ListadoReducer(state, action) {
 
     case "SET_FILTRO_ACTIVO": {
       //console.log(action.payload.debug);
-      const filtrosDeConfIds = action.payload.filtros_de_conf.map(
-        (conf) => conf.id_a
-      );
+
+      const filtrosDeConfIds =
+        action.payload.filtros_de_conf?.map((conf) => conf.id_a) ?? [];
 
       const filtrados = Object.keys(action.payload.filtros).reduce(
         (obj, key) => {

@@ -166,9 +166,9 @@ const Filtros = (props) => {
       },
     });
 
-    return refrescarConfiguracion({
-      cab: { refrescarConfiguracion: opcionesListado.id_a },
-    });
+    // return refrescarConfiguracion({
+    //   cab: { refrescarConfiguracion: opcionesListado.id_a },
+    // });
   };
 
   const hayObligatorios =

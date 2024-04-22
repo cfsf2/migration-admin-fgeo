@@ -188,7 +188,7 @@ export const ListadoProvider = (props) => {
       dispatch({
         type: "SET_FILTRO_ACTIVO",
         payload: {
-          filtros_de_conf: configuracion.filtros,
+          filtros_de_conf: configuracion.filtros ?? [],
           filtros: queryfiltros,
           funcion: `callMF funcion ${quienLlama}`,
           debug: [
@@ -340,7 +340,7 @@ export const ListadoProvider = (props) => {
       dispatch({
         type: "SET_FILTRO_ACTIVO",
         payload: {
-          filtros_de_conf: configuracion.filtros,
+          filtros_de_conf: configuracion.filtros ?? [],
           filtros: first_filtros,
           funcion: `useEffect Listado PPantalla ${PPantalla}`,
           debug: [
