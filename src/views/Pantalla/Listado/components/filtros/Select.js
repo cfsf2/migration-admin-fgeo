@@ -1,8 +1,6 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Select, MenuItem, FormControl } from "@material-ui/core";
-import PropTypes from "prop-types";
 import Label from "./LabelF";
-import { height } from "@mui/system";
 
 export const SelectF = (props) => {
   const { id_a, filtrosAAplicar, setFiltrosAAplicar, opciones: op } = props;
@@ -34,9 +32,11 @@ export const SelectF = (props) => {
             });
           }}
           value={
-            isNaN(Number(filtrosAAplicar[id_a]))
+            filtrosAAplicar[id_a] !== undefined
+            ? isNaN(Number(filtrosAAplicar[id_a]))
               ? filtrosAAplicar[id_a]
               : Number(filtrosAAplicar[id_a])
+            : "" 
           }
         >
           {/* {hasdefault ? null : (
@@ -65,4 +65,3 @@ export const SelectF = (props) => {
 };
 
 export default SelectF;
-
