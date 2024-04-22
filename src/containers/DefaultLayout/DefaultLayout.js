@@ -76,6 +76,7 @@ function DefaultLayout(props) {
       let allowedNav = { items: [] };
       let allowedRoutes;
       allowedNav.items = nav_admin.items.filter((route) => {
+        console.log(route, props.user.permisos);
         return props.user.permisos.some((per) => route.permiso === per);
       });
       allowedRoutes = routesadmin.filter((route) => {
