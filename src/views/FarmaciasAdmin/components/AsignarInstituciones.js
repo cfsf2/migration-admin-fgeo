@@ -2,7 +2,7 @@ import React from "react";
 
 import {
   GET_INSTITUCIONES,
-  SEARCH_INSTITUCIONES,
+  GET_INSTITUCIONES_USUARIO,
 } from "../../../redux/actions/institucionesAction";
 import { connect } from "react-redux";
 
@@ -75,7 +75,7 @@ function AsignarInstituciones(props) {
 
   React.useEffect(() => {
     if (instituciones.length === 0) {
-      props.SEARCH_INSTITUCIONES("", 1000, true).then((res) => {
+      props.GET_INSTITUCIONES_USUARIO("", 1000, true).then((res) => {
         setInstituciones(() => res);
       });
     }
@@ -97,6 +97,10 @@ function AsignarInstituciones(props) {
     if (obj && !obj.instituciones) setObjInstituciones([]);
     //if (!obj) setObjInstituciones([]);
   }, [obj._id, obj.instituciones]);
+
+  // console.log("ALL", allinstituciones);
+  // console.log("USUARIO", instituciones);
+  // console.log("NOVE", objInstituciones);
 
   return (
     <Card
@@ -129,6 +133,7 @@ function AsignarInstituciones(props) {
           >
             {instituciones &&
               instituciones.map((ins) => {
+                ins._id = ins.id.toString();
                 return (
                   <MenuItem
                     onClick={() => handleChange(ins._id)}
@@ -190,7 +195,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   GET_INSTITUCIONES,
-  SEARCH_INSTITUCIONES,
+  GET_INSTITUCIONES_USUARIO,
 };
 
 export default connect(

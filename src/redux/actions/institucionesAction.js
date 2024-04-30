@@ -81,6 +81,51 @@ export const SEARCH_INSTITUCIONES = (
   };
 };
 
+export const GET_INSTITUCIONES_USUARIO = (limit) => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      dispatch({
+        type: "SET_LOADING",
+        payload: true,
+      });
+      axios
+        .get(farmageo_api + "/instituciones", {
+          params: { limit: limit, usuario: true },
+        })
+        .then((response) => {
+          if (response.status > 300) {
+            ALERT(
+              "Sesion vencida o invalida",
+              "Su sesion ha vencido o credencial ha quedado invalidada. Intente loguearse nuevamente",
+              "info",
+              "Aceptar",
+              5000
+            ).then(() => dispatch(LOGOUT()));
+          }
+          dispatch({
+            type: "GET_INSTITUCIONES",
+            payload: response.data,
+          });
+          dispatch({
+            type: "SET_LOADING",
+            payload: false,
+          });
+
+          return resolve(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+
+          dispatch({
+            type: "SET_LOADING",
+            payload: false,
+          });
+          reject(error);
+        });
+    }); //
+  };
+};
+
 export const CREAR_INSTITUCION = (data) => {
   const { nombre, id_institucion_madre, habilitada, limit } = data;
   return (dispatch) => {

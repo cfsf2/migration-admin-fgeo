@@ -1,6 +1,5 @@
 import axios from "axios";
-import { wp_api, farmageo_api } from "../../config";
-import { useHistory } from "react-router-dom";
+import { farmageo_api } from "../../config";
 import { LOADPROFILE } from "./authActions";
 
 export const GET_FARMACIA = (username) => {
@@ -63,7 +62,7 @@ export const UPDATE_FARMACIA = (farmaciaProfile) => {
           payload: farmaciaProfile 
         })*/
           dispatch(LOADPROFILE(farmaciaProfile.usuario));
-          alert("Datos actualizados correctamente");
+         // alert("Datos actualizados correctamente");
         } else {
           alert("ha ocurrido un error");
         }
