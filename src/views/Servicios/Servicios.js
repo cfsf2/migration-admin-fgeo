@@ -10,7 +10,7 @@ import de_turno from "../../assets/images/icons/de_turno.png";
 import injection from "../../assets/images/icons/injection.png";
 import blood_pressure from "../../assets/images/icons/blood_pressure.png";
 import punto_amarillo from "../../assets/images/icons/punto_amarillo.png";
-import whatsapp from "../../assets/images/icons/004_whatsapp.png";
+import whatsapp from "../../assets/images/icons/whatsapp.png";
 import farmacia_violeta from "../../assets/images/icons/farmacia_violeta.png";
 import recetas_magistrales from "../../assets/images/icons/recetas_magistrales.png";
 import covidtest from "../../assets/images/covidtest.png";
@@ -128,37 +128,41 @@ class Servicios extends Component {
                 <Row>
                   <Col xs="12">
                     <Row>
-                      {this.state?.serviciosList?.map((s) => {
-                        return (
-                          <Col
-                            key={s.nombre_corto}
-                            className="my-3"
-                            xs="6"
-                            md="3"
-                          >
-                            <div align="center">
-                              <img
-                                src={`${
-                                  imageImport[
-                                    s.url_img.split("/").pop().split(".")[0]
-                                  ]
-                                }`}
-                                style={{ width: "50px" }}
-                                alt={s.nombre}
-                              />
-                              <p style={{ marginTop: 10 }}>{s.nombre_corto}</p>
-                              <input
-                                type="checkbox"
-                                id={s.nombre}
-                                disabled={s.auto_asignable !== "s"}
-                                name={s.nombre}
-                                onChange={this.handleInputChange}
-                                checked={this.checkServicios(s.nombre)}
-                              />
-                            </div>
-                          </Col>
-                        );
-                      })}
+                      {this.state?.serviciosList
+                        ?.sort((a, b) => a.orden_web - b.orden_web)
+                        .map((s) => {
+                          return (
+                            <Col
+                              key={s.nombre_corto}
+                              className="my-3"
+                              xs="6"
+                              md="3"
+                            >
+                              <div align="center">
+                                <img
+                                  src={`${
+                                    imageImport[
+                                      s.url_img.split("/").pop().split(".")[0]
+                                    ]
+                                  }`}
+                                  style={{ width: "50px" }}
+                                  alt={s.nombre}
+                                />
+                                <p style={{ marginTop: 10 }}>
+                                  {s.nombre_corto}
+                                </p>
+                                <input
+                                  type="checkbox"
+                                  id={s.nombre}
+                                  disabled={s.auto_asignable !== "s"}
+                                  name={s.nombre}
+                                  onChange={this.handleInputChange}
+                                  checked={this.checkServicios(s.nombre)}
+                                />
+                              </div>
+                            </Col>
+                          );
+                        })}
                     </Row>
                   </Col>
                 </Row>
