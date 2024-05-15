@@ -62,6 +62,33 @@ thead tr:nth-child(1) th {
 }
 
 
+.fondo-rojo {
+  color: #fff;
+  padding: 4px 4px;
+  text-align: left;
+  background-color: #f86c6b;
+  width: fit-content;
+  border-radius: 5px;
+  a {
+    color: #fff;
+    text-align: left;
+    padding: 4px 4px;
+  }
+}
+
+.fondo-verde {
+  color: #fff;
+  padding: 4px 4px;
+  text-align: left;
+  background-color: #4dbd74;
+  width: fit-content;
+  border-radius: 5px;
+  a {
+    color: #fff;
+    text-align: left;
+    padding: 4px 4px;
+  }
+}
 
 .fondo-amarillo {
   color: #4a4a4a;
