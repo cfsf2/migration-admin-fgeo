@@ -5,7 +5,6 @@ const Imagen = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
   const classNames = data[cab.id_a + "_className"] ?? cab.className;
   if (cab.imagen_local === "s") {
     const imgurl = "/" + data[campokey].replace(/\.\.\//g, "");
-    console.log(imgurl);
     return (
       <div
         id={id_elemento}

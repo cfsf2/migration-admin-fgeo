@@ -20,6 +20,9 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
     }
     return cab.nombre;
   })();
+  const disabled = (() => {
+    return data[cab.id_a + "_disabled"] ?? cab.disabled;
+  })();
 
   const handleCancelar = () => {
     setValue(data[campokey]);
@@ -73,13 +76,15 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
   }, [configuraciones_ref[cab.id_a]]);
 
   const classNames = data[cab.id_a + "_className"] ?? cab.className;
+  console.log(disabled, data, disabled === "s");
   return (
     <div
       id={id_elemento}
-      className={"tarjeta_grid_item_label_item "+classNames}
+      className={"tarjeta_grid_item_label_item " + classNames}
       style={{ justifyContent: "center" }}
     >
       <Switch
+        disabled={disabled === "s"}
         color="primary"
         checked={value === null ? false : value === "s" ? true : false}
         onChange={handleChange}
