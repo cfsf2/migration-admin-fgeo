@@ -76,7 +76,7 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
   }, [configuraciones_ref[cab.id_a]]);
 
   const classNames = data[cab.id_a + "_className"] ?? cab.className;
-  console.log(disabled, data, disabled === "s");
+
   return (
     <div
       id={id_elemento}
