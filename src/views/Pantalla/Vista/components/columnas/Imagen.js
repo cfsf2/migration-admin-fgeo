@@ -8,6 +8,18 @@ const Imagen = ({ data, cab, hijos, campokey, id_elemento }) => {
     }
     return cab.nombre;
   })();
+
+  const imgurl = () => {
+    if (!data[campokey]) return null;
+    if (cab.imagen_local === "s") {
+      return "/" + data[campokey].replace(/\.\.\//g, "");
+    }
+    if (cab.imagen_ruta_completa === "s") {
+      return data[campokey];
+    }
+    return image_path_server + data[campokey];
+  };
+
   const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
     <div
@@ -23,10 +35,17 @@ const Imagen = ({ data, cab, hijos, campokey, id_elemento }) => {
         <></>
       )}
       <img
-        src={image_path_server + data[campokey]}
-        style={{ textAlign: cab.align }}
+        src={imgurl()}
+        style={{ textAlign: cab.align, cursor: "pointer" }}
         alt={cab.nombre + " " + campokey}
         width={cab.image_width}
+        onClick={() => {
+          // Crear un enlace temporal
+          const newTab = window.open();
+          newTab.document.body.innerHTML = `<img src="${imgurl()}" alt="${
+            cab.nombre + " " + campokey
+          }" style="width:100%;height:100%;">`;
+        }}
       />
       {hijos}
     </div>
