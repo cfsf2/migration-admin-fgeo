@@ -1,8 +1,36 @@
 import React, { Component } from "react";
 import { Button, Card, CardBody, CardHeader, Col, Row } from "reactstrap";
+import { farmageo_api } from "../../config";
 
 import { UPDATE_FARMACIA } from "../../redux/actions/farmaciaActions";
 import { connect } from "react-redux";
+import axios from "axios";
+
+import de_turno from "../../assets/images/icons/de_turno.png";
+import injection from "../../assets/images/icons/injection.png";
+import blood_pressure from "../../assets/images/icons/blood_pressure.png";
+import punto_amarillo from "../../assets/images/icons/punto_amarillo.png";
+import whatsapp from "../../assets/images/icons/whatsapp.png";
+import farmacia_violeta from "../../assets/images/icons/farmacia_violeta.png";
+import recetas_magistrales from "../../assets/images/icons/recetas_magistrales.png";
+import covidtest from "../../assets/images/covidtest.png";
+import vacuna from "../../assets/images/vacuna.jpg";
+import panales_pami from "../../assets/images/panales_pami.png";
+import corazon from "../../assets/images/corazon.jpg";
+
+const imageImport = {
+  de_turno,
+  injection,
+  blood_pressure,
+  punto_amarillo,
+  whatsapp,
+  farmacia_violeta,
+  recetas_magistrales,
+  covidtest,
+  vacuna,
+  panales_pami,
+  corazon,
+};
 
 class Servicios extends Component {
   constructor(props) {
@@ -10,26 +38,39 @@ class Servicios extends Component {
     this.state = {
       farmaciaProfile: null,
       servicios: [],
+      serviciosList: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleEditProfile = this.handleEditProfile.bind(this);
     this.checkServicios = this.checkServicios.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({
-      farmaciaProfile: this.props.authReducer.userprofile,
-      servicios: this.props.authReducer.userprofile?.servicios,
+      farmaciaProfile:
+        this.props.authReducer.userprofile ??
+        JSON.parse(localStorage.getItem("userprofile")),
+      servicios:
+        this.props.authReducer.userprofile?.servicios ??
+        JSON.parse(localStorage.getItem("userprofile")).servicios,
     });
+
+    await axios
+      .post(farmageo_api + "/farmacias/servicios/", {
+        destino: "Es para el admin",
+      })
+      .then((r) => {
+        this.setState({ serviciosList: r.data });
+      });
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      prevState.farmaciaProfile?.__v !== this.props.authReducer.userprofile.__v
+      prevState.farmaciaProfile?.__v !== this.props.authReducer.userprofile?.__v
     ) {
       this.setState({
-        farmaciaProfile: this.props.authReducer.userprofile,
-        servicios: this.props.authReducer.userprofile?.servicios,
+        farmaciaProfile: JSON.parse(localStorage.getItem("userprofile")),
+        servicios: JSON.parse(localStorage.getItem("userprofile")).servicios,
       });
     }
   }
@@ -54,7 +95,7 @@ class Servicios extends Component {
 
   checkServicios(_tipo) {
     var found = false;
-    for (var i = 0; i < this.state.servicios.length; i++) {
+    for (var i = 0; i < this.state.servicios?.length; i++) {
       if (this.state.servicios[i].tipo === _tipo) {
         found = true;
         break;
@@ -87,193 +128,41 @@ class Servicios extends Component {
                 <Row>
                   <Col xs="12">
                     <Row>
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/vacuna.jpg")}
-                            style={{ width: 50 }}
-                          />
-                          <p style={{ marginTop: 10 }}>
-                            Campaña AntiGripal
-                          </p>
-                          <input
-                            type="checkbox"
-                            id="campanaantigripal"
-                            name="campanaantigripal"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("campanaantigripal")}
-                          />
-                        </div>
-                      </Col>
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/panales_pami.png")}
-                            style={{ width: "70px", height: "45px" }}
-                          />
-                          <p style={{ marginTop: 10 }}>Pañales PAMI</p>
-                          <input
-                            type="checkbox"
-                            id="pañalespami"
-                            name="pañalespami"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("pañalespami")}
-                          />
-                        </div>
-                      </Col>
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/icons/de_turno.png")}
-                            style={{ width: 50 }}
-                          />
-                          <p style={{ marginTop: 10 }}>De turno</p>
-                          <input
-                            type="checkbox"
-                            id="deturno"
-                            name="deturno"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("deturno")}
-                          />
-                        </div>
-                      </Col>
-
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/icons/injection.png")}
-                            style={{ width: 50 }}
-                          />
-                          <p style={{ marginTop: 10 }}>Inyectables</p>
-                          <input
-                            type="checkbox"
-                            id="inyectables"
-                            name="inyectables"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("inyectables")}
-                          />
-                        </div>
-                      </Col>
-
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/icons/blood-pressure.png")}
-                            style={{ width: 50 }}
-                          />
-                          <p style={{ marginTop: 10 }}>Toma de presión</p>
-                          <input
-                            type="checkbox"
-                            id="presion"
-                            name="presion"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("presion")}
-                          />
-                        </div>
-                      </Col>
-
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/icons/punto-amarillo.png")}
-                            style={{ width: 50 }}
-                          />
-                          <p style={{ marginTop: 10 }}>Puntos Amarillos</p>
-                          <input
-                            type="checkbox"
-                            id="amarillos"
-                            name="amarillos"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("amarillos")}
-                          />
-                        </div>
-                      </Col>
-
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/icons/004-whatsapp.png")}
-                            style={{ width: 50 }}
-                          />
-                          <p style={{ marginTop: 10 }}>WhatsApp</p>
-                          <input
-                            type="checkbox"
-                            id="whatsapp"
-                            name="whatsapp"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("whatsapp")}
-                          />
-                        </div>
-                      </Col>
-
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/icons/farmacia-violeta.png")}
-                            style={{ width: 90, marginTop: 10 }}
-                          />
-                          <p style={{ marginTop: 10 }}>Farmacia Violeta</p>
-                          <input
-                            type="checkbox"
-                            id="violeta"
-                            name="violeta"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("violeta")}
-                          />
-                        </div>
-                      </Col>
-
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/icons/recetas-magistrales.png")}
-                            style={{ width: 50 }}
-                          />
-                          <p style={{ marginTop: 10 }}>Recetas magistrales</p>
-                          <input
-                            type="checkbox"
-                            id="recetas-magistrales"
-                            name="recetas-magistrales"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("recetas-magistrales")}
-                          />
-                        </div>
-                      </Col>
-
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/covidtest.png")}
-                            style={{ width: 50 }}
-                          />
-                          <p style={{ marginTop: 10 }}>Test de Covid</p>
-                          <input
-                            type="checkbox"
-                            id="testcovid"
-                            name="testcovid"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("testcovid")}
-                          />
-                        </div>
-                      </Col>
-
-                      <Col className="my-3" xs="6" md="3">
-                        <div align="center">
-                          <img
-                            src={require("../../assets/images/corazon.jpg")}
-                            style={{ width: 50 }}
-                          />
-                          <p style={{ marginTop: 10 }}>Farmacia Solidaria</p>
-                          <input
-                            type="checkbox"
-                            id="farmaciasolidaria"
-                            name="farmaciasolidaria"
-                            onChange={this.handleInputChange}
-                            checked={this.checkServicios("farmaciasolidaria")}
-                          />
-                        </div>
-                      </Col>
-
+                      {this.state?.serviciosList
+                        ?.sort((a, b) => a.orden_web - b.orden_web)
+                        .map((s) => {
+                          return (
+                            <Col
+                              key={s.nombre_corto}
+                              className="my-3"
+                              xs="6"
+                              md="3"
+                            >
+                              <div align="center">
+                                <img
+                                  src={`${
+                                    imageImport[
+                                      s.url_img.split("/").pop().split(".")[0]
+                                    ]
+                                  }`}
+                                  style={{ width: "50px" }}
+                                  alt={s.nombre}
+                                />
+                                <p style={{ marginTop: 10 }}>
+                                  {s.nombre_corto}
+                                </p>
+                                <input
+                                  type="checkbox"
+                                  id={s.nombre}
+                                  disabled={s.auto_asignable !== "s"}
+                                  name={s.nombre}
+                                  onChange={this.handleInputChange}
+                                  checked={this.checkServicios(s.nombre)}
+                                />
+                              </div>
+                            </Col>
+                          );
+                        })}
                     </Row>
                   </Col>
                 </Row>

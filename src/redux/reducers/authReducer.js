@@ -18,6 +18,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
   switch (action.type) {
     case "LOGIN_OK":
+     
       return {
         ...state,
         user: {
@@ -45,6 +46,7 @@ export default (state = defaultState, action) => {
       };
 
     case "LOADPROFILE_OK":
+      localStorage.setItem('userprofile', JSON.stringify(action.payload))
       return {
         ...state,
         userprofile: action.payload,
