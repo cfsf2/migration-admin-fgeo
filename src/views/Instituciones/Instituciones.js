@@ -29,7 +29,7 @@ const headCells = [
     id: "nombre",
     numeric: false,
     disablePadding: true,
-    label: "Nombre",
+    label: "Institución",
   },
   {
     id: "id_institucion_madre",
@@ -39,10 +39,10 @@ const headCells = [
     },
     numeric: false,
     disablePadding: false,
-    label: "Institucion Madre",
+    label: "Institución Madre",
   },
   {
-    id: "habilitada",
+    id: "habilitado",
     numeric: false,
     disablePadding: false,
     label: "Habilitada",
