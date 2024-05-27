@@ -338,10 +338,10 @@ class Pedidos extends Component {
                                     name="precio"
                                     value={
                                       this.state.pedido.gruposproductos[0]
-                                        .precio != null
+                                        ?.precio != null
                                         ? parseFloat(
                                             this.state.pedido.gruposproductos[0]
-                                              .precio
+                                              ?.precio
                                           ).toFixed(2)
                                         : "A confirmar"
                                     }
@@ -356,12 +356,12 @@ class Pedidos extends Component {
                                   </p>
 
                                   {this.state.pedido.gruposproductos[0]
-                                    .obra_social_frente != null ? (
+                                    ?.obra_social_frente != null ? (
                                     <p>
                                       <a
                                         href={
                                           this.state.pedido.gruposproductos[0]
-                                            .obra_social_frente
+                                            ?.obra_social_frente
                                         }
                                         target="_blank"
                                       >
@@ -371,12 +371,12 @@ class Pedidos extends Component {
                                   ) : null}
 
                                   {this.state.pedido.gruposproductos[0]
-                                    .obra_social_dorso != null ? (
+                                    ?.obra_social_dorso != null ? (
                                     <p>
                                       <a
                                         href={
                                           this.state.pedido.gruposproductos[0]
-                                            .obra_social_dorso
+                                            ?.obra_social_dorso
                                         }
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -387,12 +387,12 @@ class Pedidos extends Component {
                                   ) : null}
 
                                   {this.state.pedido.gruposproductos[0]
-                                    .receta !== null ? (
+                                    ?.receta !== null ? (
                                     <p>
                                       <a
                                         href={
                                           this.state.pedido.gruposproductos[0]
-                                            .receta
+                                            ?.receta
                                         }
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -432,7 +432,7 @@ class Pedidos extends Component {
                                     <tbody>
                                       {this.state.pedido.descripcion ===
                                       "productos" ? (
-                                        this.state.pedido.gruposproductos[0].productos.map(
+                                        this.state.pedido.gruposproductos[0]?.productos.map(
                                           (p, index) => {
                                             return (
                                               <tr key={index}>
