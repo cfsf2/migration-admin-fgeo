@@ -113,80 +113,85 @@ class Pedidos extends Component {
                   <tbody>
                     {this.state.loading && Array.isArray(mis_pedidos)
                       ? "Cargando..."
-                      : mis_pedidos.map((p, index) => {
-                          return (
-                            <tr key={index}>
-                              <td className="text-center">
-                                {p.origen === "ecommerce" ? (
-                                  <p className="bg-success">Ecommerce</p>
-                                ) : (
-                                  <p className="bg-warning">APP</p>
-                                )}
-                              </td>
-                              <td>{p._id}</td>
-                              <td>{p.descripcion}</td>
-                              <td>{p.fechaalta.substring(0, 10)} </td>
-                              <td>{p.envio ? p.domicilioenvio : "Farmacia"}</td>
-                              <td>
-                                <div
-                                  style={{
-                                    backgroundColor:
-                                      p.estado === "nuevo"
-                                        ? "#00D579"
-                                        : p.estado === "enproceso"
-                                        ? "yellow"
-                                        : p.estado === "entregado"
-                                        ? "#20a8d8"
-                                        : p.estado === "anulado"
-                                        ? "red"
-                                        : p.estado === "resuelto"
-                                        ? "#c8ced3"
-                                        : "",
-                                    color: "white",
-                                    borderRadius: "50%",
-                                    width: 20,
-                                    height: 20,
-                                    borderWidth: 10,
-                                    borderColor: "black",
-                                    margin: 10,
-                                  }}
-                                ></div>
-                                {p.estado === "nuevo" ? (
-                                  <p style={{ fontSize: 8 }}>En espera</p>
-                                ) : p.estado === "enproceso" ? (
-                                  <p style={{ fontSize: 8 }}>En proceso</p>
-                                ) : p.estado === "entregado" ? (
-                                  <p style={{ fontSize: 8 }}>Entregado</p>
-                                ) : p.estado === "anulado" ? (
-                                  <p style={{ fontSize: 8 }}>Anulado</p>
-                                ) : p.estado === "resuelto" ? (
-                                  <p style={{ fontSize: 8 }}>Resuelto</p>
-                                ) : null}
-                              </td>
-                              <td>
-                                {p.gruposproductos[0]?.productos[0]?.precio != null
-                                  ? parseFloat(
-                                      p.gruposproductos[0].productos[0].precio
-                                    ).toFixed(2)
-                                  : "A confirmar"}
-                              </td>
-                              <td>
-                                <button
-                                  type="button"
-                                  className="btn btn-secondary"
-                                  data-toggle="modal"
-                                  data-target=".bd-example-modal-lg"
-                                  onClick={() => {
-                                    this.props.GET_INFO_SOCIO(p.username);
-                                    this.setState({ pedido: p });
-                                  }}
-                                >
-                                  ver
-                                </button>
-                              </td>
-                            </tr>
-                          );
-                        })}
+                      : mis_pedidos
+                          .sort((a, b) => b.id - a.id)
+                          .map((p, index) => {
+                            return (
+                              <tr key={index}>
+                                <td className="text-center">
+                                  {p.origen === "ecommerce" ? (
+                                    <p className="bg-success">Ecommerce</p>
+                                  ) : (
+                                    <p className="bg-warning">APP</p>
+                                  )}
+                                </td>
+                                <td>{p._id}</td>
+                                <td>{p.descripcion}</td>
+                                <td>{p.fechaalta.substring(0, 10)} </td>
+                                <td>
+                                  {p.envio ? p.domicilioenvio : "Farmacia"}
+                                </td>
+                                <td>
+                                  <div
+                                    style={{
+                                      backgroundColor:
+                                        p.estado === "nuevo"
+                                          ? "#00D579"
+                                          : p.estado === "enproceso"
+                                          ? "yellow"
+                                          : p.estado === "entregado"
+                                          ? "#20a8d8"
+                                          : p.estado === "anulado"
+                                          ? "red"
+                                          : p.estado === "resuelto"
+                                          ? "#c8ced3"
+                                          : "",
+                                      color: "white",
+                                      borderRadius: "50%",
+                                      width: 20,
+                                      height: 20,
+                                      borderWidth: 10,
+                                      borderColor: "black",
+                                      margin: 10,
+                                    }}
+                                  ></div>
+                                  {p.estado === "nuevo" ? (
+                                    <p style={{ fontSize: 8 }}>En espera</p>
+                                  ) : p.estado === "enproceso" ? (
+                                    <p style={{ fontSize: 8 }}>En proceso</p>
+                                  ) : p.estado === "entregado" ? (
+                                    <p style={{ fontSize: 8 }}>Entregado</p>
+                                  ) : p.estado === "anulado" ? (
+                                    <p style={{ fontSize: 8 }}>Anulado</p>
+                                  ) : p.estado === "resuelto" ? (
+                                    <p style={{ fontSize: 8 }}>Resuelto</p>
+                                  ) : null}
+                                </td>
+                                <td>
+                                  {p.gruposproductos[0]?.productos[0]?.precio !=
+                                  null
+                                    ? parseFloat(
+                                        p.gruposproductos[0].productos[0].precio
+                                      ).toFixed(2)
+                                    : "A confirmar"}
+                                </td>
+                                <td>
+                                  <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    data-toggle="modal"
+                                    data-target=".bd-example-modal-lg"
+                                    onClick={() => {
+                                      this.props.GET_INFO_SOCIO(p.username);
+                                      this.setState({ pedido: p });
+                                    }}
+                                  >
+                                    ver
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
                   </tbody>
                 </table>
               </div>
@@ -333,10 +338,10 @@ class Pedidos extends Component {
                                     name="precio"
                                     value={
                                       this.state.pedido.gruposproductos[0]
-                                        .precio != null
+                                        ?.precio != null
                                         ? parseFloat(
                                             this.state.pedido.gruposproductos[0]
-                                              .precio
+                                              ?.precio
                                           ).toFixed(2)
                                         : "A confirmar"
                                     }
@@ -351,12 +356,12 @@ class Pedidos extends Component {
                                   </p>
 
                                   {this.state.pedido.gruposproductos[0]
-                                    .obra_social_frente != null ? (
+                                    ?.obra_social_frente != null ? (
                                     <p>
                                       <a
                                         href={
                                           this.state.pedido.gruposproductos[0]
-                                            .obra_social_frente
+                                            ?.obra_social_frente
                                         }
                                         target="_blank"
                                       >
@@ -366,12 +371,12 @@ class Pedidos extends Component {
                                   ) : null}
 
                                   {this.state.pedido.gruposproductos[0]
-                                    .obra_social_dorso != null ? (
+                                    ?.obra_social_dorso != null ? (
                                     <p>
                                       <a
                                         href={
                                           this.state.pedido.gruposproductos[0]
-                                            .obra_social_dorso
+                                            ?.obra_social_dorso
                                         }
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -382,12 +387,12 @@ class Pedidos extends Component {
                                   ) : null}
 
                                   {this.state.pedido.gruposproductos[0]
-                                    .receta !== null ? (
+                                    ?.receta !== null ? (
                                     <p>
                                       <a
                                         href={
                                           this.state.pedido.gruposproductos[0]
-                                            .receta
+                                            ?.receta
                                         }
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -427,7 +432,7 @@ class Pedidos extends Component {
                                     <tbody>
                                       {this.state.pedido.descripcion ===
                                       "productos" ? (
-                                        this.state.pedido.gruposproductos[0].productos.map(
+                                        this.state.pedido.gruposproductos[0]?.productos.map(
                                           (p, index) => {
                                             return (
                                               <tr key={index}>
