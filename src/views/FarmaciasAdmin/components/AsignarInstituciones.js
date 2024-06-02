@@ -11,6 +11,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import "./asignarInstituciones.scss";
+import axios from "axios";
+import { farmageo_api } from "config";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -27,20 +29,22 @@ function AsignarInstituciones(props) {
   const {
     obj = { _id: "" },
     setObj,
-    loading,
     invalid,
     error,
     compacto = false,
     key,
   } = props;
+  const [loading, setLoading] = React.useState(true);
   const [allinstituciones, setAllInstituciones] = React.useState([]);
+  const [institucionesUsuario, setInstitucionesUsuario] = React.useState([]);
+
   const [instituciones, setInstituciones] = React.useState([]);
-  const [objInstituciones, setObjInstituciones] = React.useState(
+  const [institucionesFarmacia, setinstitucionesFarmacia] = React.useState(
     obj && obj.instituciones ? obj.instituciones : []
   ); //obj.instituciones es un array de id de instituciones
 
   const handleChange = (value) => {
-    setObjInstituciones((state) => {
+    setinstitucionesFarmacia((state) => {
       let newState = [...state];
       const indx = newState.indexOf(value);
       if (indx === 0) {
@@ -64,48 +68,63 @@ function AsignarInstituciones(props) {
 
   const handleFilter = (e) => {
     const value = e.target.value;
-    let resultado = [...allinstituciones]
+    let resultado = [...institucionesUsuario]
       .filter((ins) => ins.nombre.toLowerCase().startsWith(value.toLowerCase()))
       .sort();
     setInstituciones(() => resultado);
     if (value.trim() === "") {
-      setInstituciones(allinstituciones);
+      setInstituciones(institucionesUsuario);
     }
   };
 
   React.useEffect(() => {
-    if (instituciones.length === 0) {
-      props.GET_INSTITUCIONES_USUARIO("", 1000, true).then((res) => {
-        setInstituciones(() => res);
-      });
-    }
-    if (props.institucionesReducer.instituciones.length === 0) {
-      props.GET_INSTITUCIONES(1000).then((res) => {
-        setAllInstituciones(() => res);
-      });
-      return;
-    }
-    setAllInstituciones(() => props.institucionesReducer.instituciones);
-    setInstituciones(() => props.institucionesReducer.busqueda);
+    const fd = async () => {
+      setLoading(true);
+      if (instituciones.length === 0) {
+        await axios
+          .get(farmageo_api + "/instituciones", {
+            params: { limit: 100, usuario: true },
+          })
+          .then((res) => {
+            setInstitucionesUsuario(() => res.data);
+            setInstituciones(() => res.data);
+            setLoading(false);
+          });
+      }
+      if (props.institucionesReducer.instituciones.length === 0) {
+        await axios
+          .get(farmageo_api + "/instituciones", { params: { limit: 100 } })
+          .then((res) => {
+            setAllInstituciones(() => res.data);
+            setLoading(false);
+          });
+        return;
+      }
+
+      setLoading(false);
+    };
+    fd();
   }, []);
 
   React.useEffect(() => {
-    setObjInstituciones([]);
+    setinstitucionesFarmacia([]);
     if (obj && obj.instituciones) {
-      setObjInstituciones((state) => obj.instituciones);
+      setinstitucionesFarmacia((state) => obj.instituciones);
     }
-    if (obj && !obj.instituciones) setObjInstituciones([]);
-    //if (!obj) setObjInstituciones([]);
-  }, [obj._id, obj.instituciones]);
+    if (obj && !obj.instituciones) setinstitucionesFarmacia([]);
+    //if (!obj) setinstitucionesFarmacia([]);
+  }, [obj]);
 
-  // console.log("ALL", allinstituciones);
-  // console.log("USUARIO", instituciones);
-  // console.log("NOVE", objInstituciones);
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
 
   return (
     <Card
       className={` w-100 ${
-        objInstituciones.length === 0 && (invalid || error) ? "error" : null
+        institucionesFarmacia.length === 0 && (invalid || error)
+          ? "error"
+          : null
       } ${compacto ? "h-100" : null}`}
       key={key}
     >
@@ -133,7 +152,7 @@ function AsignarInstituciones(props) {
           >
             {instituciones &&
               instituciones.map((ins) => {
-                ins._id = ins.id.toString();
+                ins._id = ins.id?.toString();
                 return (
                   <MenuItem
                     onClick={() => handleChange(ins._id)}
@@ -142,7 +161,7 @@ function AsignarInstituciones(props) {
                     className={`${
                       loading
                         ? "no-seleccionado"
-                        : objInstituciones.includes(ins._id)
+                        : institucionesFarmacia.includes(ins._id)
                         ? "seleccionado"
                         : "no-seleccionado"
                     } ${ins.habilitada ? null : "no-habilitada"}`}
@@ -162,19 +181,33 @@ function AsignarInstituciones(props) {
               <Spinner />
             ) : (
               <>
-                {objInstituciones &&
-                  objInstituciones.map((ins) => {
+                {allinstituciones.length > 0 &&
+                  institucionesFarmacia &&
+                  institucionesFarmacia.map((ins) => {
+                    const usuarioPuedeModificar = institucionesUsuario.some(
+                      (iu) => iu.id == ins
+                    );
                     return (
                       <MenuItem
-                        onClick={() => handleChange(ins)}
+                        onClick={
+                          usuarioPuedeModificar
+                            ? () => handleChange(ins)
+                            : () => {}
+                        }
                         key={ins}
                         value={ins}
-                        className="asignada_item"
-                      >
-                        {
-                          allinstituciones.find((inst) => inst._id === ins)
-                            ?.nombre
+                        className={
+                          usuarioPuedeModificar
+                            ? "asignada_item"
+                            : "asignada_item_disabled"
                         }
+                      >
+                        {allinstituciones.length > 0 ? (
+                          allinstituciones.find((inst) => inst._id == ins)
+                            ?.nombre
+                        ) : (
+                          <></>
+                        )}
                       </MenuItem>
                     );
                   })}
