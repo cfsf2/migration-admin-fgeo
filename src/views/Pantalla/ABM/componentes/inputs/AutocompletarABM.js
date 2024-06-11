@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Label from "./LabelF";
-
 import PropTypes from "prop-types";
 import { autocompleteClasses } from "@mui/material/Autocomplete";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -135,10 +134,21 @@ export default function Virtualize({
   valor,
   setValor,
 }) {
+  useEffect(() => {
+    console.log("cab.opciones:", cab.opciones);
+  }, [cab.opciones]);
+
   const handleChangeValue = async (newValue) => {
     const valor = newValue.value; //newValue { value, label }
     setValor(valor);
   };
+
+  const sortedOptions = cab.opciones
+    ? cab.opciones.filter(option => option.label).sort((a, b) => {
+        console.log("Comparing:", a, b);
+        return a.label.toUpperCase().localeCompare(b.label.toUpperCase());
+      })
+    : [];
 
   return (
     <>
@@ -155,9 +165,7 @@ export default function Virtualize({
         disableClearable
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
-        options={cab.opciones.sort((a, b) =>
-          a.label.toUpperCase().localeCompare(b.label.toUpperCase())
-        )}
+        options={sortedOptions}
         groupBy={(option) => {
           return option.label[0].toUpperCase();
         }}
@@ -165,7 +173,6 @@ export default function Virtualize({
           <TextField {...params} label={cab.placeholder} />
         )}
         renderOption={(props, option) => [props, option.label]}
-        // TODO: Post React 18 update - validate this conversion, look like a hidden bug
         renderGroup={(params) => params}
         onChange={(event, newValue) => handleChangeValue(newValue)}
       />
