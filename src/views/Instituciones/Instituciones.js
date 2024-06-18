@@ -26,13 +26,13 @@ import {
 
 const headCells = [
   {
-    id: "nombre",
+    id: "id_nombre_institucion",
     numeric: false,
     disablePadding: true,
     label: "Institución",
   },
   {
-    id: "id_institucion_madre",
+    id: "id_nombre_institucion_madre",
     headCell: {
       id: "nombre",
       label: "Nombre",
@@ -42,7 +42,7 @@ const headCells = [
     label: "Institución Madre",
   },
   {
-    id: "habilitado",
+    id: "inst_habilitada",
     numeric: false,
     disablePadding: false,
     label: "Habilitada",

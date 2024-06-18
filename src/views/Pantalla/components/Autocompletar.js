@@ -210,7 +210,6 @@ export default function Virtualize({
         )}
       </div>
       <Autocomplete
-       
         value={value}
         id={id_elemento}
         sx={{ width: "100%" }}
@@ -221,9 +220,15 @@ export default function Virtualize({
         filterOptions={filterMatch}
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
-        options={cab.opciones.sort((a, b) =>
-          a.label.toUpperCase().localeCompare(b.label.toUpperCase())
-        )}
+        options={
+          cab.opciones
+            ? cab.opciones.sort((a, b) => {
+                const labelA = a.label || "";
+                const labelB = b.label || "";
+                return labelA.toUpperCase().localeCompare(labelB.toUpperCase());
+              })
+            : []
+        }
         groupBy={(option) => {
           return option.label[0].toUpperCase();
         }}
