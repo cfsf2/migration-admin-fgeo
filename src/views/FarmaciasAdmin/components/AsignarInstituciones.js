@@ -113,7 +113,7 @@ function AsignarInstituciones(props) {
     }
     if (obj && !obj.instituciones) setinstitucionesFarmacia([]);
     //if (!obj) setinstitucionesFarmacia([]);
-  }, [obj]);
+  }, [obj.instituciones]);
 
   if (loading) {
     return <div>Cargando...</div>;

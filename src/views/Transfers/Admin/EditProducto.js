@@ -203,7 +203,7 @@ export function EditProducto(props) {
                     <Label htmlFor="titulo">Presentación</Label>
                     <textarea
                       name="presentacion"
-                      class="form-control"
+                      className="form-control"
                       style={{ overflow: "auto", height: "100px" }}
                       onChange={handleInputChange}
                       value={producto !== null ? producto.presentacion : ""}
