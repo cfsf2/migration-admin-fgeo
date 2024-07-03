@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useState } from "react";
-import { Redirect, useHistory } from "react-router";
+import React, { createContext, useContext } from "react";
+import { useHistory } from "react-router";
 import { farmageo_api } from "../../../config";
 import axios from "axios";
 import AlertasContext from "./AlertaContext";
 import PantallaContext from "./PantallaContext";
-import Modal from "../components/Modal";
 import ModalesContext from "./ModalContext";
 const S = require("sweetalert2");
 
@@ -43,6 +42,7 @@ const alertarError = async (mensaje) => {
 
 export const requestErrorHandler = async (res) => {
   if (res.status < 400) return res;
+  document.body.classList.remove('loading-cursor');
   return alertarError(res.data.error.message);
 };
 
@@ -93,6 +93,8 @@ export const FuncionesProvider = (props) => {
     data,
     indiceData,
   }) => {
+    document.body.classList.add('loading-cursor');
+   
     if (!update_id) {
       if (cab.alerta_confirmar === "s") {
         return await insertarConConfirmacion({
@@ -166,6 +168,7 @@ export const FuncionesProvider = (props) => {
         ) {
           refrescarConfiguracion({ cab });
         }
+        document.body.classList.remove('loading-cursor');
         return res;
       })
       .catch((err) => {
@@ -213,6 +216,7 @@ export const FuncionesProvider = (props) => {
         ) {
           refrescarConfiguracion({ cab });
         }
+        document.body.classList.remove('loading-cursor');
         return res;
       })
       .catch((err) => {
@@ -274,6 +278,7 @@ export const FuncionesProvider = (props) => {
           ) {
             refrescarConfiguracion({ cab });
           }
+          document.body.classList.remove('loading-cursor');
           return res;
         });
     } catch (err) {
@@ -544,6 +549,7 @@ export const FuncionesProvider = (props) => {
     ) {
       refrescarConfiguracion({ cab });
     }
+    document.body.classList.remove('loading-cursor');
     return response;
   };
 
@@ -560,8 +566,8 @@ export const FuncionesProvider = (props) => {
   async function endpoint(p) {
     const { cab, data, sideData } = p;
     const endpoint = data[cab.id_a + "_endpoint"] ?? cab.endpoint;
-console.log(sideData)
     try {
+      document.body.classList.add('loading-cursor');
       if (data.length === 0)
         // eslint-disable-next-line no-throw-literal
         throw {
@@ -600,6 +606,7 @@ console.log(sideData)
         icon: "error",
         confirmButtonText: "Aceptar",
       });
+      document.body.classList.remove('loading-cursor');
     }
   }
 

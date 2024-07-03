@@ -16,6 +16,10 @@ $breakpoint-sm: 767px;
 $breakpoint-md: 1023px;
 $breakpoint-lg: 1360px;
 
+body.loading-cursor {
+  cursor: wait; /* Cambia el cursor a uno de carga */
+}
+
 @mixin media($media) {
   @if $media == xs {
     @media (max-width: $breakpoint-sm) {
