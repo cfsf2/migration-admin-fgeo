@@ -639,3 +639,19 @@ export const FuncionesProvider = (props) => {
 };
 
 export default FuncionesContext;
+
+
+export function parseISOString(s) {
+  try {
+    if (!s) return;
+    var b = s.split(/\D+/).filter((b) => b);
+
+    if (s === "0000-00-00") return null;
+    const d = new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+
+    return d;
+  } catch (er) {
+    console.log(er, s);
+    return s;
+  }
+}
