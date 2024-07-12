@@ -71,7 +71,6 @@ function DefaultLayout(props) {
 
   async function componentDidMount() {
     const { IS_ADMIN, IS_FARMACIA } = props.user;
-
     if (IS_ADMIN) {
       let allowedNav = { items: [] };
       let allowedRoutes;
@@ -86,6 +85,7 @@ function DefaultLayout(props) {
       });
 
       // setNavigation(allowedNav);
+      
       setRoutes(allowedRoutes);
     } else if (IS_FARMACIA) {
       var _nav_farmacia = Filtrar_Sin_Venta_Online(nav_farmacia, userprofile);
