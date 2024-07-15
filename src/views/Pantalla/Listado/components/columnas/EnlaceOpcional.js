@@ -133,7 +133,6 @@ const EnlaceOpcional = ({
   return (
     <div
       id={id_elemento}
-      style={{ display: "flex", justifyContent: "center" }}
       className={classNames}
     >
       <div className="vista_dato">
