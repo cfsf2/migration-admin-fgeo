@@ -56,14 +56,11 @@ const Select_Enlazable = ({
       setFiltro({ id_a, valor });
       refrescarConfiguracion({ cab });
 
-      // console.log(cab.id_a, "filtros:", filtros);
-
       return;
     }
 
     superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })
       .then((result) => {
-        console.log(cab.update_id_alias, indiceData, result.data.id)
         setLastvalue(valor);
         setValue(valor);
         dispatch({
@@ -74,14 +71,14 @@ const Select_Enlazable = ({
             value: result.data.id,
           },
         });
-         dispatch({
-           type: "SET_DATO_ESPECIFICO",
-           payload: {
-             key: cab.id_a, // update_id
-             indiceData: indiceData, // 4
-             value: valor,
-           },
-         });
+        dispatch({
+          type: "SET_DATO_ESPECIFICO",
+          payload: {
+            key: cab.id_a, // update_id
+            indiceData: indiceData, // 4
+            value: valor,
+          },
+        });
       })
       .catch((err) => {
         console.log("Cancelado ", err);
