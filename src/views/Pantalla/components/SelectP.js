@@ -85,9 +85,9 @@ const Select_Enlazable = ({
       });
   };
 
-  useEffect(() => {
-    console.log(cab.id_a, "value", value);
-  });
+  // useEffect(() => {
+  //   console.log(cab.id_a, "value", value);
+  // });
   const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
     //<div style={{ textAlign: "center"}}>
