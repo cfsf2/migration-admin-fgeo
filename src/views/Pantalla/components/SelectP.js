@@ -63,7 +63,9 @@ const Select_Enlazable = ({
 
     superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })
       .then((result) => {
+        console.log(cab.update_id_alias, indiceData, result.data.id)
         setLastvalue(valor);
+        setValue(valor);
         dispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {
@@ -72,6 +74,14 @@ const Select_Enlazable = ({
             value: result.data.id,
           },
         });
+         dispatch({
+           type: "SET_DATO_ESPECIFICO",
+           payload: {
+             key: cab.id_a, // update_id
+             indiceData: indiceData, // 4
+             value: valor,
+           },
+         });
       })
       .catch((err) => {
         console.log("Cancelado ", err);
@@ -79,7 +89,7 @@ const Select_Enlazable = ({
   };
 
   useEffect(() => {
-    //console.log(cab.id_a, "value", value);
+    console.log(cab.id_a, "value", value);
   });
   const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (

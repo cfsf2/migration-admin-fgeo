@@ -22,6 +22,8 @@ export default function Vistareducer(state, action) {
         const nuevosDatos = state.datos;
 
         nuevosDatos[indiceData][key] = value;
+
+        console.log(nuevosDatos,value, indiceData, key)
         return {
           ...state,
           datos: nuevosDatos,
