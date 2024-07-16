@@ -83,9 +83,6 @@ export const SelectInput = ({
   };
 
   const opciones = componerOpciones();
-
-  console.log(cab.default, data[cab.id_a+"_default"])
-
   return (
     <div style={style_input_abm}>
       <FormControl fullWidth>

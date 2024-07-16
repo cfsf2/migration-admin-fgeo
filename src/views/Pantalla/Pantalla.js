@@ -112,7 +112,6 @@ const Pantalla = () => {
   }, [pantalla, id]);
 
   //configuraciones opciones orden
-console.log("PEDI PANTALLA")
   return (
     <PantallaContext.Provider
       value={{

@@ -14,7 +14,8 @@ import Toggle from "./inputs/Toggle";
 import InputBuscador from "./inputs/InputBuscador/InputBuscador";
 import Hidden from "./inputs/Hidden";
 import Obligatorio from "./inputs/ObligatorioA";
-import { ReadOnlyTextArea } from "../../components/EditorTextArea";
+// import { ReadOnlyTextArea } from "../../components/EditorTextArea";
+import Enlace from "views/Pantalla/Vista/components/columnas/Enlace";
 
 import { ListadoProvider } from "../../Listado/Listado";
 
@@ -119,18 +120,111 @@ const SwitchABM = (props) => {
     () =>
       (() => {
         switch (data[`${cab.id_a}_COMPONENTE`] ?? cab.componente) {
-          case undefined || "columna_simple":
+          case "autocompletar":
             return (
-              <Default
+              <AutocompletarABM
+                {...props}
+                setValor={setFormularioValor}
+                valor={valorFormulario[id_a]}
+              />
+            );
+          case "checkbox":
+            return (
+              <InputCheckbox
+                {...props}
+                setValor={setFormularioValor}
+                valor={valorFormulario[id_a]}
+              />
+            );
+          case "enlace":
+            return (
+              <Enlace
                 key={cab.id_a}
                 data={data}
                 cab={cab}
+                hijos={hijos}
                 campokey={campokey}
                 id_elemento={id_elemento}
               />
             );
-          case "listado":
-            return renderListado;
+          case "enum":
+            return (
+              <InputSelect
+                {...props}
+                setValor={setFormularioValor}
+                valor={valorFormulario[id_a]}
+              />
+            );
+
+          case "fecha":
+            return (
+              <Fecha
+                {...props}
+                setValor={setFormularioValor}
+                valor={valorFormulario[id_a]}
+              />
+            );
+          case "fecha_simple":
+            return (
+              <FechaSimple
+                {...props}
+                setValor={setFormularioValor}
+                valor={valorFormulario[id_a]}
+              />
+            );
+          case "group_columnas":
+            return (
+              <div
+                className={`${
+                  data[cab.id_a + "_className"] ?? cab.className
+                } grupo_columnas_m_p`}
+              >
+                {hijos?.map((hijo) => hijo)}
+              </div>
+            );
+          case "hidden":
+            return (
+              <Hidden
+                {...props}
+                setValor={setFormularioValor}
+                valor={valorFormulario[id_a]}
+                id_elemento={id_elemento}
+              />
+            );
+          case "input_buscador":
+            return (
+              <InputBuscador
+                key={cab.id_a}
+                data={data}
+                cab={cab}
+                hijos={hijos}
+                campokey={campokey}
+                context={ABMContext}
+                id_elemento={id_elemento}
+                qsBody={qsBody}
+                {...props}
+                setValor={setFormularioValor}
+                valor={valorFormulario[id_a]}
+              />
+            );
+          case "input_file":
+            return (
+              <InputFile
+                {...props}
+                setValor={setFormularioValor}
+                valor={valorFormulario[id_a]}
+              />
+            );
+          case "input_number_editable":
+            return (
+              <InputText
+                {...props}
+                setValor={setFormularioValor}
+                valor={valorFormulario[id_a]}
+                number
+                context={ABMContext}
+              />
+            );
           case "input_text":
             return (
               <InputText
@@ -150,109 +244,11 @@ const SwitchABM = (props) => {
                 context={ABMContext}
               />
             );
-          case "textarea":
-            return (
-              <ReadOnlyTextArea
-                cab={props.cab}
-                data={props.data}
-                id_elemento={props.id_elemento}
-                valor={valorFormulario[id_a]}
-                context={ABMContext}
-              />
-            );
-          case "input_number_editable":
-            return (
-              <InputText
-                {...props}
-                setValor={setFormularioValor}
-                valor={valorFormulario[id_a]}
-                number
-                context={ABMContext}
-              />
-            );
-
-          case "input_buscador":
-            return (
-              <InputBuscador
-                key={cab.id_a}
-                data={data}
-                cab={cab}
-                hijos={hijos}
-                campokey={campokey}
-                context={ABMContext}
-                id_elemento={id_elemento}
-                qsBody={qsBody}
-                {...props}
-                setValor={setFormularioValor}
-                valor={valorFormulario[id_a]}
-              />
-            );
+          case "listado":
+            return renderListado;
           case "password":
             return (
               <InputPassword
-                {...props}
-                setValor={setFormularioValor}
-                valor={valorFormulario[id_a]}
-              />
-            );
-          case "fecha":
-            return (
-              <Fecha
-                {...props}
-                setValor={setFormularioValor}
-                valor={valorFormulario[id_a]}
-              />
-            );
-          case "fecha_simple":
-            return (
-              <FechaSimple
-                {...props}
-                setValor={setFormularioValor}
-                valor={valorFormulario[id_a]}
-              />
-            );
-          case "input_file":
-            return (
-              <InputFile
-                {...props}
-                setValor={setFormularioValor}
-                valor={valorFormulario[id_a]}
-              />
-            );
-          case "select":
-            // if (typeof valorFormulario[id_a] === "undefined") return <></>;
-            return (
-              <InputSelect
-                {...props}
-                setValor={setFormularioValor}
-                valor={valorFormulario[id_a]}
-              />
-            );
-          case "si_no":
-            // if (typeof valorFormulario[id_a] === "undefined") return <></>;
-            cab.opciones = [
-              { value: "s", label: "Si" },
-              { value: "n", label: "No" },
-            ];
-            return (
-              <InputSelect
-                {...props}
-                setValor={setFormularioValor}
-                valor={valorFormulario[id_a]}
-              />
-            );
-          case "enum":
-            // if (typeof valorFormulario[id_a] === "undefined") return <></>;
-            return (
-              <InputSelect
-                {...props}
-                setValor={setFormularioValor}
-                valor={valorFormulario[id_a]}
-              />
-            );
-          case "checkbox":
-            return (
-              <InputCheckbox
                 {...props}
                 setValor={setFormularioValor}
                 valor={valorFormulario[id_a]}
@@ -266,9 +262,21 @@ const SwitchABM = (props) => {
                 valor={valorFormulario[id_a]}
               />
             );
-          case "autocompletar":
+          case "select":
             return (
-              <AutocompletarABM
+              <InputSelect
+                {...props}
+                setValor={setFormularioValor}
+                valor={valorFormulario[id_a]}
+              />
+            );
+          case "si_no":
+            cab.opciones = [
+              { value: "s", label: "Si" },
+              { value: "n", label: "No" },
+            ];
+            return (
+              <InputSelect
                 {...props}
                 setValor={setFormularioValor}
                 valor={valorFormulario[id_a]}
@@ -283,22 +291,14 @@ const SwitchABM = (props) => {
                 id_elemento={id_elemento}
               />
             );
-          case "grupo_columnas":
+          case "undefined":
+          case "columna_simple":
             return (
-              <div
-                className={`${
-                  data[cab.id_a + "_className"] ?? cab.className
-                } grupo_columnas_m_p`}
-              >
-                {hijos?.map((hijo) => hijo)}
-              </div>
-            );
-          case "hidden":
-            return (
-              <Hidden
-                {...props}
-                setValor={setFormularioValor}
-                valor={valorFormulario[id_a]}
+              <Default
+                key={cab.id_a}
+                data={data}
+                cab={cab}
+                campokey={campokey}
                 id_elemento={id_elemento}
               />
             );

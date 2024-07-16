@@ -16,15 +16,20 @@ export default function Vistareducer(state, action) {
         opciones: action.payload,
       };
     case "SET_DATO_ESPECIFICO":
-      const { value, indiceData, key } = action.payload;
+      try {
+        const { value, indiceData, key } = action.payload;
 
-      const nuevosDatos = state.datos;
+        const nuevosDatos = state.datos;
 
-      nuevosDatos[indiceData][key] = value;
-      return {
-        ...state,
-        datos: nuevosDatos,
-      };
+        nuevosDatos[indiceData][key] = value;
+        return {
+          ...state,
+          datos: nuevosDatos,
+        };
+      } catch (err) {
+        console.log("SET_DATO_ESPECIFICO error: ",err);
+        return { ...state };
+      }
     case "SET_LOADING":
       return {
         ...state,
