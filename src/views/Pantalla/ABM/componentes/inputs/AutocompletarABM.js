@@ -145,7 +145,7 @@ export default function Virtualize({
 
   const sortedOptions = cab.opciones
     ? cab.opciones.filter(option => option.label).sort((a, b) => {
-        console.log("Comparing:", a, b);
+        // console.log("Comparing:", a, b);
         return a.label.toUpperCase().localeCompare(b.label.toUpperCase());
       })
     : [];
