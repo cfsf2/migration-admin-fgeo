@@ -85,13 +85,23 @@ function DefaultLayout(props) {
       });
 
       // setNavigation(allowedNav);
-      
+
       setRoutes(allowedRoutes);
     } else if (IS_FARMACIA) {
-      var _nav_farmacia = Filtrar_Sin_Venta_Online(nav_farmacia, userprofile);
+      // var _nav_farmacia = Filtrar_Sin_Venta_Online(nav_farmacia, userprofile);
 
       // setNavigation(_nav_farmacia);
-      setRoutes(routesfarmacias);
+  
+       const rutasDeFarmacia = routesfarmacias?.map((route) => {
+          if (route.path === "/dashboard") {
+            if (!props.user.dashboard) {
+              return { ...route, component: "" };
+            }
+          }
+          return route;
+        });
+     
+      setRoutes(rutasDeFarmacia);
     } else {
       // setNavigation(nav_default);
       setRoutes(routesdefault);
@@ -132,7 +142,6 @@ function DefaultLayout(props) {
         this.url = "/Pantalla/" + v;
       } else return v;
     });
-
     return nuevoMenu;
   }
 

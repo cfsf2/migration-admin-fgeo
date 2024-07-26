@@ -32,6 +32,7 @@ export default (state = defaultState, action) => {
           IS_USER: action.payload.user_rol.includes("user"),
           IS_FARMACIA: action.payload.user_rol.includes("farmacia"),
           permisos: action.payload.permisos,
+          dashboard: action.payload.dashboard
         },
       };
 
