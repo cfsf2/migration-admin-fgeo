@@ -16,7 +16,7 @@ export const SelectF = (props) => {
   const todasHabilitado = props.select_todas === "s";
   const opciones = todasHabilitado
     ? [{ value: " ", label: "Todas", default: true }].concat(op)
-    : op;
+    : [].concat(op);
 
   return (
     <div>
