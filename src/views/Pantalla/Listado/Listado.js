@@ -222,11 +222,13 @@ export const ListadoProvider = (props) => {
       /////////////////////////////////////////////////////////
       // celdas ref ///////////////////////////////////////////
       const celdaresf = {};
-      datos.forEach((d) => {
-        res.data.cabeceras.forEach((c) => {
-          celdaresf[c.id_a + d._key] = 1;
+      if (datos) {
+        datos.forEach((d) => {
+          res.data.cabeceras.forEach((c) => {
+            celdaresf[c.id_a + d._key] = 1;
+          });
         });
-      });
+      }
       dispatch({
         type: "SET_CELDAS_REF",
         payload: celdaresf,
