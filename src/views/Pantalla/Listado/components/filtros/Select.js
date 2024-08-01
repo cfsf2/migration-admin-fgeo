@@ -13,10 +13,10 @@ export const SelectF = (props) => {
   //   [opciones]
   // );
 
-  const todasHabilitado = props.select_todas === "s";
+  const todasHabilitado = props.select_todas === "n";
   const opciones = todasHabilitado
-    ? [{ value: " ", label: "Todas", default: true }].concat(op)
-    : [].concat(op);
+    ? [].concat(op)
+    : [{ value: " ", label: "Todas", default: true }].concat(op);
 
   return (
     <div>
