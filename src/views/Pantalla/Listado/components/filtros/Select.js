@@ -12,7 +12,11 @@ export const SelectF = (props) => {
   //     }),
   //   [opciones]
   // );
-  const opciones = [{ value: " ", label: "Todas", default: true }].concat(op);
+
+  const todasHabilitado = props.select_todas === "s";
+  const opciones = todasHabilitado
+    ? [{ value: " ", label: "Todas", default: true }].concat(op)
+    : op;
 
   return (
     <div>
@@ -33,10 +37,10 @@ export const SelectF = (props) => {
           }}
           value={
             filtrosAAplicar[id_a] !== undefined
-            ? isNaN(Number(filtrosAAplicar[id_a]))
-              ? filtrosAAplicar[id_a]
-              : Number(filtrosAAplicar[id_a])
-            : "" 
+              ? isNaN(Number(filtrosAAplicar[id_a]))
+                ? filtrosAAplicar[id_a]
+                : Number(filtrosAAplicar[id_a])
+              : ""
           }
         >
           {/* {hasdefault ? null : (
