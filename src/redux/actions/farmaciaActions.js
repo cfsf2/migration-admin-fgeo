@@ -56,7 +56,7 @@ export const UPDATE_FARMACIA = (farmaciaProfile) => {
         farmaciaProfile
       )
       .then(function (response) {
-        if (response.status === 201) {
+        if (response.status >= 200) {
           /* dispatch({ 
           type: 'LOADPROFILE_OK', 
           payload: farmaciaProfile 
