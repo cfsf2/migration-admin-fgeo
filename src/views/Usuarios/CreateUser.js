@@ -28,7 +28,7 @@ const initUsuario = {
   farmaciaId: "",
   permisos: ["inicio"],
   labid: "",
-  perfil: [],
+  // perfil: undefined,
 };
 
 export default function CreateUser() {
@@ -153,11 +153,13 @@ export default function CreateUser() {
   };
 
   React.useEffect(() => {
-    const farm = GET_FARMACIA_POR_MATRICULA(nuevoUsuario.farmaciaId).then(
-      (res) => {
+    const farm = GET_FARMACIA_POR_MATRICULA(nuevoUsuario.farmaciaId)
+      .then((res) => {
         setFarmaciaPorMatricula(() => res.data);
-      }
-    );
+      })
+      .catch((err) => {
+        console.log("GET_FARMACIA_POR_MATRICULA", err);
+      });
     return;
   }, [nuevoUsuario.farmaciaId]);
 

@@ -91,16 +91,16 @@ function DefaultLayout(props) {
       // var _nav_farmacia = Filtrar_Sin_Venta_Online(nav_farmacia, userprofile);
 
       // setNavigation(_nav_farmacia);
-  
-       const rutasDeFarmacia = routesfarmacias?.map((route) => {
-          if (route.path === "/dashboard") {
-            if (!props.user.dashboard) {
-              return { ...route, component: "" };
-            }
+
+      const rutasDeFarmacia = routesfarmacias?.map((route) => {
+        if (route.path === "/dashboard") {
+          if (!props.user.dashboard) {
+            return { ...route, component: "" };
           }
-          return route;
-        });
-     
+        }
+        return route;
+      });
+
       setRoutes(rutasDeFarmacia);
     } else {
       // setNavigation(nav_default);
@@ -163,13 +163,19 @@ function DefaultLayout(props) {
 
   useEffect(() => {
     if (localStorage.authenticated === "true") {
-      Axios.post(farmageo_api + "/menu", { menu: "M_NAV_FARMACIA" }).then(
-        async (res) => {
+      Axios.post(farmageo_api + "/menu", { menu: "M_NAV_FARMACIA" })
+        .then(async (res) => {
           const menu = convertMenu(res.data);
-          //console.log(menu.children);
-          setNavigation({ items: menu });
-        }
-      );
+          if (res.status >= 300) {
+            throw res.data;
+          }
+          try {
+            setNavigation({ items: menu });
+          } catch (err) {
+            console.log(err);
+          }
+        })
+        .catch((err) => err);
     }
   }, [localStorage.authenticated, props.user.IS_ADMIN, props.user.IS_FARMACIA]);
 
