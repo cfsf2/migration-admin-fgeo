@@ -28,7 +28,7 @@ const initUsuario = {
   farmaciaId: "",
   permisos: ["inicio"],
   labid: "",
-  // perfil: undefined,
+  //perfil: [],
 };
 
 export default function CreateUser() {
@@ -130,7 +130,7 @@ export default function CreateUser() {
       }
     }
 
-    setErrors(() => fielderrors);
+    setErrors(() => fielderrors.filter((d) => d !== "perfil"));
 
     return fielderrors.length === 0;
   };
