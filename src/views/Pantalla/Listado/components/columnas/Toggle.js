@@ -2,8 +2,21 @@ import React, { useState, useContext, useEffect } from "react";
 import FuncionesContext from "../../../context/FuncionesContext";
 import PantallaContext from "../../../context/PantallaContext";
 import ListadoContext from "../../context/ListadoContext";
-import { Switch } from "@material-ui/core";
+import { Switch, makeStyles } from "@material-ui/core";
 
+const useStyles = makeStyles((theme) => ({
+  switchBase: {
+    "&.Mui-checked.Mui-disabled": {
+      color: "hsl(231, 48.4%, 70%)", // Color degradado para el track.
+    },
+    "&.Mui-checked.Mui-disabled + .MuiSwitch-track": {
+      backgroundColor: "hsl(231, 48.4%, 47.8%)", // Color degradado para el track.
+    },
+  },
+  track: {
+    opacity: 0.5, // Opcional: Ajustar la opacidad del track cuando está deshabilitado.
+  },
+}));
 const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
@@ -13,6 +26,7 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
   const [value, setValue] = useState(data[campokey]);
   const [lastValue, setLastvalue] = useState(data[campokey]);
   const [update_id, setUpdate_id] = useState(data[cab.update_id_alias]);
+  const classes = useStyles();
 
   const nombre = (() => {
     if (cab.nombre_alias) {
@@ -88,6 +102,10 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
         color="primary"
         checked={value === null ? false : value === "s" ? true : false}
         onChange={handleChange}
+        classes={{
+          switchBase: classes.switchBase,
+          track: classes.track,
+        }}
       />
     </div>
   );
