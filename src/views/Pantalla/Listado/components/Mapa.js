@@ -56,7 +56,7 @@ export function Mapa(props) {
                 lng: long__,
               }}
               icon={{
-                url: require("../../../../assets/images/Logo-pointer.svg"), //icon,
+                url: require("../../../../assets/images/Logo-farmageo-borde.svg"), //icon,
                 anchor: new props.google.maps.Point(25, 25),
                 scaledSize: new props.google.maps.Size(25, 25),
               }}
