@@ -31,6 +31,8 @@ const SwitchColumnas = ({
   //const { filtroActivo, setDatos } = useContext(ListadoContext);
   if (!cab) return <></>;
   const campokey = cab.campo_alias ? cab.campo_alias : cab.id_a;
+  
+  const classNames = data[cab.id_a + "_className"] ?? cab.className;
 
   const hijos =
     cab.sc_hijos.length > 0
@@ -254,7 +256,8 @@ const SwitchColumnas = ({
       case "null":
         return <></>;
       case "div":
-        return <div id={id_elemento}>{hijos?.map((hijo) => hijo)}</div>;
+        return <div id={id_elemento} 
+        className={classNames}>{hijos?.map((hijo) => hijo)}</div>;
       default:
         return <>{hijos?.map((hijo) => hijo)}</>;
     }
