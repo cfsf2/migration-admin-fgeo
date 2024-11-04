@@ -3,6 +3,7 @@ import FuncionesContext from "../../../context/FuncionesContext";
 import PantallaContext from "../../../context/PantallaContext";
 import ListadoContext from "../../context/ListadoContext";
 import { Switch, makeStyles } from "@material-ui/core";
+import { esMinuscula } from "views/Pantalla/helper/funciones";
 
 const useStyles = makeStyles((theme) => ({
   switchBase: {
@@ -28,6 +29,16 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
   const [update_id, setUpdate_id] = useState(data[cab.update_id_alias]);
   const classes = useStyles();
 
+  const usarValores = cab.usar_valores?.split(",") ?? [];
+  let s = usarValores[0]?.toString().trim() ?? "s";
+  let n = usarValores[1]?.toString().trim() ?? "n";
+
+  if (value && !cab.usar_valores) {
+    // habria que reemplazar esto por atributo usar_valores
+    s = esMinuscula(value) ? "s" : "S";
+    n = esMinuscula(value) ? "n" : "N";
+  }
+
   const nombre = (() => {
     if (cab.nombre_alias) {
       return data[cab.nombre_alias];
@@ -44,7 +55,7 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
   };
 
   const handleChange = async (e) => {
-    const valor = e.target.checked ? "s" : "n";
+    const valor = e.target.checked ? s : n;
 
     if (valor === null || lastValue?.toString() === valor.toString().trim())
       return;
@@ -100,7 +111,7 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
       <Switch
         disabled={disabled === "s"}
         color="primary"
-        checked={value === null ? false : value === "s" ? true : false}
+        checked={value === null ? false : value === s ? true : false}
         onChange={handleChange}
         classes={{
           switchBase: classes.switchBase,

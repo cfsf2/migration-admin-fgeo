@@ -43,7 +43,7 @@ const alertarError = async (mensaje) => {
 export const requestErrorHandler = async (res) => {
   if (res.status < 400) return res;
   document.body.classList.remove('loading-cursor');
-  return alertarError(res.data.error.message);
+  return alertarError(res.data.error?.message ?? "No hay mensaje de error.");
 };
 
 export const FuncionesProvider = (props) => {
