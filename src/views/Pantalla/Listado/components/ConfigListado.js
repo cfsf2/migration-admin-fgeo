@@ -18,7 +18,7 @@ const ConfigListado = (props) => {
     useContext(ListadoContext);
 
   //  if (!loading && cabeceras) {
- console.log(cabeceras)
+
   let columnas = cabeceras
     .sort((a, b) => a.orden - b.orden)
     .filter((cab) => cab.componente !== "hidden")
@@ -27,9 +27,7 @@ const ConfigListado = (props) => {
     .filter((cab) => cab.mostrar !== "n")
     .map((cab, i) => {
       //console.log("cab:  ", cab);
-      if(cab.componente === "excel"){
-        console.log(cab)
-      }
+
       return {
         title: cab.nombre_alias ? datos[0][cab.nombre_alias] : cab.nombre,
         field: cab.campo_alias ?? cab.id_a,
