@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import Select from "../../../components/Select";
 import FuncionesContext from "../../../context/FuncionesContext";
 import ListadoContext from "../../context/ListadoContext";
 
-const SelectC = ({ data, cab, hijos, campokey, indiceData,id_elemento }) => {
+const SelectC = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
   const { superSubmit } = useContext(FuncionesContext);
 
   const { ListadoDispatch } = useContext(ListadoContext);
@@ -19,6 +19,8 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData,id_elemento }) => {
     return cab.nombre;
   })();
 
+  // const ref = useRef({ value: data[campokey] });
+
   const handleCancelar = () => {
     setValue(data[campokey]);
     setLastvalue(data[campokey]);
@@ -32,6 +34,7 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData,id_elemento }) => {
       return;
 
     const { id_a } = cab;
+   
 
     setValue(valor);
     superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })
@@ -45,6 +48,16 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData,id_elemento }) => {
             value: result.data.id,
           },
         });
+
+        ListadoDispatch({
+          type: "SET_DATO_ESPECIFICO",
+          payload: {
+            value: valor,
+            indiceData,
+            key: cab.campo_alias ? cab.campo_alias : id_a,
+          },
+        });
+
         setCapturaId(result.data.id);
       })
       .catch((err) => {
@@ -52,9 +65,14 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData,id_elemento }) => {
       });
   };
 
+
   const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
-    <div id={id_elemento} style={{ textAlign: "center" }} className={classNames}>
+    <div
+      id={id_elemento}
+      style={{ textAlign: "center" }}
+      className={classNames}
+    >
       <Select
         nombre={nombre}
         opciones={cab.opciones ? cab.opciones : []}
