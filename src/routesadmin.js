@@ -464,14 +464,14 @@ const routes = [
   {
     path: "/Vista/:pantalla",
     exact: true,
-    name: "Listado",
+    name: "Vista",
     component: Pantalla,
     permiso: "inicio",
   },
   {
     path: "/Configuracion/:pantalla",
     exact: true,
-    name: "Listado",
+    name: "Configuracion",
     component: Pantalla,
     permiso: "inicio",
   },
