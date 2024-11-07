@@ -18,6 +18,27 @@ const routes = [
     component: Pantalla,
     permiso: "inicio",
   },
+  {
+    path: "/Listado/:pantalla",
+    exact: true,
+    name: "Listado",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Vista/:pantalla",
+    exact: true,
+    name: "Vista",
+    component: Pantalla,
+    permiso: "inicio",
+  },
+  {
+    path: "/Configuracion/:pantalla",
+    exact: true,
+    name: "Configuracion",
+    component: Pantalla,
+    permiso: "inicio",
+  },
 ];
 
 export default routes;
