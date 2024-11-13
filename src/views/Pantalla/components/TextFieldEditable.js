@@ -10,12 +10,25 @@ const useStyles = makeStyles({
       display: "none",
     },
     "& .MuiInputBase-inputMultiline": {
-      marginLeft: "5px",
-      fontSize: "0.875rem",
+      fontSize: "0.8rem",
+      fontWeight: 400,
+      padding: "4px",
+      textAlign: "left",
+      borderRadius: "5px",
+      border: "1px solid #b9b9b9",
+      position: "relative",
+      bottom: "6px",
     },
     "& .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root": {
       padding: "4px",
+      width: "100%", // Ancho completo
     },
+    "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+      border: "none",
+    },
+    "& .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input:hover":{
+        borderColor: "rgba(0, 0, 0, 0.87)",
+    }
   },
 });
 
@@ -88,7 +101,6 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
       onKeyUp={handleEnter}
       onBlur={handleOnBlur}
       onKeyDown={handleAlt}
-      style={{ width: "100%" }}
       inputProps={{ maxLength: maxCaracteres ?? 60 }}
       multiline
       className={classes.miTextField}

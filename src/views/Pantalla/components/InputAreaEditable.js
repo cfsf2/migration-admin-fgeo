@@ -1,7 +1,24 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import FuncionesContext from "../context/FuncionesContext";
 import TextArea from "./TextArea";
 import { TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  customUnderline: {
+    "& .MuiInput-underline:before": {
+      content: "none",
+      borderBottom: "none"
+    },
+    "& .MuiInput-underline:after": {
+      borderBottom: "none",
+    },
+    "& .Mui-focused:after": {
+      transform: "none",
+    },
+  },
+  
+});
 
 const InputAreaEditable = ({
   data,
@@ -14,8 +31,9 @@ const InputAreaEditable = ({
   id_elemento,
 }) => {
   const { superSubmit } = useContext(FuncionesContext);
-
   const { datos, Dispatch } = useContext(context);
+
+  const classes = useStyles(); // Usar las clases de estilo
 
   const [value, setValue] = useState(data[campokey]);
   const [lastValue, setLastvalue] = useState(data[campokey]);
@@ -96,12 +114,20 @@ const InputAreaEditable = ({
           type="number"
           onBlur={handleGuardar}
           defaultValue={value}
+          className={classes.customUnderline} // Aplica la clase personalizada
           inputProps={{
             style: {
-              textAlign: cab.align ?? "right",
+              padding: "4px",
+              textAlign: "left",
+              width: "100%",
+              borderRadius: "5px",
+              fontWeight: 400,
+              fontSize: ".8rem",
+              border: "1px solid #b9b9b9",
               display: "flex",
               alignItems: "baseline",
               minWidth: "max-content",
+              textAlign: cab.align ?? "right",
             },
           }}
         />
@@ -110,7 +136,16 @@ const InputAreaEditable = ({
           value={value}
           setValue={setValue}
           onEnter={handleGuardar}
-          style={style}
+          style={{
+            ...style, // Conserva el estilo de borde condicional existente
+            padding: "4px",
+            textAlign: "left",
+            width: "100%",
+            borderRadius: "5px",
+            fontWeight: 400,
+            fontSize: ".8rem",
+            border: "1px solid #b9b9b9",
+          }}
           id={id_elemento}
         />
       )}
