@@ -1,14 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
-import "../components/Pantalla.scss";
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles"; // Estilos de MUI más recientes
 import { v4 as uuidv4 } from "uuid";
+import "../components/Pantalla.scss";
 
-const useStyles = makeStyles({
-  miTextField: {
-    "& .css-nnbavb": {
-      display: "none",
-    },
+// Crear un TextField personalizado usando `styled`
+const CustomTextField = styled(TextField)(({ theme }) => ({
+  "& .MuiOutlinedInput-root": {
     "& .MuiInputBase-inputMultiline": {
       fontSize: "0.8rem",
       fontWeight: 400,
@@ -19,18 +17,16 @@ const useStyles = makeStyles({
       position: "relative",
       bottom: "6px",
     },
-    "& .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root": {
-      padding: "4px",
-      width: "100%", // Ancho completo
-    },
-    "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+    "& .MuiOutlinedInput-notchedOutline": {
       border: "none",
     },
-    "& .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input:hover":{
-        borderColor: "rgba(0, 0, 0, 0.87)",
-    }
+    padding: "4px",
+    width: "100%", // Ancho completo
   },
-});
+  "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: "rgba(0, 0, 0, 0.87)",
+  },
+}));
 
 const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
   const [id, setId] = useState("a" + uuidv4().replace(/-/g, ""));
@@ -65,7 +61,7 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
 
   const handleAlt = (e) => {
     setingStart.current = e.target.selectionStart;
-    
+
     if (e.key === "Enter") {
       e.preventDefault();
     }
@@ -91,10 +87,8 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
     }
   }, [value]);
 
-  const classes = useStyles();
-
   return (
-    <TextField
+    <CustomTextField
       id={id}
       value={value}
       onChange={handleInput}
@@ -103,7 +97,6 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
       onKeyDown={handleAlt}
       inputProps={{ maxLength: maxCaracteres ?? 60 }}
       multiline
-      className={classes.miTextField}
     />
   );
 };
