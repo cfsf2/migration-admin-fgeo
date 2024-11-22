@@ -4,12 +4,22 @@ const Select = (props) => {
   const { nombre, opciones, onChange, value, def, id } = props;
 
   const isEmptyValue = (val) => val === undefined || val === null || val === "" || val === 0
+
+  const isValueValid = (val)=>{
+    if(isEmptyValue(val)){
+      return ""
+    }
+    if(opciones.filter(op=>op.value == val).length === 0){
+      return ""
+    }
+    return val
+  }
   return (
     <select
       name={nombre}
-      value={isEmptyValue(value) ? "" : value}
+      value={isValueValid(value)}
       onChange={onChange}
-      defaultValue={isEmptyValue(def) ? "" : def}
+      defaultValue={isValueValid(def)}
       className="tarjeta_grid_item_select"
     >
       <option value="" disabled hidden>
