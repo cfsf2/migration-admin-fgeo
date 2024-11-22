@@ -2,13 +2,31 @@ import React, { useState, useContext, useEffect } from "react";
 import FuncionesContext from "../../../context/FuncionesContext";
 import PantallaContext from "../../../context/PantallaContext";
 import VistaContext from "../../context/VistaContext";
-import { Switch } from "@material-ui/core";
+import { Switch, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  switchBase: {
+    color: "#2171a3",
+    "&$checked": {
+      color: "#2171a3",
+    },
+    "&$checked + $track": {
+      backgroundColor: "#2171a3",
+    },
+  },
+  track: {
+    backgroundColor: "#b0bec5",
+  },
+  checked: {},
+});
 
 const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
   const { superSubmit } = useContext(FuncionesContext);
-
   const { configuraciones_ref } = useContext(PantallaContext);
   const { VistaDispatch } = useContext(VistaContext);
+
+  const classes = useStyles();
+
   const [value, setValue] = useState(data[campokey]);
   const [lastValue, setLastvalue] = useState(data[campokey]);
   const [update_id, setUpdate_id] = useState(data[cab.update_id_alias]);
@@ -48,19 +66,10 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
           },
         });
 
-        // VistaDispatch({
-        //   type: "SET_DATO_ESPECIFICO",
-        //   payload: {
-        //     value: valor,
-        //     indiceData,
-        //     key: cab.campo_alias ? cab.campo_alias : id_a,
-        //   },
-        // });
-
         return result;
       })
       .catch((err) => {
-        //console.log("Cancelado ", err);
+        console.log("Cancelado ", err);
       });
   };
 
@@ -70,7 +79,9 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
     setValue(data[campokey]);
     setUpdate_id(data[cab.update_id_alias]);
   }, [configuraciones_ref[cab.id_a]]);
+
   const classNames = data[cab.id_a + "_className"] ?? cab.className;
+
   return (
     <div
       id={id_elemento}
@@ -88,7 +99,11 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
         <></>
       )}
       <Switch
-        color="primary"
+        classes={{
+          switchBase: classes.switchBase,
+          track: classes.track,
+          checked: classes.checked,
+        }}
         checked={value === null ? false : value === "s" ? true : false}
         onChange={handleChange}
       />

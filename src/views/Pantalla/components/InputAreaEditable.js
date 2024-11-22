@@ -1,7 +1,39 @@
 import React, { useState, useContext, useEffect } from "react";
 import FuncionesContext from "../context/FuncionesContext";
 import TextArea from "./TextArea";
-import { TextField } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyle = makeStyles({
+  numberComponent: {
+    "& .MuiInputBase-input": {
+      fontSize: "0.8rem",
+      padding: "4px",
+      borderRadius: "5px",
+      border: "1px solid #b9b9b9",
+    },
+    "& .MuiInputBase-input:hover": {
+      border: "1px solid #2a2a2a"
+    },
+    "& .MuiInputBase-input:focus": {
+      border: "2px solid #0096b3"
+    },
+    "& .css-nnbavb": {
+      display: "none",
+    },
+    "& .MuiInput-underline:before": {
+      borderBottom: "none",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottom: "none",
+    },
+    "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+      borderBottom: "none",
+    },
+  },
+});
+
+
 
 const InputAreaEditable = ({
   data,
@@ -16,6 +48,8 @@ const InputAreaEditable = ({
   const { superSubmit } = useContext(FuncionesContext);
 
   const { datos, Dispatch } = useContext(context);
+
+  const classes = useStyle();
 
   const [value, setValue] = useState(data[campokey]);
   const [lastValue, setLastvalue] = useState(data[campokey]);
@@ -104,6 +138,7 @@ const InputAreaEditable = ({
               minWidth: "max-content",
             },
           }}
+          className={classes.numberComponent}
         />
       ) : (
         <TextArea
