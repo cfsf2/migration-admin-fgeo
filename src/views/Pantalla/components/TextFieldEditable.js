@@ -17,11 +17,17 @@ const CustomTextField = styled(TextField)(({ theme }) => ({
       position: "relative",
       bottom: "6px",
     },
+    "& .MuiInputBase-inputMultiline:hover": {
+      border: "1px solid #2a2a2a"
+    },
+    "& .MuiInputBase-inputMultiline:focus": {
+      border: "1px solid #0096b3"
+    },
     "& .MuiOutlinedInput-notchedOutline": {
       border: "none",
     },
     padding: "4px",
-    width: "100%", // Ancho completo
+    width: "100%",
   },
   "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
     borderColor: "rgba(0, 0, 0, 0.87)",

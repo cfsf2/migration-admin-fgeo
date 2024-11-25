@@ -16,7 +16,7 @@ const useStyle = makeStyles({
       border: "1px solid #2a2a2a"
     },
     "& .MuiInputBase-input:focus": {
-      border: "2px solid #0096b3"
+      border: "1px solid #0096b3"
     },
     "& .css-nnbavb": {
       display: "none",
