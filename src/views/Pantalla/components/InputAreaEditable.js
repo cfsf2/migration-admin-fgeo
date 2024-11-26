@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import FuncionesContext from "../context/FuncionesContext";
 import TextArea from "./TextArea";
 import TextField from "@material-ui/core/TextField";
@@ -13,10 +13,10 @@ const useStyle = makeStyles({
       border: "1px solid #b9b9b9",
     },
     "& .MuiInputBase-input:hover": {
-      border: "1px solid #2a2a2a"
+      border: "1px solid #2a2a2a",
     },
     "& .MuiInputBase-input:focus": {
-      border: "1px solid #0096b3"
+      border: "1px solid #0096b3",
     },
     "& .css-nnbavb": {
       display: "none",
@@ -30,10 +30,11 @@ const useStyle = makeStyles({
     "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
       borderBottom: "none",
     },
+    "&.MuiFormControl-root": {
+      width: "100%",
+    },
   },
 });
-
-
 
 const InputAreaEditable = ({
   data,
@@ -46,7 +47,6 @@ const InputAreaEditable = ({
   id_elemento,
 }) => {
   const { superSubmit } = useContext(FuncionesContext);
-
   const { datos, Dispatch } = useContext(context);
 
   const classes = useStyle();

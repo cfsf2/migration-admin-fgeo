@@ -1,11 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
-import { styled } from "@mui/material/styles"; // Estilos de MUI más recientes
+import { styled } from "@mui/material/styles";
 import { v4 as uuidv4 } from "uuid";
 import "../components/Pantalla.scss";
 
-// Crear un TextField personalizado usando `styled`
 const CustomTextField = styled(TextField)(({ theme }) => ({
+  "&.MuiFormControl-root": {
+    width: "100%",
+  },
   "& .MuiOutlinedInput-root": {
     "& .MuiInputBase-inputMultiline": {
       fontSize: "0.8rem",
