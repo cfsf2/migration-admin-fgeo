@@ -37,13 +37,14 @@ export const Listado = (props) => {
     cabeceras,
     datos,
     subirDatosSeleccionados,
-   // carrusel,
-   // setCarrusel,
+    // carrusel,
+    // setCarrusel,
   } = useContext(ListadoContext);
   const { opciones_de_pantalla } = useContext(PantallaContext);
 
   const [selected, setSelected] = useState();
   const [mapa, setMapa] = useState(false);
+  const [force, setforce] = useState(null);
 
   const renderSummaryRow =
     cabeceras.filter((c) => c.totalizar === "s").length > 0;
@@ -83,12 +84,16 @@ export const Listado = (props) => {
     opcionesListado.cantdd_registros_max,
   ]);
 
-  const pageSize = calcPagesize();
+  const ps = useRef(calcPagesize());
   const tableRef = useRef(null);
 
   useEffect(() => {
-    tableRef.current.dataManager.changePageSize(calcPagesize());
+    tableRef.current.dataManager.changePageSize(ps.current);
   }, [calcPagesize, columnas, data]);
+
+  useEffect(() => {
+    ps.current = calcPagesize();
+  }, [calcPagesize]);
 
   const styles = {
     gridColumn: opcionesListado.grid_span
@@ -105,52 +110,6 @@ export const Listado = (props) => {
   );
 
   agregarAcciones(opciones_de_pantalla, opcionesListado);
-
-  function updateSelectedArray(selected, row) {
-    row = row.filter((obj) => {
-      const k = Object.keys(obj).filter((k) =>
-        k.endsWith("listado_seleccion_habilitado")
-      )[0];
-      if (!k) return true;
-      return obj[k] === 1;
-    });
-
-    if (!selected) {
-      return row;
-    }
-    let newSelected = [...selected];
-
-    const isTodosPresentes = row.every((itemToCheck) =>
-      selected.some(
-        (referenceItem) =>
-          referenceItem.tableData.id === itemToCheck.tableData.id
-      )
-    );
-
-    if (isTodosPresentes) {
-      row.forEach((rowItem) => {
-        newSelected = newSelected.filter(
-          (ns) => ns.tableData.id !== rowItem.tableData.id
-        );
-      });
-
-      return newSelected;
-    }
-
-    row.forEach((rowItem) => {
-      const index = newSelected.findIndex(
-        (selectedItem) => selectedItem.tableData.id === rowItem.tableData.id
-      );
-
-      if (index === -1) {
-        newSelected.push(rowItem);
-      } else {
-        // newSelected.splice(index, 1);
-      }
-    });
-
-    return newSelected;
-  }
 
   const mapaCab = columnas?.filter((c) => c.componente === "mapa").pop();
 
@@ -170,7 +129,7 @@ export const Listado = (props) => {
         />
 
         <CardBody style={{ padding: 0 }} className="listado_card_body">
-          <ThemeProvider >
+          <ThemeProvider>
             <Filtros opciones={opcionesListado} setMapa={setMapa} />
             {loading || opcionesListado === undefined ? (
               <div
@@ -238,8 +197,8 @@ export const Listado = (props) => {
                 },
               }}
               columns={useMemo(
-               // opcionesListado.consultaEjecutada === "s"
-               true
+                // opcionesListado.consultaEjecutada === "s"
+                true
                   ? () =>
                       cabeceras
                         .sort((a, b) => a.orden - b.orden)
@@ -303,16 +262,18 @@ export const Listado = (props) => {
                 showTitle: false,
                 toolbar:
                   opcionesListado.search === "s" && data.length !== 0 && data,
-                pageSize: Number(pageSize),
-                pageSizeOptions: [
-                  pageSize,
-                  5,
-                  10,
-                  20,
-                  opcionesListado.cantdd_registros_max
-                    ? opcionesListado.cantdd_registros_max
-                    : 30,
-                ],
+                pageSize: Number(ps.current),
+                pageSizeOptions: Array.from(
+                  new Set([
+                    ps.current,
+                    5,
+                    10,
+                    20,
+                    opcionesListado.cantdd_registros_max
+                      ? opcionesListado.cantdd_registros_max
+                      : 30,
+                  ])
+                ),
                 headerStyle: {
                   textAlign: "left",
                   fontWeight: "bold",
@@ -478,7 +439,13 @@ export const Listado = (props) => {
                       className={
                         opcionesListado.paginacion === "n" ? "d-none" : ""
                       }
+                      rowsPerPage={ps.current}
                       {...props}
+                      onRowsPerPageChange={(e) => {
+                        // console.log(ps);
+                        ps.current = e.target.value;
+                        setforce(e.target.value);
+                      }}
                     />
                   );
                 },
@@ -529,3 +496,48 @@ export const Listado = (props) => {
 };
 
 export default Listado;
+
+function updateSelectedArray(selected, row) {
+  row = row.filter((obj) => {
+    const k = Object.keys(obj).filter((k) =>
+      k.endsWith("listado_seleccion_habilitado")
+    )[0];
+    if (!k) return true;
+    return obj[k] === 1;
+  });
+
+  if (!selected) {
+    return row;
+  }
+  let newSelected = [...selected];
+
+  const isTodosPresentes = row.every((itemToCheck) =>
+    selected.some(
+      (referenceItem) => referenceItem.tableData.id === itemToCheck.tableData.id
+    )
+  );
+
+  if (isTodosPresentes) {
+    row.forEach((rowItem) => {
+      newSelected = newSelected.filter(
+        (ns) => ns.tableData.id !== rowItem.tableData.id
+      );
+    });
+
+    return newSelected;
+  }
+
+  row.forEach((rowItem) => {
+    const index = newSelected.findIndex(
+      (selectedItem) => selectedItem.tableData.id === rowItem.tableData.id
+    );
+
+    if (index === -1) {
+      newSelected.push(rowItem);
+    } else {
+      // newSelected.splice(index, 1);
+    }
+  });
+
+  return newSelected;
+}
