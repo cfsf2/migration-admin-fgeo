@@ -42,7 +42,7 @@ const alertarError = async (mensaje) => {
 
 export const requestErrorHandler = async (res) => {
   if (res.status < 400) return res;
-  document.body.classList.remove('loading-cursor');
+  document.body.classList.remove("loading-cursor");
   return alertarError(res.data.error?.message ?? "No hay mensaje de error.");
 };
 
@@ -93,8 +93,8 @@ export const FuncionesProvider = (props) => {
     data,
     indiceData,
   }) => {
-    document.body.classList.add('loading-cursor');
-   
+    document.body.classList.add("loading-cursor");
+
     if (!update_id) {
       if (cab.alerta_confirmar === "s") {
         return await insertarConConfirmacion({
@@ -168,7 +168,7 @@ export const FuncionesProvider = (props) => {
         ) {
           refrescarConfiguracion({ cab });
         }
-        document.body.classList.remove('loading-cursor');
+        document.body.classList.remove("loading-cursor");
         return res;
       })
       .catch((err) => {
@@ -216,7 +216,7 @@ export const FuncionesProvider = (props) => {
         ) {
           refrescarConfiguracion({ cab });
         }
-        document.body.classList.remove('loading-cursor');
+        document.body.classList.remove("loading-cursor");
         return res;
       })
       .catch((err) => {
@@ -278,7 +278,7 @@ export const FuncionesProvider = (props) => {
           ) {
             refrescarConfiguracion({ cab });
           }
-          document.body.classList.remove('loading-cursor');
+          document.body.classList.remove("loading-cursor");
           return res;
         });
     } catch (err) {
@@ -516,6 +516,30 @@ export const FuncionesProvider = (props) => {
     }
     const contentType = response.headers["content-type"];
 
+    if (contentType && contentType === "application/pdf") {
+      const blob = new Blob([response.data], { type: contentType });
+      const url = URL.createObjectURL(blob);
+      let nombre = "archivo.pdf";
+
+      // Verificar el encabezado 'Content-Disposition' para el nombre del archivo
+      const contentDispositionHeader = response.headers["content-disposition"];
+      if (contentDispositionHeader) {
+        const match = contentDispositionHeader.match(/filename=([^;]+)/);
+        if (match && match[1]) {
+          nombre = match[1].trim();
+        }
+      }
+      console.log(nombre, contentDispositionHeader)
+
+      // Crear un enlace temporal para la descarga
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = nombre;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
     if (contentType && contentType.startsWith("image")) {
       // La respuesta es una imagen
       const blob = new Blob([response.data], { type: contentType });
@@ -549,7 +573,7 @@ export const FuncionesProvider = (props) => {
     ) {
       refrescarConfiguracion({ cab });
     }
-    document.body.classList.remove('loading-cursor');
+    document.body.classList.remove("loading-cursor");
     return response;
   };
 
@@ -567,7 +591,7 @@ export const FuncionesProvider = (props) => {
     const { cab, data, sideData } = p;
     const endpoint = data[cab.id_a + "_endpoint"] ?? cab.endpoint;
     try {
-      document.body.classList.add('loading-cursor');
+      document.body.classList.add("loading-cursor");
       if (data.length === 0)
         // eslint-disable-next-line no-throw-literal
         throw {
@@ -590,7 +614,7 @@ export const FuncionesProvider = (props) => {
         queryParams[key] = value;
       }
       const dataSend = Object.assign(data, queryParams);
-      axios
+      await axios
         .post(
           farmageo_api + endpoint,
           { data: dataSend, sideData },
@@ -606,7 +630,7 @@ export const FuncionesProvider = (props) => {
         icon: "error",
         confirmButtonText: "Aceptar",
       });
-      document.body.classList.remove('loading-cursor');
+      document.body.classList.remove("loading-cursor");
     }
   }
 
@@ -639,7 +663,6 @@ export const FuncionesProvider = (props) => {
 };
 
 export default FuncionesContext;
-
 
 export function parseISOString(s) {
   try {
