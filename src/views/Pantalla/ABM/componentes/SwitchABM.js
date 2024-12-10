@@ -335,7 +335,6 @@ const SwitchABM = (props) => {
         style={{
           gridColumn: cab.grid_span,
           height: "100%",
-          border: error[cab.id_a] ? "2px solid rgba(255,0,0,0.5)" : "",
           borderRadius: "2px",
         }}
         className="switch_abm_input_base"
