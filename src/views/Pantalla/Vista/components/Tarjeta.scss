@@ -38,6 +38,11 @@
       margin-bottom: 10px;
       width: 100%;
     }
+    .divCampo {
+      @media (max-width: 720px) {
+        grid-column: 1/-1 !important;
+      }
+    }
   }
 }
 

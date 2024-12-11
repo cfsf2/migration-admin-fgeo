@@ -135,7 +135,6 @@ const InputAreaEditable = ({
               textAlign: cab.align ?? "right",
               display: "flex",
               alignItems: "baseline",
-              minWidth: "max-content",
             },
           }}
           className={classes.numberComponent}

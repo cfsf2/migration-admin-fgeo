@@ -7,6 +7,7 @@ import "../components/Pantalla.scss";
 const CustomTextField = styled(TextField)(({ theme }) => ({
   "&.MuiFormControl-root": {
     width: "100%",
+    minWidth: "fit-content"
   },
   "& .MuiOutlinedInput-root": {
     "& .MuiInputBase-inputMultiline": {
