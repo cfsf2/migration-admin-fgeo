@@ -18,7 +18,7 @@ const InputText = ({
     let { value } = e.target;
 
     // Validar máximo de caracteres
-    if (maximo_caracteres && value.length >= maximo_caracteres) {
+    if (maximo_caracteres && value.length > maximo_caracteres) {
       setError((e) => ({
         ...e,
         [id_a]: true, // Marca el campo con error
