@@ -13,6 +13,27 @@ import axios from "axios";
 
 import Terminos from "./views/Pages/Terminos";
 
+let activeRequests = 0;
+
+const onRequestStart = () => {
+  activeRequests += 1;
+};
+
+const onRequestEnd = () => {
+  activeRequests -= 1;
+  if (activeRequests === 0) {
+    document.dispatchEvent(new Event('allRequestsComplete'));
+  }
+};
+
+axios.interceptors.request.use((request) => {
+  request.headers.authorization = `Bearer ${window.localStorage.getItem(
+    "token"
+  )}`;
+  onRequestStart();
+  return request;
+});
+
 axios.interceptors.request.use((request) => {
   request.headers.authorization = `Bearer ${window.localStorage.getItem(
     "token"
@@ -21,8 +42,12 @@ axios.interceptors.request.use((request) => {
 });
 
 axios.interceptors.response.use(
-  (res) => res,
+  (res) => {
+    onRequestEnd();
+    return res;
+  },
   (err) => {
+    onRequestEnd();
     switch (err.response.status) {
       case 409:
         return store.dispatch(

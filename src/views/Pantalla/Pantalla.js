@@ -21,6 +21,8 @@ import { AlertasProvider } from "./context/AlertaContext";
 import HeaderConf from "./components/HeaderConf";
 import { ModalProvider } from "./context/ModalContext";
 
+import { tryFocusWithRetry } from "./helper/funciones";
+
 import Debugger from "./components/Debugger";
 
 const CancelToken = axios.CancelToken;
@@ -83,6 +85,7 @@ const Pantalla = () => {
         });
 
         setLoadingPantalla(false);
+        document.dispatchEvent(new Event("pantallaLoaded"));
         return response;
       })
       .catch((err) => {
@@ -110,6 +113,16 @@ const Pantalla = () => {
       cancelTokenSource.cancel();
     };
   }, [pantalla, id]);
+
+  useEffect(() => {
+    document.addEventListener("pantallaLoaded", (e) => {
+      //console.log(e, "evento pantallaLoaded");
+      if (state.opciones_de_pantalla.focus_en) {
+        console.log(state.opciones_de_pantalla.focus_en)
+        tryFocusWithRetry(state.opciones_de_pantalla.focus_en);
+      }
+    });
+  }, [state.opciones_de_pantalla.focus_en]);
 
   //configuraciones opciones orden
   return (

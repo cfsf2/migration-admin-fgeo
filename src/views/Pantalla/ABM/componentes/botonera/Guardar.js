@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@material-ui/core";
 
 import "./botonera.scss";
 
-const Guardar = ({ handleSubmit, loading, id, texto_confirmar }) => {
+const Guardar = ({
+  handleSubmit,
+  loading,
+  id,
+  texto_confirmar,
+  submitOnEnter = true,
+  buttonId = "abm_boton_guardar",
+}) => {
+  useEffect(() => {
+    if (!submitOnEnter) return;
+    document.addEventListener("keydown", (e) => {
+      if (e.key.toLocaleLowerCase() === "enter") {
+        document.getElementById(buttonId).click();
+      }
+    });
+  }, [buttonId, submitOnEnter]);
+
   return (
     <>
       <Button
+        id={buttonId}
         variant="contained"
         color={id ? "primary" : "secondary"}
         size="medium"

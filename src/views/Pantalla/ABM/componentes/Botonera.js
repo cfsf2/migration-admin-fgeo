@@ -20,6 +20,7 @@ const Botonera = ({
         loading={loading}
         id={id}
         texto_confirmar={opciones.abm_texto_boton_confirmar}
+        submitOnEnter = {opciones.submit_on_enter !== 'n'}
       />
       {opciones.abm_boton_cancelar === "s" ? (
         <Cancelar handleCancelar={handleCancelar} />
