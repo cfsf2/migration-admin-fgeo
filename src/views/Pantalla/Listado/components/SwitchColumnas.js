@@ -16,6 +16,7 @@ import SiNoEditable from "./columnas/SiNoEditable";
 import Toggle from "./columnas/Toggle";
 import Autocompletar from "../../components/Autocompletar";
 import InputTextEditable from "../../Vista/components/columnas/InputTextEditable";
+import BotonWhatsapp from "../../components/Btnwsp";
 
 import ListadoContext from "../context/ListadoContext";
 import { withTools } from "../../helper/withTools";
@@ -165,6 +166,18 @@ const SwitchColumnas = ({
             context={Context}
           />
         );
+        case "btn_wsp":
+          return (
+            <BotonWhatsapp
+              key={cab.id_a}
+              data={data}
+              cab={cab}
+              hijos={hijos}
+              campokey={campokey}
+              indiceData={indiceData}
+              id_elemento={id_elemento}
+            />
+          );
 
       case "enlace":
         return (
