@@ -56,6 +56,10 @@ export const withTools = (Componente) => (props) => {
           tooltip.classList.add("Ftooltip_rojo");
         }
 
+        if (data[cab.id_a + "_tooltip_class"]) {
+          tooltip.classList.add(data[cab.id_a + "_tooltip_class"]);
+        }
+
         g.addEventListener("mouseenter", (e) => {
           e.stopPropagation();
           g.appendChild(tooltip);
