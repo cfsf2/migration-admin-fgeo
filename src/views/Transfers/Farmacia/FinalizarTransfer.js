@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 
 import {
   ADD_TRANSFER,
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_FARMACIA,
   SET_LABORATORIO_SELECTED,
   SUBMITTING,
   SET_TOTAL_AHORRO,
@@ -112,7 +112,7 @@ class FinalizarTransfer extends Component {
       LOADPROFILE(localStorage.user, localStorage.token);
     }
     if (this.props.tranfersReducer.laboratorios.length === 0) {
-      this.props.GET_LABORATORIOS();
+      this.props.GET_LABORATORIOS_FARMACIA();
     }
     if (this.props.publicidadesReducer.comunicadoTransfers === null) {
       this.props.GET_PUBLICIDADES();
@@ -129,7 +129,7 @@ class FinalizarTransfer extends Component {
     if (laboratorio) {
       try {
         const result = await axios.get(
-          farmageo_api + "/laboratorios/" + laboratorio
+          farmageo_api + "/laboratoriosFarmacia/" + laboratorio
         );
         if (result.data) {
           this.setState({ lab_selected: result.data });
@@ -148,7 +148,7 @@ class FinalizarTransfer extends Component {
   }
   async componentDidUpdate() {
     if (this.props.tranfersReducer.laboratorios.length === 0) {
-      this.props.GET_LABORATORIOS();
+      this.props.GET_LABORATORIOS_FARMACIA();
     }
   }
 
@@ -224,7 +224,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   ADD_TRANSFER,
   SUBMITTING,
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_FARMACIA,
   SET_LABORATORIO_SELECTED,
   LOADPROFILE,
   GET_PUBLICIDADES,
