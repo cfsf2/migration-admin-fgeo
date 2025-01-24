@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React from "react";
 
 import { Col, Row } from "reactstrap";
 
@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import LaboratorioSelect from "./components/LaboratorioSelect";
 
 import {
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_FARMACIA,
   GET_DROGUERIAS,
   CLEAN_PRODUCTOS,
 } from "../../../redux/actions/transfersActions";
@@ -18,7 +18,7 @@ import ButtonHome from "../../Dashboard/components/ButtonHome";
 function NuevoTransfer(props) {
   async function getData() {
     props.CLEAN_PRODUCTOS();
-    props.GET_LABORATORIOS();
+    props.GET_LABORATORIOS_FARMACIA();
     props.GET_DROGUERIAS();
     props.LOADPROFILE(localStorage.user, localStorage.token);
   }
@@ -68,6 +68,7 @@ function NuevoTransfer(props) {
               padding: 10,
               paddingBottom: 5,
             }}
+            key={c.id}
           >
             <Row style={{ marginBottom: 30 }}>
               <Col>
@@ -81,8 +82,19 @@ function NuevoTransfer(props) {
               </Col>
             </Row>
             <Row>
-              {labs_de_c.map((lab, index) => {
-                return <LaboratorioSelect laboratorio={lab} key={index} />;
+            {labs_de_c.map((lab) => {
+                return lab.con_permiso === "s" ? (
+                  <LaboratorioSelect  laboratorio={lab} key={lab.id} />
+                ) : (
+                  <></>
+                );
+              })}
+              {labs_de_c.map((lab) => {
+                return lab.con_permiso === "n" ? (
+                  <LaboratorioSelect  laboratorio={lab} key={lab.id} />
+                ) : (
+                  <></>
+                );
               })}
             </Row>
           </div>
@@ -114,9 +126,9 @@ function NuevoTransfer(props) {
           </Col>
         </Row>
         <Row>
-          {laboratorios.map((lab, index) => {
+          {laboratorios.map((lab) => {
             return lab.habilitado === "s" && lab.transfer_farmageo === "n" ? (
-              <LaboratorioSelect laboratorio={lab} key={index} />
+              <LaboratorioSelect  laboratorio={lab} key={lab.id} />
             ) : null;
           })}
         </Row>
@@ -133,7 +145,7 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = {
-  GET_LABORATORIOS,
+  GET_LABORATORIOS_FARMACIA,
   GET_DROGUERIAS,
   CLEAN_PRODUCTOS,
   LOADPROFILE,

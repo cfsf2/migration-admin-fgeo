@@ -1,9 +1,6 @@
 import axios from "axios";
-import { errorParser } from "../../helpers/errorHelper";
 import { farmageo_api } from "../../config";
-import store from "../store/index";
 import { ALERT } from "./alertActions";
-import authReducer from "../reducers/authReducer";
 
 //******************** LABORATORIOS ********************************* */
 export const ADD_LABORATORIO = (laboratorio, pantalla) => {
@@ -29,6 +26,23 @@ export const GET_LABORATORIOS = () => {
   return (dispatch) => {
     axios
       .get(farmageo_api + "/laboratorios")
+      .then(function (response) {
+        //console.log(response.data);
+        dispatch({
+          type: "GET_LABORATORIOS",
+          payload: response.data,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
+
+export const GET_LABORATORIOS_FARMACIA = () => {
+  return (dispatch) => {
+    axios
+      .get(farmageo_api + "/laboratoriosFarmacia")
       .then(function (response) {
         //console.log(response.data);
         dispatch({
