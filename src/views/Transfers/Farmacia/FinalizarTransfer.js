@@ -131,7 +131,7 @@ class FinalizarTransfer extends Component {
         const result = await axios.get(
           farmageo_api + "/laboratoriosFarmacia/" + laboratorio
         );
-        if (result.data) {
+        if (result?.data) {
           this.setState({ lab_selected: result.data });
           this.props.SET_LABORATORIO_SELECTED(result.data);
           if (result.data.condiciones_comerciales || result.data.novedades) {

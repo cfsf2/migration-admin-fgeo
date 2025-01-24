@@ -83,14 +83,15 @@ function NuevoTransfer(props) {
             </Row>
             <Row>
             {labs_de_c.map((lab) => {
-                return lab.con_permiso === "s" ? (
+              
+                return lab.con_permiso === "s" && lab.transfer_farmageo === "s"  ? (
                   <LaboratorioSelect  laboratorio={lab} key={lab.id} />
                 ) : (
                   <></>
                 );
               })}
               {labs_de_c.map((lab) => {
-                return lab.con_permiso === "n" ? (
+                return lab.con_permiso === "n" && lab.transfer_farmageo === "s"  ? (
                   <LaboratorioSelect  laboratorio={lab} key={lab.id} />
                 ) : (
                   <></>
