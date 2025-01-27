@@ -107,7 +107,7 @@ const dashboardButtons = [
   {
     to: "pantalla/PANTALLA_ART_FARMAPAMI",
     target: "_blank",
-    titulo: "FARMAPAMI",
+    titulo: "IMED - AUTORIZADOR PAMI",
     subtitulo: <br />,
     align: "left",
     icono: require("../../assets/images/icons/7.png"),
