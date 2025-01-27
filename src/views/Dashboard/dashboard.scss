@@ -10,6 +10,20 @@
     }
   }
 }
-.colorDeFondo{
+.colorDeFondo {
   background-color: aquamarine;
+}
+
+.dashboard-btn-sm {
+  width: 50%; /* Ocupa la mitad (md=6) por defecto */
+}
+
+@media (max-width: 500px) {
+  .dashboard-btn-sm {
+    width: 100%; /* Ocupará toda la fila (md=12) en pantallas pequeñas */
+  }
+}
+
+.dashboard-btn-lg {
+  width: 100%;
 }

@@ -1,16 +1,6 @@
-import React, { Component, Fragment } from "react";
-import { useHistory, Link } from "react-router-dom";
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Col,
-  Row,
-  Button,
-  Container,
-  Spinner,
-} from "reactstrap";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Col, Row } from "reactstrap";
 
 import { connect } from "react-redux";
 import {
@@ -35,6 +25,130 @@ import Novedades from "./components/Novedades";
 import { image_path_server } from "../../config";
 
 import EsLink from "./components/EsLink";
+
+const dashboardButtons = [
+  {
+    to: "/pantalla/PANTALLA_ART_NUEVO_TRANSFER",
+    target: null,
+    titulo: "TRANSFERS FARMACIAS",
+    subtitulo: <br />,
+    align: "left",
+    icono: require("../../assets/images/icons/1.png"),
+    md: 12,
+    order: 10,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+  {
+    to: "/pantalla/PANTALLA_ART_VIDEOS_INST",
+    target: null,
+    titulo: "VIDEOS INSTITUCIONALES",
+    subtitulo: <br />,
+    align: "left",
+    icono: require("../../assets/images/icon-videos.png"),
+    md: 12,
+    order: 20,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+  {
+    to: "/pantalla/PANTALLA_ART_DEBITOS_PAMI",
+    target: null,
+    titulo: "DEBITOS PAMI",
+    subtitulo: "Consultar aquí",
+    align: "left",
+    icono: require("../../assets/images/icons/pami.png"),
+    md: 6,
+    order: 30,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+  {
+    to: "/pantalla/PANTALLA_ART_RESUMEN",
+    target: null,
+    titulo: "RESUMEN DE NORMATIVAS OOSS",
+    subtitulo: "Obras Sociales",
+    align: "left",
+    icono: require("../../assets/images/icons/ooss.png"),
+    md: 6,
+    order: 40,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+  {
+    to: "/pantalla/PANTALLA_ART_CRONOGRAMA",
+    target: null,
+    titulo: "CRONOGRAMA DE PAGOS PAMI",
+    subtitulo: "PAMI",
+    align: "left",
+    icono: require("../../assets/images/icons/4.png"),
+    md: 6,
+    order: 50,
+    isWrappedInLink: true, // Está dentro de un Link
+  },
+  {
+    to: "pantalla/PANTALLA_ART_EXT_NORMATIVA",
+    target: "_blank",
+    titulo: "NORMATIVAS DE OBRAS SOCIALES",
+    subtitulo: "del D.O.S",
+    align: "left",
+    icono: require("../../assets/images/icons/2.png"),
+    md: 6,
+    order: 60,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+  {
+    to: "pantalla/PANTALLA_EXT_RECETAS_ELECTRONICAS",
+    target: "_blank", // Abre en una nueva pestaña
+    titulo: "RECETAS ELECTRÓNICAS",
+    subtitulo: <br />, // No se especificaron subtítulos
+    align: "left",
+    icono: require("../../assets/images/icons/2.png"), // Reutilizando el mismo icono de normativas
+    md: 6,
+    order: 75, // Debe ir justo después de "NORMATIVAS", que tiene order=60
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+  {
+    to: "pantalla/PANTALLA_ART_FARMAPAMI",
+    target: "_blank",
+    titulo: "FARMAPAMI",
+    subtitulo: <br />,
+    align: "left",
+    icono: require("../../assets/images/icons/7.png"),
+    md: 6,
+    order: 70,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+  {
+    to: "pantalla/PANTALLA_ART_EXT_MESAAYUDA",
+    target: "_blank",
+    titulo: "MESA DE AYUDA",
+    subtitulo: "Estamos cerca tuyo",
+    align: "left",
+    icono: require("../../assets/images/icons/5.png"),
+    md: 6,
+    order: 80,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+  {
+    to: "pantalla/PANTALLA_ART_EXT_FALTANTES",
+    target: "_blank",
+    titulo: "FALTANTES DE MEDICAMENTOS",
+    subtitulo: "según ANMAT",
+    align: "left",
+    icono: require("../../assets/images/icons/3.png"),
+    md: 6,
+    order: 90,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+  {
+    to: "pantalla/PANTALLA_ART_EXT_PRECIOS_SUG",
+    target: "_blank",
+    titulo: "PRECIOS SUGERIDOS",
+    subtitulo: "de medicamentos hospitalarios y accesorios",
+    align: "left",
+    icono: require("../../assets/images/icons/6.png"),
+    md: 6,
+    order: 100,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+];
 
 class Dashboard extends Component {
   constructor(props) {
@@ -91,13 +205,6 @@ class Dashboard extends Component {
       this.props.GET_INSTITUCIONES(1000);
     }
 
-    // if (
-    //   this.props.authReducer.user.permisos &&
-    //   this.props.authReducer.user.permisos.includes("packsdeproductos")
-    // ) {
-    //   this.props.GET_ENTIDADES();
-    // }
-
     if (
       prevProps.publicidadesReducer.publicidades !==
       this.props.publicidadesReducer.publicidades
@@ -111,12 +218,6 @@ class Dashboard extends Component {
           .sort(),
       });
     }
-
-    // if (userprofile !== null) {
-    //   if (prevProps.authReducer.userprofile !== userprofile) {
-    //     this.handlePanelExistencias();
-    //   }
-    // }
   }
 
   render() {
@@ -164,7 +265,43 @@ class Dashboard extends Component {
                         </Row>
                       ) : null;
                     })}
-                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        margin: "0 7px",
+                      }}
+                    >
+                      {dashboardButtons
+                        .sort((a, b) => a.order - b.order)
+                        .map((button) => {
+                          const renderedButton = button.isWrappedInLink ? (
+                            <Link to={button.to} key={button.order}>
+                              <ButtonHome {...button} />
+                            </Link>
+                          ) : (
+                            <ButtonHome {...button} key={button.order} />
+                          );
+
+                          return (
+                            <div
+                              key={button.to}
+                              className={
+                                button.md === 6
+                                  ? "dashboard-btn-sm"
+                                  : "dashboard-btn-lg"
+                              }
+                              style={{
+                                //  width: button.md === 6 ? "50%" : "100%",
+                                height: 50,
+                              }}
+                            >
+                              {renderedButton}
+                            </div>
+                          );
+                        })}
+                    </div>
+                    {/* <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
                       <Col md="12" style={{ height: 50 }}>
                         <ButtonHome
                           to="/pantalla/PANTALLA_ART_NUEVO_TRANSFER"
@@ -280,7 +417,7 @@ class Dashboard extends Component {
                           icono={require("../../assets/images/icons/6.png")}
                         />
                       </Col>
-                    </Row>
+                    </Row> */}
                   </Col>
                 </Row>
                 <Row>
