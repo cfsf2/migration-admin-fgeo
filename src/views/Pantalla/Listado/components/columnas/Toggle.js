@@ -67,7 +67,7 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
     superSubmit({ valor, id_a, update_id, handleCancelar, cab, data })
       .then((result) => {
         setLastvalue(() => valor);
-
+        setUpdate_id(result.data.id)
         ListadoDispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {

@@ -152,6 +152,7 @@ export const FuncionesProvider = (props) => {
       cab,
       data,
       indiceData,
+      insert_ids: data[cab.insert_ids_alias] ?? cab.insert_ids
     })
       .then((res) => {
         if (res.status >= 400) {
@@ -238,7 +239,7 @@ export const FuncionesProvider = (props) => {
     });
   };
 
-  const guardar = async ({ valor, update_id, id_a }) => {
+  const guardar = async ({ valor, update_id, id_a,insert_ids }) => {
     if (!update_id || !id_a) {
       throw { message: "No hay update_id o id_a", id_a, update_id };
     }
@@ -247,6 +248,7 @@ export const FuncionesProvider = (props) => {
       valor,
       update_id,
       id_a,
+      insert_ids
     });
   };
 
