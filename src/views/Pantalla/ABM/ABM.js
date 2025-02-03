@@ -53,7 +53,7 @@ const ABM = () => {
     id_a,
     params,
   } = useContext(ABMContext);
-  const { getModal } = useContext(ModalesContext);
+  const { getModal, cerrarModal } = useContext(ModalesContext);
 
   const [requeridos, setRequeridos] = useState([]);
   const [error, setError] = useState({});
@@ -139,6 +139,10 @@ const ABM = () => {
         cab: opciones,
       });
       if (opciones.limpiar_formulario === "s") return handleCancelar();
+      
+      if (opciones.cerrar_modal === "s" && opciones.id_a) {
+        cerrarModal(opciones.id_a);
+      };
 
       return;
     }
