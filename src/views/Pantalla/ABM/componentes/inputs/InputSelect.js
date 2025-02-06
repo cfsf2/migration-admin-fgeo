@@ -94,9 +94,10 @@ export const SelectInput = ({
         <Select
           style={{
             fontSize: "0.8rem",
+            height: "50px"
           }}
           defaultValue={cab.default}
-          variant="standard"
+          variant="outlined"
           size="small"
           onChange={(e) => {
             setValor(e.target.value);

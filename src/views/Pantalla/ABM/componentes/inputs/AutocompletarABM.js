@@ -160,22 +160,52 @@ export default function Virtualize({
       <Autocomplete
         value={valor}
         id="virtualize-demo"
-        sx={{ width: "100%" }}
+        sx={{
+          width: "100%",
+          "& .MuiOutlinedInput-root": {
+            height: "50px",
+            borderRadius: "5px",
+            display: "flex",
+            alignItems: "center",
+            "& legend": {
+              width: "auto !important", // 🔹 Ajusta el tamaño del `legend` para que no oculte el borde
+              maxWidth: "0.01px", // 🔹 Truco para evitar que Material UI agrande el `legend`
+            },
+          },
+        }}
         disableListWrap
         disableClearable
         PopperComponent={StyledPopper}
         ListboxComponent={ListboxComponent}
         options={sortedOptions}
-        groupBy={(option) => {
-          return option.label[0].toUpperCase();
-        }}
+        groupBy={(option) => option.label[0].toUpperCase()}
         renderInput={(params) => (
-          <TextField {...params} label={cab.placeholder} />
+          <TextField
+            {...params}
+            label={cab.placeholder}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                height: "50px",
+                borderRadius: "5px",
+                display: "flex",
+                alignItems: "center",
+                "& fieldset": {
+                  borderWidth: "1px !important",
+                  borderColor: "#ccc !important",
+                },
+                "& legend": {
+                  width: "auto !important",
+                  maxWidth: "0.01px", // 🔹 Evita que el legend afecte el borde superior
+                },
+              },
+            }}
+          />
         )}
         renderOption={(props, option) => [props, option.label]}
         renderGroup={(params) => params}
         onChange={(event, newValue) => handleChangeValue(newValue)}
       />
+
     </>
   );
 }

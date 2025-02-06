@@ -41,6 +41,8 @@ const InputText = ({
   const style_input_abm = {
     width: "100%",
     marginBottom: margin_bottom_abm,
+    display: "flex",
+    alignItems: "center",
   };
 
   return (
@@ -51,9 +53,7 @@ const InputText = ({
           opcionales_null={cab.opcionales_null}
           permite_null={cab.permite_null}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
       <TextField
         id={id}
         type={cab.input_type ?? (number ? "number" : "text")}
@@ -75,12 +75,34 @@ const InputText = ({
           style: {
             textTransform: cab.solo_mayus === "s" ? "uppercase" : "inherit",
           },
-          maxLength: maximo_caracteres, // Para limitar caracteres en el navegador
+          maxLength: maximo_caracteres,
+        }}
+        InputLabelProps={{
+          sx: {
+            fontSize: "0.9rem",
+          },
+        }}
+        sx={{
+          height: "100%",
+          borderRadius: "5px",
+          boxSizing: "border-box",
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "5px",
+            width: "100%",
+            height: "40px",
+            display: "flex",
+            alignItems: "center",
+          },
+          "& .MuiInputBase-root": {
+            height: "50px",
+            fontSize: "0.9rem",
+          },
         }}
         style={style_input_abm}
       />
+
     </>
-  );
+  );  
 };
 
 export default InputText;

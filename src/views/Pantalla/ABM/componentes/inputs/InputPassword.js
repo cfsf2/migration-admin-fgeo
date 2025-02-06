@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import Label from "./LabelF";
 
-const InputText = ({ setValor, valor, cab, error, setError, data }) => {
+const InputPassword = ({ setValor, valor, cab, error, setError, data }) => {
   const { id, id_a, margin_bottom_abm, pass_minimo } = cab;
 
   const handleInput = (e) => {
     let { value } = e.target;
-
     setValor(value);
 
     if (pass_minimo) {
@@ -26,6 +25,8 @@ const InputText = ({ setValor, valor, cab, error, setError, data }) => {
   const style_input_abm = {
     width: "100%",
     marginBottom: margin_bottom_abm,
+    display: "flex",
+    alignItems: "center",
   };
 
   return (
@@ -57,9 +58,26 @@ const InputText = ({ setValor, valor, cab, error, setError, data }) => {
             ""
           )
         }
+        sx={{
+          height: "100%",
+          borderRadius: "5px",
+          boxSizing: "border-box",
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "5px",
+            width: "100%",
+            height: "40px",
+            display: "flex",
+            alignItems: "center",
+          },
+          "& .MuiInputBase-root": {
+            height: "50px",
+            fontSize: "0.9rem",
+          },
+        }}
         style={style_input_abm}
       />
     </>
   );
 };
-export default InputText;
+
+export default InputPassword;
