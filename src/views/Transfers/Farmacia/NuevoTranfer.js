@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 
 import { Col, Row } from "reactstrap";
 
@@ -14,6 +14,7 @@ import {
 import { LOADPROFILE } from "../../../redux/actions/authActions";
 
 import ButtonHome from "../../Dashboard/components/ButtonHome";
+import TransferTitle from "./TransferCategoriaTitle";
 
 function NuevoTransfer(props) {
   async function getData() {
@@ -59,6 +60,7 @@ function NuevoTransfer(props) {
         const labs_de_c = laboratorios.filter(
           (l) => l.id_transfer_categoria === c.id
         );
+        if (labs_de_c.length === 0) return <Fragment key={c.id}></Fragment>;
         return (
           <div
             className="animated fadeIn"
@@ -70,31 +72,31 @@ function NuevoTransfer(props) {
             }}
             key={c.id}
           >
-            <Row style={{ marginBottom: 30 }}>
+            <div style={{ marginBottom: 30 }}>
               <Col>
-                <ButtonHome
+                <TransferTitle
                   //href=""
                   titulo={c.nombre.toUpperCase()}
-                  subtitulo={<br />}
-                  align="left"
+                  align="center"
                   tipo="grande"
                 />
               </Col>
-            </Row>
+            </div>
             <Row>
-            {labs_de_c.map((lab) => {
-              
-                return lab.con_permiso === "s" && lab.transfer_farmageo === "s"  ? (
-                  <LaboratorioSelect  laboratorio={lab} key={lab.id} />
+              {labs_de_c.map((lab) => {
+                return lab.con_permiso === "s" &&
+                  lab.transfer_farmageo === "s" ? (
+                  <LaboratorioSelect laboratorio={lab} key={lab.id} />
                 ) : (
-                  <></>
+                  <Fragment key={lab.id}></Fragment>
                 );
               })}
               {labs_de_c.map((lab) => {
-                return lab.con_permiso === "n" && lab.transfer_farmageo === "s"  ? (
-                  <LaboratorioSelect  laboratorio={lab} key={lab.id} />
+                return lab.con_permiso === "n" &&
+                  lab.transfer_farmageo === "s" ? (
+                  <LaboratorioSelect laboratorio={lab} key={lab.id} />
                 ) : (
-                  <></>
+                  <Fragment key={lab.id}></Fragment>
                 );
               })}
             </Row>
@@ -129,8 +131,8 @@ function NuevoTransfer(props) {
         <Row>
           {laboratorios.map((lab) => {
             return lab.habilitado === "s" && lab.transfer_farmageo === "n" ? (
-              <LaboratorioSelect  laboratorio={lab} key={lab.id} />
-            ) : null;
+              <LaboratorioSelect laboratorio={lab} key={lab.id} />
+            ) : <Fragment key={lab.id}></Fragment>;
           })}
         </Row>
       </div>
