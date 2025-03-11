@@ -70,7 +70,9 @@ const ConfigListado = (props) => {
         tots[column.field + "_COMPONENTE"] = "columna_simple";
         tots[column.field] = datos.reduce((agg, row) => {
           if (row.TOTALES === 1) return agg;
-          return agg + row[column.field];
+          const value = Number(row[column.field]);
+
+          return Number.isFinite(value) ? agg + value : agg;
         }, 0);
         return tots[column.field];
       }
