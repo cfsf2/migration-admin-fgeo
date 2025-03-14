@@ -206,8 +206,8 @@ export const Listado = (props) => {
                         .filter((cab) => cab.componente !== "excel")
                         .filter((cab) => cab.componente !== "null")
                         .filter((cab) => cab.mostrar !== "n")
+                        .filter((cab) => cab.condicion_acceso ? datos[0] && datos[0][cab.id_a +'_CONDICION_ACCESO'] : true)
                         .map((cab, i) => {
-                          //console.log("cab:  ", cab);
 
                           return {
                             title: cab.nombre_alias
