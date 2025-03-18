@@ -25,21 +25,17 @@ const ButtonHome = (props) => {
         target={props.target}
         style={{
           width: "100%",
-          backgroundColor: "#ffffff",
           color: "rgb(0, 120, 143)",
           //float: props.align,
           paddingBottom: 0,
         }}
       >
         <Row style={{ paddingLeft: 5, paddingRight: 0 }}>
-          <Col md={props.tipo === "grande" ? 5 : 2} sm="2" xs="2">
+          <Col>
             {" "}
-            <img src={props.icono} style={{ width: 25, float: "right" }} />
+            <img src={props.icono} />
           </Col>
           <Col
-            md={props.tipo === "grande" ? 7 : 10}
-            xs="10"
-            sm="10"
             style={{ float: "left" }}
           >
             <p

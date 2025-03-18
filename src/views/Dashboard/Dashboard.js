@@ -39,17 +39,6 @@ const dashboardButtons = [
     isWrappedInLink: false, // No está dentro de un Link
   },
   {
-    to: "/pantalla/PANTALLA_ART_VIDEOS_INST",
-    target: null,
-    titulo: "VIDEOS INSTITUCIONALES",
-    subtitulo: <br />,
-    align: "left",
-    icono: require("../../assets/images/icon-videos.png"),
-    md: 12,
-    order: 20,
-    isWrappedInLink: false, // No está dentro de un Link
-  },
-  {
     to: "/pantalla/PANTALLA_ART_DEBITOS_PAMI",
     target: null,
     titulo: "DEBITOS PAMI",
@@ -148,6 +137,17 @@ const dashboardButtons = [
     order: 100,
     isWrappedInLink: false, // No está dentro de un Link
   },
+  {
+    to: "/pantalla/PANTALLA_ART_VIDEOS_INST",
+    target: null,
+    titulo: "VIDEOS INSTITUCIONALES",
+    subtitulo: <br />,
+    align: "left",
+    icono: require("../../assets/images/icon-videos.png"),
+    md: 6,
+    order: 110,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
 ];
 
 class Dashboard extends Component {
@@ -228,17 +228,20 @@ class Dashboard extends Component {
           userprofile.perfil_farmageo === "indefinido" ? (
             <VentaOnlineSelect />
           ) : (
-            <Row className="colorDeFondoLoco">
-              <Col md="6">
-                <Row>
-                  <Col>
+            <Row style={{ overflow: "hidden" }}>
+              <Col md="12" style={{
+                        margin: "10px auto",
+                        flex: "0 0 100%",
+                        paddingRight: "10px",
+                        paddingLeft: "0",
+                        }}>
                     {this.state.bannerAdmin?.map((banner) => {
                       return banner.habilitado ? (
                         <Row
                           key={banner._id}
-                          style={{ marginBottom: 10, paddingBottom: 0 }}
+                          style={{ marginBottom: 10, paddingBottom: 0, width: "100%", margin: "auto" }}
                         >
-                          <Col md="12">
+                          <Col>
                             {/* <Link
                               //onClick={this.handleBannerNutriendoEsperanza}
                               href={
@@ -265,11 +268,18 @@ class Dashboard extends Component {
                         </Row>
                       ) : null;
                     })}
+              </Col>
+              <Col md="6" style={{ padding:"0px 6px 10px 15px"}}>
+                <Row>
+                  <Col>
                     <div
                       style={{
                         display: "flex",
                         flexWrap: "wrap",
-                        margin: "0 7px",
+                        margin: "10px 5px",
+                        border: "2px solid #51616b42",
+                        borderRadius: "10px",
+                        boxShadow: "0 6px 6px rgb(0 0 0 / 13%)"
                       }}
                     >
                       {dashboardButtons
@@ -291,10 +301,6 @@ class Dashboard extends Component {
                                   ? "dashboard-btn-sm"
                                   : "dashboard-btn-lg"
                               }
-                              style={{
-                                //  width: button.md === 6 ? "50%" : "100%",
-                                height: 50,
-                              }}
                             >
                               {renderedButton}
                             </div>
@@ -433,7 +439,7 @@ class Dashboard extends Component {
                   </Row>
                 ) : null}
               </Col>
-              <Col md="6" className="dashboard_info">
+              <Col md="6" style={{ padding:"0px 15px 10px 6px"}} className="dashboard_info">
                 <Novedades {...this.props} />
               </Col>
             </Row>
