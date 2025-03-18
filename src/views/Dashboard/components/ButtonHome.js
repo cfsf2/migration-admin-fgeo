@@ -33,7 +33,7 @@ const ButtonHome = (props) => {
         <Row style={{ paddingLeft: 5, paddingRight: 0 }}>
           <Col>
             {" "}
-            <img src={props.icono} />
+            <img src={props.icono} style={{width: "25px", float: "right"}} />
           </Col>
           <Col
             style={{ float: "left" }}
