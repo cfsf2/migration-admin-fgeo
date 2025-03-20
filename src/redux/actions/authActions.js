@@ -42,11 +42,11 @@ export const LOGIN = (user, password) => {
         username: user,
         password: password,
       })
-      .then(function (response) {
-        if (response.status == 500) {
+      .then(async function  (response) {
+        if (response.status === 500) {
           ALERT(
             "Error",
-            "Usuario y/o contraseña incorrectos",
+            "Error de conexion con servidor",
             "error",
             "OK"
           ).then(() => {
@@ -72,7 +72,7 @@ export const LOGIN = (user, password) => {
           if (response.data.user_rol.includes("admin")) {
             //dispatch(GET_ALL_PEDIDOS_ADMIN(response.data.token));
           } else {
-            dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
+            await dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }
 
           window.location.replace(`${process.env.PUBLIC_URL}/#/dashboard`);
@@ -105,10 +105,12 @@ export const LOADPROFILE = (username, token) => {
       })
       .then(function (response) {
         
+        dispatch({ type: "LOADPROFILE_OK", payload: response.data });
         if (response.data.usuario) {
           dispatch(GET_USUARIO(response.data.usuario));
         }
-        dispatch({ type: "LOADPROFILE_OK", payload: response.data });
+
+        console.log("LOADPROFILE_OK",response.data)
         if (response.data.farmaciaid) {
           dispatch({ type: "GET_FARMACIA", payload: response.data });
 
@@ -141,6 +143,7 @@ export const LOGOUT = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("pass");
     dispatch({ type: "LOGOUT" });
+    axios.post(farmageo_api+"/logout")
   };
 };
 

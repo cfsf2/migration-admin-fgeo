@@ -222,223 +222,92 @@ class Dashboard extends Component {
 
   render() {
     const { user, userprofile } = this.props.authReducer;
+
+    const esAdmin = user.IS_ADMIN || !user.IS_FARMACIA;
+    const perfilIndefinido = userprofile?.perfil_farmageo === "indefinido";
+
+    if (esAdmin) return null;
+    if (!userprofile) return null;
+
+    const renderBanners = () => {
+      return this.state.bannerAdmin?.map((banner) =>
+        banner.habilitado ? (
+          <Row key={banner._id} style={{ marginBottom: 10 }}>
+            <Col md="12">
+              <EsLink link={banner.link}>
+                <img
+                  alt="imagen banner"
+                  style={{ width: "100%" }}
+                  src={image_path_server + banner.imagen}
+                />
+              </EsLink>
+            </Col>
+          </Row>
+        ) : null
+      );
+    };
+
+    const renderDashboardButtons = () => {
+      return dashboardButtons
+        .sort((a, b) => a.order - b.order)
+        .map((button) => {
+          const renderedButton = button.isWrappedInLink ? (
+            <Link to={button.to} key={button.order}>
+              <ButtonHome {...button} />
+            </Link>
+          ) : (
+            <ButtonHome {...button} key={button.order} />
+          );
+
+          return (
+            <div
+              key={button.to}
+              className={
+                button.md === 6 ? "dashboard-btn-sm" : "dashboard-btn-lg"
+              }
+              style={{ height: 50 }}
+            >
+              {renderedButton}
+            </div>
+          );
+        });
+    };
+    
     return (
       <div className="animated fadeIn">
-        {user.IS_ADMIN || !user.IS_FARMACIA ? null : userprofile ? (
-          userprofile.perfil_farmageo === "indefinido" ? (
-            <VentaOnlineSelect />
-          ) : (
-            <Row className="colorDeFondoLoco">
-              <Col md="6">
-                <Row>
-                  <Col>
-                    {this.state.bannerAdmin?.map((banner) => {
-                      return banner.habilitado ? (
-                        <Row
-                          key={banner._id}
-                          style={{ marginBottom: 10, paddingBottom: 0 }}
-                        >
-                          <Col md="12">
-                            {/* <Link
-                              //onClick={this.handleBannerNutriendoEsperanza}
-                              href={
-                                "http://localhost:3000/#/FinalizarTransfer?l=616a1169469336a90d0ad077"
-                              }
-                              // target={
-                              //   banner.link.trim() !== "" ? "_blank" : "_self"
-                              // }
-                              rel="noopener"
-                            >
-                              <img
-                                style={{ width: "100%" }}
-                                src={image_path_server + banner.imagen}
-                              />
-                            </Link> */}
-
-                            <EsLink link={banner.link}>
-                              <img
-                                style={{ width: "100%" }}
-                                src={image_path_server + banner.imagen}
-                              />
-                            </EsLink>
-                          </Col>
-                        </Row>
-                      ) : null;
-                    })}
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        margin: "0 7px",
-                      }}
-                    >
-                      {dashboardButtons
-                        .sort((a, b) => a.order - b.order)
-                        .map((button) => {
-                          const renderedButton = button.isWrappedInLink ? (
-                            <Link to={button.to} key={button.order}>
-                              <ButtonHome {...button} />
-                            </Link>
-                          ) : (
-                            <ButtonHome {...button} key={button.order} />
-                          );
-
-                          return (
-                            <div
-                              key={button.to}
-                              className={
-                                button.md === 6
-                                  ? "dashboard-btn-sm"
-                                  : "dashboard-btn-lg"
-                              }
-                              style={{
-                                //  width: button.md === 6 ? "50%" : "100%",
-                                height: 50,
-                              }}
-                            >
-                              {renderedButton}
-                            </div>
-                          );
-                        })}
-                    </div>
-                    {/* <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
-                      <Col md="12" style={{ height: 50 }}>
-                        <ButtonHome
-                          to="/pantalla/PANTALLA_ART_NUEVO_TRANSFER"
-                          titulo="TRANSFERS FARMACIAS"
-                          subtitulo={<br />}
-                          align="left"
-                          tipo="grande"
-                          icono={require("../../assets/images/icons/1.png")}
-                          simple={true}
-                        />
-                      </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
-                      <Col md="12" style={{ height: 50 }}>
-                        <ButtonHome
-                          to="/pantalla/PANTALLA_ART_VIDEOS_INST"
-                          titulo="VIDEOS INSTITUCIONALES"
-                          subtitulo={<br />}
-                          align="left"
-                          tipo="grande"
-                          icono={require("../../assets/images/icon-videos.png")}
-                          simple={true}
-                        />
-                      </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
-                      <Col md="6" style={{ height: 50 }} align="center">
-                        <ButtonHome
-                          to="/pantalla/PANTALLA_ART_DEBITOS_PAMI"
-                          titulo="DEBITOS PAMI"
-                          subtitulo="Consultar aquí"
-                          align="left"
-                          icono={require("../../assets/images/icons/pami.png")}
-                        />
-                      </Col>
-                      <Col md="6" style={{ height: 50 }} align="center">
-                        <ButtonHome
-                          to="/pantalla/PANTALLA_ART_RESUMEN"
-                          titulo="RESUMEN DE NORMATIVAS OOSS"
-                          subtitulo="Obras Sociales"
-                          align="left"
-                          icono={require("../../assets/images/icons/ooss.png")}
-                        />
-                      </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
-                      <Col md="6" style={{ height: 50 }} align="center">
-                        <Link
-                          to={{
-                            pathname: "/pantalla/PANTALLA_ART_CRONOGRAMA",
-                          }}
-                        >
-                          <ButtonHome
-                            titulo="CRONOGRAMA DE PAGOS PAMI"
-                            subtitulo="PAMI"
-                            align="left"
-                            icono={require("../../assets/images/icons/4.png")}
-                          />
-                        </Link>
-                      </Col>
-                      <Col md="6" style={{ height: 50 }} align="center">
-                        <ButtonHome
-                          to="pantalla/PANTALLA_ART_EXT_NORMATIVA"
-                          target="_blank"
-                          titulo="NORMATIVAS DE OBRAS SOCIALES"
-                          subtitulo="del D.O.S"
-                          align="left"
-                          icono={require("../../assets/images/icons/2.png")}
-                        />
-                      </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
-                      <Col md="6" style={{ height: 50 }}>
-                        <ButtonHome
-                          to="pantalla/PANTALLA_ART_FARMAPAMI"
-                          target="_blank"
-                          titulo="FARMAPAMI"
-                          subtitulo={<br />}
-                          align="left"
-                          icono={require("../../assets/images/icons/7.png")}
-                        />
-                      </Col>
-
-                      <Col md="6" style={{ height: 50 }}>
-                        <ButtonHome
-                          to="pantalla/PANTALLA_ART_EXT_MESAAYUDA"
-                          target="_blank"
-                          titulo="MESA DE AYUDA"
-                          subtitulo="Estamos cerca tuyo"
-                          align="left"
-                          icono={require("../../assets/images/icons/5.png")}
-                        />
-                      </Col>
-                    </Row>
-                    <Row style={{ marginBottom: 5, paddingBottom: 0 }}>
-                      <Col md="6" style={{ height: 50 }} align="center">
-                        <ButtonHome
-                          to="pantalla/PANTALLA_ART_EXT_FALTANTES"
-                          target="_blank"
-                          titulo="FALTANTES DE MEDICAMENTOS"
-                          subtitulo="según ANMAT"
-                          align="left"
-                          icono={require("../../assets/images/icons/3.png")}
-                        />
-                      </Col>
-                      <Col md="6" style={{ height: 50 }} align="center">
-                        <ButtonHome
-                          to="pantalla/PANTALLA_ART_EXT_PRECIOS_SUG"
-                          target="_blank"
-                          titulo="PRECIOS SUGERIDOS"
-                          subtitulo="de medicamentos hospitalarios y accesorios"
-                          align="left"
-                          icono={require("../../assets/images/icons/6.png")}
-                        />
-                      </Col>
-                    </Row> */}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <MisPedidos pedidosNuevos {...this.props} {...this.state} />
-                  </Col>
-                </Row>
-                {this.state.misventas ? (
-                  <Row>
-                    <Col>
-                      <MisVentas {...this.props} {...this.state} />
-                    </Col>
-                  </Row>
-                ) : null}
-              </Col>
-              <Col md="6" className="dashboard_info">
-                <Novedades {...this.props} />
+        IMPRIMIME ALGO LA CONCHA DE TU MADREEEE
+        {perfilIndefinido ? <VentaOnlineSelect /> : <></>}
+        <Row className="colorDeFondoLoco">
+          <Col md="6">
+            <Row>
+              <Col>{renderBanners()}</Col>
+            </Row>
+            <Row>
+              <Col>
+                <div
+                  style={{ display: "flex", flexWrap: "wrap", margin: "0 7px" }}
+                >
+                  {renderDashboardButtons()}
+                </div>
               </Col>
             </Row>
-          )
-        ) : null}
+            <Row>
+              <Col>
+                <MisPedidos pedidosNuevos {...this.props} {...this.state} />
+              </Col>
+            </Row>
+            {this.state.misventas && (
+              <Row>
+                <Col>
+                  <MisVentas {...this.props} {...this.state} />
+                </Col>
+              </Row>
+            )}
+          </Col>
+          <Col md="6" className="dashboard_info">
+            <Novedades {...this.props} />
+          </Col>
+        </Row>
       </div>
     );
   }

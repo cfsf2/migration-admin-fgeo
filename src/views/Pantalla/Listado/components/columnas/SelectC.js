@@ -45,7 +45,7 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
           payload: {
             key: cab.update_id_alias, // update_id
             indiceData: indiceData, // 4
-            value: result.data.id,
+            value: result.data.registro.id,
           },
         });
 
@@ -58,7 +58,7 @@ const SelectC = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
           },
         });
 
-        setCapturaId(result.data.id);
+        setCapturaId(result.data.registro.id);
       })
       .catch((err) => {
         console.log("Cancelado ", err);

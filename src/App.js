@@ -30,7 +30,7 @@ axios.interceptors.request.use((request) => {
   request.headers.authorization = `Bearer ${window.localStorage.getItem(
     "token"
   )}`;
-  request.headers["x-frontend-origin"] = "farmageo"
+  request.headers["x-frontend-origin"] = "farmageo_admin"
   onRequestStart();
   return request;
 });

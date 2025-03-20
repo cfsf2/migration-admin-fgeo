@@ -74,7 +74,7 @@ function DefaultLayout(props) {
     if (IS_ADMIN) {
       let allowedNav = { items: [] };
       let allowedRoutes;
-      console.log(props.user)
+
       allowedNav.items = nav_admin.items.filter((route) => {
         return props.user.permisos.some((per) => route.permiso === per);
       });

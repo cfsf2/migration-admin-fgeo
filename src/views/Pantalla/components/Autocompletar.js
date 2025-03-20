@@ -181,7 +181,7 @@ export default function Virtualize({
           payload: {
             key: cab.update_id_alias,
             indiceData: indiceData,
-            value: result.data.id,
+            value: result.data.registro.id,
           },
         });
       })

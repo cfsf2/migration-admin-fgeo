@@ -49,7 +49,7 @@ const SiNoEditable = ({
         ListadoDispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {
-            value: result.data.id,
+            value: result.data.registro.id,
             indiceData,
             key: cab.update_id_alias,
           },

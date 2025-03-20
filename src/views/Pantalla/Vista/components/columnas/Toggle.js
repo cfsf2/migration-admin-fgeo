@@ -60,7 +60,7 @@ const Toggle = ({ data, cab, campokey, indiceData, id_elemento }) => {
         VistaDispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {
-            value: result.data.id,
+            value: result.data.registro.id,
             indiceData,
             key: cab.update_id_alias,
           },

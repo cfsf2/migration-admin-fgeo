@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-//import logo from "../../../assets/img/brand/logofarma.png";
-import logo from "../../../assets/img/brand/img-panel.png";
+import { useDispatch } from "react-redux";
+
 import bgImage from "../../../assets/images/bg-login.jpg";
 import logoWhite from "../../../assets/img/brand/nuevo-logo-negativo.png";
-import iLocation from "../../../assets/images/iconLocation.svg";
-import iEmail from "../../../assets/images/iconEmail.svg";
+
 import logoWhiteColegio from "../../../assets/images/logoColegio.png";
 import { Input, Divider, Form2 } from "./style";
 import { Button } from "reactstrap";
@@ -16,7 +14,6 @@ import {
 } from "../../../redux/actions/authActions";
 import "./login.scss";
 import { Link } from "react-router-dom";
-import { Redirect } from 'react-router-dom';
 
 const backgroundStyle = {
   backgroundImage: `url(${bgImage})`,
@@ -50,9 +47,6 @@ const Login = (props) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [terminos, setTerminos] = useState(true);
-
-  const islogin = useSelector((state) => state.authReducer.user.islogin);
-  const username = useSelector((state) => state.authReducer.user.username);
 
   const validateForm = () => {
     return userName.length > 0 && password.length > 0;
@@ -144,7 +138,11 @@ const Login = (props) => {
   };
 
   return (
-    <div style={{ width: "100%", height: "100%" }} className="container-fluid">
+    <div
+      id="LOGIN_PAGE"
+      style={{ width: "100%", height: "100%" }}
+      className="container-fluid"
+    >
       <div style={backgroundStyle} className="row ">
         {window.innerWidth > 769 ? (
           <div
@@ -260,8 +258,14 @@ const Login = (props) => {
                 style={{ marginRight: 10 }}
                 checked={terminos}
               />
-              <Link to="/Terminos-y-Condiciones" target="_blank" style={{ fontSize: 10 }} rel="noopener noreferrer">
-                Acepto los términos y condiciones</Link>
+              <Link
+                to="/Terminos-y-Condiciones"
+                target="_blank"
+                style={{ fontSize: 10 }}
+                rel="noopener noreferrer"
+              >
+                Acepto los términos y condiciones
+              </Link>
             </div>
             <div>
               <Button
@@ -278,11 +282,10 @@ const Login = (props) => {
               href={`${process.env.REACT_APP_WEB_URL}/#/registrarfarmacia`}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontSize: 12, margin: '0 0 10px 0'}}
+              style={{ fontSize: 12, margin: "0 0 10px 0" }}
             >
               Registrá tu Farmacia
             </a>
-
           </form>
           <Divider className="my-3 d-none" />
           <Form2

@@ -68,7 +68,7 @@ const Select_Enlazable = ({
           payload: {
             key: cab.update_id_alias, // update_id
             indiceData: indiceData, // 4
-            value: result.data.id,
+            value: result.data.registro.id,
           },
         });
         dispatch({

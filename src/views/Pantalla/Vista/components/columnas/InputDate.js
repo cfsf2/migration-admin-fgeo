@@ -68,7 +68,7 @@ const InputDate = ({ data, cab, campokey, indiceData, id_elemento }) => {
             VistaDispatch({
               type: "SET_DATO_ESPECIFICO",
               payload: {
-                valor: result.data.id,
+                valor: result.data.registro.id,
                 indiceData,
                 key: cab.update_id_alias,
               },
@@ -104,7 +104,7 @@ const InputDate = ({ data, cab, campokey, indiceData, id_elemento }) => {
         VistaDispatch({
           type: "SET_DATO_ESPECIFICO",
           payload: {
-            valor: result.data.id,
+            valor: result.data.registro.id,
             indiceData,
             key: cab.update_id_alias,
           },
