@@ -275,8 +275,7 @@ class Dashboard extends Component {
     
     return (
       <div className="animated fadeIn">
-        IMPRIMIME ALGO LA CONCHA DE TU MADREEEE
-        {perfilIndefinido ? <VentaOnlineSelect /> : <></>}
+        {perfilIndefinido ? <VentaOnlineSelect /> : 
         <Row className="colorDeFondoLoco">
           <Col md="6">
             <Row>
@@ -308,6 +307,7 @@ class Dashboard extends Component {
             <Novedades {...this.props} />
           </Col>
         </Row>
+        }
       </div>
     );
   }

@@ -31,6 +31,7 @@ axios.interceptors.request.use((request) => {
     "token"
   )}`;
   request.headers["x-frontend-origin"] = "farmageo_admin"
+  request.headers["x-connection"] = "farmageo"
   onRequestStart();
   return request;
 });
