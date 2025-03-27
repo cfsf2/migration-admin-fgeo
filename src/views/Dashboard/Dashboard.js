@@ -236,6 +236,8 @@ class Dashboard extends Component {
                         paddingLeft: "0",
                         }}>
                     {this.state.bannerAdmin?.map((banner) => {
+                      console.log('BANER',banner);
+                      
                       return banner.habilitado ? (
                         <Row
                           key={banner._id}
@@ -258,7 +260,7 @@ class Dashboard extends Component {
                               />
                             </Link> */}
 
-                            <EsLink link={banner.link}>
+                            <EsLink link={banner.link} target={banner.target}>
                               <img
                                 style={{ width: "100%" }}
                                 src={image_path_server + banner.imagen}
