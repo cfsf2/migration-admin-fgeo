@@ -13,7 +13,15 @@ import NoInstitucionesFound from "../../../components/NoInstitucionesFound";
 export const Novedades = (props) => {
   const { loading, novedades } = props.publicidadesReducer;
   return (
-    <Card>
+    <Card style={{
+      margin: "10px 5px",
+      border: "2px solid rgba(81, 97, 107, 0.26)",
+      borderRadius: "10px",
+      boxShadow: "rgba(0, 0, 0, 0.13) 0px 6px 6px",
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+    }}>
       <CardHeader>
         <Row>
           <Col>
@@ -21,7 +29,13 @@ export const Novedades = (props) => {
           </Col>
         </Row>
       </CardHeader>
-      <CardBody>
+      <CardBody
+        style={{
+          flex: 1, 
+          overflowY: "auto",
+          marginBottom: "10px",
+        }}
+      >
         <hr />
         {props.authReducer.userprofile.instituciones?.length === 0 ? (
           <Row>

@@ -152,7 +152,7 @@ export const FuncionesProvider = (props) => {
       cab,
       data,
       indiceData,
-      insert_ids: data[cab.insert_ids_alias] ?? cab.insert_ids
+      insert_ids: data[cab.insert_ids_alias] ?? cab.insert_ids,
     })
       .then((res) => {
         if (res.status >= 400) {
@@ -239,7 +239,7 @@ export const FuncionesProvider = (props) => {
     });
   };
 
-  const guardar = async ({ valor, update_id, id_a,insert_ids }) => {
+  const guardar = async ({ valor, update_id, id_a, insert_ids }) => {
     if (!update_id || !id_a) {
       throw { message: "No hay update_id o id_a", id_a, update_id };
     }
@@ -248,7 +248,7 @@ export const FuncionesProvider = (props) => {
       valor,
       update_id,
       id_a,
-      insert_ids
+      insert_ids,
     });
   };
 
@@ -498,7 +498,7 @@ export const FuncionesProvider = (props) => {
     }
   };
 
-  const escupirModal = async (id_a, data) => {
+  const enviarAModal = async (id_a, data) => {
     const conf = await getPantalla(id_a, data.id, data);
     const { addModal } = modalContext;
     conf.data.opciones.modal = true;
@@ -531,7 +531,6 @@ export const FuncionesProvider = (props) => {
           nombre = match[1].trim();
         }
       }
-      console.log(nombre, contentDispositionHeader)
 
       // Crear un enlace temporal para la descarga
       const link = document.createElement("a");
@@ -655,7 +654,7 @@ export const FuncionesProvider = (props) => {
         ABMSubmit,
         subirArchivo,
         checkID_A,
-        escupirModal,
+        enviarAModal,
         endpoint,
       }}
     >

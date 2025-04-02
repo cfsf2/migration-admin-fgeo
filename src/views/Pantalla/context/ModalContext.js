@@ -23,6 +23,7 @@ export const ModalProvider = (props) => {
   };
 
   const addModal = ({ id_a, data, parametro_id }) => {
+    console.log(id_a, data, parametro_id)
     dispatch({
       type: "ADD_MODAL",
       payload: {

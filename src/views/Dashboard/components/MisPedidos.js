@@ -56,7 +56,16 @@ export default function MisPedidos(props) {
       {loading ? (
         "Esperando Mis Pedidos ...."
       ) : (
-        <Card>
+        <Card
+        style={{
+          margin: "10px 5px",
+          border: "2px solid rgba(81, 97, 107, 0.26)",
+          borderRadius: "10px",
+          boxShadow: "rgba(0, 0, 0, 0.13) 0px 6px 6px",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}>
           <CardHeader>
             <b>MIS PEDIDOS</b>
           </CardHeader>
@@ -87,7 +96,6 @@ export default function MisPedidos(props) {
                           height: 40,
                           marginTop: 20,
                           borderRadius: 50,
-                          float: "right",
                         }}
                       >
                         <b style={{ fontSize: 20 }}>...</b>

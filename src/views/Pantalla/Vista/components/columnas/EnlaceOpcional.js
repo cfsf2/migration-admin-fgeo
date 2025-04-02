@@ -15,7 +15,7 @@ const EnlaceOpcional = ({
   id_elemento,
   qsBody,
 }) => {
-  const { escupirModal } = useContext(FuncionesContext);
+  const { enviarAModal } = useContext(FuncionesContext);
   const enlace_id_a = data[cab.id_a + "_enlace_id_a"] ?? cab.enlace_id_a;
   if (!enlace_id_a) {
     return (
@@ -79,7 +79,7 @@ const EnlaceOpcional = ({
     return (
       <div
         onClick={() =>
-          escupirModal(
+          enviarAModal(
             enlace_id_a,
             paramObj,
             { min_width_modal: cab.min_width_modal },

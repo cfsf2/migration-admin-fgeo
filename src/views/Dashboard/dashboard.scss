@@ -1,26 +1,120 @@
 .dashboard {
   &_info {
-    overflow-y: auto;
     max-height: 97vh;
     &_descripcion {
       white-space: pre-wrap;
-      //display: inline-block;
       flex-wrap: wrap;
       overflow: hidden;
     }
   }
 }
-.colorDeFondo {
-  background-color: aquamarine;
+
+/* Separación visual entre banners y botones */
+.banner-section {
+  padding: 20px;
+  background-color: #ffffff;
+  border-bottom: 4px solid #007bff;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
-.dashboard-btn-sm {
-  width: 50%; /* Ocupa la mitad (md=6) por defecto */
+.button-section {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-@media (max-width: 500px) {
+.dashboard-btn-lg:first-child {
+  background: linear-gradient(135deg, #2171a3c1, #2b902ba6);
+  color: white;
+  font-weight: bold;
+  border-radius: 15px;
+  padding: 12px;
+  box-shadow: 0 6px 6px rgb(0 0 0 / 41%);
+  transition: all 0.3s ease;
+  text-align: center;
+  font-size: 1.4em;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c7c7c7;
+}
+
+.dashboard-btn-lg:first-child img {
+  height: auto;
+  margin-right: 15px;
+  filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.8)); /* Resaltar icono */
+}
+
+.dashboard-btn-lg:first-child:hover {
+  background: linear-gradient(135deg, #2161a3c1, #2b822ba6);
+  box-shadow: 0 6px 6px rgb(0 0 0 / 52%);
+  transform: scale(1.03);
+}
+
+.dashboard-btn-lg:first-child p {
+  color: white !important; /* Asegurar que el texto sea completamente blanco */
+  text-shadow: 1px 1px 4px rgb(0 0 0 / 58%)!important; /* Sombras para mejorar lectura */
+  font-size: 14px !important;
+}
+
+.dashboard-btn-lg:first-child div {
+  display: flex;
+  align-items: center;
+}
+
+
+/* Interactividad para otros botones */
+.dashboard-btn-sm, .dashboard-btn-lg {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 6px 6px rgb(0 0 0 / 13%);
+  font-size: 1em;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  margin: 10px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+.dashboard-btn-sm img, .dashboard-btn-lg img {
+  margin-right: 10px;
+  width: 30px;
+  height: auto;
+}
+
+.dashboard-btn-sm:hover, .dashboard-btn-lg:hover {
+  transform: scale(1.03);
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.25);
+  background-color: #dceefb;
+  border-color: #2171a3;
+}
+
+@media (min-width: 1375px) {
   .dashboard-btn-sm {
-    width: 100%; /* Ocupará toda la fila (md=12) en pantallas pequeñas */
+    flex: 1 1 calc(50% - 10px); /* 50% menos el espacio del gap */
+    max-width: calc(48% - 10px);
+    box-sizing: border-box; 
+  }
+}
+
+@media (max-width: 1374px) {
+  .dashboard-btn-sm {
+    flex: 1 1 100%;
+    max-width: 90%;
+    margin: 10px auto;
   }
 }
 

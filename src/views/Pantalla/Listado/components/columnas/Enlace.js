@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import FuncionesContext from "../../../context/FuncionesContext";
 
 const Enlace = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
-  const { escupirModal } = useContext(FuncionesContext);
+  const { enviarAModal } = useContext(FuncionesContext);
 
   const e = cab.enlace
     ? cab.enlace_alias
@@ -49,7 +49,7 @@ const Enlace = ({ data, cab, hijos, campokey, indiceData, id_elemento }) => {
     }
     return (
       <div
-        onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
+        onClick={() => enviarAModal(cab.enlace_id_a, paramObj)}
         id={id_elemento}
         className={"Listado_Switch_Enlace " + classNames}
       >

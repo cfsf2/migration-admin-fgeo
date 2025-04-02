@@ -39,17 +39,6 @@ const dashboardButtons = [
     isWrappedInLink: false, // No está dentro de un Link
   },
   {
-    to: "/pantalla/PANTALLA_ART_VIDEOS_INST",
-    target: null,
-    titulo: "VIDEOS INSTITUCIONALES",
-    subtitulo: <br />,
-    align: "left",
-    icono: require("../../assets/images/icon-videos.png"),
-    md: 12,
-    order: 20,
-    isWrappedInLink: false, // No está dentro de un Link
-  },
-  {
     to: "/pantalla/PANTALLA_ART_DEBITOS_PAMI",
     target: null,
     titulo: "DEBITOS PAMI",
@@ -146,6 +135,17 @@ const dashboardButtons = [
     icono: require("../../assets/images/icons/6.png"),
     md: 6,
     order: 100,
+    isWrappedInLink: false, // No está dentro de un Link
+  },
+  {
+    to: "/pantalla/PANTALLA_ART_VIDEOS_INST",
+    target: null,
+    titulo: "VIDEOS INSTITUCIONALES",
+    subtitulo: <br />,
+    align: "left",
+    icono: require("../../assets/images/icon-videos.png"),
+    md: 6,
+    order: 110,
     isWrappedInLink: false, // No está dentro de un Link
   },
 ];

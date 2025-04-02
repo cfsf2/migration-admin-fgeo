@@ -11,7 +11,7 @@ const EnlaceOpcional = ({
   indiceData,
   id_elemento,
 }) => {
-  const { escupirModal } = useContext(FuncionesContext);
+  const { enviarAModal } = useContext(FuncionesContext);
   if (!cab.enlace_id_a) {
     return (
       <Default
@@ -67,7 +67,7 @@ const EnlaceOpcional = ({
   if (cab.target === "modal") {
     return (
       <div
-        onClick={() => escupirModal(cab.enlace_id_a, paramObj)}
+        onClick={() => enviarAModal(cab.enlace_id_a, paramObj)}
         id={id_elemento}
         className={"Listado_Switch_Enlace " + classNames}
       >

@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 function EsLink(props) {
-  const { link } = props;
+  const { link, target } = props;
   const linkOrigin = window.location.origin;
 
   const [linkInterno, setlinkInterno] = React.useState(true);
@@ -18,16 +18,16 @@ function EsLink(props) {
 
   React.useEffect(() => {
     verificarLink(link);
-  }, []);
+  }, [link]);
 
   return (
     <>
       {linkInterno ? (
-        <Link to={formatearLink(link, linkOrigin)} id="LINK INT">
+        <Link to={formatearLink(link, linkOrigin)} target={target || "_self"}>
           {props.children}
         </Link>
       ) : (
-        <a id="ANCLA" href={link} target="_blank" rel="noopener">
+        <a href={link} target={target || "_blank"} rel="noopener noreferrer">
           {props.children}
         </a>
       )}
