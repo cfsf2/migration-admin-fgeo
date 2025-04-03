@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext } from "react";
+import { Route, Redirect } from "react-router-dom";
 
 import { AuthContext } from "../AuthContext/AuthContext";
 
 const ProtectedRoute = (props) => {
-  const { check, authenticated } = useContext(AuthContext);
+  const { authenticated } = useContext(AuthContext);
   const { Component } = props;
 
   return (

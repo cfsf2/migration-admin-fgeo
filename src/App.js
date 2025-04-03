@@ -5,6 +5,7 @@ import "./App.scss";
 import GestorCampanas from "./views/gestorCampanas/GestorCampanas";
 import { AuthProvider } from "./views/Pages/AuthContext/AuthContext";
 import ProtectedRoute from "./views/Pages/Login/ProtectedRoute";
+import PublicLayout from "views/Dashboard/components/PublicLayout";
 
 import store from "./redux/store/index";
 import { LOGOUT } from "./redux/actions/authActions";
@@ -22,7 +23,7 @@ const onRequestStart = () => {
 const onRequestEnd = () => {
   activeRequests -= 1;
   if (activeRequests === 0) {
-    document.dispatchEvent(new Event('allRequestsComplete'));
+    document.dispatchEvent(new Event("allRequestsComplete"));
   }
 };
 
@@ -30,8 +31,8 @@ axios.interceptors.request.use((request) => {
   request.headers.authorization = `Bearer ${window.localStorage.getItem(
     "token"
   )}`;
-  request.headers["x-frontend-origin"] = "farmageo_admin"
-  request.headers["x-connection"] = "farmageo"
+  request.headers["x-frontend-origin"] = "farmageo_admin";
+  request.headers["x-connection"] = "farmageo";
   onRequestStart();
   return request;
 });
@@ -130,8 +131,6 @@ const Page500 = React.lazy(() => import("./views/Pages/Page500"));
 const Evento = React.lazy(() => import("./views/Evento/Evento"));
 
 function App() {
-  const testing = window.location.origin;
-
   return (
     <HashRouter>
       <React.Suspense fallback={loading()}>
@@ -158,6 +157,12 @@ function App() {
             render={() => <Terminos />}
           />
           <Route exact path="/Evento" name="Evento" render={() => <Evento />} />
+          <Route
+            exact
+            path="/public/:pantalla"
+            name="Public"
+            render={(props) => <PublicLayout {...props} />}
+          />
           <AuthProvider>
             <Route
               exact
@@ -171,6 +176,7 @@ function App() {
               name="Page 500"
               render={(props) => <Page500 {...props} />}
             />
+
             <ProtectedRoute
               path="/"
               name="Home"

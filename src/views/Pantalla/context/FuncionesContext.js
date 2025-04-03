@@ -437,7 +437,7 @@ export const FuncionesProvider = (props) => {
       const location = {
         pathname: `/Configuracion/${cab.enlace_siguiente}`,
         search: enlace_siguiente_pasar_id
-          ? `?&id=${res.data[id_nombre]}`
+          ? `?&id=${res.data.registro[id_nombre]}`
           : undefined,
       };
 
