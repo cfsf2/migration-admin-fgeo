@@ -27,9 +27,9 @@ export const AuthProvider = ({ children }) => {
   const check = async () => {
     return await Axios.post(farmageo_api + "/checkToken").then(async (res) => {
       await setAuthenticated(res.data.authenticated);
-      if (!res.data.authenticated) {
-        window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
-      }
+      // if (!res.data.authenticated) {
+      //   window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
+      // }
       return res.data.authenticated;
     });
   };
