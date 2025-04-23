@@ -110,7 +110,7 @@ export const LOADPROFILE = (username, token) => {
           dispatch(GET_USUARIO(response.data.usuario));
         }
 
-        console.log("LOADPROFILE_OK",response.data)
+        // console.log("LOADPROFILE_OK",response.data)
         if (response.data.farmaciaid) {
           dispatch({ type: "GET_FARMACIA", payload: response.data });
 

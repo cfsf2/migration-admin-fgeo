@@ -413,6 +413,7 @@ export const FuncionesProvider = (props) => {
       }
       if (res.status < 400) {
         if (alerta_exito) await alertarExito(res);
+        
         if (enlace_siguiente) redireccionar({ cab: opciones, res });
 
         if (
@@ -432,7 +433,7 @@ export const FuncionesProvider = (props) => {
   const redireccionar = async ({ cab, data, res }) => {
     const enlace_siguiente_pasar_id = cab.enlace_siguiente_pasar_id === "s";
     const id_nombre = cab.update_id_nombre ?? "id";
-
+    console.log(res.data.registro, id_nombre, res.data.registro[id_nombre], cab)
     if (checkID_A(cab.enlace_siguiente)) {
       const location = {
         pathname: `/Configuracion/${cab.enlace_siguiente}`,
