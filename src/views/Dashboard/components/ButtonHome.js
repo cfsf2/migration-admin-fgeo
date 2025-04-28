@@ -30,40 +30,35 @@ const ButtonHome = (props) => {
           paddingBottom: 0,
         }}
       >
-        <Row style={{ paddingLeft: 5, paddingRight: 0 }}>
-          <Col>
-            {" "}
-            <img src={props.icono} style={{width: "25px", float: "right"}} />
-          </Col>
-          <Col
-            style={{ float: "left" }}
+        <Row style={{ paddingLeft: 5, paddingRight: 0, alignItems: 'center', flexWrap: 'nowrap', overflow: 'hidden' }}>
+        <Col xs="3" style={{ textAlign: "center" }}>
+          <img src={props.icono} style={{ width: "25px", maxHeight: "40px" }} />
+        </Col>
+        <Col xs="9" style={{ textAlign: props.align, minWidth: 0 }}>
+          <p
+            style={{
+              fontSize: 12,
+              marginBottom: 0,
+              marginTop: 1,
+              fontWeight: "bold",
+              overflowWrap: "break-word",
+              wordBreak: "break-word",
+            }}
           >
-            <p
-              style={{
-                fontSize: 12,
-                paddingBottom: 0,
-                marginBottom: 0,
-                marginTop: 1,
-                fontWeight: "bold",
-                textAlign: props.align,
-              }}
-            >
-              {props.titulo}
-            </p>
-            <p
-              style={{
-                fontSize: 10,
-                wordWrap: "break-word",
-                paddingBottom: 0,
-                marginBottom: 0,
-                textAlign: props.align,
-              }}
-              className="text-truncate"
-              title={props.subtitulo}
-            >
-              {props.subtitulo}
-            </p>
-          </Col>
+            {props.titulo}
+          </p>
+          <p
+            style={{
+              fontSize: 10,
+              marginBottom: 0,
+              overflowWrap: "break-word",
+              wordBreak: "break-word",
+            }}
+            title={props.subtitulo}
+          >
+            {props.subtitulo}
+          </p>
+        </Col>
         </Row>
       </a>
     </div>

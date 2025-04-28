@@ -290,11 +290,11 @@ class Dashboard extends Component {
                 </div>
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col>
                 <MisPedidos pedidosNuevos {...this.props} {...this.state} />
               </Col>
-            </Row>
+            </Row> */}
             {this.state.misventas && (
               <Row>
                 <Col>
