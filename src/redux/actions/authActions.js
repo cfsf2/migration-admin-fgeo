@@ -1,7 +1,7 @@
 import axios from "axios";
 import { errorParser } from "../../helpers/errorHelper";
 import { farmageo_api } from "../../config";
-import { GET_PEDIDOS } from "./pedidosActions";
+// import { GET_PEDIDOS } from "./pedidosActions";
 import { ALERT } from "./alertActions";
 import store from "../store/index";
 import { GET_NOVEDADES_FARMACIA } from "./publicidadesActions";
@@ -114,7 +114,7 @@ export const LOADPROFILE = (username, token) => {
         if (response.data.farmaciaid) {
           dispatch({ type: "GET_FARMACIA", payload: response.data });
 
-          dispatch(GET_PEDIDOS(response.data.farmaciaid));
+          // dispatch(GET_PEDIDOS(response.data.farmaciaid));
           dispatch(
             GET_NOVEDADES_FARMACIA(
               response.data._id,

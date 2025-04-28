@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
-import {VER_PEDIDO} from '../../../redux/actions/pedidosActions'
+// import {VER_PEDIDO} from '../../../redux/actions/pedidosActions'
 
 class MyModal extends Component{  
     render(){
@@ -10,7 +10,6 @@ class MyModal extends Component{
             <div className="modal fade bd-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
-                   
                     </div>
                 </div>
             </div>
@@ -23,9 +22,10 @@ const mapStateToProps = state => {
     return {
         pedidosReducer: state.pedidosReducer
     }
-  }
-  const mapDispatchToProps = {
-    VER_PEDIDO
-  }
-  
-export default connect(mapStateToProps, mapDispatchToProps)(MyModal)
+}
+
+//   const mapDispatchToProps = {
+//     VER_PEDIDO
+//   }
+
+export default connect(mapStateToProps)(MyModal)
