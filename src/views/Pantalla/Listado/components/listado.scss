@@ -149,3 +149,23 @@ span.Ftooltip {
 [data-rfd-drag-handle-context-id="1"] {
   justify-content: center;
 }
+
+
+.MuiTableFooter-root {
+  .MuiTablePagination-displayedRows,
+  .MuiTablePagination-selectLabel, .MuiInputBase-root, .MuiTypography-caption, .MuiTablePagination-caption {
+    font-family: Roboto, Helvetica, Arial, sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 0.696429rem !important;
+    line-height: 1.66 !important;
+    letter-spacing: 0.03333em !important;
+    margin: 0px !important;
+    color: rgba(0, 0, 0, 0.6) !important;
+  }
+  .MuiTablePagination-caption{
+    display:block
+  }
+}
+.MuiTablePagination-displayedRows {
+  margin: auto;
+}

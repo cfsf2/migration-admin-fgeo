@@ -116,7 +116,7 @@ export const Listado = (props) => {
   return (
     <div
       style={styles}
-      className={`animated fadeIn novedades_lista ${opcionesListado.className}`}
+      className={`animated fadeIn ${opcionesListado.className}`}
     >
       <Card
         id={opcionesListado.id_a}
@@ -179,7 +179,7 @@ export const Listado = (props) => {
                   emptyDataSourceMessage: mensajeSinDatos,
                 },
                 pagination: {
-                  labelDisplayedRows: "{from}-{to} de {count}",
+                  // labelDisplayedRows: "{from}-{to} de {count}",
                   labelRowsSelect: "Filas",
                   labelRowsPerPage: "Productos x pág",
                   firstAriaLabel: "Primera",
@@ -206,9 +206,13 @@ export const Listado = (props) => {
                         .filter((cab) => cab.componente !== "excel")
                         .filter((cab) => cab.componente !== "null")
                         .filter((cab) => cab.mostrar !== "n")
-                        .filter((cab) => cab.condicion_acceso ? datos[0] && datos[0][cab.id_a +'_CONDICION_ACCESO'] : true)
+                        .filter((cab) =>
+                          cab.condicion_acceso
+                            ? datos[0] &&
+                              datos[0][cab.id_a + "_CONDICION_ACCESO"]
+                            : true
+                        )
                         .map((cab, i) => {
-
                           return {
                             title: cab.nombre_alias
                               ? datos[0][cab.nombre_alias]
@@ -436,16 +440,21 @@ export const Listado = (props) => {
                   if (opcionesListado.consultaEjecutada === "n") return <></>;
                   return (
                     <TablePagination
+                      {...props}
                       className={
                         opcionesListado.paginacion === "n" ? "d-none" : ""
                       }
+                      labelRowsPerPage="Filas:"
                       rowsPerPage={ps.current}
-                      {...props}
                       onRowsPerPageChange={(e) => {
-                        // console.log(ps);
                         ps.current = e.target.value;
                         setforce(e.target.value);
                       }}
+                      labelDisplayedRows={({ page, count }) => {
+                        const totalPages = Math.ceil(count / ps.current);
+                        return `Pág. ${page + 1} de ${totalPages}`;
+                      }}
+                    
                     />
                   );
                 },
