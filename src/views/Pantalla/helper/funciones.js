@@ -205,3 +205,15 @@ export function tryFocusWithRetry(parentElement, retries = 5, delay = 500) {
 
   attemptFocus(); // Inicia el intento de aplicar foco
 }
+
+export function getLoginURL() {
+  const urlActual = encodeURIComponent(window.location.href);
+  const publicUrl = process.env.PUBLIC_URL;
+  return `${publicUrl}/#/login?from=${urlActual}`;
+}
+
+export function goToLogin() {
+  const loginURL = getLoginURL();
+  document.body.style.cursor = "default";
+  return window.location.replace(loginURL);
+}

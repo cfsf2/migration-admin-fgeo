@@ -3,6 +3,7 @@ import React, { createContext, useEffect, useState, useMemo } from "react";
 import { farmageo_api } from "../../../config";
 
 import { Redirect, Route } from "react-router-dom";
+import { goToLogin } from "views/Pantalla/helper/funciones";
 
 export const AuthContext = createContext();
 
@@ -27,9 +28,9 @@ export const AuthProvider = ({ children }) => {
   const check = async () => {
     return await Axios.post(farmageo_api + "/checkToken").then(async (res) => {
       await setAuthenticated(res.data.authenticated);
-      // if (!res.data.authenticated) {
-      //   window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
-      // }
+      if (!res.data.authenticated) {
+        goToLogin();
+      }
       return res.data.authenticated;
     });
   };
@@ -46,9 +47,14 @@ export const AuthProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    Axios.post(farmageo_api + "/checkToken").then(async (res) => {
-      await setAuthenticated(res.data.authenticated);
-    });
+    Axios.post(farmageo_api + "/checkToken")
+      .then(async (res) => {
+        await setAuthenticated(res.data.authenticated);
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      });
   }, [window.location.href]);
 
   return (
