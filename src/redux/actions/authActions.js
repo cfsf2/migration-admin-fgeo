@@ -35,7 +35,7 @@ export const TRYREGISTER = (body) => {
   };
 };
 
-export const LOGIN = (user, password) => {
+export const LOGIN = (user, password, from) => {
   return (dispatch) => {
     axios
       .post(farmageo_api + "/users/loginwp", {
@@ -75,7 +75,11 @@ export const LOGIN = (user, password) => {
             await dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }
 
-          window.location.replace(`${process.env.PUBLIC_URL}/#/dashboard`);
+          window.location.replace(
+            from
+              ? from.replace("/public/", "/pantalla/")
+              : `${process.env.PUBLIC_URL}/#/pantalla/INICIO`
+          );
         }
       })
       .catch(function (error) {

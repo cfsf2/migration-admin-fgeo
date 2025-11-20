@@ -54,7 +54,15 @@ const Login = (props) => {
 
   const handleLoginClick = () => {
     if (terminos) {
-      dispatch(LOGIN(userName, password));
+      const hash = window.location.hash;
+      const queryString = hash.split("?")[1]; // "from=https%3A%2F%2Fmidominio.com%2Fperfil"
+
+      let from = null;
+      if (queryString) {
+        const params = new URLSearchParams(queryString);
+        from = params.get("from");
+      }
+      dispatch(LOGIN(userName, password, from));
     } else {
       alert("Debe aceptar los términos y condiciones");
     }

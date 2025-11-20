@@ -59,20 +59,19 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {authenticated ? (
-        children
-      ) : (
-        <Route
-          render={({ location }) => (
-            <Redirect
-              to={{
-                pathname: "/login",
-                state: { from: location },
-              }}
-            />
-          )}
-        />
-      )}
+      {authenticated
+        ? children
+        : // <Route
+          //   render={({ location }) => (
+          //     <Redirect
+          //       to={{
+          //         pathname: "/login",
+          //         state: { from: location },
+          //       }}
+          //     />
+          //   )}
+          // />
+          goToLogin()}
     </AuthContext.Provider>
   );
 };
