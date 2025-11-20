@@ -43,6 +43,7 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
   const keyUp = useRef(0); // Evita que el evento onBlur se dispare luego de onKeyUp
   const altEnter = useRef(0); // Detecta keyDown = alt + enter
   const setingStart = useRef();
+  const firstRender = useRef(0);
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
@@ -89,6 +90,10 @@ const TextFieldEditable = ({ value, setValue, onEnter, maxCaracteres }) => {
 
   useEffect(() => {
     const ctrl = document.getElementById(id);
+     if (firstRender.current === 0) {
+        firstRender.current = 1;
+        return;
+      }
 
     if (ctrl.setSelectionRange) {
       ctrl.focus();
