@@ -2,8 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { FormControlLabel } from "@material-ui/core";
 import { Checkbox } from "@mui/material";
 import FuncionesContext from "../../../context/FuncionesContext";
+import { getAtributo } from "../../../context/FuncionesContext";
 import PantallaContext from "../../../context/PantallaContext";
-import { getAtributo } from "../../../helpers/atributos";
 
 const CheckboxC = ({ data, cab, campokey, id_elemento }) => {
   const { superSubmit } = useContext(FuncionesContext);
