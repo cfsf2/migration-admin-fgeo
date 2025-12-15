@@ -16,6 +16,15 @@
   //   word-break: break-all;
   //   overflow: hidden;
   // }
+  &_checkbox {
+    font-weight: normal;
+    display: flex;
+    width: 100%;
+    margin-right: 0px;
+    margin-left: 4.5px;
+    white-space: nowrap;
+    align-items: center;
+  }
   &_select {
     font-weight: bold;
     display: flex;
