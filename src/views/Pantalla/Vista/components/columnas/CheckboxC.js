@@ -49,16 +49,27 @@ const CheckboxC = ({ data, cab, campokey, id_elemento }) => {
   }, [configuraciones_ref[cab.id_a]]);
   const classNames = data[cab.id_a + "_className"] ?? cab.className;
   return (
-    <div id={id_elemento} style={{ marginLeft: "14px" }} className={classNames}>
+    <div
+      className="cfsf_checkbox"
+      id={id_elemento}
+      style={{ marginLeft: "14px", display: "flex" }}
+    >
       <FormControlLabel
         control={
           <Checkbox
             checked={value === "s" ? true : false}
             onChange={handleChange}
+            disabled={getAtributo("disabled", data, cab) === "s"}
           />
         }
-        label={nombre}
+        label={cab.label}
+        className={cab.className}
       />
+      {nombre && !cab.label ? (
+        <div className="vista_label_checkbox">{nombre} </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
