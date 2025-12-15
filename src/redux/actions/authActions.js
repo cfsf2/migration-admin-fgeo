@@ -1,7 +1,7 @@
 import axios from "axios";
 import { errorParser } from "../../helpers/errorHelper";
 import { farmageo_api } from "../../config";
-import { GET_PEDIDOS } from "./pedidosActions";
+// import { GET_PEDIDOS } from "./pedidosActions";
 import { ALERT } from "./alertActions";
 import store from "../store/index";
 import { GET_NOVEDADES_FARMACIA } from "./publicidadesActions";
@@ -35,7 +35,7 @@ export const TRYREGISTER = (body) => {
   };
 };
 
-export const LOGIN = (user, password) => {
+export const LOGIN = (user, password, from) => {
   return (dispatch) => {
     axios
       .post(farmageo_api + "/users/loginwp", {
@@ -75,7 +75,11 @@ export const LOGIN = (user, password) => {
             await dispatch(LOADPROFILE(user.toUpperCase(), response.data.token));
           }
 
-          window.location.replace(`${process.env.PUBLIC_URL}/#/dashboard`);
+          window.location.replace(
+            from
+              ? from.replace("/public/", "/pantalla/")
+              : `${process.env.PUBLIC_URL}/#/pantalla/INICIO`
+          );
         }
       })
       .catch(function (error) {
@@ -110,11 +114,11 @@ export const LOADPROFILE = (username, token) => {
           dispatch(GET_USUARIO(response.data.usuario));
         }
 
-        console.log("LOADPROFILE_OK",response.data)
+        // console.log("LOADPROFILE_OK",response.data)
         if (response.data.farmaciaid) {
           dispatch({ type: "GET_FARMACIA", payload: response.data });
 
-          dispatch(GET_PEDIDOS(response.data.farmaciaid));
+          // dispatch(GET_PEDIDOS(response.data.farmaciaid));
           dispatch(
             GET_NOVEDADES_FARMACIA(
               response.data._id,

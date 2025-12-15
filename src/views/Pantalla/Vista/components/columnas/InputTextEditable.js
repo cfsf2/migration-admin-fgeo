@@ -29,13 +29,12 @@ const InputTextEditable = ({
   const handleCancelar = () => {
     setValue(data[campokey]);
     setLastvalue(data[campokey]);
-    console.log(data[campokey]);
   };
 
   const handleGuardar = async (e) => {
     const valor = e.target.value;
 
-    if (valor === null || lastValue?.toString() === valor.toString().trim())
+    if (valor === null || lastValue?.toString() === valor.toString().trim() || (valor.trim() === '' && !lastValue))
       return;
 
     const update_id = data[cab.update_id_alias];

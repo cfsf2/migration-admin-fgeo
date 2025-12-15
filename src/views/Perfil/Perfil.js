@@ -501,7 +501,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
             </CardBody>
           </Card>
         </Col>
-        <Col xs="12" md="6">
+        {/* <Col xs="12" md="6">
           <Card>
             <CardHeader>
               <strong>Venta Online</strong>
@@ -548,7 +548,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
               <br />
             </CardBody>
           </Card>
-        </Col>
+        </Col> */}
       </Row>
       <Row></Row>
       <Row>

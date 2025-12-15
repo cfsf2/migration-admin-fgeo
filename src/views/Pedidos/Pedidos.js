@@ -13,10 +13,10 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import {
-  GET_PEDIDOS,
-  VER_PEDIDO,
-  GET_INFO_SOCIO,
-  UPDATE_PEDIDO,
+  // GET_PEDIDOS,
+  // VER_PEDIDO,
+  // GET_INFO_SOCIO,
+  // UPDATE_PEDIDO,
 } from "../../redux/actions/pedidosActions";
 import { GET_ENTIDADES } from "../../redux/actions/packsproductosActions";
 class Pedidos extends Component {
@@ -36,7 +36,7 @@ class Pedidos extends Component {
   async componentDidMount() {
     const { userprofile } = this.props.authReducer;
 
-    await this.props.GET_PEDIDOS(userprofile.farmaciaid);
+    // await this.props.GET_PEDIDOS(userprofile.farmaciaid);
     this.setLoading(false);
     this.props.GET_ENTIDADES();
     //para que chequee si hay cambios en los pedidos cada 1 minuto.
@@ -50,7 +50,7 @@ class Pedidos extends Component {
   refreshPedidos = async () => {
     const { userprofile } = this.props.authReducer;
     this.setLoading(true);
-    await this.props.GET_PEDIDOS(userprofile.farmaciaid);
+    // await this.props.GET_PEDIDOS(userprofile.farmaciaid);
     this.setLoading(false);
   };
 
@@ -182,7 +182,7 @@ class Pedidos extends Component {
                                     data-toggle="modal"
                                     data-target=".bd-example-modal-lg"
                                     onClick={() => {
-                                      this.props.GET_INFO_SOCIO(p.username);
+                                      // this.props.GET_INFO_SOCIO(p.username);
                                       this.setState({ pedido: p });
                                     }}
                                   >
@@ -475,10 +475,10 @@ class Pedidos extends Component {
                                 <Col className="my-2" xs="3" align="center">
                                   <Button
                                     onClick={() => {
-                                      this.props.UPDATE_PEDIDO({
-                                        ...this.state.pedido,
-                                        estado: "nuevo",
-                                      });
+                                      // this.props.UPDATE_PEDIDO({
+                                      //   ...this.state.pedido,
+                                      //   estado: "nuevo",
+                                      // });
                                       this.setState({
                                         pedido: {
                                           ...this.state.pedido,
@@ -494,10 +494,10 @@ class Pedidos extends Component {
                                 <Col className="my-2" xs="3" align="center">
                                   <Button
                                     onClick={() => {
-                                      this.props.UPDATE_PEDIDO({
-                                        ...this.state.pedido,
-                                        estado: "enproceso",
-                                      });
+                                      // this.props.UPDATE_PEDIDO({
+                                      //   ...this.state.pedido,
+                                      //   estado: "enproceso",
+                                      // });
                                       this.setState({
                                         pedido: {
                                           ...this.state.pedido,
@@ -513,10 +513,10 @@ class Pedidos extends Component {
                                 <Col className="my-2" xs="3" align="center">
                                   <Button
                                     onClick={() => {
-                                      this.props.UPDATE_PEDIDO({
-                                        ...this.state.pedido,
-                                        estado: "entregado",
-                                      });
+                                      // this.props.UPDATE_PEDIDO({
+                                      //   ...this.state.pedido,
+                                      //   estado: "entregado",
+                                      // });
                                       this.setState({
                                         pedido: {
                                           ...this.state.pedido,
@@ -532,10 +532,10 @@ class Pedidos extends Component {
                                 <Col className="my-2" xs="3" align="center">
                                   <Button
                                     onClick={() => {
-                                      this.props.UPDATE_PEDIDO({
-                                        ...this.state.pedido,
-                                        estado: "resuelto",
-                                      });
+                                      // this.props.UPDATE_PEDIDO({
+                                      //   ...this.state.pedido,
+                                      //   estado: "resuelto",
+                                      // });
                                       this.setState({
                                         pedido: {
                                           ...this.state.pedido,
@@ -554,9 +554,9 @@ class Pedidos extends Component {
                                   <Button
                                     className="btn btn-success"
                                     onClick={() => {
-                                      this.props.UPDATE_PEDIDO({
-                                        ...this.state.pedido,
-                                      });
+                                      // this.props.UPDATE_PEDIDO({
+                                      //   ...this.state.pedido,
+                                      // });
                                     }}
                                   >
                                     Guardar cambios
@@ -599,10 +599,10 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = {
-  GET_PEDIDOS,
-  VER_PEDIDO,
-  GET_INFO_SOCIO,
-  UPDATE_PEDIDO,
+  // GET_PEDIDOS,
+  // VER_PEDIDO,
+  // GET_INFO_SOCIO,
+  // UPDATE_PEDIDO,
   GET_ENTIDADES,
 };
 

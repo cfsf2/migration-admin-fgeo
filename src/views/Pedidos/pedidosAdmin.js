@@ -13,11 +13,11 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import {
-  GET_PEDIDOS,
-  VER_PEDIDO,
-  GET_INFO_SOCIO,
-  UPDATE_PEDIDO,
-  GET_ALL_PEDIDOS_ADMIN,
+  // GET_PEDIDOS,
+  // VER_PEDIDO,
+  // GET_INFO_SOCIO,
+  // UPDATE_PEDIDO,
+  // GET_ALL_PEDIDOS_ADMIN,
 } from "../../redux/actions/pedidosActions";
 import { GET_ENTIDADES } from "../../redux/actions/packsproductosActions";
 
@@ -28,7 +28,7 @@ class PedidosAdmin extends Component {
   }
 
   async componentDidMount() {
-    this.props.GET_ALL_PEDIDOS_ADMIN();
+    // this.props.GET_ALL_PEDIDOS_ADMIN();
     this.props.GET_ENTIDADES();
   }
 
@@ -139,7 +139,7 @@ class PedidosAdmin extends Component {
                                   data-target=".bd-example-modal-lg"
                                   onClick={() => {
                                     this.setState({ pedido: p });
-                                    this.props.GET_INFO_SOCIO(p.username);
+                                    // this.props.GET_INFO_SOCIO(p.username);
                                   }}
                                   style={{ width: "100%" }}
                                 >
@@ -440,10 +440,10 @@ class PedidosAdmin extends Component {
                                 <Col xs="4">
                                   <Button
                                     onClick={() => {
-                                      this.props.UPDATE_PEDIDO({
-                                        ...this.state.pedido,
-                                        estado: "enproceso",
-                                      });
+                                      // this.props.UPDATE_PEDIDO({
+                                      //   ...this.state.pedido,
+                                      //   estado: "enproceso",
+                                      // });
                                       this.setState({
                                         pedido: {
                                           ...this.state.pedido,
@@ -458,10 +458,10 @@ class PedidosAdmin extends Component {
                                 <Col xs="4">
                                   <Button
                                     onClick={() => {
-                                      this.props.UPDATE_PEDIDO({
-                                        ...this.state.pedido,
-                                        estado: "entregado",
-                                      });
+                                      // this.props.UPDATE_PEDIDO({
+                                      //   ...this.state.pedido,
+                                      //   estado: "entregado",
+                                      // });
                                       this.setState({
                                         pedido: {
                                           ...this.state.pedido,
@@ -476,9 +476,9 @@ class PedidosAdmin extends Component {
                                 <Col xs="4">
                                   <Button
                                     onClick={() => {
-                                      this.props.UPDATE_PEDIDO({
-                                        ...this.state.pedido,
-                                      });
+                                      // this.props.UPDATE_PEDIDO({
+                                      //   ...this.state.pedido,
+                                      // });
                                     }}
                                   >
                                     Guardar
@@ -509,11 +509,11 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = {
-  GET_PEDIDOS,
-  VER_PEDIDO,
-  GET_INFO_SOCIO,
-  UPDATE_PEDIDO,
-  GET_ALL_PEDIDOS_ADMIN,
+  // GET_PEDIDOS,
+  // VER_PEDIDO,
+  // GET_INFO_SOCIO,
+  // UPDATE_PEDIDO,
+  // GET_ALL_PEDIDOS_ADMIN,
   GET_ENTIDADES,
 };
 

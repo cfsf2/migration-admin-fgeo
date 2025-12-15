@@ -134,9 +134,9 @@ export default function Virtualize({
   valor,
   setValor,
 }) {
-  useEffect(() => {
-    console.log("cab.opciones:", cab.opciones);
-  }, [cab.opciones]);
+  // useEffect(() => {
+  //   console.log("cab.opciones:", cab.opciones);
+  // }, [cab.opciones]);
 
   const handleChangeValue = async (newValue) => {
     const valor = newValue.value; //newValue { value, label }

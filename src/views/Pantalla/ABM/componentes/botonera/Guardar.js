@@ -14,7 +14,7 @@ const Guardar = ({
   useEffect(() => {
     if (!submitOnEnter) return;
     document.addEventListener("keydown", (e) => {
-      if (e.key.toLocaleLowerCase() === "enter") {
+      if (e.key && e.key.toLocaleLowerCase() === "enter") {
         document.getElementById(buttonId).click();
       }
     });

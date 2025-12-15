@@ -8,7 +8,7 @@ import {
   GET_PUBLICIDADES,
   GET_NOVEDADES_FARMACIA,
 } from "../../redux/actions/publicidadesActions";
-import { GET_PEDIDOS } from "../../redux/actions/pedidosActions";
+// import { GET_PEDIDOS } from "../../redux/actions/pedidosActions";
 import {
   GET_PRODUCTOS_PACK_BY_ENTIDAD,
   GET_ENTIDADES,
@@ -290,11 +290,11 @@ class Dashboard extends Component {
                 </div>
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col>
                 <MisPedidos pedidosNuevos {...this.props} {...this.state} />
               </Col>
-            </Row>
+            </Row> */}
             {this.state.misventas && (
               <Row>
                 <Col>
@@ -324,7 +324,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   ADD_PUBLICIDAD,
   GET_PUBLICIDADES,
-  GET_PEDIDOS,
+  // GET_PEDIDOS,
   GET_PRODUCTOS_PACK_BY_ENTIDAD,
   GET_ENTIDADES,
   GET_NOVEDADES_FARMACIA,

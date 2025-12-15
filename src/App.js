@@ -6,6 +6,7 @@ import GestorCampanas from "./views/gestorCampanas/GestorCampanas";
 import { AuthProvider } from "./views/Pages/AuthContext/AuthContext";
 import ProtectedRoute from "./views/Pages/Login/ProtectedRoute";
 import PublicLayout from "views/Dashboard/components/PublicLayout";
+import { goToLogin } from "views/Pantalla/helper/funciones";
 
 import store from "./redux/store/index";
 import { LOGOUT } from "./redux/actions/authActions";
@@ -103,7 +104,8 @@ axios.interceptors.response.use(
             "Volver a Log In"
           ).finally(() => {
             store.dispatch(LOGOUT());
-            window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
+            // window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
+            goToLogin()
           })
         );
 

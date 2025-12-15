@@ -26,12 +26,14 @@ import InputTextEditable from "./columnas/InputTextEditable";
 import { withTools } from "../../helper/withTools";
 
 import VistaContext from "../context/VistaContext";
+import { ReadOnlyTextArea } from "../../components/EditorTextArea";
 
 const SwitchCampos = ({
   data,
   cab,
   padre,
   indiceData,
+  indiceConf,
   Context,
   id_elemento,
 }) => {
@@ -210,6 +212,22 @@ const SwitchCampos = ({
             id_elemento={id_elemento}
           />
         );
+      case "textarea":
+      return (
+        <ReadOnlyTextArea
+          key={cab.id_a}
+          data={data}
+          cab={cab}
+          hijos={hijos}
+          campokey={campokey}
+          indiceData={indiceData}
+          indiceConf={indiceConf}
+          context={VistaContext}
+          id_elemento={id_elemento}
+          valor={data[campokey]}
+          updateid={data[cab.update_id_alias]}
+        />
+      );
       case "radio_button":
         return (
           <RadioButtonC

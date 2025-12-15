@@ -413,6 +413,7 @@ export const FuncionesProvider = (props) => {
       }
       if (res.status < 400) {
         if (alerta_exito) await alertarExito(res);
+
         if (enlace_siguiente) redireccionar({ cab: opciones, res });
 
         if (
@@ -680,3 +681,23 @@ export function parseISOString(s) {
     return s;
   }
 }
+
+export const getAtributo = (atributo, data, cab) => {
+  const value = data?.[cab.id_a + "_" + atributo];
+
+  if (
+    value !== null &&
+    value !== undefined &&
+    (typeof value !== "string" || value.trim() !== "")
+  ) {
+    return value;
+  }
+  if (
+    data &&
+    cab[atributo + "_alias"] &&
+    cab[atributo + "_alias"].trim() !== ""
+    // || cab.permite_null === "s"
+  )
+    return data[cab[atributo + "_alias"]];
+  return cab[atributo];
+};
