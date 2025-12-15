@@ -21,6 +21,10 @@
     display: flex;
     width: 100%;
   }
+
+  @media (max-width: 768px) {
+    white-space: normal;
+  }
 }
 
 .tarjeta_grid_item_select {

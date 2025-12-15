@@ -30,6 +30,9 @@ const useStyle = makeStyles({
     "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
       borderBottom: "none",
     },
+    "&.MuiFormControl-root": {
+      width: "100%",
+    },
   },
 });
 
