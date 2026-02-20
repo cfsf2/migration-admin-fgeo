@@ -8,30 +8,30 @@ export default {
     },
 
     //Venta online
-    {
-      title: true,
-      name: "Venta online",
-      wrapper: {
-        element: "",
-        attributes: {},
-      },
-      perfil_farmageo: ["vender_online"],
-    },
-    {
-      name: "Productos",
-      icon: "icon-user",
-      children: [
-        {
-          name: "Administrar productos",
-          url: "/SeleccionarPanel",
-        },
-        {
-          name: "Papelera de productos",
-          url: "/papeleraproductos",
-        },
-      ],
-      perfil_farmageo: ["vender_online"],
-    },
+    // {
+    //   title: true,
+    //   name: "Venta online",
+    //   wrapper: {
+    //     element: "",
+    //     attributes: {},
+    //   },
+    //   perfil_farmageo: ["vender_online"],
+    // },
+    // {
+    //   name: "Productos",
+    //   icon: "icon-user",
+    //   children: [
+    //     {
+    //       name: "Administrar productos",
+    //       url: "/SeleccionarPanel",
+    //     },
+    //     {
+    //       name: "Papelera de productos",
+    //       url: "/papeleraproductos",
+    //     },
+    //   ],
+    //   perfil_farmageo: ["vender_online"],
+    // },
 
     // Todos los perfiles debe mostrarse
     {

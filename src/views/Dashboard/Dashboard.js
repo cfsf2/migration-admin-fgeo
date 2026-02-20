@@ -53,7 +53,13 @@ const dashboardButtons = [
     to: "/pantalla/PANTALLA_ART_RESUMEN",
     target: null,
     titulo: "RESUMEN DE NORMATIVAS OOSS",
-    subtitulo: "Obras Sociales",
+    subtitulo: (
+      <>
+        Obras Sociales
+        <br />
+        Resumen de Normativas actualizado
+      </>
+    ),
     align: "left",
     icono: require("../../assets/images/icons/ooss.png"),
     md: 6,

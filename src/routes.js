@@ -85,18 +85,18 @@ const routes = [
 
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User },
-  { path: "/productos", name: "Productos", component: Productos },
-  { path: "/promociones", name: "Promociones", component: Promociones },
-  { path: "/pedidos", name: "Pedidos", component: Pedidos },
-  { path: "/perfil", name: "Perfil", component: Perfil },
-  { path: "/mediospagos", name: "Medios de pago", component: Mediospagos },
+  //{ path: "/productos", name: "Productos", component: Productos },
+  //{ path: "/promociones", name: "Promociones", component: Promociones },
+  //{ path: "/pedidos", name: "Pedidos", component: Pedidos },
+  //{ path: "/perfil", name: "Perfil", component: Perfil },
+  //{ path: "/mediospagos", name: "Medios de pago", component: Mediospagos },
   { path: "/servicios", name: "Servicios", component: Servicios },
   { path: "/horarios", name: "Horarios", component: Horarios },
-  {
-    path: "/papeleraproductos",
-    name: "Papelera productos",
-    component: Papelera,
-  },
+  // {
+  //   path: "/papeleraproductos",
+  //   name: "Papelera productos",
+  //   component: Papelera,
+  // },
   { path: "/soporte", name: "Soporte", component: Soporte },
   {
     path: "/reporteObras",
@@ -122,52 +122,52 @@ const routes = [
     name: "Carrito Transfer",
     component: Checkout,
   },
-  {
-    path: "/ConfirmacionPedido",
-    name: "Confirmación Pedido",
-    component: ConfirmacionPedido,
-  },
-  {
-    path: "/SeleccionarPanel",
-    name: "Seleccionar Panel de productos",
-    component: SeleccionarPanel,
-  },
-  {
-    path: "/PacksDeProductosFarmacia",
-    name: "Packs De Productos Farmageo",
-    component: PacksDeProductosFarmacia,
-  },
+  // {
+  //   path: "/ConfirmacionPedido",
+  //   name: "Confirmación Pedido",
+  //   component: ConfirmacionPedido,
+  // },
+  // {
+  //   path: "/SeleccionarPanel",
+  //   name: "Seleccionar Panel de productos",
+  //   component: SeleccionarPanel,
+  // },
+  // {
+  //   path: "/PacksDeProductosFarmacia",
+  //   name: "Packs De Productos Farmageo",
+  //   component: PacksDeProductosFarmacia,
+  // },
 
-  {
-    path: "/NuevaSolicitudProveeduria",
-    name: "Nueva Solicitud Proveeduría",
-    component: NuevaSolicitudProveeduria,
-  },
-  {
-    path: "/MisSolicitudesProveeduria",
-    name: "Mis Solicitudes Proveeduria",
-    component: MisSolicitudesProveeduria,
-  },
-  {
-    path: "/FinalizarSolicitudProveeduria",
-    name: "Finalizar Solicitud Proveeduria",
-    component: FinalizarSolicitudProveeduria,
-  },
-  {
-    path: "/ConfirmacionPedidoProveeduria",
-    name: "Confirmación Pedido",
-    component: ConfirmacionSolicitudProveeduria,
-  },
-  {
-    path: "/SeleccionarPanel",
-    name: "Seleccionar Panel de productos",
-    component: SeleccionarPanel,
-  },
-  {
-    path: "/perfilfarmageo",
-    name: "perfilfarmageo",
-    component: VentaOnlineSelect,
-  },
+  // {
+  //   path: "/NuevaSolicitudProveeduria",
+  //   name: "Nueva Solicitud Proveeduría",
+  //   component: NuevaSolicitudProveeduria,
+  // },
+  // {
+  //   path: "/MisSolicitudesProveeduria",
+  //   name: "Mis Solicitudes Proveeduria",
+  //   component: MisSolicitudesProveeduria,
+  // },
+  // {
+  //   path: "/FinalizarSolicitudProveeduria",
+  //   name: "Finalizar Solicitud Proveeduria",
+  //   component: FinalizarSolicitudProveeduria,
+  // },
+  // {
+  //   path: "/ConfirmacionPedidoProveeduria",
+  //   name: "Confirmación Pedido",
+  //   component: ConfirmacionSolicitudProveeduria,
+  // },
+  // {
+  //   path: "/SeleccionarPanel",
+  //   name: "Seleccionar Panel de productos",
+  //   component: SeleccionarPanel,
+  // },
+  // {
+  //   path: "/perfilfarmageo",
+  //   name: "perfilfarmageo",
+  //   component: VentaOnlineSelect,
+  // },
   {
     path: "/debitosPami",
     name: "debitosPami",
