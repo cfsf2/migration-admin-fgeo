@@ -93,38 +93,38 @@ export default {
       permiso: "reporteooss",
       icon: "icon-shield",
     },
-    {
-      name: "Packs de Productos",
-      url: "/packsdeproductos",
-      permiso: "packsdeproductos",
-      icon: "",
-      children: [
-        {
-          name: "Categorías",
-          url: "/packsdeproductos/categoriasproductos",
-        },
-        {
-          name: "Entidades",
-          url: "/packsdeproductos/entidadespacksproductos",
-        },
-        {
-          name: "Productos Pack",
-          url: "/packsdeproductos/adminproductos",
-        },
-        {
-          name: "Papelera Productos",
-          url: "/packsdeproductos/PapeleraProductosPack",
-        },
-        {
-          name: "Proveeduría",
-          url: "/SolicitudesProveedoresAdmin",
-        },
-        {
-          name: "Importar .csv",
-          url: "/importarcsvpacks",
-        },
-      ],
-    },
+    // {
+    //   name: "Packs de Productos",
+    //   url: "/packsdeproductos",
+    //   permiso: "packsdeproductos",
+    //   icon: "",
+    //   children: [
+    //     {
+    //       name: "Categorías",
+    //       url: "/packsdeproductos/categoriasproductos",
+    //     },
+    //     {
+    //       name: "Entidades",
+    //       url: "/packsdeproductos/entidadespacksproductos",
+    //     },
+    //     {
+    //       name: "Productos Pack",
+    //       url: "/packsdeproductos/adminproductos",
+    //     },
+    //     {
+    //       name: "Papelera Productos",
+    //       url: "/packsdeproductos/PapeleraProductosPack",
+    //     },
+    //     {
+    //       name: "Proveeduría",
+    //       url: "/SolicitudesProveedoresAdmin",
+    //     },
+    //     {
+    //       name: "Importar .csv",
+    //       url: "/importarcsvpacks",
+    //     },
+    //   ],
+    // },
     {
       name: "Banners",
       //url: "/ecommerce/banners-home",

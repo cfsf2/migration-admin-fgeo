@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
 import "./App.scss";
 import GestorCampanas from "./views/gestorCampanas/GestorCampanas";
@@ -30,7 +30,7 @@ const onRequestEnd = () => {
 
 axios.interceptors.request.use((request) => {
   request.headers.authorization = `Bearer ${window.localStorage.getItem(
-    "token"
+    "token",
   )}`;
   request.headers["x-frontend-origin"] = "farmageo_admin";
   request.headers["x-connection"] = "farmageo";
@@ -40,7 +40,7 @@ axios.interceptors.request.use((request) => {
 
 axios.interceptors.request.use((request) => {
   request.headers.authorization = `Bearer ${window.localStorage.getItem(
-    "token"
+    "token",
   )}`;
   return request;
 });
@@ -59,8 +59,8 @@ axios.interceptors.response.use(
             "Hubo un Problema con su solicitud",
             err.response.data.error.message,
             "error",
-            "OK"
-          )
+            "OK",
+          ),
         );
       case 401:
         // alert("Denegado: No tiene permiso para realizar esta accion");
@@ -69,10 +69,10 @@ axios.interceptors.response.use(
             "ACCESO DENEGADO",
             err.response.data.error.message,
             "error",
-            "OK"
+            "OK",
           ).finally(() => {
             // window.location = process.env.PUBLIC_URL;
-          })
+          }),
         );
 
         break;
@@ -83,11 +83,11 @@ axios.interceptors.response.use(
             "SESION EXPIRADA",
             "Su sesion ha expirado debe loguearse nuevamente",
             "info",
-            "OK"
+            "OK",
           ).finally(() => {
             store.dispatch(LOGOUT());
             // window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
-          })
+          }),
         );
         break;
       case 404:
@@ -101,12 +101,12 @@ axios.interceptors.response.use(
             "Ha Ocurrido un Error",
             "consulte con el administrador",
             "error",
-            "Volver a Log In"
+            "Volver a Log In",
           ).finally(() => {
             store.dispatch(LOGOUT());
             // window.location.replace(`${process.env.PUBLIC_URL}/#/login`);
-            goToLogin()
-          })
+            goToLogin();
+          }),
         );
 
       // return window.location.replace(`${process.env.PUBLIC_URL}/#/500`);
@@ -115,7 +115,7 @@ axios.interceptors.response.use(
     }
 
     return err.response;
-  }
+  },
 );
 
 const loading = () => (
@@ -178,6 +178,7 @@ function App() {
               name="Page 500"
               render={(props) => <Page500 {...props} />}
             />
+            <Route exact path="/" render={() => <Redirect to="dashboard" />} />
 
             <ProtectedRoute
               path="/"
