@@ -160,7 +160,7 @@ const Login = (props) => {
                   ? window.innerHeight
                   : window.innerHeight,
             }}
-            className="col-md-8 col-sm-0 d-flex pl-md-5 pl-sm-3 flex-column overflow-hidden"
+            className="col-md-7 col-sm-0 d-flex pl-md-5 pl-sm-3 flex-column overflow-hidden"
           >
             <img
               src={logoWhite}
@@ -175,9 +175,8 @@ const Login = (props) => {
                 Mi Farmacia digital
               </h1>
               <p style={{ fontSize: "20px", ...whiteStyle }}>
-                Visibilidad digital de todos los servicios. Tienda online propia
-                y a medida.
-                <br /> Solicitá transfers, sector de proveeduría y colaboración
+                Visibilidad digital de todos los servicios.
+                <br /> Solicitá transfers con las condiciones ofrecidas por los laboratorios, tablón de mensajes y colaboración
                 con acciones RSE.{" "}
               </p>
               <h3 style={{ ...boldStyle, ...whiteStyle }} className="mt-5 bold">
@@ -233,7 +232,7 @@ const Login = (props) => {
           </div>
         )}
         <div
-          className="col-md-4 col-sm-12 d-flex flex-column   overflow-hidden pr-md-5 pr-sm-3 login_container"
+          className="col-md-5 col-sm-12 d-flex flex-column w-100 mx-auto overflow-hidden pr-md-5 pr-sm-3 login_container"
           style={{
             color: "white",
             width: "100%",
@@ -244,7 +243,7 @@ const Login = (props) => {
             className="d-flex flex-column  mb-2 text-center login_container_form"
             style={formStyle}
           >
-            <h4 className="mt-2">Acceso al sistema</h4>
+            <h3 className="mt-2">Acceso al sistema</h3>
             <Input
               type="text"
               inputColor="white"
@@ -269,7 +268,7 @@ const Login = (props) => {
               <Link
                 to="/Terminos-y-Condiciones"
                 target="_blank"
-                style={{ fontSize: 10 }}
+                style={{ fontSize: 12 }}
                 rel="noopener noreferrer"
               >
                 Acepto los términos y condiciones
@@ -290,7 +289,7 @@ const Login = (props) => {
               href={`${process.env.REACT_APP_WEB_URL}/#/registrarfarmacia`}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontSize: 12, margin: "0 0 10px 0" }}
+              style={{ fontSize: 14, margin: "0 0 10px 0" }}
             >
               Registrá tu Farmacia
             </a>
