@@ -88,7 +88,7 @@ const routes = [
   //{ path: "/productos", name: "Productos", component: Productos },
   //{ path: "/promociones", name: "Promociones", component: Promociones },
   //{ path: "/pedidos", name: "Pedidos", component: Pedidos },
-  //{ path: "/perfil", name: "Perfil", component: Perfil },
+  { path: "/perfil", name: "Perfil", component: Perfil },
   //{ path: "/mediospagos", name: "Medios de pago", component: Mediospagos },
   { path: "/servicios", name: "Servicios", component: Servicios },
   { path: "/horarios", name: "Horarios", component: Horarios },
