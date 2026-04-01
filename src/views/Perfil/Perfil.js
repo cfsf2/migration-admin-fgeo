@@ -30,6 +30,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
     const target = event.nativeEvent.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+
     setFarmaciaProfile({
       ...farmaciaProfile,
       [name]: value,
@@ -56,6 +57,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
   };
 
   if (!authReducer.userprofile) return <>Error</>;
+
   const {
     telefono,
     cuit,
@@ -86,7 +88,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
 
   return (
     <div className="animated fadeIn">
-      <Row style={{ marginBottom: 10 }}>
+      <Row className="mb-3">
         <Col>
           <Button
             style={{
@@ -100,13 +102,16 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
           </Button>
         </Col>
       </Row>
-      <Row>
-        <Col xs="12" sm="12">
+
+      <Row className="mb-4">
+        <Col xs="12">
           <Card>
             <CardHeader>
               <strong>Perfil</strong>
             </CardHeader>
+
             <CardBody>
+              {/*
               <Row>
                 <Col xs="12" sm="6">
                   <FormGroup>
@@ -145,6 +150,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                       </Col>
                     </Row>
                   </FormGroup>
+
                   <FormGroup>
                     <Row>
                       <Col md="6" xs="12" className="my-2">
@@ -171,6 +177,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                       </Col>
                     </Row>
                   </FormGroup>
+
                   <FormGroup>
                     <Row>
                       <Col md="4" xs="12" className="my-2">
@@ -224,8 +231,12 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     </Row>
                   </FormGroup>
                 </Col>
-                <Col xs="12" sm="6">
-                  <FormGroup>
+              </Row>
+              */}
+
+              <Row>
+                <Col xs="12" md="8" lg="6">
+                  <FormGroup className="mb-4">
                     <Card>
                       <CardHeader>
                         <strong>Imagen destacada</strong>
@@ -238,37 +249,40 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                         />
                       </CardBody>
                     </Card>
-                    <div style={{ textAlign: "center" }}>
-                      <Button color="info" id="button_nro_drogueria">
-                        <Link
-                          to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA"
-                          style={{ color: "white", textDecoration: "none" }}
-                        >
-                          Número de cuenta de drogueria
-                        </Link>
-                      </Button>
-                      <Tooltip
-                        isOpen={tooltipOpen}
-                        placement="bottom"
-                        target="button_nro_drogueria"
-                        toggle={() => {
-                          setTooltipOpen(!tooltipOpen);
-                        }}
-                      >
-                        Complete aquí los datos requeridos para realizar
-                        transfers de manera satisfactoria
-                      </Tooltip>
-                    </div>
                   </FormGroup>
+
+                  <div style={{ textAlign: "center" }}>
+                    <Button color="info" id="button_nro_drogueria">
+                      <Link
+                        to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA"
+                        style={{ color: "white", textDecoration: "none" }}
+                      >
+                        Número de cuenta de drogueria
+                      </Link>
+                    </Button>
+
+                    <Tooltip
+                      isOpen={tooltipOpen}
+                      placement="bottom"
+                      target="button_nro_drogueria"
+                      toggle={() => {
+                        setTooltipOpen(!tooltipOpen);
+                      }}
+                    >
+                      Complete aquí los datos requeridos para realizar transfers
+                      de manera satisfactoria
+                    </Tooltip>
+                  </div>
                 </Col>
               </Row>
             </CardBody>
           </Card>
         </Col>
       </Row>
-      <Row>
-        <Col xs="12" md="6">
-          <Card>
+
+      <Row className="mb-4">
+        <Col xs="12" md="6" className="mb-4 mb-md-0">
+          <Card className="h-100">
             <CardHeader>
               <strong>Configuración de envíos</strong>
             </CardHeader>
@@ -300,9 +314,9 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     defaultValue={tiempotardanza}
                     onChange={handleInputChange}
                   >
-                    <option value="15min - 30min">15min - 30min </option>
+                    <option value="15min - 30min">15min - 30min</option>
                     <option value="30min - 45min">30min - 45min</option>
-                    <option value="45min - 60min">45min - 60min </option>
+                    <option value="45min - 60min">45min - 60min</option>
                     <option value="60min - 75min">60min - 75min</option>
                     <option value="75min - 120min">75min - 120min</option>
                   </Input>
@@ -327,8 +341,9 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
             </CardBody>
           </Card>
         </Col>
+
         <Col xs="12" md="6">
-          <Card>
+          <Card className="h-100">
             <CardHeader>
               <strong>Redes Sociales</strong>
             </CardHeader>
@@ -342,7 +357,6 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     type="text"
                     id="facebook"
                     name="facebook"
-                    placeholder=""
                     defaultValue={facebook}
                     onChange={handleInputChange}
                   />
@@ -358,7 +372,6 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     type="text"
                     id="instagran"
                     name="instagran"
-                    placeholder=""
                     defaultValue={instagran}
                     onChange={handleInputChange}
                   />
@@ -374,7 +387,6 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     type="text"
                     id="web"
                     name="web"
-                    placeholder=""
                     defaultValue={web}
                     onChange={handleInputChange}
                   />
@@ -385,7 +397,8 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
         </Col>
       </Row>
 
-      <Row>
+      <Row className="mb-4">
+        {/*
         <Col xs="12" md="6">
           <Card>
             <CardHeader>
@@ -394,7 +407,9 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
             <CardBody>
               <FormGroup row>
                 <Col md="6">
-                  <Label htmlFor="nombrefarmaceutico">Nombre del Farmacéutico</Label>
+                  <Label htmlFor="nombrefarmaceutico">
+                    Nombre del Farmacéutico
+                  </Label>
                 </Col>
                 <Col xs="12" md="6">
                   <Input
@@ -501,6 +516,8 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
             </CardBody>
           </Card>
         </Col>
+        */}
+
         {/* <Col xs="12" md="6">
           <Card>
             <CardHeader>
@@ -550,7 +567,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
           </Card>
         </Col> */}
       </Row>
-      <Row></Row>
+
       <Row>
         <Col className="mb-3">
           <Button
