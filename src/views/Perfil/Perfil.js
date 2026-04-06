@@ -78,9 +78,9 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
     whatsapp,
     email,
     facebook,
-    instagran,
+    instagram,
     web,
-    nohagoenvios,
+    envios,
     perfil_farmageo,
   } = authReducer.userprofile;
 
@@ -291,15 +291,15 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
             <CardBody>
               <FormGroup row>
                 <Col xs="6" md="6">
-                  <Label htmlFor="nohagoenvios">No hago envíos</Label>
+                  <Label htmlFor="envios">No hago envíos</Label>
                 </Col>
                 <Col xs="6" md="6">
                   <Input
                     type="checkbox"
-                    id="nohagoenvios"
-                    name="nohagoenvios"
+                    id="envios"
+                    name="envios"
                     onChange={handleInputChange}
-                    defaultChecked={nohagoenvios != null ? nohagoenvios : false}
+                    defaultChecked={envios != null ? envios : false}
                   />
                 </Col>
               </FormGroup>
@@ -367,14 +367,14 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
 
               <FormGroup row>
                 <Col md="6">
-                  <Label htmlFor="instagran">Link de Instagram</Label>
+                  <Label htmlFor="instagram">Link de Instagram</Label>
                 </Col>
                 <Col xs="12" md="6">
                   <Input
                     type="text"
-                    id="instagran"
-                    name="instagran"
-                    defaultValue={instagran}
+                    id="instagram"
+                    name="instagram"
+                    defaultValue={instagram}
                     onChange={handleInputChange}
                   />
                 </Col>
