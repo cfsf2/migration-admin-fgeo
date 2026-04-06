@@ -31,10 +31,10 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
   const handleInputChange = (event) => {
     const { name, type, checked, value } = event.target;
 
-    setFarmaciaProfile({
-      ...farmaciaProfile,
+    setFarmaciaProfile((prev) => ({
+      ...prev,
       [name]: type === "checkbox" ? checked : value,
-    });
+    }));
   };
 
   const handleEditProfile = () => {
@@ -42,21 +42,24 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
   };
 
   const handleEditImagen = (_imagen) => {
-    setFarmaciaProfile({
-      ...farmaciaProfile,
+    setFarmaciaProfile((prev) => ({
+      ...prev,
       imagen: _imagen,
-    });
+    }));
   };
 
   const handlePositionMap = (lat, log) => {
-    setFarmaciaProfile({
-      ...farmaciaProfile,
+    setFarmaciaProfile((prev) => ({
+      ...prev,
       lat,
       log,
-    });
+    }));
   };
 
   if (!authReducer.userprofile) return <>Error</>;
+  if (!farmaciaReducer.load || !farmaciaProfile) {
+    return <p>Cargando perfil...</p>;
+  }
 
   const {
     telefono,
@@ -78,13 +81,8 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
     facebook,
     instagram,
     web,
-    nohagoenvios,
     perfil_farmageo,
   } = authReducer.userprofile;
-
-  if (!farmaciaReducer.load) {
-    return <p>Cargando perfil...</p>;
-  }
 
   return (
     <div className="animated fadeIn">
@@ -296,11 +294,20 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     type="checkbox"
                     id="nohagoenvios"
                     name="nohagoenvios"
-                    checked={farmaciaProfile ? Boolean(farmaciaProfile.nohagoenvios) : !Boolean(envios)}
-                    onChange={handleInputChange}
+                    checked={!Boolean(farmaciaProfile.envios)}
+                    onChange={(e) => {
+                      const checked = e.target.checked;
+
+                      setFarmaciaProfile((prev) => ({
+                        ...prev,
+                        nohagoenvios: checked,
+                        envios: !checked,
+                      }));
+                    }}
                   />
                 </Col>
               </FormGroup>
+
               <FormGroup row>
                 <Col md="4">
                   <Label htmlFor="tiempotardanza">Tiempo de tardanza</Label>
@@ -594,7 +601,10 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
               }}
             >
               3415112948
-              <i style={{ color: "#25D366", fontWeight: "600",}} class='fa fa-whatsapp'></i>
+              <i
+                style={{ color: "#25D366", fontWeight: "600" }}
+                className="fa fa-whatsapp"
+              ></i>
             </a>
           </div>
         </Col>
