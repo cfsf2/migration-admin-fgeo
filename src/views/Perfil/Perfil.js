@@ -22,6 +22,8 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
   const [farmaciaProfile, setFarmaciaProfile] = useState(null);
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
+  const whatsappMesaAyuda = "https://wa.me/5493415112948";
+
   useEffect(() => {
     setFarmaciaProfile(authReducer.userprofile);
   }, [authReducer.userprofile]);
@@ -566,6 +568,39 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
             </CardBody>
           </Card>
         </Col> */}
+      </Row>
+
+      <Row className="mb-4">
+        <Col xs="12">
+          <div
+            style={{
+              textAlign: "center",
+              padding: "14px 18px",
+              backgroundColor: "#f8f9fa",
+              border: "1px solid #dee2e6",
+              borderRadius: "8px",
+              color: "#2171a3",
+              fontWeight: "700",
+            }}
+          >
+            <span>Para modificar otro dato contáctese con Mesa de Ayuda al </span>
+
+            <a
+              href={whatsappMesaAyuda}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+              }}
+            >
+              3415112948
+              <i style={{ color: "#25D366", fontWeight: "600",}} class='fa fa-whatsapp'></i>
+            </a>
+          </div>
+        </Col>
       </Row>
 
       <Row>
