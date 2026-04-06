@@ -22,18 +22,19 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
   const [farmaciaProfile, setFarmaciaProfile] = useState(null);
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
+  const whatsappMesaAyuda = "https://wa.me/5493415112948";
+
   useEffect(() => {
     setFarmaciaProfile(authReducer.userprofile);
   }, [authReducer.userprofile]);
 
   const handleInputChange = (event) => {
-    const target = event.nativeEvent.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    setFarmaciaProfile({
-      ...farmaciaProfile,
-      [name]: value,
-    });
+    const { name, type, checked, value } = event.target;
+
+    setFarmaciaProfile((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleEditProfile = () => {
@@ -41,21 +42,25 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
   };
 
   const handleEditImagen = (_imagen) => {
-    setFarmaciaProfile({
-      ...farmaciaProfile,
+    setFarmaciaProfile((prev) => ({
+      ...prev,
       imagen: _imagen,
-    });
+    }));
   };
 
   const handlePositionMap = (lat, log) => {
-    setFarmaciaProfile({
-      ...farmaciaProfile,
+    setFarmaciaProfile((prev) => ({
+      ...prev,
       lat,
       log,
-    });
+    }));
   };
 
   if (!authReducer.userprofile) return <>Error</>;
+  if (!farmaciaReducer.load || !farmaciaProfile) {
+    return <p>Cargando perfil...</p>;
+  }
+
   const {
     telefono,
     cuit,
@@ -74,19 +79,14 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
     whatsapp,
     email,
     facebook,
-    instagran,
+    instagram,
     web,
-    nohagoenvios,
     perfil_farmageo,
   } = authReducer.userprofile;
 
-  if (!farmaciaReducer.load) {
-    return <p>Cargando perfil...</p>;
-  }
-
   return (
     <div className="animated fadeIn">
-      <Row style={{ marginBottom: 10 }}>
+      <Row className="mb-3">
         <Col>
           <Button
             style={{
@@ -100,13 +100,16 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
           </Button>
         </Col>
       </Row>
-      <Row>
-        <Col xs="12" sm="12">
+
+      <Row className="mb-4">
+        <Col xs="12">
           <Card>
             <CardHeader>
               <strong>Perfil</strong>
             </CardHeader>
+
             <CardBody>
+              {/*
               <Row>
                 <Col xs="12" sm="6">
                   <FormGroup>
@@ -145,6 +148,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                       </Col>
                     </Row>
                   </FormGroup>
+
                   <FormGroup>
                     <Row>
                       <Col md="6" xs="12" className="my-2">
@@ -171,6 +175,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                       </Col>
                     </Row>
                   </FormGroup>
+
                   <FormGroup>
                     <Row>
                       <Col md="4" xs="12" className="my-2">
@@ -224,8 +229,12 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     </Row>
                   </FormGroup>
                 </Col>
-                <Col xs="12" sm="6">
-                  <FormGroup>
+              </Row>
+              */}
+
+              <Row>
+                <Col xs="12" md="8" lg="6">
+                  <FormGroup className="mb-4">
                     <Card>
                       <CardHeader>
                         <strong>Imagen destacada</strong>
@@ -238,37 +247,40 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                         />
                       </CardBody>
                     </Card>
-                    <div style={{ textAlign: "center" }}>
-                      <Button color="info" id="button_nro_drogueria">
-                        <Link
-                          to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA"
-                          style={{ color: "white", textDecoration: "none" }}
-                        >
-                          Número de cuenta de drogueria
-                        </Link>
-                      </Button>
-                      <Tooltip
-                        isOpen={tooltipOpen}
-                        placement="bottom"
-                        target="button_nro_drogueria"
-                        toggle={() => {
-                          setTooltipOpen(!tooltipOpen);
-                        }}
-                      >
-                        Complete aquí los datos requeridos para realizar
-                        transfers de manera satisfactoria
-                      </Tooltip>
-                    </div>
                   </FormGroup>
+
+                  <div style={{ textAlign: "center" }}>
+                    <Button color="info" id="button_nro_drogueria">
+                      <Link
+                        to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA"
+                        style={{ color: "white", textDecoration: "none" }}
+                      >
+                        Número de cuenta de drogueria
+                      </Link>
+                    </Button>
+
+                    <Tooltip
+                      isOpen={tooltipOpen}
+                      placement="bottom"
+                      target="button_nro_drogueria"
+                      toggle={() => {
+                        setTooltipOpen(!tooltipOpen);
+                      }}
+                    >
+                      Complete aquí los datos requeridos para realizar transfers
+                      de manera satisfactoria
+                    </Tooltip>
+                  </div>
                 </Col>
               </Row>
             </CardBody>
           </Card>
         </Col>
       </Row>
-      <Row>
-        <Col xs="12" md="6">
-          <Card>
+
+      <Row className="mb-4">
+        <Col xs="12" md="6" className="mb-4 mb-md-0">
+          <Card className="h-100">
             <CardHeader>
               <strong>Configuración de envíos</strong>
             </CardHeader>
@@ -282,8 +294,16 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     type="checkbox"
                     id="nohagoenvios"
                     name="nohagoenvios"
-                    onChange={handleInputChange}
-                    defaultChecked={nohagoenvios != null ? nohagoenvios : false}
+                    checked={!Boolean(farmaciaProfile.envios)}
+                    onChange={(e) => {
+                      const checked = e.target.checked;
+
+                      setFarmaciaProfile((prev) => ({
+                        ...prev,
+                        nohagoenvios: checked,
+                        envios: !checked,
+                      }));
+                    }}
                   />
                 </Col>
               </FormGroup>
@@ -300,9 +320,9 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     defaultValue={tiempotardanza}
                     onChange={handleInputChange}
                   >
-                    <option value="15min - 30min">15min - 30min </option>
+                    <option value="15min - 30min">15min - 30min</option>
                     <option value="30min - 45min">30min - 45min</option>
-                    <option value="45min - 60min">45min - 60min </option>
+                    <option value="45min - 60min">45min - 60min</option>
                     <option value="60min - 75min">60min - 75min</option>
                     <option value="75min - 120min">75min - 120min</option>
                   </Input>
@@ -327,8 +347,9 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
             </CardBody>
           </Card>
         </Col>
+
         <Col xs="12" md="6">
-          <Card>
+          <Card className="h-100">
             <CardHeader>
               <strong>Redes Sociales</strong>
             </CardHeader>
@@ -342,7 +363,6 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     type="text"
                     id="facebook"
                     name="facebook"
-                    placeholder=""
                     defaultValue={facebook}
                     onChange={handleInputChange}
                   />
@@ -351,15 +371,14 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
 
               <FormGroup row>
                 <Col md="6">
-                  <Label htmlFor="instagran">Link de Instagram</Label>
+                  <Label htmlFor="instagram">Link de Instagram</Label>
                 </Col>
                 <Col xs="12" md="6">
                   <Input
                     type="text"
-                    id="instagran"
-                    name="instagran"
-                    placeholder=""
-                    defaultValue={instagran}
+                    id="instagram"
+                    name="instagram"
+                    defaultValue={instagram}
                     onChange={handleInputChange}
                   />
                 </Col>
@@ -374,7 +393,6 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
                     type="text"
                     id="web"
                     name="web"
-                    placeholder=""
                     defaultValue={web}
                     onChange={handleInputChange}
                   />
@@ -385,7 +403,8 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
         </Col>
       </Row>
 
-      <Row>
+      <Row className="mb-4">
+        {/*
         <Col xs="12" md="6">
           <Card>
             <CardHeader>
@@ -394,7 +413,9 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
             <CardBody>
               <FormGroup row>
                 <Col md="6">
-                  <Label htmlFor="nombrefarmaceutico">Nombre del Farmacéutico</Label>
+                  <Label htmlFor="nombrefarmaceutico">
+                    Nombre del Farmacéutico
+                  </Label>
                 </Col>
                 <Col xs="12" md="6">
                   <Input
@@ -501,6 +522,8 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
             </CardBody>
           </Card>
         </Col>
+        */}
+
         {/* <Col xs="12" md="6">
           <Card>
             <CardHeader>
@@ -550,7 +573,43 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
           </Card>
         </Col> */}
       </Row>
-      <Row></Row>
+
+      <Row className="mb-4">
+        <Col xs="12">
+          <div
+            style={{
+              textAlign: "center",
+              padding: "14px 18px",
+              backgroundColor: "#f8f9fa",
+              border: "1px solid #dee2e6",
+              borderRadius: "8px",
+              color: "#2171a3",
+              fontWeight: "700",
+            }}
+          >
+            <span>Para modificar otro dato contáctese con Mesa de Ayuda al </span>
+
+            <a
+              href={whatsappMesaAyuda}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+              }}
+            >
+              3415112948
+              <i
+                style={{ color: "#25D366", fontWeight: "600" }}
+                className="fa fa-whatsapp"
+              ></i>
+            </a>
+          </div>
+        </Col>
+      </Row>
+
       <Row>
         <Col className="mb-3">
           <Button
