@@ -29,13 +29,11 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
   }, [authReducer.userprofile]);
 
   const handleInputChange = (event) => {
-    const target = event.nativeEvent.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
+    const { name, type, checked, value } = event.target;
 
     setFarmaciaProfile({
       ...farmaciaProfile,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -80,7 +78,7 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
     facebook,
     instagram,
     web,
-    envios,
+    nohagoenvios,
     perfil_farmageo,
   } = authReducer.userprofile;
 
@@ -291,19 +289,18 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
             <CardBody>
               <FormGroup row>
                 <Col xs="6" md="6">
-                  <Label htmlFor="envios">No hago envíos</Label>
+                  <Label htmlFor="nohagoenvios">No hago envíos</Label>
                 </Col>
                 <Col xs="6" md="6">
                   <Input
                     type="checkbox"
-                    id="envios"
-                    name="envios"
+                    id="nohagoenvios"
+                    name="nohagoenvios"
+                    checked={farmaciaProfile ? Boolean(farmaciaProfile.nohagoenvios) : !Boolean(envios)}
                     onChange={handleInputChange}
-                    defaultChecked={envios != null ? envios : false}
                   />
                 </Col>
               </FormGroup>
-
               <FormGroup row>
                 <Col md="4">
                   <Label htmlFor="tiempotardanza">Tiempo de tardanza</Label>
