@@ -17,6 +17,7 @@ import Uploader from "../../components/Uploader";
 import MapContainer from "../../components/MapContainer";
 import DisplayImage from "../../components/DisplayImage";
 import { Link } from "react-router-dom";
+import '../Perfil/Perfil.scss';
 
 const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
   const [farmaciaProfile, setFarmaciaProfile] = useState(null);
@@ -110,146 +111,210 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
 
             <CardBody>
               {/*
+                =====================================================
+                BLOQUE EDITABLE ORIGINAL (DESHABILITADO TEMPORALMENTE)
+                =====================================================
+                Se deja comentado por si en el futuro se requiere volver
+                a permitir la edición desde esta pantalla.
+              */}
+
+              {/*
               <Row>
-                <Col xs="12" sm="6">
-                  <FormGroup>
-                    <Label htmlFor="nombre">Nombre</Label>
-                    <Input
-                      type="text"
-                      name="nombre"
-                      id="nombre"
-                      defaultValue={nombre}
-                      onChange={handleInputChange}
-                    />
-                  </FormGroup>
+                <Col xs="12" lg="7">
+                  <Row>
+                    <Col md="12" className="mb-3">
+                      <Label>Nombre</Label>
+                      <Input
+                        type="text"
+                        name="nombre"
+                        defaultValue={nombre}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
 
-                  <FormGroup>
-                    <Row>
-                      <Col className="col-8">
-                        <Label htmlFor="calle">Dirección</Label>
-                        <Input
-                          type="text"
-                          placeholder="Direccion"
-                          id="calle"
-                          name="calle"
-                          defaultValue={calle}
-                          onChange={handleInputChange}
-                        />
-                      </Col>
-                      <Col className="col-4">
-                        <Label htmlFor="numero">Número</Label>
-                        <Input
-                          type="text"
-                          id="numero"
-                          name="numero"
-                          defaultValue={numero}
-                          onChange={handleInputChange}
-                        />
-                      </Col>
-                    </Row>
-                  </FormGroup>
+                    <Col md="8" className="mb-3">
+                      <Label>Dirección</Label>
+                      <Input
+                        type="text"
+                        name="calle"
+                        defaultValue={calle}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
 
-                  <FormGroup>
-                    <Row>
-                      <Col md="6" xs="12" className="my-2">
-                        <Label htmlFor="Telefono">Teléfono</Label>
-                        <Input
-                          type="text"
-                          placeholder="Teléfono"
-                          id="Telefono"
-                          name="telefono"
-                          defaultValue={telefono}
-                          onChange={handleInputChange}
-                        />
-                      </Col>
-                      <Col md="6" xs="12" className="my-2">
-                        <Label htmlFor="Cuit">CUIT</Label>
-                        <Input
-                          type="text"
-                          placeholder="CIUT"
-                          id="cuit"
-                          name="cuit"
-                          defaultValue={cuit}
-                          onChange={handleInputChange}
-                        />
-                      </Col>
-                    </Row>
-                  </FormGroup>
+                    <Col md="4" className="mb-3">
+                      <Label>Número</Label>
+                      <Input
+                        type="text"
+                        name="numero"
+                        defaultValue={numero}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
 
-                  <FormGroup>
-                    <Row>
-                      <Col md="4" xs="12" className="my-2">
-                        <Label htmlFor="localidad">Localidad</Label>
-                        <Input
-                          type="text"
-                          placeholder="Localidad"
-                          id="Localidad"
-                          name="localidad"
-                          defaultValue={localidad}
-                          onChange={handleInputChange}
-                        />
-                      </Col>
-                      <Col md="4" xs="12" className="my-2">
-                        <Label htmlFor="provincia">Provincia</Label>
-                        <Input
-                          type="text"
-                          placeholder="Provincia"
-                          id="provincia"
-                          name="provincia"
-                          defaultValue={provincia}
-                          onChange={handleInputChange}
-                        />
-                      </Col>
-                      <Col md="4" xs="12" className="my-2">
-                        <Label htmlFor="cp">CP</Label>
-                        <Input
-                          type="text"
-                          id="cp"
-                          defaultValue={cp}
-                          name="cp"
-                          onChange={handleInputChange}
-                        />
-                      </Col>
-                    </Row>
-                  </FormGroup>
+                    <Col md="6" className="mb-3">
+                      <Label>Teléfono</Label>
+                      <Input
+                        type="text"
+                        name="telefono"
+                        defaultValue={telefono}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
 
-                  <FormGroup>
-                    <Row>
-                      <Col md="12" className="my-2">
-                        <MapContainer
-                          zoom={18}
-                          lat={farmaciaProfile?.lat}
-                          log={farmaciaProfile?.log}
-                          height="146px"
-                          width="100%"
-                          position="relative"
-                          onChange={handlePositionMap}
-                        />
-                      </Col>
-                    </Row>
-                  </FormGroup>
+                    <Col md="6" className="mb-3">
+                      <Label>CUIT</Label>
+                      <Input
+                        type="text"
+                        name="cuit"
+                        defaultValue={cuit}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+
+                    <Col md="4" className="mb-3">
+                      <Label>Localidad</Label>
+                      <Input
+                        type="text"
+                        name="localidad"
+                        defaultValue={localidad}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+
+                    <Col md="4" className="mb-3">
+                      <Label>Provincia</Label>
+                      <Input
+                        type="text"
+                        name="provincia"
+                        defaultValue={provincia}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+
+                    <Col md="4" className="mb-3">
+                      <Label>CP</Label>
+                      <Input
+                        type="text"
+                        name="cp"
+                        defaultValue={cp}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+
+                    <Col md="12" className="mb-2">
+                      <Label>Ubicación en mapa</Label>
+                      <MapContainer
+                        zoom={18}
+                        lat={farmaciaProfile?.lat}
+                        log={farmaciaProfile?.log}
+                        height="220px"
+                        width="100%"
+                        position="relative"
+                        onChange={handlePositionMap}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+
+                <Col xs="12" lg="5">
+                  <Card>
+                    <CardHeader>
+                      <strong>Imagen destacada</strong>
+                    </CardHeader>
+                    <CardBody>
+                      <DisplayImage />
+                      <Uploader
+                        handleEditImagen={handleEditImagen}
+                        isPerfil={true}
+                      />
+                    </CardBody>
+                  </Card>
                 </Col>
               </Row>
               */}
 
-              <Row>
-                <Col xs="12" md="8" lg="6">
-                  <FormGroup className="mb-4">
-                    <Card>
-                      <CardHeader>
-                        <strong>Imagen destacada</strong>
-                      </CardHeader>
-                      <CardBody>
-                        <DisplayImage />
-                        <Uploader
-                          handleEditImagen={handleEditImagen}
-                          isPerfil={true}
-                        />
-                      </CardBody>
-                    </Card>
-                  </FormGroup>
+              {/*
+                ============================
+                BLOQUE ACTUAL (SOLO LECTURA)
+                ============================
+              */}
 
-                  <div style={{ textAlign: "center" }}>
+              <Row>
+                <Col xs="12" lg="7">
+                  <Row>
+                    <Col md="12" className="mb-3">
+                      <Label className="font-weight-bold">Nombre</Label>
+                      <div className="readonly-field">{nombre || "-"}</div>
+                    </Col>
+
+                    <Col md="8" className="mb-3">
+                      <Label className="font-weight-bold">Dirección</Label>
+                      <div className="readonly-field">{calle || "-"}</div>
+                    </Col>
+
+                    <Col md="4" className="mb-3">
+                      <Label className="font-weight-bold">Número</Label>
+                      <div className="readonly-field">{numero || "-"}</div>
+                    </Col>
+
+                    <Col md="6" className="mb-3">
+                      <Label className="font-weight-bold">Teléfono</Label>
+                      <div className="readonly-field">{telefono || "-"}</div>
+                    </Col>
+
+                    <Col md="6" className="mb-3">
+                      <Label className="font-weight-bold">CUIT</Label>
+                      <div className="readonly-field">{cuit || "-"}</div>
+                    </Col>
+
+                    <Col md="4" className="mb-3">
+                      <Label className="font-weight-bold">Localidad</Label>
+                      <div className="readonly-field">{localidad || "-"}</div>
+                    </Col>
+
+                    <Col md="4" className="mb-3">
+                      <Label className="font-weight-bold">Provincia</Label>
+                      <div className="readonly-field">{provincia || "-"}</div>
+                    </Col>
+
+                    <Col md="4" className="mb-3">
+                      <Label className="font-weight-bold">CP</Label>
+                      <div className="readonly-field">{cp || "-"}</div>
+                    </Col>
+
+                    <Col md="12" className="mb-2">
+                      <Label className="font-weight-bold">Ubicación en mapa</Label>
+                      <div style={{ borderRadius: "4px", overflow: "hidden" }}>
+                        <MapContainer
+                          zoom={18}
+                          lat={farmaciaProfile?.lat}
+                          log={farmaciaProfile?.log}
+                          height="220px"
+                          width="100%"
+                          position="relative"
+                          onChange={() => {}}
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                </Col>
+
+                <Col xs="12" lg="5" className="mt-4 mt-lg-0">
+                  <Card>
+                    <CardHeader>
+                      <strong>Imagen destacada</strong>
+                    </CardHeader>
+                    <CardBody>
+                      <DisplayImage />
+                      <Uploader
+                        handleEditImagen={handleEditImagen}
+                        isPerfil={true}
+                      />
+                    </CardBody>
+                  </Card>
+
+                  <div style={{ textAlign: "center", marginTop: "20px" }}>
                     <Button color="info" id="button_nro_drogueria">
                       <Link
                         to="/Pantalla/FARMACIA_DROGUERIA_NRO_CUENTA"
