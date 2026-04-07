@@ -523,7 +523,80 @@ const Perfil = ({ authReducer, farmaciaReducer, UPDATE_FARMACIA }) => {
           </Card>
         </Col>
         */}
+        <Col xs="12" md="6">
+          <Card>
+            <CardHeader>
+              <strong>Datos de la Farmacia</strong>
+            </CardHeader>
+            <CardBody>
+              <FormGroup row>
+                <Col md="6">
+                  <Label>Nombre del Farmacéutico</Label>
+                </Col>
+                <Col xs="12" md="6">
+                  <p className="form-control-plaintext">
+                    {nombrefarmaceutico || "-"}
+                  </p>
+                </Col>
+              </FormGroup>
 
+              <FormGroup row>
+                <Col md="6">
+                  <Label>Matrícula</Label>
+                </Col>
+                <Col xs="12" md="6">
+                  <p className="form-control-plaintext">
+                    {matricula || "-"}
+                  </p>
+                </Col>
+              </FormGroup>
+
+              <FormGroup row>
+                <Col md="6">
+                  <Label>Teléfono Fijo</Label>
+                </Col>
+                <Col xs="12" md="6">
+                  <p className="form-control-plaintext">
+                    {telefonofijo || "-"}
+                  </p>
+                </Col>
+              </FormGroup>
+
+              <FormGroup row>
+                <Col md="6">
+                  <Label>Ubicación</Label>
+                </Col>
+                <Col xs="12" md="6">
+                  <p className="form-control-plaintext">
+                    {direccioncompleta || "-"}
+                  </p>
+                </Col>
+              </FormGroup>
+
+              <FormGroup row>
+                <Col md="6">
+                  <Label>WhatsApp</Label>
+                </Col>
+                <Col xs="12" md="6">
+                  <p className="form-control-plaintext">
+                    {whatsapp ? `+549 ${whatsapp}` : "-"}
+                  </p>
+                </Col>
+              </FormGroup>
+
+              <FormGroup row>
+                <Col md="6">
+                  <Label>Email</Label>
+                </Col>
+                <Col xs="12" md="6">
+                  <p className="form-control-plaintext">
+                    {email || "-"}
+                  </p>
+                </Col>
+              </FormGroup>
+            </CardBody>
+          </Card>
+        </Col>
         {/* <Col xs="12" md="6">
           <Card>
             <CardHeader>
