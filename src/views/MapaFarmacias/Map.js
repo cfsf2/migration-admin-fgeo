@@ -187,5 +187,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: "AIzaSyBZ7-k763QmTCxIQR_GiiMD0HmnaYPWvvo", //esta esta a nombre de Tecno.alarcon
+    apiKey: process.env.REACT_APP_GOOGLE_API_KEY, //esta esta a nombre de Tecno.alarcon
 })(MapContainer);

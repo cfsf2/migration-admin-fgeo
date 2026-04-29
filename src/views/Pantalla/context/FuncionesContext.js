@@ -433,12 +433,13 @@ export const FuncionesProvider = (props) => {
   const redireccionar = async ({ cab, data, res }) => {
     const enlace_siguiente_pasar_id = cab.enlace_siguiente_pasar_id === "s";
     const id_nombre = cab.update_id_nombre ?? "id";
-
+    // console.log(res.data.registro, id_nombre, res.data.registro[id_nombre])
+    const lastId = res.data.registro[id_nombre]
     if (checkID_A(cab.enlace_siguiente)) {
       const location = {
         pathname: `/Configuracion/${cab.enlace_siguiente}`,
         search: enlace_siguiente_pasar_id
-          ? `?&id=${res.data.registro[id_nombre]}`
+          ? `?&id=${lastId}`
           : undefined,
       };
 
