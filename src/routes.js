@@ -122,6 +122,11 @@ const routes = [
     name: "Carrito Transfer",
     component: Checkout,
   },
+  {
+    path: "/ConfirmacionPedido",
+    name: "Confirmacion Pedido",
+    component: ConfirmacionPedido,
+  },
   // {
   //   path: "/ConfirmacionPedido",
   //   name: "Confirmación Pedido",
