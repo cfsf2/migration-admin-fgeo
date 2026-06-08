@@ -21,6 +21,7 @@ const labinit = {
   nombre: "",
   habilitado: true,
   transfer_farmageo: true,
+  es_bono_descuento: false,
   url: "",
   novedades: "",
   condiciones_comerciales: "",
@@ -45,12 +46,9 @@ const FormularioLaboratorio = (props) => {
     let value = target.type === "checkbox" ? target.checked : target.value;
 
     if (e.target.value === "true" || e.target.value === "false") {
-      if (e.target.value === "true") {
-        value = true;
-      } else {
-        value = false;
-      }
+      value = e.target.value === "true";
     }
+
     const name = target.name;
 
     setDatos({
@@ -61,17 +59,29 @@ const FormularioLaboratorio = (props) => {
 
   useEffect(() => {
     setDatos(labinit);
+
     if (laboratorio) {
       setDatos({
         _id: laboratorio._id,
-        nombre: laboratorio.nombre,
-        habilitado: laboratorio.habilitado,
-        transfer_farmageo: laboratorio.transfer_farmageo,
+        nombre: laboratorio.nombre || "",
+        habilitado:
+          laboratorio.habilitado !== undefined
+            ? laboratorio.habilitado
+            : true,
+        transfer_farmageo:
+          laboratorio.transfer_farmageo !== undefined
+            ? laboratorio.transfer_farmageo
+            : true,
+        es_bono_descuento:
+          laboratorio.es_bono_descuento !== undefined
+            ? laboratorio.es_bono_descuento
+            : false,
         url: laboratorio.url ? laboratorio.url : "",
-        novedades: laboratorio.novedades,
-        condiciones_comerciales: laboratorio.condiciones_comerciales,
+        novedades: laboratorio.novedades || "",
+        condiciones_comerciales:
+          laboratorio.condiciones_comerciales || "",
         imagen: laboratorio.imagen,
-        email: laboratorio.email,
+        email: laboratorio.email || "",
       });
     } else {
       setDatos(labinit);
@@ -88,9 +98,10 @@ const FormularioLaboratorio = (props) => {
                 <Col>{datos.editar ? "Editar" : "Nuevo Laboratorio"}</Col>
               </Row>
             </CardHeader>
+
             <CardBody>
               <Row>
-                <Col>
+                <Col xs="12" md="6">
                   <FormGroup>
                     <Label htmlFor="nombre">Nombre</Label>
                     <Input
@@ -102,34 +113,53 @@ const FormularioLaboratorio = (props) => {
                     />
                   </FormGroup>
                 </Col>
-                <Col>
+
+                <Col xs="12" md="6">
                   <FormGroup>
                     <Label>Estado</Label>
                     <Input
                       type="select"
                       name="habilitado"
-                      value={datos ? null : datos.habilitado}
+                      value={datos.habilitado}
                       onChange={handleInputChange}
                     >
-                      <option value={undefined}>seleccionar...</option>
+                      <option value="">seleccionar...</option>
                       <option value={true}>Habilitado</option>
                       <option value={false}>Deshabilitado</option>
                     </Input>
                   </FormGroup>
                 </Col>
-                <Col>
+              </Row>
+
+              <Row>
+                <Col xs="12" md="6">
                   <FormGroup>
                     <Label>Laboratorio Externo</Label>
                     <Input
-                      // select devuelve un string
                       type="select"
                       name="transfer_farmageo"
                       value={datos.transfer_farmageo}
                       onChange={handleInputChange}
                     >
-                      <option value={undefined}>seleccionar...</option>
+                      <option value="">seleccionar...</option>
                       <option value={false}>Si</option>
                       <option value={true}>No</option>
+                    </Input>
+                  </FormGroup>
+                </Col>
+
+                <Col xs="12" md="6">
+                  <FormGroup>
+                    <Label>Sistema de bonos y programas de descuentos</Label>
+                    <Input
+                      type="select"
+                      name="es_bono_descuento"
+                      value={datos.es_bono_descuento}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">seleccionar...</option>
+                      <option value={true}>Si</option>
+                      <option value={false}>No</option>
                     </Input>
                   </FormGroup>
                 </Col>
@@ -150,6 +180,7 @@ const FormularioLaboratorio = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
+
               <Row>
                 <Col>
                   <FormGroup>
@@ -164,6 +195,7 @@ const FormularioLaboratorio = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
+
               <Row>
                 <Col>
                   <FormGroup>
@@ -180,6 +212,7 @@ const FormularioLaboratorio = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
+
               <Row>
                 <Col>
                   <FormGroup>
@@ -194,13 +227,16 @@ const FormularioLaboratorio = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
+
               <hr />
+
               <Row>
                 <Col>
                   <FormGroup>
                     <p>
                       <b>Imagen</b>
                     </p>
+
                     <CardImg
                       src={
                         datos
@@ -211,6 +247,7 @@ const FormularioLaboratorio = (props) => {
                       }
                       className="laboratorios_formulariolaboratorio_cardimg"
                     />
+
                     <Uploader
                       handleEditImagen={handleEditImagen}
                       isPerfil={false}
@@ -218,11 +255,14 @@ const FormularioLaboratorio = (props) => {
                   </FormGroup>
                 </Col>
               </Row>
+
               <hr />
             </CardBody>
+
             <CardFooter>
               <Row>
                 <Col></Col>
+
                 <Col>
                   {datos._id !== "" ? (
                     <Button
@@ -246,11 +286,13 @@ const FormularioLaboratorio = (props) => {
                     </Button>
                   )}
                 </Col>
+
                 <Col>
                   <Button className="btn btn-danger" data-dismiss="modal">
                     Cancelar
                   </Button>
                 </Col>
+
                 <Col></Col>
               </Row>
             </CardFooter>

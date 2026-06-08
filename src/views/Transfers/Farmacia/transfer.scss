@@ -69,3 +69,80 @@
 .select_cuenta_label {
   font-size: 1rem;
 }
+
+.transfer-main-section {
+  margin: 10px 30px 30px;
+  padding: 10px 30px 5px;
+}
+
+.transfer-category-section {
+  margin: 10px;
+  margin-bottom: 0;
+  padding: 10px;
+  padding-bottom: 5px;
+}
+
+.transfer-category-title-container {
+  margin-bottom: 30px;
+}
+
+.transfer-section-title-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.transfer-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 12px 30px;
+  border-radius: 14px;
+
+  background: #f7fbfd;
+  border: 1px solid #dbeaf1;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+.transfer-section-title-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.transfer-section-title-text {
+  margin: 0;
+
+  color: #2f6f8f;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .transfer-main-section {
+    margin: 10px 15px 25px;
+    padding: 10px 5px 5px;
+  }
+
+  .transfer-section-title {
+    width: 100%;
+    padding: 12px 18px;
+  }
+
+  .transfer-section-title-text {
+    font-size: 15px;
+  }
+
+  .transfer-section-title-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
