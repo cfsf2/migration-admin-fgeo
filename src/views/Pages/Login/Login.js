@@ -4,9 +4,10 @@ import { useDispatch } from "react-redux";
 import bgImage from "../../../assets/images/bg-login.jpg";
 import logoWhite from "../../../assets/img/brand/nuevo-logo-negativo.png";
 
-import logoWhiteColegio from "../../../assets/images/logoColegio.png";
+import logoWhiteColegio from "../../../assets/images/logoColegioAniversario.png";
 import { Input, Divider, Form2 } from "./style";
 import { Button } from "reactstrap";
+import BotonWhatsapp from "../../../containers/DefaultLayout/BotonWhatsapp";
 import {
   LOGIN,
   RESET_ERROR,
@@ -36,11 +37,69 @@ const lineStyle = {
   backgroundColor: "white",
   height: 1,
   width: 50,
+  margin: "10px 0"
 };
 const formStyle = {
   backgroundColor: "rgba(0,0,0,0.6)",
   borderRadius: "10px",
 };
+
+const anniversaryLogoWrapperStyle = {
+  display: "inline-block",
+  padding: "0 20px 12px 20px",
+  marginTop: "5px",
+  backgroundColor: "rgba(0,0,0,0.55)",
+  border: "1px solid rgba(255,255,255,0.12)",
+  borderRadius: "10px",
+  boxShadow: "0 4px 16px rgba(0,0,0,0.35)",
+};
+
+const anniversaryLogoStyle = {
+  width: "250px",
+  display: "block",
+};
+
+const contactItems = [
+  {
+    icon: "fa-envelope-o",
+    href: "mailto:soportefarmageo@cfsf2.org.ar",
+    label: "soportefarmageo@cfsf2.org.ar",
+    external: false,
+  },
+  {
+    icon: "fa-map-marker",
+    href:
+      "https://www.google.com/maps/place/Buenos+Aires+1262,+S2000+Rosario,+Santa+Fe/data=!4m2!3m1!1s0x95b7ab04a721ba5d:0x1080c44b44f427bf?sa=X&ved=2ahUKEwi36ryKmczxAhXnqJUCHdvjCToQ8gEwAHoECAYQAQ",
+    label: "Buenos aires 1262, Rosario",
+    external: true,
+  },
+  {
+    icon: "fa-whatsapp",
+    href: "https://wa.me/543412104056",
+    label: "341 2104056",
+    external: true,
+  },
+];
+
+const ContactInfo = ({ className = "" }) => (
+  <div className={`login-contact ${className}`} style={whiteStyle}>
+    {contactItems.map((item) => (
+      <a
+        key={item.label}
+        href={item.href}
+        className="login-contact__item"
+        target={item.external ? "_blank" : undefined}
+        rel={item.external ? "noopener noreferrer" : undefined}
+      >
+        <i
+          className={`fa ${item.icon} fa-2x flex-iconos`}
+          aria-hidden="true"
+        ></i>
+        <span className="flex-iconos_text">{item.label}</span>
+      </a>
+    ))}
+  </div>
+);
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -141,106 +200,51 @@ const Login = (props) => {
     setTerminos(event.target.checked);
   };
 
-  const handleRedirect = () => {
-    window.location.href = `${process.env.REACT_APP_WEB_URL}/#/registrarfarmacia`;
-  };
-
   return (
-    <div
-      id="LOGIN_PAGE"
-      style={{ width: "100%", height: "100%" }}
-      className="container-fluid"
-    >
-      <div style={backgroundStyle} className="row ">
-        {window.innerWidth > 769 ? (
-          <div
-            style={{
-              height:
-                window.innerWidth > 769
-                  ? window.innerHeight
-                  : window.innerHeight,
-            }}
-            className="col-md-7 col-sm-0 d-flex pl-md-5 pl-sm-3 flex-column overflow-hidden"
-          >
-            <img
-              src={logoWhite}
-              style={{ width: "250px", marginTop: "50px" }}
-            />
-            <div
-              style={{
-                margin: window.innerWidth > 769 ? "auto 0" : "70px 0",
-              }}
+    <div id="LOGIN_PAGE" className="login-page">
+      <div style={backgroundStyle} className="d-flex flex-column-reverse flex-md-row">
+        {/* Panel de marca — visible solo desde md (>=768px). Nada de JS: */}
+        {/* la muestra/oculta el CSS con d-none/d-md-flex, siempre reactivo. */}
+        <div className="col-md-7 d-md-flex flex-column login-branding">
+          <img
+            src={logoWhite}
+            alt="Farmageo"
+            className="login-branding__logo"
+          />
+          <div className="login-branding__body">
+            <h1 style={h1Stule} className="bold white">
+              Mi Farmacia digital
+            </h1>
+            <p className="login-branding__desc" style={whiteStyle}>
+              Visibilidad digital de todos los servicios.
+              <br /> Solicitá transfers con las condiciones ofrecidas por los
+              laboratorios, tablón de mensajes y colaboración con acciones
+              RSE.{" "}
+            </p>
+            <h3
+              style={{ ...boldStyle, ...whiteStyle }}
+              className="mt-5 bold login-branding__subtitle"
             >
-              <h1 style={h1Stule} className="bold white">
-                Mi Farmacia digital
-              </h1>
-              <p style={{ fontSize: "20px", ...whiteStyle }}>
-                Visibilidad digital de todos los servicios.
-                <br /> Solicitá transfers con las condiciones ofrecidas por los laboratorios, tablón de mensajes y colaboración
-                con acciones RSE.{" "}
-              </p>
-              <h3 style={{ ...boldStyle, ...whiteStyle }} className="mt-5 bold">
-                Todo en un solo lugar.
-              </h3>
+              Todo en un solo lugar.
+            </h3>
+            <div style={anniversaryLogoWrapperStyle}>
               <img
-                style={{ width: "250px", marginTop: "50px" }}
+                style={anniversaryLogoStyle}
                 src={logoWhiteColegio}
+                alt="Colegio de Farmacéuticos"
               />
             </div>
-            <div className="d-flex mt-auto flex-column ">
-              <div style={lineStyle}></div>
-              <div style={whiteStyle} className="d-flex my-2">
-                <i
-                  class="fa fa-envelope-o fa-2x flex-iconos"
-                  aria-hidden="true"
-                ></i>
-                <a
-                  className="flex-iconos_text"
-                  href="mailto:soportefarmageo@cfsf2.org.ar"
-                >
-                  soportefarmageo@cfsf2.org.ar
-                </a>
-                {window.innerWidth > 769 ? null : <br />}
-                <i
-                  class="fa fa-map-marker fa-2x flex-iconos"
-                  aria-hidden="true"
-                ></i>
-                <a
-                  className="flex-iconos_text"
-                  target="_blank"
-                  href="https://www.google.com/maps/place/Buenos+Aires+1262,+S2000+Rosario,+Santa+Fe/data=!4m2!3m1!1s0x95b7ab04a721ba5d:0x1080c44b44f427bf?sa=X&ved=2ahUKEwi36ryKmczxAhXnqJUCHdvjCToQ8gEwAHoECAYQAQ"
-                >
-                  Buenos aires 1262, Rosario
-                </a>
-                <i class="fa fa-whatsapp fa-2x flex-iconos"></i>
-                <a
-                  href="https://wa.me/543412104056"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <p className="flex-iconos_text">341 2104056</p>
-                </a>
-              </div>
-            </div>
           </div>
-        ) : (
-          <div className="col-sm-12 mb-2 d-flex justify-content-center">
-            <img
-              src={logoWhite}
-              style={{ width: "100px", marginTop: "50px" }}
-            />
+          <div className="login-branding__footer">
+            <div style={lineStyle}></div>
+            <ContactInfo />
           </div>
-        )}
-        <div
-          className="col-md-5 col-sm-12 d-flex flex-column w-100 mx-auto overflow-hidden pr-md-5 pr-sm-3 login_container"
-          style={{
-            color: "white",
-            width: "100%",
-            maxWidth: "500px",
-          }}
-        >
+        </div>
+
+        {/* Formulario de login */}
+        <div className="col-12 col-md-5 d-flex flex-column mx-auto px-3 px-md-0 pr-md-5 login_container">
           <form
-            className="d-flex flex-column  mb-2 text-center login_container_form"
+            className="d-flex flex-column mb-2 text-center login_container_form"
             style={formStyle}
           >
             <h3 className="mt-2">Acceso al sistema</h3>
@@ -258,7 +262,7 @@ const Login = (props) => {
               placeholder="Contraseña"
               autoComplete="current-password"
             />
-            <div>
+            <div className="d-flex align-items-center justify-content-center flex-wrap my-2">
               <input
                 type="checkbox"
                 onChange={handleChangeTerminos}
@@ -285,16 +289,8 @@ const Login = (props) => {
                 Iniciar Sesión
               </Button>
             </div>
-            <a
-              href={`${process.env.REACT_APP_WEB_URL}/#/registrarfarmacia`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ fontSize: 14, margin: "0 0 10px 0" }}
-            >
-              Registrá tu Farmacia
-            </a>
           </form>
-          <Divider className="my-3 d-none" />
+          {/* <Divider className="my-3 d-none" />
           <Form2
             onSubmit={(e) => {
               e.preventDefault();
@@ -338,10 +334,14 @@ const Login = (props) => {
                 Solicitar Registro
               </Button>
             </div>
-          </Form2>
+          </Form2> */}
+
         </div>
-        <div></div>
       </div>
+      <BotonWhatsapp
+        nroContacto="3412104056"
+        textTitle="Consúltanos por Whatsapp"
+      />
     </div>
   );
 };
