@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import bgImage from "../../../assets/images/bg-login.jpg";
 import logoWhite from "../../../assets/img/brand/nuevo-logo-negativo.png";
 
-import logoWhiteColegio from "../../../assets/images/logoColegioAniversario.png";
+import logoWhiteColegio from "../../../assets/images/logoColegioAniversarioBlanco.png";
 import { Input, Divider, Form2 } from "./style";
 import { Button } from "reactstrap";
 import BotonWhatsapp from "../../../containers/DefaultLayout/BotonWhatsapp";
@@ -48,10 +48,6 @@ const anniversaryLogoWrapperStyle = {
   display: "inline-block",
   padding: "0 20px 12px 20px",
   marginTop: "5px",
-  backgroundColor: "rgba(0,0,0,0.55)",
-  border: "1px solid rgba(255,255,255,0.12)",
-  borderRadius: "10px",
-  boxShadow: "0 4px 16px rgba(0,0,0,0.35)",
 };
 
 const anniversaryLogoStyle = {

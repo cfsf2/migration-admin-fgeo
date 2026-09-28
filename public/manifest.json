@@ -3,8 +3,8 @@
   "name": "CoreUI-React sample",
   "icons": [
     {
-      "src": "./assets/img/favicon.png",
-      "sizes": "100x100",
+      "src": "./favicon.png",
+      "sizes": "224x222",
       "type": "image/png"
     }
   ],
