@@ -3,7 +3,7 @@
   "name": "CoreUI-React sample",
   "icons": [
     {
-      "src": "./favicon.png",
+      "src": "./icono-farmageo.png",
       "sizes": "224x222",
       "type": "image/png"
     }
